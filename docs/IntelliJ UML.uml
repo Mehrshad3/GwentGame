@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>G:/Sharif courses/Main/Advanced Programming/Project/advanced-programming-project-group-43/src/main/java</OriginalElement>
+  <nodes>
+    <node x="-105.0" y="646.0">view.ShopMenu</node>
+    <node x="502.0" y="326.0">view.AppView</node>
+    <node x="-7.0" y="586.0">view.GameMenu</node>
+    <node x="-100.5" y="466.0">view.AppMenu</node>
+    <node x="57.5" y="-14.0">Main</node>
+    <node x="96.5" y="646.0">view.MainMenu</node>
+    <node x="478.0" y="126.0">controller.MainMenuController</node>
+    <node x="-2.5" y="46.0">model.Card</node>
+    <node x="415.0" y="186.0">enums.Menu</node>
+    <node x="-59.5" y="-14.0">model.App</node>
+    <node x="409.0" y="466.0">enums.GameMenuCommands</node>
+    <node x="193.5" y="586.0">view.LoginMenu</node>
+    <node x="300.5" y="646.0">view.ExitMenu</node>
+    <node x="290.5" y="126.0">controller.ProfileMenu</node>
+    <node x="309.5" y="266.0">enums.LoginMenuCommands</node>
+    <node x="-122.0" y="46.0">model.User</node>
+    <node x="174.5" y="326.0">controller.GameMenuController</node>
+    <node x="32.5" y="266.0">enums.MainMenuCommands</node>
+    <node x="383.5" y="586.0">view.RegisterMenu</node>
+    <node x="215.0" y="186.0">model.Table</node>
+    <node x="259.5" y="406.0">enums.RegisterMenuCommands</node>
+    <node x="490.5" y="646.0">view.ProfileMenu</node>
+    <node x="36.5" y="126.0">controller.ShopMenuController</node>
+    <node x="165.0" y="466.0">enums.SemiRegexes</node>
+    <node x="-109.0" y="326.0">enums.ShopMenuCommands</node>
+    <node x="-13.5" y="406.0">enums.ProfileMenuCommands</node>
+    <node x="-105.0" y="186.0">controller.LoginMenuController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="view.GameMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="61.0" y="560.0" />
+      <point x="-39.0" y="560.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="view.ExitMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="361.0" y="560.0" />
+      <point x="-39.0" y="560.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="view.LoginMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="261.0" y="560.0" />
+      <point x="-39.0" y="560.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="view.MainMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="161.0" y="560.0" />
+      <point x="-39.0" y="560.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="view.RegisterMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="461.0" y="560.0" />
+      <point x="-39.0" y="560.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="view.ProfileMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="561.0" y="560.0" />
+      <point x="-39.0" y="560.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="view.ShopMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.2204272598870056" showDependencies="false" x="203.49041591320076" y="393.695869801085" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
