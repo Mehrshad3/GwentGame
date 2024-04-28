@@ -3,80 +3,84 @@
   <ID>JAVA</ID>
   <OriginalElement>G:/Sharif courses/Main/Advanced Programming/Project/advanced-programming-project-group-43/src/main/java</OriginalElement>
   <nodes>
-    <node x="-105.0" y="646.0">view.ShopMenu</node>
-    <node x="502.0" y="326.0">view.AppView</node>
-    <node x="-7.0" y="586.0">view.GameMenu</node>
-    <node x="-100.5" y="466.0">view.AppMenu</node>
-    <node x="57.5" y="-14.0">Main</node>
-    <node x="96.5" y="646.0">view.MainMenu</node>
-    <node x="478.0" y="126.0">controller.MainMenuController</node>
-    <node x="-2.5" y="46.0">model.Card</node>
-    <node x="415.0" y="186.0">enums.Menu</node>
-    <node x="-59.5" y="-14.0">model.App</node>
-    <node x="409.0" y="466.0">enums.GameMenuCommands</node>
-    <node x="193.5" y="586.0">view.LoginMenu</node>
-    <node x="300.5" y="646.0">view.ExitMenu</node>
-    <node x="290.5" y="126.0">controller.ProfileMenu</node>
-    <node x="309.5" y="266.0">enums.LoginMenuCommands</node>
-    <node x="-122.0" y="46.0">model.User</node>
-    <node x="174.5" y="326.0">controller.GameMenuController</node>
-    <node x="32.5" y="266.0">enums.MainMenuCommands</node>
-    <node x="383.5" y="586.0">view.RegisterMenu</node>
-    <node x="215.0" y="186.0">model.Table</node>
-    <node x="259.5" y="406.0">enums.RegisterMenuCommands</node>
-    <node x="490.5" y="646.0">view.ProfileMenu</node>
-    <node x="36.5" y="126.0">controller.ShopMenuController</node>
-    <node x="165.0" y="466.0">enums.SemiRegexes</node>
-    <node x="-109.0" y="326.0">enums.ShopMenuCommands</node>
-    <node x="-13.5" y="406.0">enums.ProfileMenuCommands</node>
-    <node x="-105.0" y="186.0">controller.LoginMenuController</node>
+    <node x="612.0" y="302.5">enums.MainMenuCommands</node>
+    <node x="626.0" y="1679.5">controller.LoginMenuController</node>
+    <node x="485.5" y="1559.5">controller.GameMenuController</node>
+    <node x="689.0" y="958.5">enums.GameMenuCommands</node>
+    <node x="656.0" y="1983.0">view.RegisterMenu</node>
+    <node x="371.0" y="1667.0">Main</node>
+    <node x="445.0" y="1867.0">view.LoginMenu</node>
+    <node x="414.0" y="606.5">enums.Menu</node>
+    <node x="325.0" y="2007.0">view.MainMenu</node>
+    <node x="205.0" y="1867.0">view.ShopMenu</node>
+    <node x="277.0" y="1102.5">enums.SemiRegexes</node>
+    <node x="301.0" y="66.5">model.User</node>
+    <node x="-78.5" y="-140.5">controller.ProfileMenu</node>
+    <node x="67.0" y="642.5">enums.ProfileMenuCommands</node>
+    <node x="-155.0" y="-40.5">model.Table</node>
+    <node x="85.0" y="2007.0">view.ProfileMenu</node>
+    <node x="131.0" y="375.0">enums.ShopMenuCommands</node>
+    <node x="-167.0" y="-273.0">view.AppView</node>
+    <node x="-30.0" y="115.0">enums.LoginMenuCommands</node>
+    <node x="-154.0" y="1114.5">enums.RegisterMenuCommands</node>
+    <node x="207.5" y="1559.5">controller.ShopMenuController</node>
+    <node x="-155.0" y="1667.0">view.AppMenu</node>
+    <node x="-35.0" y="1867.0">view.GameMenu</node>
+    <node x="-161.0" y="362.5">model.App</node>
+    <node x="-155.0" y="2007.0">view.ExitMenu</node>
+    <node x="111.5" y="1667.0">model.Card</node>
+    <node x="-51.0" y="1547.0">controller.MainMenuController</node>
   </nodes>
   <notes />
   <edges>
     <edge source="view.GameMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="61.0" y="560.0" />
-      <point x="-39.0" y="560.0" />
-      <point x="0.0" y="14.0" />
+      <point x="0.0" y="-44.0" />
+      <point x="53.0" y="1831.0" />
+      <point x="-67.0" y="1831.0" />
+      <point x="0.0" y="44.0" />
     </edge>
     <edge source="view.ExitMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="361.0" y="560.0" />
-      <point x="-39.0" y="560.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="view.LoginMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="261.0" y="560.0" />
-      <point x="-39.0" y="560.0" />
-      <point x="0.0" y="14.0" />
+      <point x="0.0" y="-44.0" />
+      <point x="0.0" y="44.0" />
     </edge>
     <edge source="view.MainMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="161.0" y="560.0" />
-      <point x="-39.0" y="560.0" />
-      <point x="0.0" y="14.0" />
+      <point x="0.0" y="-44.0" />
+      <point x="413.0" y="1831.0" />
+      <point x="-67.0" y="1831.0" />
+      <point x="0.0" y="44.0" />
+    </edge>
+    <edge source="view.LoginMenu" target="view.AppMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="-44.0" />
+      <point x="533.0" y="1831.0" />
+      <point x="-67.0" y="1831.0" />
+      <point x="0.0" y="44.0" />
     </edge>
     <edge source="view.RegisterMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="461.0" y="560.0" />
-      <point x="-39.0" y="560.0" />
-      <point x="0.0" y="14.0" />
+      <point x="0.0" y="-68.0" />
+      <point x="793.0" y="1831.0" />
+      <point x="-67.0" y="1831.0" />
+      <point x="0.0" y="44.0" />
     </edge>
     <edge source="view.ProfileMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="561.0" y="560.0" />
-      <point x="-39.0" y="560.0" />
-      <point x="0.0" y="14.0" />
+      <point x="0.0" y="-44.0" />
+      <point x="173.0" y="1831.0" />
+      <point x="-67.0" y="1831.0" />
+      <point x="0.0" y="44.0" />
     </edge>
     <edge source="view.ShopMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
+      <point x="0.0" y="-44.0" />
+      <point x="293.0" y="1831.0" />
+      <point x="-67.0" y="1831.0" />
+      <point x="0.0" y="44.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="1.2204272598870056" showDependencies="false" x="203.49041591320076" y="393.695869801085" />
+  <settings layout="Hierarchic Compact" zoom="0.8745968440674233" showDependencies="false" x="448.29243034618446" y="493.145664" />
   <SelectedNodes />
-  <Categories />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
 </Diagram>

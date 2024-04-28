@@ -9,4 +9,4 @@
 You can see the documentation of phase 1 [here](https://github.com/advanced-programming-sut-2024/advanced-programming-project-group-43/blob/mehrshad_branch/docs/AP_Phase1_2024.pdf).
 ## UML
 You can here see the UML drawn by JetBrains IntelliJ IDEA for the project on April 28th:
-![UML](https://github.com/advanced-programming-sut-2024/advanced-programming-project-group-43/blob/main/docs/IntelliJ%20UML.png)
+![UML](docs/IntelliJ%20UML.png)
