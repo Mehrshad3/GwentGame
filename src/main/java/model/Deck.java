@@ -3,8 +3,6 @@ package model;
 public class Deck {
     private Card[] discardCards;
     private Card[] inHandCards;
-    private Card player1CommanderCard;
-    private Card player2CommanderCard;
     private Card currentLeaderCard;
     private Card[] leaderCards;
 
@@ -14,14 +12,6 @@ public class Deck {
 
     public Card[] getInHandCards() {
         return inHandCards;
-    }
-
-    public Card getPlayer1CommanderCard() {
-        return player1CommanderCard;
-    }
-
-    public Card getPlayer2CommanderCard() {
-        return player2CommanderCard;
     }
 
     public Card getCurrentLeaderCard() {
@@ -38,14 +28,6 @@ public class Deck {
 
     public void setInHandCards(Card[] inHandCards) {
         this.inHandCards = inHandCards;
-    }
-
-    public void setPlayer1CommanderCard(Card player1CommanderCard) {
-        this.player1CommanderCard = player1CommanderCard;
-    }
-
-    public void setPlayer2CommanderCard(Card player2CommanderCard) {
-        this.player2CommanderCard = player2CommanderCard;
     }
 
     public void setCurrentLeaderCard(Card currentLeaderCard) {
