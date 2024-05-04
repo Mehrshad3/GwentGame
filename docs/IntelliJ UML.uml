@@ -3,313 +3,356 @@
   <ID>JAVA</ID>
   <OriginalElement>G:/Sharif courses/Main/Advanced Programming/Project/advanced-programming-project-group-43/src/main/java</OriginalElement>
   <nodes>
-    <node x="442.0" y="2746.5">view.ExitMenu</node>
-    <node x="2447.0" y="1914.5">enums.LoginMenuCommands</node>
-    <node x="1153.5" y="633.5">model.Player</node>
-    <node x="3123.0" y="1919.5">controller.LoginMenuController</node>
-    <node x="646.0" y="2106.5">controller.MainMenuController</node>
-    <node x="862.0" y="3046.5">view.ShopMenu</node>
-    <node x="-151.0" y="2082.5">enums.MainMenuCommands</node>
-    <node x="682.0" y="2826.5">view.GameMenu</node>
-    <node x="134.0" y="1104.5">model.GameStatus</node>
-    <node x="1434.5" y="2354.5">enums.SemiRegexes</node>
-    <node x="2106.0" y="1922.5">enums.GameMenuCommands</node>
-    <node x="180.0" y="368.5">model.Table</node>
-    <node x="-155.5" y="610.5">model.weather.WeatherElement</node>
-    <node x="1413.0" y="2542.5">view.RegisterMenu</node>
-    <node x="902.0" y="2906.5">view.LoginMenu</node>
-    <node x="407.0" y="-180.5">model.HeroCard</node>
-    <node x="1142.0" y="3126.5">view.ProfileMenu</node>
-    <node x="908.0" y="2186.5">Main</node>
-    <node x="-139.5" y="226.5">model.weather.Weather</node>
-    <node x="665.0" y="2353.5">model.App</node>
-    <node x="447.0" y="-31.5">model.Row</node>
-    <node x="930.0" y="2366.5">view.AppView</node>
-    <node x="744.5" y="-180.5">model.Card</node>
-    <node x="2788.0" y="1914.5">enums.ShopMenuCommands</node>
-    <node x="358.5" y="3579.5">controller.ProfileMenu</node>
-    <node x="1084.0" y="3302.5">enums.ProfileMenuCommands</node>
-    <node x="-155.5" y="3579.5">controller.ShopMenuController</node>
-    <node x="442.0" y="3426.5">view.AppMenu</node>
-    <node x="1758.0" y="2542.5">enums.RegisterMenuCommands</node>
-    <node x="102.5" y="3579.5">controller.GameMenuController</node>
-    <node x="186.5" y="1632.5">controller.GameController</node>
-    <node x="1111.0" y="2542.5">enums.Menu</node>
-    <node x="568.0" y="3579.5">controller.DoAction</node>
-    <node x="910.5" y="-278.5">model.Deck</node>
-    <node x="178.0" y="1913.5">model.User</node>
-    <node x="727.0" y="-320.5">model.SpellCard</node>
-    <node x="222.0" y="2106.5">view.MainMenu</node>
+    <node x="2595.0" y="2314.0">controller.DoAction</node>
+    <node x="2263.375" y="-108.0">view.GameMenu</node>
+    <node x="1005.0" y="371.0">model.GameHistory</node>
+    <node x="949.0" y="609.0">model.User</node>
+    <node x="-200.0" y="322.0">model.weather.WeatherElement</node>
+    <node x="1696.1397679324937" y="-297.0">view.AppMenu</node>
+    <node x="898.0" y="2314.0">enums.GameMenuCommands</node>
+    <node x="393.0564345991604" y="2032.0">controller.GameController</node>
+    <node x="2407.0" y="2314.0">controller.ProfileMenu</node>
+    <node x="1372.375" y="610.0">enums.MainMenuCommands</node>
+    <node x="77.0" y="2666.0">controller.RegisterMenuController</node>
+    <node x="-166.375" y="2477.0">controller.LoginOrRegisterMenuController</node>
+    <node x="2828.625" y="-309.0">enums.SemiRegexes</node>
+    <node x="-200.0" y="2666.0">controller.LoginMenuController</node>
+    <node x="1239.375" y="621.0">model.Player</node>
+    <node x="2273.625" y="1110.0">Main</node>
+    <node x="682.0" y="260.0">model.Row</node>
+    <node x="2805.125" y="-132.0">view.RegisterMenu</node>
+    <node x="2074.875" y="59.0">enums.Menu</node>
+    <node x="1177.0" y="273.0">model.Deck</node>
+    <node x="521.0" y="2314.0">controller.Validator</node>
+    <node x="-120.375" y="2314.0">enums.SecurityQuestion</node>
+    <node x="-124.0" y="634.0">model.weather.Weather</node>
+    <node x="1675.375" y="-108.0">view.LoginMenu</node>
+    <node x="552.0147679324938" y="83.0">model.Card</node>
+    <node x="1891.0" y="2314.0">controller.GameMenuController</node>
+    <node x="293.62315400844045" y="832.0">model.Table</node>
+    <node x="200.625" y="2478.0">model.Email</node>
+    <node x="71.0" y="371.0">model.HeroCard</node>
+    <node x="1180.0" y="71.0">model.Faction</node>
+    <node x="1562.0" y="2314.0">enums.ShopMenuCommands</node>
+    <node x="2516.625" y="-321.0">enums.ProfileMenuCommands</node>
+    <node x="2459.375" y="-108.0">view.ProfileMenu</node>
+    <node x="2151.0" y="2314.0">controller.ShopMenuController</node>
+    <node x="1576.875" y="1110.0">view.MainMenu</node>
+    <node x="1871.375" y="-108.0">view.ExitMenu</node>
+    <node x="3079.625" y="-321.0">enums.RegisterMenuCommands</node>
+    <node x="2295.625" y="634.0">view.AppView</node>
+    <node x="377.0" y="371.0">model.SpellCard</node>
+    <node x="1231.0" y="2314.0">enums.LoginMenuCommands</node>
+    <node x="2067.625" y="634.0">controller.MainMenuController</node>
+    <node x="2067.375" y="-108.0">view.ShopMenu</node>
+    <node x="340.5564345991604" y="1529.0">model.GameStatus</node>
+    <node x="1876.625" y="345.0">model.App</node>
   </nodes>
   <notes />
   <edges>
     <edge source="view.GameMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="88.0" y="0.0" />
-      <point x="880.0" y="2871.0" />
-      <point x="880.0" y="3021.0" />
-      <point x="642.0" y="3021.0" />
-      <point x="642.0" y="3471.0" />
-      <point x="88.0" y="0.0" />
+      <point x="0.0" y="-44.5" />
+      <point x="2351.375" y="-135.0" />
+      <point x="1784.14" y="-135.0" />
+      <point x="2.3206750643112173E-4" y="44.5" />
+    </edge>
+    <edge source="model.Deck" target="model.Faction" relationship="TO_ONE">
+      <point x="0.0" y="-129.5" />
+      <point x="0.0" y="56.5" />
     </edge>
     <edge source="model.Table" target="model.Player" relationship="TO_ONE">
-      <point x="110.0" y="224.5" />
-      <point x="422.5" y="915.5" />
-      <point x="422.5" y="896.0" />
-      <point x="1210.0" y="896.0" />
+      <point x="-1.5400844046098427E-4" y="322.5" />
+      <point x="403.623" y="1503.0" />
+      <point x="1295.875" y="1503.0" />
       <point x="0.0" y="57.5" />
-    </edge>
-    <edge source="view.MainMenu" target="model.User" relationship="DEPENDENCY">
-      <point x="-15.0" y="-44.5" />
-      <point x="-15.0" y="57.5" />
     </edge>
     <edge source="controller.GameController" target="model.GameStatus" relationship="TO_ONE">
       <point x="0.0" y="-118.5" />
       <point x="0.0" y="226.5" />
     </edge>
+    <edge source="view.MainMenu" target="model.User" relationship="DEPENDENCY">
+      <point x="-88.0" y="0.0" />
+      <point x="1081.0" y="1154.5" />
+      <point x="0.0" y="69.5" />
+    </edge>
     <edge source="model.Row" target="model.Card" relationship="TO_MANY">
-      <point x="123.0" y="0.0" />
-      <point x="721.0" y="111.0" />
-      <point x="721.0" y="-149.0" />
-      <point x="-45.5" y="0.0" />
+      <point x="0.0" y="142.5" />
+      <point x="805.0" y="577.0" />
+      <point x="945.5" y="577.0" />
+      <point x="945.5" y="127.5" />
+      <point x="127.5002320675062" y="0.0" />
     </edge>
     <edge source="controller.MainMenuController" target="model.App" relationship="DEPENDENCY">
-      <point x="104.0" y="0.0" />
-      <point x="881.0" y="2151.0" />
-      <point x="881.0" y="2411.0" />
-      <point x="85.0" y="0.0" />
+      <point x="0.0" y="-44.5" />
+      <point x="2171.625" y="607.0" />
+      <point x="1961.625" y="607.0" />
+      <point x="0.0" y="57.5" />
     </edge>
     <edge source="enums.Menu" target="view.GameMenu" relationship="CREATE">
-      <point x="0.0" y="68.5" />
-      <point x="1230.0" y="2856.0" />
-      <point x="88.0" y="-15.0" />
-    </edge>
-    <edge source="Main" target="view.AppView" relationship="CREATE">
-      <point x="0.0" y="44.5" />
-      <point x="0.0" y="-44.5" />
+      <point x="111.5" y="-68.5" />
+      <point x="-46.0" y="44.5" />
     </edge>
     <edge source="model.Table" target="model.SpellCard" relationship="TO_MANY">
-      <point x="15.0" y="-322.5" />
-      <point x="305.0" y="-289.0" />
-      <point x="-63.0" y="0.0" />
+      <point x="102.5" y="-322.5" />
+      <point x="-13.376845991559549" y="31.5" />
+    </edge>
+    <edge source="Main" target="view.AppView" relationship="CREATE">
+      <point x="15.0" y="-44.5" />
+      <point x="15.0" y="44.5" />
     </edge>
     <edge source="model.Table" target="model.weather.Weather" relationship="CREATE">
-      <point x="0.0" y="-322.5" />
-      <point x="290.0" y="271.0" />
-      <point x="109.5" y="0.0" />
+      <point x="-110.0" y="-15.0" />
+      <point x="-14.5" y="1139.5" />
+      <point x="0.0" y="44.5" />
     </edge>
     <edge source="view.MainMenu" target="controller.MainMenuController" relationship="CREATE">
       <point x="88.0" y="0.0" />
-      <point x="-104.0" y="0.0" />
+      <point x="2156.625" y="1154.5" />
+      <point x="-15.0" y="44.5" />
     </edge>
     <edge source="controller.MainMenuController" target="enums.Menu" relationship="DEPENDENCY">
       <point x="0.0" y="44.5" />
-      <point x="750.0" y="2315.0" />
-      <point x="1092.0" y="2315.0" />
-      <point x="1092.0" y="2611.0" />
+      <point x="2171.625" y="750.0" />
+      <point x="1843.875" y="750.0" />
+      <point x="1843.875" y="127.5" />
       <point x="-119.0" y="0.0" />
     </edge>
-    <edge source="enums.Menu" target="view.LoginMenu" relationship="CREATE">
-      <point x="15.0" y="68.5" />
-      <point x="1245.0" y="2951.0" />
-      <point x="88.0" y="0.0" />
-    </edge>
     <edge source="enums.Menu" target="view.MainMenu" relationship="CREATE">
-      <point x="0.0" y="-68.5" />
-      <point x="1230.0" y="2052.0" />
-      <point x="325.0" y="2052.0" />
-      <point x="15.0" y="-44.5" />
+      <point x="119.0" y="30.0" />
+      <point x="3096.625" y="157.5" />
+      <point x="3096.625" y="1551.5" />
+      <point x="1649.875" y="1551.5" />
+      <point x="-15.0" y="44.5" />
     </edge>
-    <edge source="model.Table" target="model.weather.Weather" relationship="TO_ONE">
-      <point x="-110.0" y="-98.0" />
-      <point x="-15.0" y="593.0" />
-      <point x="15.0" y="44.5" />
+    <edge source="enums.Menu" target="view.LoginMenu" relationship="CREATE">
+      <point x="-119.0" y="-30.0" />
+      <point x="1770.375" y="97.5" />
+      <point x="7.0" y="44.5" />
+    </edge>
+    <edge source="model.User" target="model.GameHistory" relationship="TO_MANY">
+      <point x="-15.0" y="-69.5" />
+      <point x="-15.0" y="31.5" />
+    </edge>
+    <edge source="controller.RegisterMenuController" target="controller.LoginOrRegisterMenuController" relationship="GENERALIZATION">
+      <point x="0.0" y="-81.5" />
+      <point x="276.5" y="2641.0" />
+      <point x="7.125" y="2641.0" />
+      <point x="0.0" y="69.5" />
     </edge>
     <edge source="model.App" target="enums.Menu" relationship="TO_ONE">
-      <point x="0.0" y="57.5" />
-      <point x="750.0" y="2626.0" />
+      <point x="-2.25" y="-57.5" />
+      <point x="1959.375" y="142.5" />
       <point x="-119.0" y="15.0" />
     </edge>
+    <edge source="model.Table" target="model.weather.Weather" relationship="TO_ONE">
+      <point x="-15.000154008440461" y="-322.5" />
+      <point x="388.623" y="678.5" />
+      <point x="109.5" y="0.0" />
+    </edge>
     <edge source="view.MainMenu" target="model.App" relationship="DEPENDENCY">
-      <point x="0.0" y="-44.5" />
-      <point x="310.0" y="2089.0" />
-      <point x="881.0" y="2089.0" />
-      <point x="881.0" y="2411.0" />
-      <point x="85.0" y="0.0" />
+      <point x="27.625" y="-44.5" />
+      <point x="1692.5" y="607.0" />
+      <point x="1961.625" y="607.0" />
+      <point x="0.0" y="57.5" />
     </edge>
     <edge source="model.Table" target="model.weather.WeatherElement" relationship="DEPENDENCY">
       <point x="-110.0" y="0.0" />
-      <point x="125.5" y="0.0" />
+      <point x="-183.875" y="1154.5" />
+      <point x="-109.375" y="80.5" />
     </edge>
     <edge source="view.ShopMenu" target="view.AppMenu" relationship="GENERALIZATION">
       <point x="0.0" y="-44.5" />
-      <point x="950.0" y="3021.0" />
-      <point x="642.0" y="3021.0" />
-      <point x="642.0" y="3471.0" />
-      <point x="88.0" y="0.0" />
+      <point x="2155.375" y="-135.0" />
+      <point x="1784.14" y="-135.0" />
+      <point x="2.3206750643112173E-4" y="44.5" />
     </edge>
     <edge source="view.AppView" target="model.App" relationship="DEPENDENCY">
-      <point x="-60.0" y="0.0" />
-      <point x="85.0" y="0.0" />
+      <point x="0.0" y="-44.5" />
+      <point x="2355.625" y="607.0" />
+      <point x="1961.625" y="607.0" />
+      <point x="0.0" y="57.5" />
+    </edge>
+    <edge source="controller.LoginMenuController" target="controller.LoginOrRegisterMenuController" relationship="GENERALIZATION">
+      <point x="0.0" y="-81.5" />
+      <point x="-71.5" y="2641.0" />
+      <point x="7.125" y="2641.0" />
+      <point x="0.0" y="69.5" />
     </edge>
     <edge source="model.Table" target="model.Card" relationship="TO_ONE">
-      <point x="110.0" y="0.0" />
-      <point x="721.0" y="691.0" />
-      <point x="721.0" y="-149.0" />
-      <point x="-45.5" y="0.0" />
+      <point x="-1.5400844046098427E-4" y="-322.5" />
+      <point x="403.623" y="577.0" />
+      <point x="945.5" y="577.0" />
+      <point x="945.5" y="127.5" />
+      <point x="127.5002320675062" y="0.0" />
     </edge>
     <edge source="view.ExitMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="88.0" y="0.0" />
-      <point x="642.0" y="2791.0" />
-      <point x="642.0" y="3471.0" />
-      <point x="88.0" y="0.0" />
+      <point x="0.0" y="-44.5" />
+      <point x="1959.375" y="-135.0" />
+      <point x="1784.14" y="-135.0" />
+      <point x="2.3206750643112173E-4" y="44.5" />
     </edge>
     <edge source="enums.Menu" target="view.RegisterMenu" relationship="CREATE">
-      <point x="119.0" y="0.0" />
-      <point x="-137.0" y="0.0" />
+      <point x="119.0" y="15.0" />
+      <point x="2942.125" y="142.5" />
+      <point x="0.0" y="68.5" />
+    </edge>
+    <edge source="model.User" target="model.Deck" relationship="TO_ONE">
+      <point x="0.0" y="-69.5" />
+      <point x="1081.0" y="593.0" />
+      <point x="1261.5" y="593.0" />
+      <point x="-15.0" y="129.5" />
     </edge>
     <edge source="model.Table" target="model.Row" relationship="TO_MANY">
-      <point x="30.0" y="-322.5" />
-      <point x="320.0" y="111.0" />
-      <point x="-123.0" y="0.0" />
+      <point x="110.0" y="0.0" />
+      <point x="790.0" y="1154.5" />
+      <point x="-15.0" y="142.5" />
     </edge>
     <edge source="view.AppView" target="enums.Menu" relationship="DEPENDENCY">
-      <point x="60.0" y="0.0" />
-      <point x="1092.0" y="2411.0" />
-      <point x="1092.0" y="2611.0" />
+      <point x="0.0" y="44.5" />
+      <point x="2355.625" y="750.0" />
+      <point x="1843.875" y="750.0" />
+      <point x="1843.875" y="127.5" />
       <point x="-119.0" y="0.0" />
     </edge>
     <edge source="view.RegisterMenu" target="enums.RegisterMenuCommands" relationship="DEPENDENCY">
       <point x="137.0" y="0.0" />
-      <point x="-152.0" y="0.0" />
+      <point x="3231.625" y="-63.5" />
+      <point x="0.0" y="68.5" />
+    </edge>
+    <edge source="controller.LoginOrRegisterMenuController" target="enums.SecurityQuestion" relationship="DEPENDENCY">
+      <point x="0.0" y="-69.5" />
+      <point x="0.0" y="56.5" />
     </edge>
     <edge source="enums.Menu" target="view.ExitMenu" relationship="CREATE">
-      <point x="-119.0" y="30.0" />
-      <point x="530.0" y="2641.0" />
-      <point x="0.0" y="-44.5" />
+      <point x="-119.0" y="-45.0" />
+      <point x="1959.375" y="82.5" />
+      <point x="0.0" y="44.5" />
     </edge>
     <edge source="view.RegisterMenu" target="enums.SemiRegexes" relationship="DEPENDENCY">
-      <point x="0.0" y="-68.5" />
+      <point x="2.0" y="-68.5" />
       <point x="0.0" y="56.5" />
     </edge>
     <edge source="model.GameStatus" target="model.Table" relationship="TO_ONE">
-      <point x="0.0" y="-226.5" />
-      <point x="0.0" y="322.5" />
+      <point x="-107.93343459916042" y="-226.5" />
+      <point x="-15.000154008440461" y="322.5" />
     </edge>
     <edge source="model.HeroCard" target="model.Card" relationship="GENERALIZATION">
       <point x="0.0" y="-31.5" />
-      <point x="470.0" y="-227.0" />
-      <point x="790.0" y="-227.0" />
-      <point x="0.0" y="-31.5" />
+      <point x="214.0" y="332.0" />
+      <point x="659.5" y="332.0" />
+      <point x="-20.014767932493783" y="44.5" />
     </edge>
     <edge source="view.MainMenu" target="view.AppMenu" relationship="GENERALIZATION">
       <point x="0.0" y="44.5" />
-      <point x="310.0" y="2713.0" />
-      <point x="642.0" y="2713.0" />
-      <point x="642.0" y="3471.0" />
-      <point x="88.0" y="0.0" />
+      <point x="1664.875" y="1536.5" />
+      <point x="2456.875" y="1536.5" />
+      <point x="2456.875" y="-135.0" />
+      <point x="1784.14" y="-135.0" />
+      <point x="2.3206750643112173E-4" y="44.5" />
     </edge>
     <edge source="view.LoginMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="-88.0" y="0.0" />
-      <point x="880.0" y="2951.0" />
-      <point x="880.0" y="3021.0" />
-      <point x="642.0" y="3021.0" />
-      <point x="642.0" y="3471.0" />
-      <point x="88.0" y="0.0" />
+      <point x="0.0" y="-44.5" />
+      <point x="1763.375" y="-135.0" />
+      <point x="1784.14" y="-135.0" />
+      <point x="2.3206750643112173E-4" y="44.5" />
     </edge>
     <edge source="enums.Menu" target="view.ProfileMenu" relationship="CREATE">
-      <point x="45.0" y="68.5" />
-      <point x="45.0" y="-44.5" />
-    </edge>
-    <edge source="model.Player" target="model.Deck" relationship="TO_ONE">
-      <point x="-56.5" y="0.0" />
-      <point x="1132.0" y="691.0" />
-      <point x="1132.0" y="-149.0" />
-      <point x="99.5" y="0.0" />
+      <point x="119.0" y="0.0" />
+      <point x="2542.5" y="127.5" />
+      <point x="-4.875" y="44.5" />
     </edge>
     <edge source="model.Table" target="model.Row" relationship="CREATE">
-      <point x="110.0" y="-15.0" />
-      <point x="570.0" y="676.0" />
-      <point x="0.0" y="142.5" />
+      <point x="110.0" y="15.0" />
+      <point x="820.0" y="1169.5" />
+      <point x="15.0" y="142.5" />
+    </edge>
+    <edge source="model.Player" target="model.Deck" relationship="TO_ONE">
+      <point x="0.0" y="-57.5" />
+      <point x="1295.875" y="593.0" />
+      <point x="1261.5" y="593.0" />
+      <point x="-15.0" y="129.5" />
     </edge>
     <edge source="model.GameStatus" target="model.Player" relationship="TO_ONE">
-      <point x="132.5" y="-226.5" />
-      <point x="422.5" y="896.0" />
-      <point x="1210.0" y="896.0" />
+      <point x="-4.3459916042820623E-4" y="-226.5" />
+      <point x="496.556" y="1503.0" />
+      <point x="1295.875" y="1503.0" />
       <point x="0.0" y="57.5" />
     </edge>
     <edge source="model.Table" target="model.Deck" relationship="TO_ONE">
-      <point x="110.0" y="15.0" />
-      <point x="1132.0" y="706.0" />
-      <point x="1132.0" y="-149.0" />
-      <point x="99.5" y="0.0" />
+      <point x="14.999845991559539" y="-322.5" />
+      <point x="418.623" y="593.0" />
+      <point x="1261.5" y="593.0" />
+      <point x="-15.0" y="129.5" />
     </edge>
     <edge source="view.ProfileMenu" target="view.AppMenu" relationship="GENERALIZATION">
       <point x="0.0" y="-44.5" />
-      <point x="1230.0" y="3021.0" />
-      <point x="642.0" y="3021.0" />
-      <point x="642.0" y="3471.0" />
-      <point x="88.0" y="0.0" />
+      <point x="2547.375" y="-135.0" />
+      <point x="1784.14" y="-135.0" />
+      <point x="2.3206750643112173E-4" y="44.5" />
     </edge>
     <edge source="model.weather.Weather" target="model.weather.WeatherElement" relationship="TO_ONE">
-      <point x="0.0" y="44.5" />
-      <point x="0.0" y="-80.5" />
+      <point x="-60.0" y="-44.5" />
+      <point x="0.0" y="80.5" />
     </edge>
     <edge source="model.SpellCard" target="model.Card" relationship="GENERALIZATION">
-      <point x="0.0" y="31.5" />
       <point x="0.0" y="-31.5" />
+      <point x="519.5" y="332.0" />
+      <point x="659.5" y="332.0" />
+      <point x="-20.014767932493783" y="44.5" />
     </edge>
     <edge source="view.RegisterMenu" target="view.AppMenu" relationship="GENERALIZATION">
-      <point x="0.0" y="68.5" />
-      <point x="1550.0" y="2713.0" />
-      <point x="642.0" y="2713.0" />
-      <point x="642.0" y="3471.0" />
-      <point x="88.0" y="0.0" />
+      <point x="-137.0" y="0.0" />
+      <point x="2652.875" y="-63.5" />
+      <point x="2652.875" y="-135.0" />
+      <point x="1784.14" y="-135.0" />
+      <point x="2.3206750643112173E-4" y="44.5" />
     </edge>
     <edge source="view.ProfileMenu" target="enums.ProfileMenuCommands" relationship="DEPENDENCY">
-      <point x="0.0" y="44.5" />
-      <point x="0.0" y="-68.5" />
+      <point x="-15.0" y="-44.5" />
+      <point x="-130.25" y="68.5" />
     </edge>
     <edge source="view.MainMenu" target="enums.Menu" relationship="DEPENDENCY">
-      <point x="-15.0" y="44.5" />
-      <point x="295.0" y="2315.0" />
-      <point x="1092.0" y="2315.0" />
-      <point x="1092.0" y="2611.0" />
+      <point x="12.625" y="-44.5" />
+      <point x="1677.5" y="750.0" />
+      <point x="1843.875" y="750.0" />
+      <point x="1843.875" y="127.5" />
       <point x="-119.0" y="0.0" />
     </edge>
-    <edge source="model.Player" target="model.Deck" relationship="CREATE">
-      <point x="0.0" y="-57.5" />
-      <point x="1210.0" y="-164.0" />
-      <point x="99.5" y="-15.0" />
-    </edge>
     <edge source="view.MainMenu" target="enums.MainMenuCommands" relationship="DEPENDENCY">
-      <point x="-88.0" y="0.0" />
-      <point x="141.0" y="0.0" />
+      <point x="-18.0" y="-44.5" />
+      <point x="133.5" y="68.5" />
+    </edge>
+    <edge source="model.Player" target="model.Deck" relationship="CREATE">
+      <point x="15.0" y="-57.5" />
+      <point x="34.375" y="129.5" />
+    </edge>
+    <edge source="controller.RegisterMenuController" target="model.Email" relationship="DEPENDENCY">
+      <point x="21.125" y="-81.5" />
+      <point x="0.0" y="68.5" />
     </edge>
     <edge source="enums.Menu" target="view.ShopMenu" relationship="CREATE">
-      <point x="30.0" y="68.5" />
-      <point x="1260.0" y="3091.0" />
-      <point x="88.0" y="0.0" />
+      <point x="-38.5" y="-68.5" />
+      <point x="0.0" y="44.5" />
     </edge>
     <edge source="model.Row" target="model.Card" relationship="CREATE">
-      <point x="0.0" y="-142.5" />
-      <point x="570.0" y="-164.0" />
-      <point x="-45.5" y="-15.0" />
+      <point x="-5.485232067506217" y="-142.5" />
+      <point x="120.0" y="44.5" />
     </edge>
     <edge source="enums.Menu" target="view.AppMenu" relationship="TO_ONE">
-      <point x="15.0" y="-68.5" />
-      <point x="1245.0" y="1896.0" />
-      <point x="-173.0" y="1896.0" />
-      <point x="-173.0" y="3471.0" />
+      <point x="-119.0" y="-15.0" />
+      <point x="1646.875" y="112.5" />
+      <point x="1646.875" y="-252.5" />
       <point x="-88.0" y="0.0" />
     </edge>
     <edge source="model.Deck" target="model.Card" relationship="TO_MANY">
-      <point x="-99.5" y="-49.0" />
-      <point x="721.0" y="-198.0" />
-      <point x="721.0" y="-149.0" />
-      <point x="-45.5" y="0.0" />
+      <point x="0.0" y="129.5" />
+      <point x="1276.5" y="577.0" />
+      <point x="945.5" y="577.0" />
+      <point x="945.5" y="127.5" />
+      <point x="127.5002320675062" y="0.0" />
     </edge>
   </edges>
-  <settings layout="Orthogonal Groups" zoom="0.39933564413633754" showDependencies="true" x="1116.7374473779378" y="1346.3999999999996" />
+  <settings layout="Hierarchic" zoom="0.7039091012773723" showDependencies="true" x="966.3649093670886" y="77.8064" />
   <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>

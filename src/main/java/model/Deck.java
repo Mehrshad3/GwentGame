@@ -5,6 +5,7 @@ public class Deck {
     private Card[] inHandCards;
     private Card currentLeaderCard;
     private Card[] leaderCards;
+    private Faction faction;
 
     public Card[] getDiscardCards() {
         return discardCards;
