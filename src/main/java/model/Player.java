@@ -6,4 +6,8 @@ public class Player {
     public Deck getDeck() {
         return deck;
     }
+
+    public int getWins() {
+        return 0; // TODO
+    }
 }

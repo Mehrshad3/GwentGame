@@ -22,8 +22,8 @@ public class MainMenu extends AppMenu {
         if((matcher = MainMenuCommands.Logout.getMatcher(input)) != null){
             User.setCurrentUser(null);
             App.setCurrentMenu(Menu.LoginMenu);
-        } else if ((matcher = MainMenuCommands.GoToShopMenu.getMatcher(input)) != null) {
-            App.setCurrentMenu(Menu.ShopMenu);
+        } else if ((matcher = MainMenuCommands.GoToPreGameMenu.getMatcher(input)) != null) {
+            App.setCurrentMenu(Menu.PreGameMenu);
         } else if ((matcher = MainMenuCommands.GoToProfileMenu.getMatcher(input)) != null) {
             App.setCurrentMenu(Menu.ProfileMenu);
         }else if((matcher = MainMenuCommands.ShowCurrentMenu.getMatcher(input)) != null){

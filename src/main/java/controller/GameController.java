@@ -2,7 +2,7 @@ package controller;
 
 import model.GameStatus;
 
-public class GameController {
+public class GameController extends MenuController {
     GameStatus gaming;
 
     public void setGaming(GameStatus gaming) {

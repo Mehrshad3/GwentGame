@@ -8,7 +8,7 @@ public enum WeatherElement {
     FOG(3),
     ;
     private final int initialCounterNumber;
-    private int counter;
+    int counter;
 
     /**
      * @param initialCounterNumber An integer or double (preferably {@link Double#POSITIVE_INFINITY}) that represents
@@ -19,11 +19,11 @@ public enum WeatherElement {
         initializeCounter();
     }
 
-    public void initializeCounter() {
+    void initializeCounter() {
         this.counter = initialCounterNumber;
     }
 
-    public void passTime() {
+    void passTime() {
         if (counter > 0) counter--;
     }
 }

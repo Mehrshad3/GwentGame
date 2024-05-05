@@ -1,24 +1,23 @@
 package controller;
 
-import java.util.Scanner;
+import java.util.regex.Matcher;
 
 public class LoginMenuController extends LoginOrRegisterMenuController {
-    private Scanner scanner;
 
-    public void login() {
+    public void login(String username, String password, Boolean stayLoggedIn) {
         // TODO
     }
 
-    public void handleForgottenPassword() {
+    public void handleForgottenPassword(String username) {
         // TODO
     }
 
     @Override
-    protected boolean getSecurityQuestionAnswer() {
+    protected boolean getSecurityQuestionAnswer(Matcher matcher) {
         return false; //TODO
     }
 
-    public void changePassword() {
+    public void changePassword(String newPassword) {
         // TODO
     }
 }

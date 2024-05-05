@@ -3,7 +3,9 @@ package model;
 import java.util.LinkedList;
 
 public class User {
-    static User CurrentUser=null;
+    private static User CurrentUser = null;
+    LinkedList<GameHistory> histories;
+    Deck deck;
     private String name;
     private String password;
     private String email;
@@ -12,8 +14,6 @@ public class User {
     private int numberOfGamesPlayed;
     private int numberOfWins;
     private int numberOfLoses;
-    LinkedList<GameHistory> histories;
-    Deck deck;
 
     public User(String name, String password, String email, String nickname) {
         this.name = name;
@@ -24,6 +24,10 @@ public class User {
 
     public static void setCurrentUser(User currentUser) {
         CurrentUser = currentUser;
+    }
+
+    public static User getCurrentUser() {
+        return CurrentUser;
     }
 
     public int getNumberOfSoldiers() {
