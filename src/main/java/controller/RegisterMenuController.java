@@ -2,10 +2,9 @@ package controller;
 
 import model.Email;
 
-import java.util.Scanner;
+import java.util.regex.Matcher;
 
 public class RegisterMenuController extends LoginOrRegisterMenuController {
-    private Scanner scanner;
 
     public void createNewUser(String username, String password, String passwordConfirm, String nickname, Email email) {
         // TODO
@@ -20,7 +19,7 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
     }
 
     @Override
-    protected boolean getSecurityQuestionAnswer() {
+    protected boolean getSecurityQuestionAnswer(Matcher matcher) {
         // TODO
         return true;
     }

@@ -2,7 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-public class ShopMenu extends AppMenu{
+public class PreGameMenu extends AppMenu {
     @Override
     public void check(Scanner scanner) {
 

@@ -1,7 +1,7 @@
 package model.weather;
 
 public class Weather {
-    private final WeatherElement weatherElement;
+    private WeatherElement weatherElement;
 
     public Weather(WeatherElement weatherElement) {
         this.weatherElement = weatherElement;
@@ -10,5 +10,12 @@ public class Weather {
 
     public WeatherElement getWeather() {
         return weatherElement;
+    }
+
+    public void passTime() {
+        weatherElement.passTime();
+        if (weatherElement.counter == 0) {
+            weatherElement = WeatherElement.NEUTRAL;
+        }
     }
 }

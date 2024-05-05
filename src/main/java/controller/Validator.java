@@ -1,16 +1,10 @@
 package controller;
 
+import model.Deck;
+
 import java.io.File;
-import java.io.PrintStream;
 
 class Validator {
-    private final PrintStream soutPrintStream;
-    private final PrintStream serrPrintStream;
-
-    public Validator(PrintStream soutPrintStream, PrintStream serrPrintStream) {
-        this.soutPrintStream = soutPrintStream;
-        this.serrPrintStream = serrPrintStream;
-    }
 
     boolean validateUsername(String username) {
         return true; // TODO
