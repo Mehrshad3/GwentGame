@@ -1,13 +1,23 @@
 package controller;
 
+import enums.SemiRegexes;
 import model.Deck;
 
 import java.io.File;
 
-class Validator {
+final class Validator {
+    private static Validator validator;
+
+    private Validator() {
+    }
+
+    public static Validator getValidator() {
+        if (validator == null) validator = new Validator();
+        return validator;
+    }
 
     boolean validateUsername(String username) {
-        return true; // TODO
+        return username.matches(SemiRegexes.VALID_USERNAME.regex);
     }
 
     boolean validateNickname(String nickname) {
@@ -15,11 +25,11 @@ class Validator {
     }
 
     boolean validatePassword(String password) {
-        return true; // TODO
+        return password.matches(SemiRegexes.VALID_PASSWORD.regex);
     }
 
     boolean validateEmail(String email) {
-        return true; // TODO
+        return email.matches(SemiRegexes.VALID_EMAIL_ADDRESS.regex);
     }
 
     boolean validateFileName(String fileName) {
@@ -31,7 +41,7 @@ class Validator {
     }
 
     boolean isPasswordWeak(String password) {
-        return false; // TODO
+        return !password.matches(SemiRegexes.STRONG_PASSWORD_REGEX.regex);
     }
 
     boolean isUsernameDuplicate(String username) {

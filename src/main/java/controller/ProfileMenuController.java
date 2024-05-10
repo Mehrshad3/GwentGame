@@ -1,7 +1,5 @@
 package controller;
 
-import model.Email;
-
 public class ProfileMenuController extends MenuController {
     public void changeUsername(String newUsername) {
         // TODO
@@ -15,7 +13,7 @@ public class ProfileMenuController extends MenuController {
         // TODO
     }
 
-    public void changeEmail(Email newEmail) {
+    public void changeEmail(String newEmail) {
         // TODO
     }
 

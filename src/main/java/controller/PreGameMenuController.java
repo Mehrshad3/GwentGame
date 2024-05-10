@@ -35,7 +35,7 @@ public class PreGameMenuController extends MenuController {
     }
 
     private void emptyPlayerDeckError() {
-        AppView.getAppViewObject().serrPrintStream.println("Player's deck is empty");
+        System.err.println("Player's deck is empty");
     }
 
     public void changeTurn() {

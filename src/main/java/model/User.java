@@ -20,6 +20,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.nickname = nickname;
+        // TODO: save this user somewhere
     }
 
     public static void setCurrentUser(User currentUser) {
