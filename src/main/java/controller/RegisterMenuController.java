@@ -32,7 +32,7 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
         if (invalidInputs) return;
         if (Validator.getValidator().isUsernameDuplicate(username) && askUserForRandomUsername()) {
             User.setCurrentUser(new User(username, password, email, nickname));
-            // TODO: say successful creation.
+            // registerMenu.alertSuccessfulUserCreation(nickname, username); TODO :uncomment this line
         }
     }
 

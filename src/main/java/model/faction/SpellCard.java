@@ -1,4 +1,4 @@
-package model;
+package model.faction;
 
 public class SpellCard extends Card {
     public SpellCard(String name, boolean isUnitCard, String ability, int power) {

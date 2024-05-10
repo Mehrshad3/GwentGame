@@ -1,9 +1,13 @@
-package model;
+package model.faction;
 
 abstract public class Card {
+    protected final String ability;
     protected String name;
     protected boolean isUnitCard;
     protected boolean isHero = false;
+    protected Integer rowNumber = null;
+    protected int power;
+    private boolean transformed = false;
 
     public Card(String name, boolean isUnitCard, String ability, int power) {
         this.name = name;
@@ -11,11 +15,6 @@ abstract public class Card {
         this.ability = ability;
         this.power = power;
     }
-
-    protected Integer rowNumber = null;
-    protected final String ability;
-    protected int power;
-    private boolean transformed = false;
 
     public void transform() {
         transformed = true;

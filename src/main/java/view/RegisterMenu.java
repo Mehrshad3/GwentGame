@@ -64,4 +64,8 @@ public class RegisterMenu extends AppMenu {
             }
         }
     }
+
+    public void alertSuccessfulUserCreation(String nickname, String username) {
+        System.out.println("User " + nickname + " with username \"" + username + "\" created successfully.");
+    }
 }
