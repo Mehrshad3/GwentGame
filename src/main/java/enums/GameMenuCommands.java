@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public enum GameMenuCommands {
     CreateGame("\\s*create\\s+game\\s+-p2\\s+(?<secondPlayerUsername>\\S+)\\s*"),
     ShowFactions("\\s*show\\s+factions\\s*"),
-    SelectFaction("\\s*select\\s+faction\\s+-f\\s+(?<fractionName>\\S+)\\s*"),
+    SelectFaction("\\s*select\\s+faction\\s+-f\\s+(?<factionName>\\S+)\\s*"),
     ShowCards("\\s*show\\s+cards\\s*"),
     ShowDeck("\\s*show\\s+deck\\s*"),
     ShowCurrentUserInfo("\\s*show\\s+information\\s+current\\s+user\\s*"),

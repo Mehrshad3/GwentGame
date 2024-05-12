@@ -2,9 +2,9 @@ package view;
 
 import java.util.Scanner;
 
-public class LoginMenu extends AppMenu {
+public class LoginMenu extends LoginOrRegisterMenu {
     @Override
-    public void check(Scanner scanner) {
-
+    public boolean check(String input, Scanner scanner) {
+        return false; // TODO
     }
 }

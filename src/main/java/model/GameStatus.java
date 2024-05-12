@@ -6,15 +6,13 @@ public class GameStatus {
     private Player player1;
     private Player player2;
     private int numberOfTurns = 0;
-    private int player1Wins;
-    private int player2Wins;
+    private int player1Wins = 0;
+    private int player2Wins = 0;
 
-    public GameStatus(Table table, Player player1, Player player2, int player1Wins, int player2Wins) {
+    public GameStatus(Table table, Player player1, Player player2) {
         this.table = table;
         this.player1 = player1;
         this.player2 = player2;
-        this.player1Wins = player1Wins;
-        this.player2Wins = player2Wins;
     }
 
     public int getNumberOfPassedRounds() {

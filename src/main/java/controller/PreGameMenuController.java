@@ -1,10 +1,7 @@
 package controller;
 
 import enums.Menu;
-import model.App;
-import model.GameStatus;
-import model.Player;
-import model.Table;
+import model.*;
 import view.AppView;
 
 public class PreGameMenuController extends MenuController {
@@ -35,7 +32,7 @@ public class PreGameMenuController extends MenuController {
     }
 
     private void emptyPlayerDeckError() {
-        AppView.getAppViewObject().serrPrintStream.println("Player's deck is empty");
+        System.err.println("Player's deck is empty");
     }
 
     public void changeTurn() {
@@ -80,13 +77,14 @@ public class PreGameMenuController extends MenuController {
 
     public void startGame() {
         GameStatus gaming;
-        Player player1 = new Player(); // TODO: replace this
-        Player player2 = new Player(); // TODO: replace this
+        User currentUser = User.getCurrentUser();
+        Player player1 = new Player(currentUser.getName(), currentUser.getNickname()); // TODO: replace this
+        Player player2 = new Player("", "opponent"); // TODO: replace this
         Table table = new Table(player1, player2);
         // TODO
         App.setCurrentMenu(Menu.GameMenu);
         MenuController gameMenuController = Menu.GameMenu.getMenuController();
         GameController gameController = (GameController) gameMenuController;
-        gameController.setGaming(new GameStatus(table, player1, player2, player1.getWins(), player2.getWins()));
+        gameController.setGaming(new GameStatus(table, player1, player2));
     }
 }

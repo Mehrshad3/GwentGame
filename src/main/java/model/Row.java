@@ -1,5 +1,7 @@
 package model;
 
+import model.faction.Card;
+
 public class Row {
     private final Card[] cards = new Card[9];
     private Card specialCard = null;

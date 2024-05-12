@@ -1,5 +1,8 @@
 package model;
 
+import model.faction.Card;
+import model.faction.Faction;
+
 public class Deck {
     private Card[] discardCards;
     private Card[] inHandCards;
@@ -37,5 +40,9 @@ public class Deck {
 
     public void setLeaderCards(Card[] leaderCards) {
         this.leaderCards = leaderCards;
+    }
+
+    public int getNumberOfSoldiers() {
+        return 0; //TODO
     }
 }

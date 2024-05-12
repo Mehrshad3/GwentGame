@@ -1,5 +1,7 @@
 package model;
 
+import model.faction.Card;
+import model.faction.SpellCard;
 import model.weather.Weather;
 import model.weather.WeatherElement;
 
