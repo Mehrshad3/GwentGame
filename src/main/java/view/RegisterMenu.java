@@ -7,11 +7,10 @@ import enums.RegisterMenuCommands;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class RegisterMenu extends AppMenu {
-    public void check(Scanner scanner) {
+public class RegisterMenu extends LoginOrRegisterMenu {
+    @Override
+    public boolean check(String input, Scanner scanner) {
         RegisterMenuController registerMenuController = (RegisterMenuController) Menu.RegisterMenu.getMenuController();
-        String input;
-        input = scanner.nextLine();
         Matcher matcher;
         if ((matcher = RegisterMenuCommands.REGISTER_USER.getMatcher(input)) != null) {
             registerMenuController.createNewUser(matcher.group("username"), matcher.group("password"),
@@ -19,7 +18,8 @@ public class RegisterMenu extends AppMenu {
         } else if ((matcher = RegisterMenuCommands.REGISTER_USER_WITH_RANDOM_PASSWORD.getMatcher(input)) != null) {
             registerMenuController.createNewUser(matcher.group("username"), matcher.group("password"),
                     null, matcher.group("nickname"), matcher.group("email"));
-        } else System.err.println("Invalid Command");
+        } else return false;
+        return true;
     }
 
     public void alertInvalidUsername() {

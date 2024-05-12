@@ -3,7 +3,7 @@ package enums;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum RegisterMenuCommands {
+public enum RegisterMenuCommands implements MatcherSupplier {
     REGISTER_USER("register\\s+-u\\s+(?<username>\\S+)\\s+-p\\s+(?<password>\\S+)\\s+(?<passwordConfirm>\\S+)" +
             "\\s+-n\\s+(?<nickname>\\S+)\\s+-e\\s+(?<email>\\S+)"),
     REGISTER_USER_WITH_RANDOM_PASSWORD("register\\s+-u\\s+(?<username>\\S+)\\s+-p\\s+(?<password>random)" +
@@ -15,6 +15,7 @@ public enum RegisterMenuCommands {
         this.pattern = Pattern.compile(regex);
     }
 
+    @Override
     public Matcher getMatcher(String input) {
         Matcher matcher = pattern.matcher(input);
 

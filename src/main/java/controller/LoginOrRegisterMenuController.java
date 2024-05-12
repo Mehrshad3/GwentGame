@@ -1,19 +1,12 @@
 package controller;
 
-import enums.SecurityQuestion;
 import enums.SemiRegexes;
 
-import java.io.PrintStream;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.regex.Matcher;
 
 abstract class LoginOrRegisterMenuController extends MenuController {
-    void showListOfSecurityQuestions(PrintStream printStream) {
-        for (SecurityQuestion securityQuestion : SecurityQuestion.values()) {
-            printStream.println(securityQuestion);
-        }
-    }
 
     protected abstract boolean getSecurityQuestionAnswer(Matcher matcher);
 

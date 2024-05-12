@@ -11,7 +11,7 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
     public void createNewUser(String username, String password, String passwordConfirm, String nickname, String email) {
         boolean randomPassword = passwordConfirm == null;
         boolean invalidInputs = true;
-        RegisterMenu registerMenu = (RegisterMenu) App.getCurrentMenu().getMenu();
+        RegisterMenu registerMenu = (RegisterMenu) App.getCurrentMenu().getAppMenu();
         // Checks whether username and email are valid
         if (!Validator.getValidator().validateUsername(username)) registerMenu.alertInvalidUsername();
         else if (!Validator.getValidator().validateEmail(email)) registerMenu.alertInvalidEmail();
@@ -32,7 +32,7 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
         if (invalidInputs) return;
         if (Validator.getValidator().isUsernameDuplicate(username) && askUserForRandomUsername()) {
             User.setCurrentUser(new User(username, password, email, nickname));
-            // registerMenu.alertSuccessfulUserCreation(nickname, username); TODO :uncomment this line
+            registerMenu.alertSuccessfulUserCreation(nickname, username);
         }
     }
 
@@ -58,7 +58,7 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
     private String askUserForRandomPassword() {
         while (true) {
             String password = generateRandomPassword();
-            int userConsent = ((RegisterMenu) App.getCurrentMenu().getMenu()).confirmRandomGeneratedPassword(password);
+            int userConsent = ((RegisterMenu) App.getCurrentMenu().getAppMenu()).confirmRandomGeneratedPassword(password);
             switch (userConsent) {
                 case 0:
                     return password;

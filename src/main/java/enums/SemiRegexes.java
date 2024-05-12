@@ -1,6 +1,6 @@
 package enums;
 
-public enum SemiRegexes {
+public enum SemiRegexes implements Regex {
     SPECIAL_CHARACTERS_RAW_FORMAT("!@#$.%^&*()[]{}<>?,_\"`~-"),
     SPECIAL_CHARACTERS_REGEX("[!@#$.%^&*()\\[\\]{}<>?,_\\\"`~-]"),
     VALID_USERNAME("[a-zA-Z0-9-]+"),
