@@ -12,7 +12,7 @@ public enum Faction {
     private final String ability;
 
     Faction(String ability, Class<? extends leaderCardType> leaderCardTypes) {
-        Card commander = null; // TODO
+        LeaderCard commander = null; // TODO
         this.ability = ability;
         this.commander = commander;
         this.leaderCardTypes = leaderCardTypes;
