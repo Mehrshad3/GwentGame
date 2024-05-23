@@ -1,5 +1,6 @@
 package model;
 
+
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.LinkedList;
@@ -7,6 +8,7 @@ import java.util.LinkedList;
 public class User extends Player implements Serializable {
     private static User CurrentUser = null;
     LinkedList<GameHistory> histories;
+    private String name;
     private String password;
     private String email;
     private int rank;
@@ -35,6 +37,7 @@ public class User extends Player implements Serializable {
         CurrentUser = currentUser;
     }
 
+
     public static Path getRelativePathToFile(String username) {
         return Path.of("Users", username, "profile.json");
     }
@@ -50,4 +53,5 @@ public class User extends Player implements Serializable {
     public int getWins() {
         return numberOfWins;
     }
+
 }
