@@ -2,9 +2,9 @@ package view;
 
 import java.util.Scanner;
 
-public class GameMenu extends AppMenu{
+public class GameMenu extends AppMenu {
     @Override
-    public void check(Scanner scanner) {
-
+    public boolean check(String input, Scanner scanner) {
+        return false; // TODO
     }
 }

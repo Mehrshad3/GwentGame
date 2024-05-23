@@ -7,12 +7,11 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class ProfileMenu extends AppMenu{
+public class ProfileMenu extends AppMenu {
     @Override
-    public void check(Scanner scanner) {
-    String input;
-    input=scanner.nextLine();
+    public boolean check(String input, Scanner scanner) {
         Matcher matcher;
+
 
 
     if((matcher = ProfileMenuCommands.ChangeUsername.getMatcher(input)) != null){
@@ -28,10 +27,7 @@ public class ProfileMenu extends AppMenu{
     }
     else if((matcher = ProfileMenuCommands.ChangePassword.getMatcher(input)) != null){
 
-    }
-    else{
-        System.out.println("Invalid Command!");
-    }
-
+        } else return false;
+        return true;
     }
 }

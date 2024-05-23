@@ -3,11 +3,11 @@ package enums;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum LoginMenuCommands implements MatcherSupplier {
+public enum PreGameMenuCommands implements MatcherSupplier {
     ;
     private String pattern;
 
-    LoginMenuCommands(String pattern) {
+    PreGameMenuCommands(String pattern) {
         this.pattern = pattern;
     }
 

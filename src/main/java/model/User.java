@@ -1,18 +1,30 @@
 package model;
 
-public class User {
+import java.util.LinkedList;
+
+public class User extends Player {
     private static User CurrentUser = null;
-    private String name;
+    LinkedList<GameHistory> histories;
     private String password;
+    private String name;
     private String email;
-    private String nickname;
+    private int rank;
+    private int numberOfGamesPlayed;
+    private int numberOfWins;
+    private int numberOfLoses;
+    private int highestScore;
 
     public User(String name, String password, String email, String nickname) {
-        this.name = name;
+        super(name, nickname);
         this.password = password;
         this.email = email;
         this.nickname = nickname;
     }
+
+    public static User loadUser(String username) { // TODO: think whether this is the right place for this?
+        return null; // TODO
+    }
+
 
     public static void setCurrentUser(User currentUser) {
         CurrentUser = currentUser;
@@ -22,9 +34,15 @@ public class User {
         return CurrentUser;
     }
 
-    public String getName() {
-        return name;
+
+
+
+    private void saveUser() {
+        // TODO
     }
 
+    public int getWins() {
+        return numberOfWins;
+    }
 
 }
