@@ -52,7 +52,9 @@ public class RegisterMenu extends LoginOrRegisterMenu {
         while (true) {
             System.out.println("If you agree with this password, enter 'y', if you want another password enter 'g'," +
                     "and if you want to quit enter 'q'");
-            switch (AppView.getAppViewObject().scanner.nextLine().charAt(0)) {
+            String input = AppView.getAppViewObject().scanner.nextLine();
+            if (input.isEmpty()) return 0;
+            switch (input.charAt(0)) {
                 case 'y':
                 case 'x':
                     return 0;

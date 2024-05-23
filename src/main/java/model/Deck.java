@@ -3,7 +3,9 @@ package model;
 import model.faction.Card;
 import model.faction.Faction;
 
-public class Deck {
+import java.io.Serializable;
+
+public class Deck implements Serializable {
     private Card[] discardCards;
     private Card[] inHandCards;
     private Card currentLeaderCard;

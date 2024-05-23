@@ -17,6 +17,9 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
         else if (!Validator.getValidator().validateEmail(email)) registerMenu.alertInvalidEmail();
         else invalidInputs = false;
         if (invalidInputs) return;
+        // Checks whether the username is duplicate
+        if (Validator.getValidator().isUsernameDuplicate(username) && !askUserForRandomUsername()) return;
+        // Checks password
         if (randomPassword) {
             if ((password = askUserForRandomPassword()) == null)
                 return; // If user doesn't want to generate password, return.
@@ -30,10 +33,8 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
             else invalidInputs = false;
         }
         if (invalidInputs) return;
-        if (Validator.getValidator().isUsernameDuplicate(username) && askUserForRandomUsername()) {
-            User.setCurrentUser(new User(username, password, email, nickname));
-            registerMenu.alertSuccessfulUserCreation(nickname, username);
-        }
+        User.setCurrentUser(new User(username, password, email, nickname));
+        registerMenu.alertSuccessfulUserCreation(nickname, username);
     }
 
     private boolean checkAndHandleIfUserExists(String username) {
@@ -51,8 +52,9 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
     }
 
     private boolean askUserForRandomUsername() {
+        System.out.println("Your username is duplicate.");
         // TODO: implement this.
-        return true;
+        return false;
     }
 
     private String askUserForRandomPassword() {
