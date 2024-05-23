@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.LinkedList;
 
-public class User extends Player {
+public class User extends Player implements Serializable {
     private static User CurrentUser = null;
     LinkedList<GameHistory> histories;
     private String password;
@@ -18,6 +20,7 @@ public class User extends Player {
         this.password = password;
         this.email = email;
         this.nickname = nickname;
+        GsonReaderWriter.saveToFile(this, this.getRelativePathToFile());
     }
 
     public static User loadUser(String username) { // TODO: think whether this is the right place for this?
@@ -30,6 +33,14 @@ public class User extends Player {
 
     public static void setCurrentUser(User currentUser) {
         CurrentUser = currentUser;
+    }
+
+    public static Path getRelativePathToFile(String username) {
+        return Path.of("Users", username, "profile.json");
+    }
+
+    Path getRelativePathToFile() {
+        return User.getRelativePathToFile(this.name);
     }
 
     private void saveUser() {
