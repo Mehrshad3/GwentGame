@@ -12,12 +12,16 @@ public class User extends Player {
     private int numberOfWins;
     private int numberOfLoses;
     private int highestScore;
+    private String securityAnswer;
+    private String securityQuestion;
 
-    public User(String name, String password, String email, String nickname) {
+    public User(String name, String password, String email, String nickname,String securityAnswer,String securityQuestion) {
         super(name, nickname);
         this.password = password;
         this.email = email;
         this.nickname = nickname;
+        this.securityAnswer = securityAnswer;
+        this.securityQuestion = securityQuestion;
     }
 
     public static User loadUser(String username) { // TODO: think whether this is the right place for this?
@@ -30,6 +34,14 @@ public class User extends Player {
 
     public static void setCurrentUser(User currentUser) {
         CurrentUser = currentUser;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     private void saveUser() {

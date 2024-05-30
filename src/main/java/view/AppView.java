@@ -52,6 +52,6 @@ public class AppView {
     }
 
     public void alertUserNotLoggedIn() {
-        System.err.println("You have to login/register before you enter 'Main' menu.");
+        System.err.println("You have to login/register before you enter 'view.Main' menu.");
     }
 }

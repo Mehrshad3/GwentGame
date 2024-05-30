@@ -10,7 +10,7 @@ abstract class LoginOrRegisterMenuController extends MenuController {
 
     protected abstract boolean getSecurityQuestionAnswer(Matcher matcher);
 
-    protected String generateRandomPassword() {
+    public String generateRandomPassword() {
         int length = 14;
         StringBuilder stringBuilder = new StringBuilder(length);
         while (Validator.getValidator().isPasswordWeak(stringBuilder.toString())) {

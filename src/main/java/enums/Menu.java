@@ -11,7 +11,7 @@ public enum Menu {
     Exit(new ExitMenu(), null, null, "Exit Menu"),
     LoginMenu(new LoginMenu(), new LoginMenuController(), Exit, "Login Menu"),
     RegisterMenu(new RegisterMenu(), new RegisterMenuController(), Exit, "Register Menu"),
-    MainMenu(new MainMenu(), new MainMenuController(), Menu.LoginMenu, "Main Menu"),
+    MainMenu(new MainMenu(), new MainMenuController(), Menu.LoginMenu, "view.Main Menu"),
     ProfileMenu(new ProfileMenu(), new ProfileMenuController(), Menu.MainMenu, "Profile Menu"),
     PreGameMenu(new PreGameMenu(), new PreGameMenuController(), Menu.MainMenu, "pre-Game Menu"),
     GameMenu(new GameMenu(), new GameController(), Menu.MainMenu, "Game Menu"),
