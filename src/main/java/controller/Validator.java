@@ -1,6 +1,6 @@
 package controller;
 
-import enums.SemiRegexes;
+import enums.regexes.SemiRegexes;
 import model.Deck;
 import model.GsonReaderWriter;
 import model.User;

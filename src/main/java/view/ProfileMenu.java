@@ -1,6 +1,6 @@
 package view;
 
-import enums.ProfileMenuCommands;
+import enums.regexes.ProfileMenuCommands;
 import model.User;
 
 import java.io.File;

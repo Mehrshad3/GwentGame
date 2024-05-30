@@ -1,4 +1,4 @@
-package enums;
+package enums.regexes;
 
 public enum SemiRegexes implements Regex {
     SPECIAL_CHARACTERS_RAW_FORMAT("!@#$.%^&*()[]{}<>?,_\"`~-"),

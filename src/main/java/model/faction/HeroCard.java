@@ -1,8 +1,12 @@
 package model.faction;
 
-public class HeroCard extends Card {
-    public HeroCard(String name, boolean isUnitCard, CardAbility ability, int power) {
-        super(name, isUnitCard, ability, power);
+import enums.card.CardName;
+import enums.card.PossibleRowsToPlayCard;
+import enums.card.ability.UnitOrSpellCardAbility;
+
+public class HeroCard extends UnitCard {
+    public HeroCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability, int initialPower) {
+        super(cardName, name, rows, ability, initialPower);
         super.isHero = true;
     }
 }
