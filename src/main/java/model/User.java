@@ -10,6 +10,7 @@ public class User extends Player implements Serializable {
     LinkedList<GameHistory> histories;
     private String name;
     private String password;
+
     private String email;
     private int rank;
     private int numberOfGamesPlayed;
@@ -29,13 +30,11 @@ public class User extends Player implements Serializable {
         return null; // TODO
     }
 
-    public static User getCurrentUser() {
-        return CurrentUser;
-    }
 
     public static void setCurrentUser(User currentUser) {
         CurrentUser = currentUser;
     }
+
 
 
     public static Path getRelativePathToFile(String username) {
@@ -61,6 +60,14 @@ public class User extends Player implements Serializable {
     public String getEmail() {
         return email;
     }
+
+    public static User getCurrentUser() {
+        return CurrentUser;
+    }
+
+
+
+
 
     private void saveUser() {
         // TODO

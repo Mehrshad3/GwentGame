@@ -8,9 +8,11 @@ public enum ProfileMenuCommands implements MatcherSupplier {
 
     ChangeUsername("\\s*change\\s+username\\s+-u\\s+(?<NewUsername>[a-zA-Z0-9-]+)\\s*"),
 
+    //TODO:Fix REGEXEs git s
     ChangeNickname("\\s*change\\s+nickname\\s+-u\\s+(?<NewNickname>[a-zA-Z0-9-]+)\\s*"),
 
     ChangeEmail("\\s*change\\s+email\\s+-e\\s+(?<NewEmail>[a-zA-Z0-9-.]+@[a-zA-Z0-9-]+.com)\\s*"),
+
 
     ChangePassword("\\s*change\\s+password\\s+-p\\s+(?<NewPassword>[0-9a-zA-Z]+)\\s+(?<OldPassword>[a-zA-Z0-9])\\s*");
     private String pattern;

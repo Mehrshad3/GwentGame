@@ -13,6 +13,7 @@ public class ProfileMenu extends AppMenu {
         Matcher matcher;
 
 
+
     if((matcher = ProfileMenuCommands.ChangeUsername.getMatcher(input)) != null){
         // TODO: learn (File and Directory)working in Java.
         File userfile = new File("..\\model\\users\\" + User.getCurrentUser().getName() + "txt");
@@ -25,6 +26,7 @@ public class ProfileMenu extends AppMenu {
 
     }
     else if((matcher = ProfileMenuCommands.ChangePassword.getMatcher(input)) != null){
+
 
 
         } else return false;
