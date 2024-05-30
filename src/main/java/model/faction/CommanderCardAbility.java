@@ -1,6 +1,9 @@
 package model.faction;
 
-public enum CommanderCardAbilityPerformer implements CardSingleAbility {
+import java.util.Scanner;
+import java.util.function.Consumer;
+
+public enum CommanderCardAbility implements CardAbility {
     // Northern Realms Faction
     THE_SIEGE_MASTER_ABILITY_PERFORMER(null),
     THE_STEEL_FORGED_ABILITY_PERFORMER(null),
@@ -30,14 +33,14 @@ public enum CommanderCardAbilityPerformer implements CardSingleAbility {
     KING_BRAN_ABILITY_PERFORMER(null),
 
     ;
-    private final Runnable action;
+    private final Consumer<Scanner> action;
 
-    CommanderCardAbilityPerformer(Runnable action) {
+    CommanderCardAbility(Consumer<Scanner> action) {
         this.action = action;
     }
 
     @Override
-    public void doAction() {
-        this.action.run();
+    public void doAction(Scanner scanner) {
+        this.action.accept(scanner);
     }
 }
