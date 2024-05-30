@@ -1,7 +1,9 @@
 package view;
 
 import enums.ProfileMenuCommands;
+import model.User;
 
+import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -11,13 +13,21 @@ public class ProfileMenu extends AppMenu {
         Matcher matcher;
 
 
-        if (ProfileMenuCommands.Username.getMatcher(input) != null) {
 
-        } else if (ProfileMenuCommands.Nickname.getMatcher(input) != null) {
+    if((matcher = ProfileMenuCommands.ChangeUsername.getMatcher(input)) != null){
+        // TODO: learn (File and Directory)working in Java.
+        File userfile = new File("..\\model\\users\\" + User.getCurrentUser().getName() + "txt");
 
-        } else if (ProfileMenuCommands.Email.getMatcher(input) != null) {
+    }
+    else if((matcher = ProfileMenuCommands.ChangeNickname.getMatcher(input)) != null) {
 
-        } else if (ProfileMenuCommands.Password.getMatcher(input) != null) {
+    }
+    else if((matcher = ProfileMenuCommands.ChangeEmail.getMatcher(input)) != null){
+
+    }
+    else if((matcher = ProfileMenuCommands.ChangePassword.getMatcher(input)) != null){
+
+
 
         } else return false;
         return true;

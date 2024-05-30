@@ -1,7 +1,7 @@
 package model.faction;
 
 abstract public class Card {
-    protected final String ability;
+    protected final CardAbility ability;
     protected String name;
     protected boolean isUnitCard;
     protected boolean isHero = false;
@@ -9,7 +9,7 @@ abstract public class Card {
     protected int power;
     private boolean transformed = false;
 
-    public Card(String name, boolean isUnitCard, String ability, int power) {
+    public Card(String name, boolean isUnitCard, CardAbility ability, int power) {
         this.name = name;
         this.isUnitCard = isUnitCard;
         this.ability = ability;

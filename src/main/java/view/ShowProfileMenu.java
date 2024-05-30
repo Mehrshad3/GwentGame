@@ -29,7 +29,7 @@ public class ShowProfileMenu extends Application {
     private ProfileMenuController profileMenuController;
     @Override
     public void start(Stage stage) throws Exception {
-        User user = new User("nima","123","nima@gmail.com","n.ooo",null,null);
+        User user = new User("nima","123","nima@gmail.com","n.ooo","","");
         User.setCurrentUser(user);
         profileMenuController = new ProfileMenuController();
         this.stage = stage;
@@ -106,7 +106,7 @@ public class ShowProfileMenu extends Application {
         newEmail.setHeaderText("Change Email");
         newEmail.setContentText("Enter your new Email");
         Optional<String> email = newEmail.showAndWait();
-        email.ifPresent(s -> profileMenuController.changeEmail(s));
+        email.ifPresent(s -> profileMenuController.changeEmail(s,User.getCurrentUser().getEmail()));
     }
 
     private void changeNickname() {
@@ -114,7 +114,7 @@ public class ShowProfileMenu extends Application {
         newNickname.setHeaderText("Change Nickname");
         newNickname.setContentText("Enter your new Nickname");
         Optional<String> nickname = newNickname.showAndWait();
-        nickname.ifPresent(s -> profileMenuController.changeNickname(s));
+        nickname.ifPresent(s -> profileMenuController.changeNickname(s,User.getCurrentUser().getNickname()));
     }
 
     private void changePassword() {

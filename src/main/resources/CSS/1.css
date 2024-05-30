@@ -1,0 +1,23 @@
+#pane{
+    /*-fx-background-color: rgb(47, 47, 47);*/
+    -fx-background-image: url("../IMAGES/factionsBackground.png");
+    -fx-background-size: auto;
+    /*-fx-background-position: auto;*/
+}
+#faction{
+    /*-fx-background-image: url("../IMAGES/Faction1.jpg");*/
+    -fx-background-size: auto;
+    -fx-image: url("/IMAGES/Faction1.jpg");
+    -fx-animation-duration: 4s;
+    -fx-animation-name: nima;
+    /*-fx-fill: url("../IMAGES/Faction1.jpg");*/
+}
+div{
+    width: 120px;
+    height: 200px;
+    -fx-background-image: url("../IMAGES/Faction2.jpg");
+}
+@keyframes nima {
+    from{-fx-background-image: url("../IMAGES/Faction1.jpg")}
+    to{-fx-background-image: url("../IMAGES/Faction2.jpg")}
+}

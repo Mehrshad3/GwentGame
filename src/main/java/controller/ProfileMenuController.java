@@ -1,24 +1,74 @@
 package controller;
 
+import model.GsonReaderWriter;
+import model.User;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Objects;
+
 public class ProfileMenuController extends MenuController {
     public void changeUsername(String newUsername) {
-        // TODO
+        User user=User.getCurrentUser();
+        File file=new File(".GWENT/Users/"+newUsername+".txt");
+        if(file.exists()){
+            System.out.println("This Username already exists!");
+        }
+        else{
+            String oldUsername=user.getName();
+
+            File file1=new File(".GWENT/Users/"+oldUsername+".txt");
+            try {
+                file1.delete();
+                file.createNewFile();
+                GsonReaderWriter.saveToFile(user,Path.of(file.getAbsolutePath()));
+                user.setName(newUsername);
+            } catch (IOException e) {
+                System.out.println("Can't Create New File");
+                e.printStackTrace();
+
+            }
+        }
+
     }
 
-    public void changeNickname(String newNickname) {
-        // TODO
+    public void changeNickname(String newNickname,String oldNickname) {
+        if (Objects.equals(oldNickname, newNickname)) {
+            System.out.println("(NEW) Nickname please!!");
+        } else {
+            User user = User.getCurrentUser();
+            File file = new File(".GWENT/Users/" + user.getName() + ".txt");
+            user.setNickname(newNickname);
+            GsonReaderWriter.saveToFile(user, Path.of(file.getAbsolutePath()));
+        }
     }
 
     public void changePassword(String newPassword, String oldPassword) {
-        // TODO
+        if (Objects.equals(oldPassword, newPassword)) {
+            System.out.println("(NEW) Password please!!");
+        } else {
+            User user = User.getCurrentUser();
+            File file = new File(".GWENT/Users/" + user.getName() + ".txt");
+            user.setPassword(newPassword);
+            GsonReaderWriter.saveToFile(user, Path.of(file.getAbsolutePath()));
+        }
     }
 
-    public void changeEmail(String newEmail) {
-        // TODO
+    public void changeEmail(String newEmail,String oldEmail) {
+        if (Objects.equals(oldEmail, newEmail)) {
+            System.out.println("(NEW) Email please!!");
+        } else {
+            User user = User.getCurrentUser();
+            File file = new File(".GWENT/Users/" + user.getName() + ".txt");
+            user.setEmail(newEmail);
+            GsonReaderWriter.saveToFile(user, Path.of(file.getAbsolutePath()));
+        }
     }
 
     public void showUserInfo() {
-        // TODO
+         User user=User.getCurrentUser();
+        System.out.println("Username:"+user.getName()+"\nNickname:"+ user.getNickname()+"\nEmail:"+user.getEmail());
     }
 
     public void showUserGameHistory() {

@@ -2,8 +2,11 @@ package controller;
 
 import enums.SemiRegexes;
 import model.Deck;
+import model.GsonReaderWriter;
+import model.User;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class Validator {
     private static Validator validator;
@@ -45,11 +48,12 @@ public class Validator {
     }
 
     public boolean isUsernameDuplicate(String username) {
-        return false; // TODO
+        return GsonReaderWriter.fileOf(User.getRelativePathToFile(username)).exists();
     }
 
     public boolean isFilePathDuplicate(String filePath) {
-        return true; // TODO
+        Path path = Path.of(filePath);
+        return path.toFile().exists();
     }
 
     public boolean isFileNameDuplicate(String fileName) {
