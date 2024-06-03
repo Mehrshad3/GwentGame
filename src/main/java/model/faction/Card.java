@@ -3,7 +3,7 @@ package model.faction;
 import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
 import enums.card.ability.CardAbility;
-import javafx.scene.Scene;
+import model.GameStatus;
 
 abstract public class Card {
     protected final CardAbility ability;
@@ -13,7 +13,7 @@ abstract public class Card {
     protected String name;
     protected boolean isHero = false;
     protected Integer rowNumber = null;
-    private boolean transformed = false;
+    protected boolean transformed = false;
 
     public Card(CardName cardName, String name, PossibleRowsToPlayCard rows, CardAbility ability, Integer initialPower) {
         this.cardName = cardName;
@@ -23,12 +23,13 @@ abstract public class Card {
         this.initialPower = initialPower;
     }
 
-    public void doAbility(Scene scene) {
-        this.ability.doAction(scene);
+    public void doAbility(GameStatus gaming) {
+        if (ability != null) this.ability.doAction(gaming, this);
     }
 
     public void transform() {
         transformed = true;
         // TODO: really transform the card
+        // Note that TransformerCard has a method that returns a new card, so maybe this method should be removed.
     }
 }

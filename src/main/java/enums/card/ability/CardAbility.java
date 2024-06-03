@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import model.App;
 import model.GameStatus;
 import model.Table;
+import model.faction.Card;
 
 public interface CardAbility {
     static GameStatus getGaming() {
@@ -14,5 +15,5 @@ public interface CardAbility {
         return getGaming().getTable();
     }
 
-    void doAction(Scene scene);
+    void doAction(GameStatus gaming, Card card);
 }

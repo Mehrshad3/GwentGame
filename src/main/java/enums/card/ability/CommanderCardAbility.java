@@ -1,8 +1,9 @@
 package enums.card.ability;
 
-import javafx.scene.Scene;
+import model.GameStatus;
+import model.faction.Card;
 
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 public enum CommanderCardAbility implements CardAbility {
     // Northern Realms Faction
@@ -34,14 +35,14 @@ public enum CommanderCardAbility implements CardAbility {
     KING_BRAN_ABILITY_PERFORMER(null),
 
     ;
-    private final Consumer<Scene> action;
+    private final BiConsumer<GameStatus, Card> action;
 
-    CommanderCardAbility(Consumer<Scene> action) {
+    CommanderCardAbility(BiConsumer<GameStatus, Card> action) {
         this.action = action;
     }
 
     @Override
-    public void doAction(Scene scene) {
-        this.action.accept(scene);
+    public void doAction(GameStatus gaming, Card card) {
+        this.action.accept(gaming, card);
     }
 }

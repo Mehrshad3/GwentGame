@@ -2,7 +2,6 @@ package controller;
 
 import model.GameStatus;
 import model.faction.Card;
-import model.faction.HeroCard;
 
 public class GameController extends MenuController {
     GameStatus gaming;

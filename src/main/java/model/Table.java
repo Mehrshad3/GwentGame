@@ -80,7 +80,7 @@ public class Table {
     }
 
     public void setCurrentWeather(WeatherCard weather) {
-        weather.doAbility(null);
+        weather.doAbility(null); // TODO: either give gaming to doAbility or remove setCurrentWeather
     }
 
     void changeTurn() {
