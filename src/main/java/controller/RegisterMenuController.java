@@ -33,7 +33,7 @@ public class RegisterMenuController extends LoginOrRegisterMenuController {
             else invalidInputs = false;
         }
         if (invalidInputs) return;
-        User.setCurrentUser(new User(username, password, email, nickname,"",""));//TODO
+        User.setCurrentUser(User.create(username, password, email, nickname,"",""));//TODO
         registerMenu.alertSuccessfulUserCreation(nickname, username);
     }
 

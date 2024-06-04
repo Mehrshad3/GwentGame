@@ -20,7 +20,6 @@ public enum Menu {
     private final MenuController menuController;
     public final Menu parentMenu;
     private final String menuTitle;
-//    private HashSet<Menu> childMenus = new HashSet<>(1);
     private AppMenu menu;
 
     Menu(AppMenu menu, MenuController menuController, Menu parentMenu, String menuTitle) {

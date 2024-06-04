@@ -1,8 +1,11 @@
 package model.faction;
 
-public class LeaderCard extends Card {
+import enums.card.CardName;
+import enums.card.PossibleRowsToPlayCard;
+import enums.card.ability.CommanderCardAbility;
 
-    public LeaderCard(String name, boolean isUnitCard, CardAbility ability, int power) {
-        super(name, isUnitCard, ability, power);
+public class LeaderCard extends Card {
+    public LeaderCard(CardName cardName, String name, CommanderCardAbility ability) {
+        super(cardName, name, PossibleRowsToPlayCard.LEADER_SPOT, ability, null);
     }
 }
