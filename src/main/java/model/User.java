@@ -19,20 +19,25 @@ public class User extends Player implements Serializable {
     private String securityAnswer;
     private String securityQuestion;
 
-    public User(String name, String password, String email, String nickname, String securityAnswer, String securityQuestion) {
+    private User(String name, String password, String email, String nickname, String securityAnswer, String securityQuestion) {
         super(name, nickname);
         this.password = password;
         this.email = email;
         this.nickname = nickname;
         this.securityAnswer = securityAnswer;
         this.securityQuestion = securityQuestion;
-        GsonReaderWriter.saveToFile(this, this.getRelativePathToFile());
     }
 
-    public static User loadUser(String username) { // TODO: think whether this is the right place for this?
-        return null; // TODO
+    public static User create(String name, String password, String email, String nickName, String securityAnswer,
+                              String securityQuestion) {
+        User newUser = new User(name, password, email, nickName, securityAnswer, securityQuestion);
+        GsonReaderWriter.getGsonReaderWriter().saveUser(newUser);
+        return newUser;
     }
 
+    public static User getCurrentUser() {
+        return CurrentUser;
+    }
 
     public static void setCurrentUser(User currentUser) {
         CurrentUser = currentUser;
@@ -42,32 +47,17 @@ public class User extends Player implements Serializable {
         return email;
     }
 
-    public static Path getRelativePathToFile(String username) {
-        assert username != null;
-        return Path.of("Users/" + username + "/profile.json");
-    }
-
-    Path getRelativePathToFile() {
-        return User.getRelativePathToFile(this.name);
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    public static User getCurrentUser() {
-        return CurrentUser;
-    }
-
 
     private void saveUser() {
         // TODO

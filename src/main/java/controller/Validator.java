@@ -20,7 +20,8 @@ public class Validator {
     }
 
     public boolean validateUsername(String username) {
-        return username.matches(SemiRegexes.VALID_USERNAME.regex);
+        System.out.println(username);
+        return SemiRegexes.VALID_USERNAME.matches(username);
     }
 
     public boolean validateNickname(String nickname) {
@@ -28,11 +29,11 @@ public class Validator {
     }
 
     public boolean validatePassword(String password) {
-        return password.matches(SemiRegexes.VALID_PASSWORD.regex);
+        return SemiRegexes.VALID_PASSWORD.matches(password);
     }
 
     public boolean validateEmail(String email) {
-        return email.matches(SemiRegexes.VALID_EMAIL_ADDRESS.regex);
+        return SemiRegexes.VALID_EMAIL_ADDRESS.matches(email);
     }
 
     public boolean validateFileName(String fileName) {
@@ -43,12 +44,16 @@ public class Validator {
         return false; // TODO
     }
 
+    public boolean validateDeckName(String deckName) {
+        return SemiRegexes.VALID_DECK_NAME.matches(deckName);
+    }
+
     public boolean isPasswordWeak(String password) {
-        return !password.matches(SemiRegexes.STRONG_PASSWORD_REGEX.regex);
+        return !SemiRegexes.STRONG_PASSWORD_REGEX.matches(password);
     }
 
     public boolean isUsernameDuplicate(String username) {
-        return GsonReaderWriter.fileOf(User.getRelativePathToFile(username)).exists();
+        return GsonReaderWriter.getGsonReaderWriter().doesUserExist(username);
     }
 
     public boolean isFilePathDuplicate(String filePath) {
@@ -60,8 +65,8 @@ public class Validator {
         return true; // TODO
     }
 
-    public boolean isPasswordCorrect(String password) {
-        return true; // TODO
+    public boolean isPasswordCorrect(User user, String password) {
+        return user.getPassword().equals(password);
     }
 
     public boolean checkNumberOfGameHistory(String number) {

@@ -23,6 +23,7 @@ public class PreGameMenuGraphic extends Application {
     private HBox bottomButtons;
     private HBox middleButtons;
     private VBox buttons;
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -42,7 +43,7 @@ public class PreGameMenuGraphic extends Application {
         middleButtons.setAlignment(Pos.CENTER);
         middleButtons.setSpacing(20);
 
-        buttons.getChildren().addAll(topButtons,bottomButtons,middleButtons);
+        buttons.getChildren().addAll(topButtons, bottomButtons, middleButtons);
 
         BorderPane pane = new BorderPane();
 //        pane.setCenter(topButtons);
@@ -107,15 +108,15 @@ public class PreGameMenuGraphic extends Application {
         Button SelectLeader = new Button("Select Leader");
         SelectLeader.setOnMouseClicked(mouseEvent -> selectLeader());
 
-        middleButtons.getChildren().addAll(ShowLeaders,SelectLeader);
+        middleButtons.getChildren().addAll(ShowLeaders, SelectLeader);
 
         for (Node child : topButtons.getChildren()) {
-            ((Button)child).setMinWidth(60);
-            ((Button)child).setMinHeight(40);
+            ((Button) child).setMinWidth(60);
+            ((Button) child).setMinHeight(40);
         }
         for (Node child : bottomButtons.getChildren()) {
-            ((Button)child).setMinWidth(60);
-            ((Button)child).setMinHeight(40);
+            ((Button) child).setMinWidth(60);
+            ((Button) child).setMinHeight(40);
         }
     }
 
@@ -174,7 +175,7 @@ public class PreGameMenuGraphic extends Application {
         pane.setBackground(null);
 
         Scene scene = new Scene(pane);
-        scene.setFill(new Color(0.90,0.90,0.90,0.1));
+        scene.setFill(new Color(0.90, 0.90, 0.90, 0.1));
         scene.getStylesheets().add(getClass().getResource("/CSS/1.css").toExternalForm());
         factions.getStylesheets().add(getClass().getResource("/CSS/1.css").toExternalForm());
         for (int i = 0; i < 5; i++) {

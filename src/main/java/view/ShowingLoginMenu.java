@@ -4,9 +4,6 @@ import controller.LoginMenuController;
 import controller.RegisterMenuController;
 import controller.Validator;
 import javafx.application.Application;
-
-//import javafx.beans.binding.Bindings;
-//import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.GsonReaderWriter;
 import model.User;
 
 import java.util.Optional;
@@ -48,10 +46,10 @@ public class ShowingLoginMenu extends Application {
 
         Instruction = new Label();
         Instruction.setText("""
-                1. For login just enter Username and Password
-                                
-                2. For Random Password Enter Random at Password And RepeatPassword
-                """);
+                 1. For login just enter Username and Password
+                                \s
+                 2. For Random Password Enter Random at Password And RepeatPassword
+                \s""");
         Instruction.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 15));
 
         loginmenu = new LoginMenu();
@@ -176,7 +174,7 @@ public class ShowingLoginMenu extends Application {
         Alert alert = new Alert(Alert.AlertType.NONE);
         if (validator.isUsernameDuplicate(Username.getText())) {
             alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("This Username is already exists");
+            alert.setContentText("This Username is already exists.");
             alert.show();
         } else if (!validator.validateUsername(Username.getText())) {
             alert.setAlertType(Alert.AlertType.ERROR);
@@ -198,7 +196,7 @@ public class ShowingLoginMenu extends Application {
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Passwords don't match");
             alert.show();
-        } else if (Nickname.getText() == null) {
+        } else if (Nickname.getText().isEmpty()) {
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setHeaderText("Nickname");
             alert.setContentText("Enter a nickname");
@@ -225,7 +223,8 @@ public class ShowingLoginMenu extends Application {
                     answer.setHeaderText("Your Answer");
                     Optional<String> securityAnswer = answer.showAndWait();
                     System.out.println(securityAnswer.get());
-                    User user = new User(Username.getText(), Password.getText(), Email.getText(), Nickname.getText(), securityAnswer.get(), (String) securityQuestions.getSelectedItem());
+                    User user = User.create(Username.getText(), Password.getText(), Email.getText(), Nickname.getText(),
+                            securityAnswer.get(), (String) securityQuestions.getSelectedItem());
                     alert.setAlertType(Alert.AlertType.CONFIRMATION);
                     alert.setHeaderText("Success");
                     alert.setContentText("Register Completed");
@@ -236,12 +235,23 @@ public class ShowingLoginMenu extends Application {
     }
 
     private void login() {
-        
-        ShowProfileMenu showMainMenu = new ShowProfileMenu();
-        try {
-            showMainMenu.start(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        User user = GsonReaderWriter.getGsonReaderWriter().loadUser(Username.getText());
+        if (user == null) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("This username doesn't exist yet.");
+            alert.show();
+        } else if (!validator.isPasswordCorrect(user, Password.getText())) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Password entered is not correct.");
+        } else {
+            ShowProfileMenu showMainMenu = new ShowProfileMenu();
+            try {
+                User.setCurrentUser(user);
+                showMainMenu.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

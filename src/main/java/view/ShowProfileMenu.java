@@ -29,7 +29,7 @@ public class ShowProfileMenu extends Application {
     private ProfileMenuController profileMenuController;
     @Override
     public void start(Stage stage) throws Exception {
-        User user = new User("nima","123","nima@gmail.com","n.ooo","","");
+        User user = User.create("nima","123","nima@gmail.com","n.ooo","","");
         User.setCurrentUser(user);
         profileMenuController = new ProfileMenuController();
         this.stage = stage;
