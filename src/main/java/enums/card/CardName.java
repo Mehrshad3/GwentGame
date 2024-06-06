@@ -6,6 +6,8 @@ import enums.card.ability.UnitOrSpellCardAbility;
 import enums.card.ability.WeatherCardAbility;
 import model.faction.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import static enums.card.PossibleRowsToPlayCard.*;
@@ -28,7 +30,8 @@ public enum CardName {
     CLAN_AN_CRAITE("Clan an Craite", SKELLIGE, 6, 3, CLOSE_COMBAT, TIGHT_BOND, false),
     MADMAN_LUGOS("Madman Lugos", SKELLIGE, 6, 1, CLOSE_COMBAT, null, false),
     CERYS("Cerys", SKELLIGE, 10, 1, CLOSE_COMBAT, MUSTER, true), // Its Muster effect will summon Shield Maiden cards and other musters.
-    KAMBI("Kambi", SKELLIGE, 11, 1, CLOSE_COMBAT, TRANSFORMERS, true), // Turns into a card with a power of 8 after one round
+    HEMDALL("Hemdall", SKELLIGE, 8, 0, CLOSE_COMBAT, null, true),
+    KAMBI("Kambi", SKELLIGE, 11, 1, CLOSE_COMBAT, TRANSFORMERS, true, HEMDALL), // Turns into a card with a power of 8 after one round
     BIRNA_BRAN("Birna Bran", SKELLIGE, 2, 1, CLOSE_COMBAT, MEDIC, false),
     CLAN_DRUMMOND_SHIELD_MAIDEN("Clan Drummond Shield Maiden", SKELLIGE, 4, 3, CLOSE_COMBAT, TIGHT_BOND, false),
     CLAN_DIMUN_PIRATE("Clan Dimun Pirate", SKELLIGE, 6, 1, RANGED, SIEGE_SCORCH, false),
@@ -41,7 +44,6 @@ public enum CardName {
     WAR_LONGSHIP("War Longship", SKELLIGE, 6, 3, SIEGE, TIGHT_BOND, false),
     DRAIG_BON_DHU("Draig Bon-Dhu", SKELLIGE, 2, 1, SIEGE, COMMANDER_HORN, false),
     OLAF("Olaf", SKELLIGE, 12, 1, AGILE, MORALE_BOOST, false),
-    HEMDALL("Hemdall", SKELLIGE, 8, 0, CLOSE_COMBAT, null, true),
 
     // Scoia'tael
     // Leaders
@@ -190,12 +192,20 @@ public enum CardName {
     VILLENTRETENMERTH("Villentretenmerth", NEUTRAL, 7, 1, CLOSE_COMBAT, OPPONENT_COMBAT_SCORCH, false),
     ;
     public final static int MAXIMUM_NUMBER_OF_EACH_SPECIAL_CARD = 3;
+    private static final Map<String, CardName> map = new HashMap<>(CardName.values().length);
+
+    static {
+        for (CardName object : CardName.values()) {
+            map.put(object.name, object);
+        }
+    }
+
     public final Faction faction;
-    final Supplier<Card> getNewCard;
     final String name;
     final Integer initialPower;
     final int maximumNumberOfCardsInGame;
     final CardAbility ability;
+    private final Supplier<Card> getNewCard;
 
     /**
      * Constructor for non-transformer unit cards and hero cards
@@ -259,6 +269,12 @@ public enum CardName {
         this.maximumNumberOfCardsInGame = MAXIMUM_NUMBER_OF_EACH_SPECIAL_CARD;
         this.ability = ability;
         this.getNewCard = () -> new WeatherCard(this, name, ability);
+    }
+
+    public static Card getCardByName(String name) {
+        CardName cardName = map.get(name);
+        if (cardName == null) return null;
+        return cardName.getNewCard.get();
     }
 
     public Card getNewCard() {
