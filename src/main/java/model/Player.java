@@ -4,7 +4,7 @@ public class Player {
     protected String name;
     protected String nickname;
     protected Deck deck = new Deck();
-
+    private String faction;
     public Player(String name, String nickname) {
         this.name = name;
         this.nickname = nickname;
@@ -32,5 +32,13 @@ public class Player {
 
     public int getNumberOfSoldiers() {
         return deck.getNumberOfSoldiers();
+    }
+
+    public String getFaction() {
+        return faction;
+    }
+
+    public void setFaction(String faction) {
+        this.faction = faction;
     }
 }

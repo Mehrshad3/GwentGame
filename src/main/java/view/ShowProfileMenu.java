@@ -29,8 +29,8 @@ public class ShowProfileMenu extends Application {
     private ProfileMenuController profileMenuController;
     @Override
     public void start(Stage stage) throws Exception {
-        User user = new User("nima","123","nima@gmail.com","n.ooo","","");
-        User.setCurrentUser(user);
+//        User user = new User("nima","123","nima@gmail.com","n.ooo","","");
+//        User.setCurrentUser(user);
         profileMenuController = new ProfileMenuController();
         this.stage = stage;
         info = new HBox();
@@ -54,18 +54,21 @@ public class ShowProfileMenu extends Application {
 
     private void setInfoAndButtonsNodes(){
         Username = new Label("Username: " + User.getCurrentUser().getName());
-        Username.setMinWidth(User.getCurrentUser().getName().length()*40);
-        Username.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,20));
+        Username.setMinWidth(User.getCurrentUser().getName().length()*30);
+        Username.setMaxWidth(150);
+        Username.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,17));
         info.getChildren().add(Username);
 
         NickName = new Label("Nickname: " + User.getCurrentUser().getNickname());
-        NickName.setMinWidth(User.getCurrentUser().getNickname().length()*40);
-        NickName.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,20));
+        NickName.setMinWidth(User.getCurrentUser().getNickname().length()*30);
+        NickName.setMaxWidth(150);
+        NickName.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,17));
         info.getChildren().add(NickName);
 
         Email = new Label("Email: " + User.getCurrentUser().getEmail());
-        Email.setMinWidth(User.getCurrentUser().getEmail().length()*40);
-        Email.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,20));
+        Email.setMinWidth(User.getCurrentUser().getEmail().length()*30);
+        Email.setMaxWidth(150);
+        Email.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,17));
         info.getChildren().add(Email);
 
         Button ChangeUsernameButton = new Button("Change Username");

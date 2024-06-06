@@ -1,6 +1,6 @@
 package model.faction;
 
-abstract public class Card {
+public abstract class Card {
     protected final CardAbility ability;
     protected String name;
     protected boolean isUnitCard;
@@ -18,5 +18,13 @@ abstract public class Card {
 
     public void transform() {
         transformed = true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

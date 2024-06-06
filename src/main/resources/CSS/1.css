@@ -1,7 +1,7 @@
 #pane{
     /*-fx-background-color: rgb(47, 47, 47);*/
     -fx-background-image: url("../IMAGES/factionsBackground.png");
-    -fx-background-size: auto;
+    -fx-background-size: 100% 100%;
     /*-fx-background-position: auto;*/
 }
 #faction{

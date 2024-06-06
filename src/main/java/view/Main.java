@@ -2,6 +2,7 @@ package view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.App;
 import view.AppView;
 
 public class Main extends Application {
@@ -17,8 +18,9 @@ public class Main extends Application {
 //        stage.setResizable(false);
 //        stage.setHeight(500);
 //        stage.setWidth(1000);
-//        stage.setMinHeight(800);
-//        stage.setMinWidth(1400);
+//        stage.setMinHeight(500);
+//        stage.setMinWidth(500);
         menu.start(stage);
+        App.setStage(stage);
     }
 }

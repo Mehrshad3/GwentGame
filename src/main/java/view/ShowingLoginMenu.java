@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.GsonReaderWriter;
 import model.User;
 
 import java.util.Optional;
@@ -66,6 +67,7 @@ public class ShowingLoginMenu extends Application {
         addPaneChildren();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -225,23 +227,51 @@ public class ShowingLoginMenu extends Application {
                     answer.setHeaderText("Your Answer");
                     Optional<String> securityAnswer = answer.showAndWait();
                     System.out.println(securityAnswer.get());
-                    User user = new User(Username.getText(), Password.getText(), Email.getText(), Nickname.getText(), securityAnswer.get(), (String) securityQuestions.getSelectedItem());
+                    User user = new User(Username.getText(), suggestedPassword, Email.getText(), Nickname.getText(), securityAnswer.get(), (String) securityQuestions.getSelectedItem());
                     alert.setAlertType(Alert.AlertType.CONFIRMATION);
                     alert.setHeaderText("Success");
                     alert.setContentText("Register Completed");
+                    alert.show();
                 }
 //                System.out.println(res.get());
+            }
+        } else {
+            String[] questions = {"DayOfBirth", "FavoriteMovie", "YourFavoriteSchoolTeacher"};
+            ChoiceDialog securityQuestions = new ChoiceDialog(questions[0], questions);
+            securityQuestions.showAndWait();
+            if (!securityQuestions.isShowing()) {
+
+                System.out.println(securityQuestions.getSelectedItem());
+                TextInputDialog answer = new TextInputDialog();
+                answer.setHeaderText("Your Answer");
+                Optional<String> securityAnswer = answer.showAndWait();
+                System.out.println(securityAnswer.get());
+                User user = new User(Username.getText(), Password.getText(), Email.getText(), Nickname.getText(), securityAnswer.get(), (String) securityQuestions.getSelectedItem());
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Success");
+                alert.setContentText("Register Completed");
+                alert.show();
             }
         }
     }
 
     private void login() {
-        
-        ShowProfileMenu showMainMenu = new ShowProfileMenu();
-        try {
-            showMainMenu.start(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (GsonReaderWriter.fileOf(User.getRelativePathToFile(Username.getText())).exists()) {
+            ShowProfileMenu showMainMenu = new ShowProfileMenu();
+            MainMenuGraphic mainMenu = new MainMenuGraphic();
+            User.setCurrentUser(GsonReaderWriter.loadFromFile(User.getRelativePathToFile(Username.getText()), User.class));
+            try {
+//                showMainMenu.start(stage);
+                mainMenu.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("No such User");
+            alert.setHeaderText("No such User");
+            alert.show();
         }
+
     }
 }

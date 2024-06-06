@@ -4,10 +4,11 @@ import model.faction.Card;
 import model.faction.Faction;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Deck implements Serializable {
     private Card[] discardCards;
-    private Card[] inHandCards;
+    private ArrayList<Card> inHandCards = new ArrayList<>();
     private Card currentLeaderCard;
     private Card[] leaderCards;
     private Faction faction;
@@ -16,7 +17,7 @@ public class Deck implements Serializable {
         return discardCards;
     }
 
-    public Card[] getInHandCards() {
+    public ArrayList<Card> getInHandCards() {
         return inHandCards;
     }
 
@@ -32,7 +33,7 @@ public class Deck implements Serializable {
         this.discardCards = discardCards;
     }
 
-    public void setInHandCards(Card[] inHandCards) {
+    public void setInHandCards(ArrayList<Card> inHandCards) {
         this.inHandCards = inHandCards;
     }
 
@@ -46,5 +47,8 @@ public class Deck implements Serializable {
 
     public int getNumberOfSoldiers() {
         return 0; //TODO
+    }
+    public void addCardToHand(Card card){
+        inHandCards.add(card);
     }
 }
