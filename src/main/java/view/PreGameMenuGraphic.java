@@ -202,6 +202,7 @@ public class PreGameMenuGraphic extends Application {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("All Files", "*.*");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(new Stage());
+        GsonReaderWriter.getGsonReaderWriter().saveDeckToFile(new Deck(), file);
     }
 
     private void saveDeckByName() {

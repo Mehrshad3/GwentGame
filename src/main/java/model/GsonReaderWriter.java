@@ -20,8 +20,29 @@ public final class GsonReaderWriter {
         return gsonReaderWriter;
     }
 
+    private <T extends Serializable> T loadFromFile(File file, Class<T> tClass) {
+        Gson gson = new Gson();
+        T object = null;
+        if (!file.exists()) return null;
+        try {
+            Scanner scanner = new Scanner(file);
+            String json = new String(Files.readAllBytes(file.toPath()));
+            JsonReader reader = new JsonReader(new FileReader(file));
+            object = gson.fromJson(reader, tClass);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return object;
+    }
+
     private <T extends Serializable> void saveToFile(T object, FilePath path) {
         File file = getAndCreateFile(path);
+        saveToFile(object, file);
+    }
+
+    private <T extends Serializable> void saveToFile(T object, File file) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(object);
         try (PrintWriter pw = new PrintWriter(file)) {
@@ -45,22 +66,9 @@ public final class GsonReaderWriter {
         }
     }
 
-    private <T> T loadFromFile(FilePath relativePathToFile, Class<T> tClass) {
-        Gson gson = new Gson();
-        T object = null;
+    private <T extends Serializable> T loadFromFile(FilePath relativePathToFile, Class<T> tClass) {
         File file = relativePathToFile.toFile();
-        if (!file.exists()) return null;
-        try {
-            Scanner scanner = new Scanner(file);
-            String json = new String(Files.readAllBytes(file.toPath()));
-            JsonReader reader = new JsonReader(new FileReader(file));
-            object = gson.fromJson(reader, tClass);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return object;
+        return loadFromFile(file, tClass);
     }
 
     private FilePath pathOfUser(String username) {
@@ -93,6 +101,14 @@ public final class GsonReaderWriter {
         User currentUser = User.getCurrentUser();
         assert currentUser != null && deckName != null;
         return loadFromFile(pathOfDeck(deckName), Deck.class);
+    }
+
+    public Deck loadDeckFromFile(File file) {
+        return loadFromFile(file, Deck.class);
+    }
+
+    public void saveDeckToFile(Deck deck, File file) {
+        saveToFile(deck, file);
     }
 
     public void saveUser(User user) {
