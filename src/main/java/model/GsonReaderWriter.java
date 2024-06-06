@@ -6,14 +6,22 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Scanner;
 
-public abstract class GsonReaderWriter {
-    private static final Path gwentPath = Path.of(".GWENT");
+public final class GsonReaderWriter {
+    private static final FilePath GWENT_PATH = FilePath.of(".GWENT");
+    private static GsonReaderWriter gsonReaderWriter;
 
-    public static <T extends Serializable> void saveToFile(T object, Path relativePath) {
-        File file = getAndCreateFile(object, relativePath);
+    private GsonReaderWriter() {
+    }
+
+    public static GsonReaderWriter getGsonReaderWriter() {
+        if (gsonReaderWriter == null) gsonReaderWriter = new GsonReaderWriter();
+        return gsonReaderWriter;
+    }
+
+    private <T extends Serializable> void saveToFile(T object, FilePath path) {
+        File file = getAndCreateFile(path);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(object);
         try (PrintWriter pw = new PrintWriter(file)) {
@@ -23,12 +31,12 @@ public abstract class GsonReaderWriter {
         }
     }
 
-    private static <T extends Serializable> File getAndCreateFile(T object, Path relativePath) {
-        Path parentDirectoryPath = relativePath.getParent();
-        File parentDirectory = fileOf(parentDirectoryPath);
+    private <T extends Serializable> File getAndCreateFile(FilePath path) {
+        FilePath parentDirectoryPath = path.getParent();
+        File parentDirectory = parentDirectoryPath.toFile();
         if (!parentDirectory.mkdirs() && !parentDirectory.exists())
             throw new RuntimeException("Couldn't create necessary directories");
-        File file = fileOf(relativePath);
+        File file = path.toFile();
         try {
             file.createNewFile();
             return file;
@@ -37,10 +45,10 @@ public abstract class GsonReaderWriter {
         }
     }
 
-    public static <T> T loadFromFile(Path relativePathToFile, Class<T> tClass) {
+    private <T> T loadFromFile(FilePath relativePathToFile, Class<T> tClass) {
         Gson gson = new Gson();
         T object = null;
-        File file = fileOf(relativePathToFile);
+        File file = relativePathToFile.toFile();
         if (!file.exists()) return null;
         try {
             Scanner scanner = new Scanner(file);
@@ -55,8 +63,45 @@ public abstract class GsonReaderWriter {
         return object;
     }
 
-    public static File fileOf(Path path) {
-        Path resolvedPath = path != null ? gwentPath.resolve(path) : gwentPath;
-        return resolvedPath.toFile();
+    private FilePath pathOfUser(String username) {
+        assert username != null;
+        return GWENT_PATH.resolve(FilePath.of("Users/" + username + "/profile.json"));
+    }
+
+    /**
+     * Detects the current user and returns a path to store the deck for that user.
+     */
+    private FilePath pathOfDeck(String deckName) {
+        User currentUser = User.getCurrentUser();
+        assert currentUser != null && deckName != null;
+        FilePath relativePath = FilePath.of("Users/" + currentUser.getName() + "/Saved Decks/Deck " + deckName + ".json");
+        return GWENT_PATH.resolve(relativePath);
+
+    }
+
+    public User loadUser(String username) {
+        assert username != null;
+        return loadFromFile(pathOfUser(username), User.class);
+    }
+
+    public boolean doesUserExist(String username) {
+        File file = pathOfUser(username).toFile();
+        return file.exists();
+    }
+
+    public Deck loadDeckByName(String deckName) {
+        User currentUser = User.getCurrentUser();
+        assert currentUser != null && deckName != null;
+        return loadFromFile(pathOfDeck(deckName), Deck.class);
+    }
+
+    public void saveUser(User user) {
+        assert user != null;
+        saveToFile(user, pathOfUser(user.getName()));
+    }
+
+    public void saveDeckByName(Deck deck, String deckName) {
+        assert deck != null && deckName != null;
+        saveToFile(deck, pathOfDeck(deckName));
     }
 }

@@ -1,5 +1,9 @@
 package model;
 
+import model.faction.Card;
+
+import java.util.ArrayList;
+
 public class GameStatus {
     private int numberOfPassedRounds = 0;
     private Table table;
@@ -53,5 +57,17 @@ public class GameStatus {
 
     public void changeTurn() {
         table.changeTurn();
+    }
+
+    public ArrayList<Card> getDiscardPile(Player player) {
+        return player.getDeck().getDiscardCards();
+    }
+
+    public void removeFromDiscardPile(Card card, Player player) {
+        player.getDeck().getDiscardCards().remove(card);
+    }
+
+    public void moveToDiscardPile(Card card, Player player) {
+        player.getDeck().moveToDiscardPile(card);
     }
 }

@@ -1,9 +1,9 @@
 package model;
 
+import enums.card.RowWeather;
 import model.faction.Card;
 import model.faction.SpellCard;
-import model.weather.Weather;
-import model.weather.WeatherElement;
+import model.faction.WeatherCard;
 
 import java.util.ArrayList;
 
@@ -12,13 +12,12 @@ public class Table {
     final Player player1;
     final Player player2;
     int currentPlayerPlaying = 1;
-    private int numberOfTurnsPassed = 0;
     int numberOfRounds;
     Deck player1Deck;
     Deck player2Deck;
     ArrayList<SpellCard> spells;
     Card currentSpell = null;
-    Weather currentWeather = new Weather(WeatherElement.NEUTRAL);
+    private int numberOfTurnsPassed = 0;
 
     public Table(Player player1, Player player2) {
         this.player1 = player1;
@@ -63,17 +62,25 @@ public class Table {
         return spells;
     }
 
+    public Card getCurrentSpell() {
+        return currentSpell;
+    }
+
     public void setCurrentSpell(SpellCard currentSpell) {
         spells.add(currentSpell);
         this.currentSpell = currentSpell;
     }
 
-    public Card getCurrentSpell() {
-        return currentSpell;
+    public RowWeather[] getCurrentWeather() {
+        RowWeather[] weathers = new RowWeather[3];
+        for (int i = 0; i < weathers.length; i++) {
+            weathers[i] = rows[i].getWeather();
+        }
+        return weathers;
     }
 
-    public Weather getCurrentWeather() {
-        return currentWeather;
+    public void setCurrentWeather(WeatherCard weather) {
+        weather.doAbility(null); // TODO: either give gaming to doAbility or remove setCurrentWeather
     }
 
     void changeTurn() {
@@ -83,9 +90,5 @@ public class Table {
 
     public void finishRound() {
         this.numberOfRounds += 1;
-    }
-
-    public void setCurrentWeather(WeatherElement newWeather) {
-        this.currentWeather = new Weather(newWeather);
     }
 }

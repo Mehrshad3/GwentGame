@@ -1,7 +1,9 @@
-package model.faction;
+package enums.card.ability;
 
-import java.util.Scanner;
-import java.util.function.Consumer;
+import model.GameStatus;
+import model.faction.Card;
+
+import java.util.function.BiConsumer;
 
 public enum CommanderCardAbility implements CardAbility {
     // Northern Realms Faction
@@ -22,7 +24,7 @@ public enum CommanderCardAbility implements CardAbility {
     DESTROYER_OF_WORLDS_ABILITY_PERFORMER(null),
     COMMANDER_OF_THE_RED_RIDERS_ABILITY_PERFORMER(null),
     THE_TREACHEROUS_ABILITY_PERFORMER(null),
-    // Scoia'Taell faction
+    // Scoia'tael faction
     QUEEN_OF_DOL_BLATHANNA_ABILITY_PERFORMER(null),
     THE_BEAUTIFUL_ABILITY_PERFORMER(null),
     DAISY_OF_THE_VALLEY_ABILITY_PERFORMER(null),
@@ -33,14 +35,14 @@ public enum CommanderCardAbility implements CardAbility {
     KING_BRAN_ABILITY_PERFORMER(null),
 
     ;
-    private final Consumer<Scanner> action;
+    private final BiConsumer<GameStatus, Card> action;
 
-    CommanderCardAbility(Consumer<Scanner> action) {
+    CommanderCardAbility(BiConsumer<GameStatus, Card> action) {
         this.action = action;
     }
 
     @Override
-    public void doAction(Scanner scanner) {
-        this.action.accept(scanner);
+    public void doAction(GameStatus gaming, Card card) {
+        this.action.accept(gaming, card);
     }
 }

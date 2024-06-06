@@ -1,16 +1,13 @@
-package enums;
+package enums.regexes;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum MainMenuCommands implements MatcherSupplier {
-    Logout("\\s*user\\s+logout\\s*"),
-    GoToProfileMenu("\\s*go\\s+to\\s+profile\\s+menu\\s*"),
-    GoToPreGameMenu("\\s*go\\s+to\\s+game\\s+menu\\s*"),
-    ShowCurrentMenu("\\s*show\\s+current\\s+menu\\s*");
+public enum GameMenuCommands implements MatcherSupplier {
+    ;
     private String pattern;
 
-    MainMenuCommands(String pattern) {
+    GameMenuCommands(String pattern) {
         this.pattern = pattern;
     }
 

@@ -1,7 +1,7 @@
 package view;
 
 import controller.MainMenuController;
-import enums.MainMenuCommands;
+import enums.regexes.MainMenuCommands;
 import enums.Menu;
 import model.App;
 import model.User;

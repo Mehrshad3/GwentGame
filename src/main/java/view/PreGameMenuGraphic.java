@@ -23,7 +23,7 @@ import model.Deck;
 import model.GsonReaderWriter;
 import model.User;
 import model.faction.Card;
-import model.faction.NonCommanderCardAbility;
+//import model.faction.NonCommanderCardAbility;
 import view.Animation.FactionCardAnimation;
 
 import java.io.File;
@@ -36,10 +36,11 @@ public class PreGameMenuGraphic extends Application {
     private HBox bottomButtons;
     private HBox middleButtons;
     private VBox buttons;
+
     @Override
     public void start(Stage stage) throws Exception {
-
-        User.setCurrentUser(GsonReaderWriter.loadFromFile(User.getRelativePathToFile("Mehrshad"),User.class));
+        User.setCurrentUser(GsonReaderWriter.getGsonReaderWriter().loadUser("Mehrshad"));
+//        User.setCurrentUser(GsonReaderWriter.loadFromFile(User.getRelativePathToFile("Mehrshad"),User.class));
 //        User.getCurrentUser().getDeck().addCardToHand(new Card("man",false, NonCommanderCardAbility.SPY,10));
 //        User.getCurrentUser().getDeck().addCardToHand(new Card("mon",false,NonCommanderCardAbility.SPY,10));
 //        User.getCurrentUser().getDeck().addCardToHand(new Card("min",false,NonCommanderCardAbility.SPY,10));
@@ -59,7 +60,7 @@ public class PreGameMenuGraphic extends Application {
         middleButtons.setAlignment(Pos.CENTER);
         middleButtons.setSpacing(20);
 
-        buttons.getChildren().addAll(topButtons,bottomButtons,middleButtons);
+        buttons.getChildren().addAll(topButtons, bottomButtons, middleButtons);
 
         BorderPane pane = new BorderPane();
 //        pane.setCenter(topButtons);
@@ -131,13 +132,14 @@ public class PreGameMenuGraphic extends Application {
 
         middleButtons.getChildren().addAll(ShowLeaders,SelectLeader,AddCardToDeck);
 
+
         for (Node child : topButtons.getChildren()) {
-            ((Button)child).setMinWidth(60);
-            ((Button)child).setMinHeight(40);
+            ((Button) child).setMinWidth(60);
+            ((Button) child).setMinHeight(40);
         }
         for (Node child : bottomButtons.getChildren()) {
-            ((Button)child).setMinWidth(60);
-            ((Button)child).setMinHeight(40);
+            ((Button) child).setMinWidth(60);
+            ((Button) child).setMinHeight(40);
         }
     }
 
@@ -265,7 +267,7 @@ public class PreGameMenuGraphic extends Application {
                 ImageView cardImage = new ImageView();
                 cardImage.setFitHeight(200);
                 cardImage.setFitWidth(120);
-                cardImage.setImage(new Image(getClass().getResource("/IMAGES/" + card.getName() + ".png").toExternalForm()));
+//                cardImage.setImage(new Image(getClass().getResource("/IMAGES/" + card.getName() + ".png").toExternalForm()));
                 hBox.getChildren().add(cardImage);
                 counter++;
             }
@@ -321,6 +323,7 @@ public class PreGameMenuGraphic extends Application {
         pane.setBackground(null);
 
         Scene scene = new Scene(pane);
+
         scene.getStylesheets().add(getClass().getResource("/CSS/1.css").toExternalForm());
         for (int i = 0; i < 5; i++) {
             ImageView faction = new ImageView();
@@ -367,6 +370,7 @@ public class PreGameMenuGraphic extends Application {
         text.setAlignment(Pos.CENTER);
         Scene scene = new Scene(pane);
         scene.setFill(new Color(0.90,0.90,0.90,0.1));
+
         scene.getStylesheets().add(getClass().getResource("/CSS/1.css").toExternalForm());
 //        factions.getStylesheets().add(getClass().getResource("/CSS/1.css").toExternalForm());
         pane.setBottom(text);

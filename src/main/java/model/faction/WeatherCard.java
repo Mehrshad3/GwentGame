@@ -2,10 +2,10 @@ package model.faction;
 
 import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
-import enums.card.ability.CardAbility;
+import enums.card.ability.WeatherCardAbility;
 
-public class SpellCard extends Card {
-    public SpellCard(CardName cardName, String name, CardAbility ability) {
+public class WeatherCard extends Card {
+    public WeatherCard(CardName cardName, String name, WeatherCardAbility ability) {
         super(cardName, name, PossibleRowsToPlayCard.SPECIAL, ability, null);
     }
 }

@@ -1,6 +1,6 @@
 package controller;
 
-import enums.SemiRegexes;
+import enums.regexes.SemiRegexes;
 
 import java.security.SecureRandom;
 import java.util.Random;
