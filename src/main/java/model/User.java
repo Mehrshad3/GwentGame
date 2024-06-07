@@ -2,7 +2,6 @@ package model;
 
 
 import java.io.Serializable;
-import java.nio.file.Path;
 import java.util.LinkedList;
 
 public class User extends Player implements Serializable {
@@ -66,5 +65,4 @@ public class User extends Player implements Serializable {
     public int getWins() {
         return numberOfWins;
     }
-
 }

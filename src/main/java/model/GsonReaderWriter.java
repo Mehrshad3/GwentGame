@@ -3,6 +3,7 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import model.faction.Faction;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -89,7 +90,10 @@ public final class GsonReaderWriter {
 
     public User loadUser(String username) {
         assert username != null;
-        return loadFromFile(pathOfUser(username), User.class);
+        User user = loadFromFile(pathOfUser(username), User.class);
+        if (user == null) return null;
+        if (user.getDeck() == null) user.setDeck(new Deck(Faction.MONSTERS));
+        return user;
     }
 
     public boolean doesUserExist(String username) {
