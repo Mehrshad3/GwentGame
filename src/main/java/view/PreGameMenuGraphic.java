@@ -1,5 +1,7 @@
 package view;
 
+import controller.GameController;
+import enums.Menu;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,18 +19,13 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import model.App;
-import model.Deck;
-import model.GsonReaderWriter;
-import model.User;
+import model.*;
 import model.faction.Card;
 //import model.faction.NonCommanderCardAbility;
 import view.Animation.FactionCardAnimation;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 public class PreGameMenuGraphic extends Application {
@@ -86,9 +83,9 @@ public class PreGameMenuGraphic extends Application {
         ShowFraction.setOnMouseClicked(mouseEvent -> showFactions());
         topButtons.getChildren().add(ShowFraction);
 
-        Button ChangeFraction = new Button("Change Faction");
-        ChangeFraction.setOnMouseClicked(mouseEvent -> changeUserFaction());
-        topButtons.getChildren().add(ChangeFraction);
+        Button ChangeFaction = new Button("Change Faction");
+        ChangeFaction.setOnMouseClicked(mouseEvent -> changeUserFaction());
+        topButtons.getChildren().add(ChangeFaction);
 
         Button ShowCards = new Button("Show Cards");
         ShowCards.setOnMouseClicked(mouseEvent -> showCards());
@@ -202,6 +199,7 @@ public class PreGameMenuGraphic extends Application {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("All Files", "*.*");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(new Stage());
+        GsonReaderWriter.getGsonReaderWriter().saveDeckToFile(User.getCurrentUser().getDeck(), file);
     }
 
     private void saveDeckByName() {
@@ -442,18 +440,13 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void startNewGame() {
-        BorderPane pane = new BorderPane();
-        pane.setId("pane");
-        pane.getStylesheets().add(getClass().getResource("/CSS/GameTable.css").toExternalForm());
-        Scene scene = new Scene(pane);
-        Stage stage = App.getStage();
-
-        stage.setScene(scene);
-        App.getStage().close();
-        stage.show();
-        stage.setMinHeight(800);
-        stage.setMinWidth(1200);
-        stage.centerOnScreen();//TODO make background
-//        stage.setFullScreen(true);
+        GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();
+        GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+        gameController.setStartStatus(User.getCurrentUser());
+        try {
+            gameMenuGraphic.start(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

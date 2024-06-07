@@ -32,11 +32,12 @@ public class App {
     public static void setStage(Stage stage) {
         App.stage = stage;
     }
-        public GameStatus getGaming () {
-            return gaming;
-        }
 
-        public void setGaming (GameStatus gaming){
-            this.gaming = gaming;
-        }
+    public GameStatus getGaming() {
+        return gaming;
     }
+
+    public void setGaming(GameStatus gaming) {
+        this.gaming = gaming;
+    }
+}
