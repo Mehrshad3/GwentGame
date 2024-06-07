@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -74,7 +71,7 @@ public class GameGraphicController {
     @FXML
     private GridPane playersInfo;
     @FXML
-    private Pane rootPane;
+    private BorderPane rootPane;
     private double opponentLeaderVerticalPercent;
     private double leaderHorizontalPercent;
     private double selfLeaderVerticalPercent;

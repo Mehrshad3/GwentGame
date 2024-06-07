@@ -5,7 +5,7 @@ import enums.Menu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.App;
 
@@ -19,7 +19,7 @@ public class GameMenuGraphic extends Application {
     public void start(Stage stage) throws Exception {
         URL url = getClass().getResource("/FXML/GameMenu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(url));
-        Pane pane = fxmlLoader.load(); // TODO: specify the type
+        BorderPane pane = fxmlLoader.load();
         Scene scene = new Scene(pane);
         stage = App.getStage();
 

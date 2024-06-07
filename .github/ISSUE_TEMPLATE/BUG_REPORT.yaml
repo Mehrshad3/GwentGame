@@ -1,0 +1,47 @@
+name: Bug Report
+description: Report errors or unexpected behavior.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting issues of Gwent.
+
+        To make it easier for us to help you please enter detailed information below.
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behaviour
+      placeholder: Tell us what should happen
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual behaviour
+      placeholder: Tell us what happens instead
+  - type: dropdown
+    attributes:
+      label: JDK version
+      multiple: false
+      options:
+        - JDK 1.8
+        - JDK 8 - Lambdas, type annotations, etc.
+        - JDK 17 - Sealed types, always-strict floating-point semantics
+        - JDK 21 - Record patterns, pattern matching for switch
+        - JDK 22 - Unnamed variables and patterns
+        - other (please specify)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Logs
+      placeholder: Paste the stacktrace in ```System.err``` here.
+      render: shell
