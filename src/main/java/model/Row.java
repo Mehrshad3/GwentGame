@@ -3,9 +3,10 @@ package model;
 import enums.card.RowWeather;
 import model.faction.Card;
 import model.faction.SpellCard;
+import model.faction.UnitCard;
 
 public class Row {
-    private final Card[] cards = new Card[9];
+    private final UnitCard[] unitCards = new UnitCard[9];
     private boolean specialCardExists = false;
     private RowWeather weather = RowWeather.CLEAR_WEATHER;
     private SpellCard spell = null;
@@ -40,8 +41,8 @@ public class Row {
         this.specialCardExists = specialCardExists;
     }
 
-    public Card[] getCards() {
-        return cards;
+    public UnitCard[] getCards() {
+        return unitCards;
     }
 
     public boolean doesSpecialCardExist() {
