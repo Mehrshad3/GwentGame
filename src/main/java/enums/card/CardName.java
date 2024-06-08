@@ -15,7 +15,83 @@ import static enums.card.ability.CommanderCardAbility.*;
 import static enums.card.ability.UnitOrSpellCardAbility.*;
 import static model.faction.Faction.*;
 
+/**
+ * List of all card names, factions, initial powers, maximum instances per player, etc.
+ * Names sorted by their factions, sorted by their order in {@link Faction} and finally listed neutral cards.
+ */
 public enum CardName {
+    // Monsters
+    // Leaders
+    BRINGER_OF_DEATH("Bringer of Death", MONSTERS, BRINGER_OF_DEATH_ABILITY_PERFORMER),
+    KING_OF_THE_WILD_HUNT("King of the Wild Hunt", MONSTERS, KING_OF_THE_WILD_HUNT_ABILITY_PERFORMER),
+    DESTROYER_OF_WORLDS("Destroyer of Worlds", MONSTERS, DESTROYER_OF_WORLDS_ABILITY_PERFORMER),
+    COMMANDER_OF_THE_RED_RIDERS("Commander of the Red Riders", MONSTERS, COMMANDER_OF_THE_RED_RIDERS_ABILITY_PERFORMER),
+    THE_TREACHEROUS("The Treacherous", MONSTERS, THE_TREACHEROUS_ABILITY_PERFORMER),
+    // Unit cards
+    DRAUG("Draug", MONSTERS, 10, 1, CLOSE_COMBAT, null, true),
+    LESHEN("Leshen", MONSTERS, 10, 1, CLOSE_COMBAT, null, true),
+    KAYRAN("Kayran", MONSTERS, 8, 1, AGILE, MORALE_BOOST, true),
+    TOAD("Toad", MONSTERS, 7, 1, RANGED, RANGED_SCORCH, false),
+    ARACHAS_BEHEMOTH("Arachas Behemoth", MONSTERS, 6, 1, SIEGE, MUSTER, false),
+    CRONE_WEAVESS("Crone: Weavess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
+    CRONE_WHISPESS("Crone: Whispess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
+    EARTH_ELEMENTAL("Earth Elemental", MONSTERS, 6, 1, SIEGE, null, false),
+    FIEND("Fiend", MONSTERS, 6, 1, CLOSE_COMBAT, null, false),
+    FIRE_ELEMENTAL("Fire Elemental", MONSTERS, 6, 1, SIEGE, null, false),
+    FORK_TAIL("Forktail", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
+    GRAVE_HAG("Grave Hag", MONSTERS, 5, 1, RANGED, null, false),
+    GRIFFIN("Griffin", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
+    ICE_GIANT("Ice Giant", MONSTERS, 5, 1, SIEGE, null, false),
+    PLAGUE_MAIDEN("Plague Maiden", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
+    VAMPIRE_KATAKAN("Vampire: Katakan", MONSTERS, 5, 1, CLOSE_COMBAT, MUSTER, false),
+    WEREWOLF("Werewolf", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
+    ARACHAS("Arachas", MONSTERS, 4, 3, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_BRUXA("Vampire: Bruxa", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_EKIMMARA("Vampire: Ekimmara", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_FLEDER("Vampire: Fleder", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_GARKAIN("Vampire: Garkain", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    COCKATRICE("Cockatrice", MONSTERS, 2, 1, RANGED, null, false),
+    ENDREGA("Endrega", MONSTERS, 2, 1, RANGED, null, false),
+    FOGLET("Foglet", MONSTERS, 2, 1, CLOSE_COMBAT, null, false),
+    NEKKER("Nekker", MONSTERS, 2, 3, CLOSE_COMBAT, MUSTER, false),
+    WYVERN("Wyvern", MONSTERS, 2, 1, RANGED, null, false),
+    GHOUL("Ghoul", MONSTERS, 1, 3, RANGED, MUSTER, false),
+
+
+    // Nilfgaard
+    // Leaders
+    THE_WHITE_FLAME("The White Flame", EMPIRE_NILFGAARDIAN, THE_WHITE_FLAME_ABILITY_PERFORMER),
+    HIS_IMPERIAL_MAJESTY("His Imperial Majesty", EMPIRE_NILFGAARDIAN, HIS_IMPERIAL_MAJESTY_ABILITY_PERFORMER),
+    EMPEROR_OF_NILFGAARD("Emperor of Nilfgaard", EMPIRE_NILFGAARDIAN, EMPEROR_OF_NILFGAARD_ABILITY_PERFORMER),
+    THE_RELENTLESS("The Relentless", EMPIRE_NILFGAARDIAN, THE_RELENTLESS_ABILITY_PERFORMER),
+    INVADER_OF_THE_NORTH("Invader of the North", EMPIRE_NILFGAARDIAN, INVADER_OF_THE_NORTH_ABILITY_PERFORMER),
+    // Unit cards
+    IMPERA_BRIGADE_GUARD("Impera Brigade Guard", EMPIRE_NILFGAARDIAN, 3, 4, CLOSE_COMBAT, TIGHT_BOND, false),
+    STEFAN_SKELLEN("Stefan Skellen", EMPIRE_NILFGAARDIAN, 9, 1, CLOSE_COMBAT, SPY, false),
+    YOUNG_EMISSARY("Young Emissary", EMPIRE_NILFGAARDIAN, 9, 1, CLOSE_COMBAT, TIGHT_BOND, false),
+    CAHIR_MAWR_DYFFRYN_AEP_CEALLACH("Cahir Mawr Dyffryn aep Ceallach", EMPIRE_NILFGAARDIAN, 6,
+            1, CLOSE_COMBAT, null, false),
+    VATTIER_DE_RIDEAUX("Vattier de Rideaux", EMPIRE_NILFGAARDIAN, 4, 1, CLOSE_COMBAT, null, false),
+    MENNO_COEHOORN("Menno Coehoorn", EMPIRE_NILFGAARDIAN, 10, 1, CLOSE_COMBAT, MEDIC, true),
+    PUTTKAMMER("Puttkammer", EMPIRE_NILFGAARDIAN, 3, 1, RANGED, null, false),
+    BLACK_INFANTRY_ARCHER("Black Infantry Archer", EMPIRE_NILFGAARDIAN, 10, 2, RANGED, null, false),
+    TIBOR_EGGEBRACHT("Tibor Eggebracht", EMPIRE_NILFGAARDIAN, 10, 1, RANGED, null, true),
+    RENUALD_AEP_MATSEN("Renuald aep Matsen", EMPIRE_NILFGAARDIAN, 5, 1, RANGED, null, false),
+    FRINGILLA_VIGO("Fringilla Vigo", EMPIRE_NILFGAARDIAN, 6, 1, RANGED, null, false),
+    ROTTEN_MANGONEL("Rotten Mangonel", EMPIRE_NILFGAARDIAN, 3, 1, SIEGE, null, false),
+    ZERRIKANIAN_FIRE_SCORPION("Zerrikanian Fire Scorpion", EMPIRE_NILFGAARDIAN, 5, 1, SIEGE, null, false),
+    SIEGE_ENGINEER("Siege Engineer", EMPIRE_NILFGAARDIAN, 6, 1, SIEGE, null, false),
+    MORVRAN_VOORHIS("Morvran Voorhis", EMPIRE_NILFGAARDIAN, 10, 1, SIEGE, null, true),
+    CYNTHIA("Cynthia", EMPIRE_NILFGAARDIAN, 4, 1, RANGED, null, false),
+    ETOLIAN_AUXILIARY_ARCHERS("Etolian Auxiliary Archers", EMPIRE_NILFGAARDIAN, 1, 2, RANGED, MEDIC, false),
+    MORTEISEN("Morteisen", EMPIRE_NILFGAARDIAN, 3, 1, CLOSE_COMBAT, null, false),
+    NAUSICAA_CAVALRY_RIDER("Nausicaa Cavalry Rider", EMPIRE_NILFGAARDIAN, 2, 3, CLOSE_COMBAT, TIGHT_BOND, false),
+    SIEGE_TECHNICIAN("Siege Technician", EMPIRE_NILFGAARDIAN, 0, 1, SIEGE, MEDIC, false),
+    SWEERS("Sweers", EMPIRE_NILFGAARDIAN, 2, 1, RANGED, null, false),
+    VANHEMAR("Vanhemar", EMPIRE_NILFGAARDIAN, 4, 1, RANGED, null, false),
+    VREEMDE("Vreemde", EMPIRE_NILFGAARDIAN, 2, 0, CLOSE_COMBAT, null, false), // Source: Random reward from gwent players
+
+
     // Skellige Cards
     // Leaders
     CRACH_AN_CRAITE("Crach an Craite", SKELLIGE, CRACH_AN_CRAITE_ABILITY_PERFORMER),
@@ -102,77 +178,6 @@ public enum CardName {
     VES("Ves", NORTHERN_REALMS, 5, 1, CLOSE_COMBAT, null, false),
     YARPEN_ZIGRIN("Yarpen Zigrin", NORTHERN_REALMS, 2, 1, CLOSE_COMBAT, null, false),
 
-    // Nilfgaard
-    // Leaders
-    THE_WHITE_FLAME("The White Flame", EMPIRE_NILFGAARDIAN, THE_WHITE_FLAME_ABILITY_PERFORMER),
-    HIS_IMPERIAL_MAJESTY("His Imperial Majesty", EMPIRE_NILFGAARDIAN, HIS_IMPERIAL_MAJESTY_ABILITY_PERFORMER),
-    EMPEROR_OF_NILFGAARD("Emperor of Nilfgaard", EMPIRE_NILFGAARDIAN, EMPEROR_OF_NILFGAARD_ABILITY_PERFORMER),
-    THE_RELENTLESS("The Relentless", EMPIRE_NILFGAARDIAN, THE_RELENTLESS_ABILITY_PERFORMER),
-    INVADER_OF_THE_NORTH("Invader of the North", EMPIRE_NILFGAARDIAN, INVADER_OF_THE_NORTH_ABILITY_PERFORMER),
-    // Unit cards
-    IMPERA_BRIGADE_GUARD("Impera Brigade Guard", EMPIRE_NILFGAARDIAN, 3, 4, CLOSE_COMBAT, TIGHT_BOND, false),
-    STEFAN_SKELLEN("Stefan Skellen", EMPIRE_NILFGAARDIAN, 9, 1, CLOSE_COMBAT, SPY, false),
-    YOUNG_EMISSARY("Young Emissary", EMPIRE_NILFGAARDIAN, 9, 1, CLOSE_COMBAT, TIGHT_BOND, false),
-    CAHIR_MAWR_DYFFRYN_AEP_CEALLACH("Cahir Mawr Dyffryn aep Ceallach", EMPIRE_NILFGAARDIAN, 6,
-            1, CLOSE_COMBAT, null, false),
-    VATTIER_DE_RIDEAUX("Vattier de Rideaux", EMPIRE_NILFGAARDIAN, 4, 1, CLOSE_COMBAT, null, false),
-    MENNO_COEHOORN("Menno Coehoorn", EMPIRE_NILFGAARDIAN, 10, 1, CLOSE_COMBAT, MEDIC, true),
-    PUTTKAMMER("Puttkammer", EMPIRE_NILFGAARDIAN, 3, 1, RANGED, null, false),
-    BLACK_INFANTRY_ARCHER("Black Infantry Archer", EMPIRE_NILFGAARDIAN, 10, 2, RANGED, null, false),
-    TIBOR_EGGEBRACHT("Tibor Eggebracht", EMPIRE_NILFGAARDIAN, 10, 1, RANGED, null, true),
-    RENUALD_AEP_MATSEN("Renuald aep Matsen", EMPIRE_NILFGAARDIAN, 5, 1, RANGED, null, false),
-    FRINGILLA_VIGO("Fringilla Vigo", EMPIRE_NILFGAARDIAN, 6, 1, RANGED, null, false),
-    ROTTEN_MANGONEL("Rotten Mangonel", EMPIRE_NILFGAARDIAN, 3, 1, SIEGE, null, false),
-    ZERRIKANIAN_FIRE_SCORPION("Zerrikanian Fire Scorpion", EMPIRE_NILFGAARDIAN, 5, 1, SIEGE, null, false),
-    SIEGE_ENGINEER("Siege Engineer", EMPIRE_NILFGAARDIAN, 6, 1, SIEGE, null, false),
-    MORVRAN_VOORHIS("Morvran Voorhis", EMPIRE_NILFGAARDIAN, 10, 1, SIEGE, null, true),
-    CYNTHIA("Cynthia", EMPIRE_NILFGAARDIAN, 4, 1, RANGED, null, false),
-    ETOLIAN_AUXILIARY_ARCHERS("Etolian Auxiliary Archers", EMPIRE_NILFGAARDIAN, 1, 2, RANGED, MEDIC, false),
-    MORTEISEN("Morteisen", EMPIRE_NILFGAARDIAN, 3, 1, CLOSE_COMBAT, null, false),
-    NAUSICAA_CAVALRY_RIDER("Nausicaa Cavalry Rider", EMPIRE_NILFGAARDIAN, 2, 3, CLOSE_COMBAT, TIGHT_BOND, false),
-    SIEGE_TECHNICIAN("Siege Technician", EMPIRE_NILFGAARDIAN, 0, 1, SIEGE, MEDIC, false),
-    SWEERS("Sweers", EMPIRE_NILFGAARDIAN, 2, 1, RANGED, null, false),
-    VANHEMAR("Vanhemar", EMPIRE_NILFGAARDIAN, 4, 1, RANGED, null, false),
-    VREEMDE("Vreemde", EMPIRE_NILFGAARDIAN, 2, 0, CLOSE_COMBAT, null, false), // Source: Random reward from gwent players
-
-
-    // Monsters
-    // Leaders
-    BRINGER_OF_DEATH("Bringer of Death", MONSTERS, BRINGER_OF_DEATH_ABILITY_PERFORMER),
-    KING_OF_THE_WILD_HUNT("King of the Wild Hunt", MONSTERS, KING_OF_THE_WILD_HUNT_ABILITY_PERFORMER),
-    DESTROYER_OF_WORLDS("Destroyer of Worlds", MONSTERS, DESTROYER_OF_WORLDS_ABILITY_PERFORMER),
-    COMMANDER_OF_THE_RED_RIDERS("Commander of the Red Riders", MONSTERS, COMMANDER_OF_THE_RED_RIDERS_ABILITY_PERFORMER),
-    THE_TREACHEROUS("The Treacherous", MONSTERS, THE_TREACHEROUS_ABILITY_PERFORMER),
-    // Unit cards
-    DRAUG("Draug", MONSTERS, 10, 1, CLOSE_COMBAT, null, true),
-    LESHEN("Leshen", MONSTERS, 10, 1, CLOSE_COMBAT, null, true),
-    KAYRAN("Kayran", MONSTERS, 8, 1, AGILE, MORALE_BOOST, true),
-    TOAD("Toad", MONSTERS, 7, 1, RANGED, RANGED_SCORCH, false),
-    ARACHAS_BEHEMOTH("Arachas Behemoth", MONSTERS, 6, 1, SIEGE, MUSTER, false),
-    CRONE_WEAVESS("Crone: Weavess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
-    CRONE_WHISPESS("Crone: Whispess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
-    EARTH_ELEMENTAL("Earth Elemental", MONSTERS, 6, 1, SIEGE, null, false),
-    FIEND("Fiend", MONSTERS, 6, 1, CLOSE_COMBAT, null, false),
-    FIRE_ELEMENTAL("Fire Elemental", MONSTERS, 6, 1, SIEGE, null, false),
-    FORK_TAIL("Forktail", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
-    GRAVE_HAG("Grave Hag", MONSTERS, 5, 1, RANGED, null, false),
-    GRIFFIN("Griffin", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
-    ICE_GIANT("Ice Giant", MONSTERS, 5, 1, SIEGE, null, false),
-    PLAGUE_MAIDEN("Plague Maiden", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
-    VAMPIRE_KATAKAN("Vampire: Katakan", MONSTERS, 5, 1, CLOSE_COMBAT, MUSTER, false),
-    WEREWOLF("Werewolf", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
-    ARACHAS("Arachas", MONSTERS, 4, 3, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_BRUXA("Vampire: Bruxa", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_EKIMMARA("Vampire: Ekimmara", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_FLEDER("Vampire: Fleder", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_GARKAIN("Vampire: Garkain", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
-    COCKATRICE("Cockatrice", MONSTERS, 2, 1, RANGED, null, false),
-    ENDREGA("Endrega", MONSTERS, 2, 1, RANGED, null, false),
-    FOGLET("Foglet", MONSTERS, 2, 1, CLOSE_COMBAT, null, false),
-    NEKKER("Nekker", MONSTERS, 2, 3, CLOSE_COMBAT, MUSTER, false),
-    WYVERN("Wyvern", MONSTERS, 2, 1, RANGED, null, false),
-    GHOUL("Ghoul", MONSTERS, 1, 3, RANGED, MUSTER, false),
-
     // Neutral cards
     // Spells
     MARDROEME("Mardroeme", UnitOrSpellCardAbility.MARDROEME),
@@ -193,6 +198,10 @@ public enum CardName {
     ;
     public final static int MAXIMUM_NUMBER_OF_EACH_SPECIAL_CARD = 3;
     private static final Map<String, CardName> map = new HashMap<>(CardName.values().length);
+    private static final CardName[] factionFirstLeaders =
+            new CardName[]{CRACH_AN_CRAITE, QUEEN_OF_DOL_BLATHANNA, THE_SIEGE_MASTER, THE_WHITE_FLAME, BRINGER_OF_DEATH};
+    private static final CardName[] factionFirstNonLeaders =
+            new CardName[]{BERSERKER, ELVEN_SKIRMISHER, BALLISTA, THE_WHITE_FLAME, DRAUG};
 
     static {
         for (CardName object : CardName.values()) {
@@ -275,6 +284,15 @@ public enum CardName {
         CardName cardName = map.get(name);
         if (cardName == null) return null;
         return cardName.getNewCard.get();
+    }
+
+    public static CardName[] getLeadersOfFaction(Faction faction) {
+        int factionOrdinal = faction.ordinal();
+        CardName[] leadersOfFaction = new CardName
+                [factionFirstNonLeaders[factionOrdinal].ordinal() - factionFirstLeaders[factionOrdinal].ordinal()];
+        System.arraycopy(CardName.values(), factionFirstLeaders[factionOrdinal].ordinal(), leadersOfFaction, 0,
+                leadersOfFaction.length);
+        return leadersOfFaction;
     }
 
     public Card getNewCard() {
