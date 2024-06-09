@@ -25,7 +25,11 @@ import model.faction.Card;
 import view.Animation.FactionCardAnimation;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 
 public class PreGameMenuGraphic extends Application {
@@ -199,7 +203,7 @@ public class PreGameMenuGraphic extends Application {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("All Files", "*.*");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(new Stage());
-        GsonReaderWriter.getGsonReaderWriter().saveDeckToFile(User.getCurrentUser().getDeck(), file);
+        if (file != null) GsonReaderWriter.getGsonReaderWriter().saveDeckToFile(User.getCurrentUser().getDeck(), file);
     }
 
     private void saveDeckByName() {
@@ -288,9 +292,11 @@ public class PreGameMenuGraphic extends Application {
         pane.setCenter(cards);
 
         ArrayList<Image> images = new ArrayList<>();
-        File file = new File(getClass().getResource("/IMAGES/monsters/").getFile());
+        URL monstersDirectoryURL = Objects.requireNonNull(getClass().getResource("/IMAGES/monsters/"));
+        String monstersDirectoryPath = URLDecoder.decode(monstersDirectoryURL.getFile(), StandardCharsets.UTF_8);
+        File file = new File(monstersDirectoryPath);
         int[] counter = new int[1];
-        for(File file1 : file.listFiles()){
+        for (File file1 : Objects.requireNonNull(file.listFiles())) {
             images.add(new Image(String.valueOf(file1)));
         }
         leftButton.setOnMouseClicked(mouseEvent -> {
