@@ -4,6 +4,9 @@ import model.GameStatus;
 import model.Row;
 import model.Table;
 import model.faction.Card;
+import model.faction.UnitCard;
+
+import java.util.List;
 
 public class CommandersHornAbility {
     public GameStatus gameStatus;
@@ -15,31 +18,32 @@ public class CommandersHornAbility {
     public GameStatus getGameStatus() {
         return gameStatus;
     }
+
     public void DoAbilityOnRow(int row){
         Table table=gameStatus.getTable();
         Row[] rows=table.getRows();
         Row wantedrow=rows[row];
-        Card[] cards=wantedrow.getCards();
-        for(Card card0:cards){
-        DoAbilityOnCard(card0);
+        List<UnitCard> cards = wantedrow.getCards();
+        for (UnitCard card0 : cards) {
+            DoAbilityOnCard(card0);
         }
     }
-    public void DoAbilityOnCardArbitrary(Card card,Boolean ishero) {
-        if (ishero) {
 
-        } else {
-            //TODO:Mehrshad must define seter geter for Card,s power
-//            int power = card.getpower();
-//            card.setpower(2 * power);
+    public void DoAbilityOnCardArbitrary(Card card, Boolean isHero) {
+        if (isHero) {
+
+        } else if (card instanceof UnitCard) {
+            int power = ((UnitCard) card).getPower();
+            ((UnitCard) card).setPower(2 * power);
         }
     }
+
     public void DoAbilityOnCard(Card card) {
-        if (false/*TODO:Checking card is a Hero or not*/) {
+        if (card instanceof UnitCard && ((UnitCard) card).isHero) { // Checks if the card is a Hero or not.
 
         } else {
-//            int power = card.getpower();
-//            card.setpower(2 * power);
+//            int power = card.getPower();
+//            card.setPower(2 * power);
         }
     }
-
 }

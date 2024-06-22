@@ -1,15 +1,21 @@
 package controller;
 
-import enums.card.CardName;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import model.GameStatus;
 import model.Player;
+import model.Row;
 import model.Table;
 import model.faction.Card;
 import model.faction.Faction;
+import model.faction.UnitCard;
 
 import java.util.ArrayList;
 
 public class GameController extends MenuController {
+    private final IntegerProperty[] sumOfRows = new IntegerProperty[6];
     GameStatus gaming;
     private Player player1;
     private Player player2;
@@ -21,6 +27,15 @@ public class GameController extends MenuController {
         this.player1 = player1;
         player2 = new Player("guest", "placeholder");
         gaming = new GameStatus(new Table(player1, player2), player1, player2);
+        for (int i = 0; i < sumOfRows.length; i++) {
+            Row row = gaming.getTable().getRows()[i];
+            int rowIndex = i;
+            sumOfRows[i] = new SimpleIntegerProperty();
+            // Calculate sum of rows
+            row.getCards().addListener((ListChangeListener<? super UnitCard>) change ->
+                    sumOfRows[rowIndex].set(row.getCards().stream().mapToInt(UnitCard::getPower).sum())
+            );
+        }
     }
 
     public void runARound() {
@@ -51,7 +66,7 @@ public class GameController extends MenuController {
         this.gaming = gaming;
     }
 
-    public ArrayList<Card> getPlayer1InHandCards() {
+    public ObservableList<Card> getPlayer1InHandCards() {
         return player1.getDeck().getInHandCards();
     }
 
@@ -93,5 +108,22 @@ public class GameController extends MenuController {
 
     public ArrayList<Card> getPlayer2DiscardPile() {
         return player2.getDeck().getDiscardCards();
+    }
+
+    public IntegerProperty getSumOfRowNumber(int rowNumber) {
+        return sumOfRows[rowNumber - 1];
+    }
+
+
+    public void fillPlayer1LivesForDebug() {
+        gaming.emptyPlayer2WinsForDebug();
+    }
+
+    public void fillPlayer2LivesForDebug() {
+        gaming.emptyPlayer1WinsForDebug();
+    }
+
+    public void addCardToHandForDebug(Card card) {
+        player1.getDeck().getInHandCards().add(card);
     }
 }

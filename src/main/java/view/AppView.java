@@ -8,7 +8,7 @@ import model.App;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class AppView {
+public class AppView implements Runnable {
     private static AppView appViewObject = null;
     public final Scanner scanner = new Scanner(System.in);
 

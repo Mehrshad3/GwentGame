@@ -3,18 +3,24 @@ package view;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.App;
-import view.AppView;
 
 public class Main extends Application {
     public ShowingLoginMenu menu;
+
     public static void main(String[] args) {
+        runTerminal();
         launch(args);
-//        AppView.getAppViewObject().run();
+    }
+
+    private static void runTerminal() {
+        Thread terminal = new Thread(AppView.getAppViewObject());
+        terminal.setDaemon(true);
+        terminal.start();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        menu=new ShowingLoginMenu();
+        menu = new ShowingLoginMenu();
 //        stage.setResizable(false);
 //        stage.setHeight(500);
 //        stage.setWidth(1000);

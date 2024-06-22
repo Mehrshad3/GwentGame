@@ -3,29 +3,35 @@ package model.faction;
 import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
 import enums.card.ability.UnitOrSpellCardAbility;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class UnitCard extends Card {
     public final boolean isHero;
-    protected int currentPower;
+    protected IntegerProperty powerProperty;
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
                     int power, boolean isHero) {
         super(cardName, name, rows, ability, power);
         this.isHero = isHero;
-        this.currentPower = power;
+        this.powerProperty = new SimpleIntegerProperty(power);
         assert rows != PossibleRowsToPlayCard.SPECIAL;
     }
 
     public void resetPower() {
-        this.currentPower = this.initialPower;
+        this.powerProperty.set(this.initialPower);
     }
 
     public int getPower() {
-        return this.currentPower;
+        return this.powerProperty.get();
     }
 
     public void setPower(int newPower) {
-        if (!this.isHero) this.currentPower = newPower;
+        if (!this.isHero) this.powerProperty.set(newPower);
+    }
+
+    public IntegerProperty getPowerProperty() {
+        return this.powerProperty;
     }
 
     public boolean isHero() {

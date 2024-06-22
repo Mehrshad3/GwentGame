@@ -13,8 +13,6 @@ import java.net.URL;
 import java.util.Objects;
 
 public class GameMenuGraphic extends Application {
-    private GameGraphicController graphicController;
-
     @Override
     public void start(Stage stage) throws Exception {
         URL url = getClass().getResource("/FXML/GameMenu.fxml");
@@ -28,7 +26,7 @@ public class GameMenuGraphic extends Application {
         stage.show();
         stage.centerOnScreen();
 
-        graphicController = fxmlLoader.getController();
+        GameGraphicController graphicController = fxmlLoader.getController();
         graphicController.initializeWithStage(stage);
         AppController.getAppController().enterMenu(Menu.GameMenu);
     }

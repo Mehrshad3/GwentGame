@@ -1,18 +1,21 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.faction.Card;
 import model.faction.Faction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Deck implements Serializable {
     private final Set<Card> notChosenCards = new HashSet<>();
     private final Faction faction;
+    private final ObservableList<Card> inHandCards = FXCollections.observableArrayList();
     private ArrayList<Card> discardCards;
-    private ArrayList<Card> inHandCards = new ArrayList<>();
     private Card currentLeaderCard;
     private ArrayList<Card> leaderCards;
 
@@ -29,12 +32,12 @@ public class Deck implements Serializable {
         this.discardCards = discardCards;
     }
 
-    public ArrayList<Card> getInHandCards() {
+    public ObservableList<Card> getInHandCards() {
         return inHandCards;
     }
 
-    public void setInHandCards(ArrayList<Card> inHandCards) {
-        this.inHandCards = inHandCards;
+    public void setInHandCards(Collection<? extends Card> newInHandCards) {
+        this.inHandCards.setAll(newInHandCards);
     }
 
     public Card getCurrentLeaderCard() {

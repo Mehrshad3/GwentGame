@@ -5,6 +5,7 @@ module GWENT {
     requires javafx.media;
     requires java.sql;
     exports view;
+    exports model.faction;
     opens view to javafx.fxml;
     opens model to com.google.gson;
     opens model.faction to com.google.gson;
