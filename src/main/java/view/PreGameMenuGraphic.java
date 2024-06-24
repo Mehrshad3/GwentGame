@@ -1,6 +1,8 @@
 package view;
 
 import enums.card.CardName;
+import controller.GameController;
+import enums.Menu;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,13 +27,18 @@ import model.App;
 import model.Deck;
 import model.GsonReaderWriter;
 import model.User;
+import model.*;
 import model.faction.Card;
 //import model.faction.NonCommanderCardAbility;
 import model.faction.Faction;
 import view.Animation.FactionCardAnimation;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -91,9 +98,9 @@ public class PreGameMenuGraphic extends Application {
         ShowFraction.setOnMouseClicked(mouseEvent -> showFactions());
         topButtons.getChildren().add(ShowFraction);
 
-        Button ChangeFraction = new Button("Change Faction");
-        ChangeFraction.setOnMouseClicked(mouseEvent -> changeUserFaction());
-        topButtons.getChildren().add(ChangeFraction);
+        Button ChangeFaction = new Button("Change Faction");
+        ChangeFaction.setOnMouseClicked(mouseEvent -> changeUserFaction());
+        topButtons.getChildren().add(ChangeFaction);
 
         Button ShowCards = new Button("Show Cards");
         ShowCards.setOnMouseClicked(mouseEvent -> showCards());
@@ -265,7 +272,7 @@ public class PreGameMenuGraphic extends Application {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Gson", "*.json");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(new Stage());
-        System.out.println(file.getAbsolutePath());
+        if (file != null) GsonReaderWriter.getGsonReaderWriter().saveDeckToFile(User.getCurrentUser().getDeck(), file);
     }
 
     private void saveDeckByName() {
@@ -393,10 +400,13 @@ public class PreGameMenuGraphic extends Application {
 //        WritableImage image = imageView.snapshot(parameters, null);
         card.setClip(clip);
         ArrayList<Image> images = new ArrayList<>();
-        File file = new File(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction() + "/").getFile());
+
+        URL monstersDirectoryURL = Objects.requireNonNull(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName() + "/"));
+        String monstersDirectoryPath = URLDecoder.decode(monstersDirectoryURL.getFile(), StandardCharsets.UTF_8);
+        File file = new File(monstersDirectoryPath);
         int[] counter = new int[1];
-        for (File file1 : file.listFiles()) {
-            images.add(new Image(String.valueOf(file1), 330, 610, false, false));
+        for (File file1 : Objects.requireNonNull(file.listFiles())) {
+            images.add(new Image(String.valueOf(file1)));
         }
         leftButton.setOnMouseClicked(mouseEvent -> {
             counter[0] = (counter[0] + images.size() - 1) % images.size();
@@ -574,5 +584,13 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void startNewGame() {
+        GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();
+        GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+        gameController.setStartStatus(User.getCurrentUser());
+        try {
+            gameMenuGraphic.start(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

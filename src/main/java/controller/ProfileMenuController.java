@@ -10,26 +10,12 @@ import java.util.Objects;
 
 public class ProfileMenuController extends MenuController {
     public void changeUsername(String newUsername) {
-        User user = User.getCurrentUser();
-        File file = new File(".GWENT/Users/" + newUsername + ".txt");
-        if (file.exists()) {
-            System.out.println("This Username already exists!");
-        } else {
-            String oldUsername = user.getName();
-
-            File file1 = new File(".GWENT/Users/" + oldUsername + ".txt");
-            try {
-                file1.delete();
-                file.createNewFile();
-                GsonReaderWriter.getGsonReaderWriter().saveUser(user);
-                user.setName(newUsername);
-            } catch (IOException e) {
-                System.out.println("Can't Create New File");
-                e.printStackTrace();
-
-            }
-        }
-
+        User currentuser=User.getCurrentUser();
+        File oldparentfolder=new File(".GWENT/Users/"+currentuser.getName());
+        oldparentfolder.renameTo(new File(".GWENT/Users/"+newUsername));
+        currentuser.setName(newUsername);
+        GsonReaderWriter.getGsonReaderWriter().saveUser(currentuser);
+        //TODO:Check decks exists?This is just for debugging and code is complete now.
     }
 
     public void changeNickname(String newNickname, String oldNickname) {
@@ -37,7 +23,6 @@ public class ProfileMenuController extends MenuController {
             System.out.println("(NEW) Nickname please!!");
         } else {
             User user = User.getCurrentUser();
-            File file = new File(".GWENT/Users/" + user.getName() + ".txt");
             user.setNickname(newNickname);
             GsonReaderWriter.getGsonReaderWriter().saveUser(user);
         }
@@ -48,7 +33,6 @@ public class ProfileMenuController extends MenuController {
             System.out.println("(NEW) Password please!!");
         } else {
             User user = User.getCurrentUser();
-            File file = new File(".GWENT/Users/" + user.getName() + ".txt");
             user.setPassword(newPassword);
             GsonReaderWriter.getGsonReaderWriter().saveUser(user);
         }
@@ -59,7 +43,6 @@ public class ProfileMenuController extends MenuController {
             System.out.println("(NEW) Email please!!");
         } else {
             User user = User.getCurrentUser();
-            File file = new File(".GWENT/Users/" + user.getName() + ".txt");
             user.setEmail(newEmail);
             GsonReaderWriter.getGsonReaderWriter().saveUser(user);
         }

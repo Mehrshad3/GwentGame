@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Feature request
+    url: https://t.me/AP_CE_SUT_2024
+    about: Only TAs are permitted to ask us to implement features.
+  - name: Question
+    url: https://quera.org/course/16603/
+    about: Ask questions about the game that we have to implement

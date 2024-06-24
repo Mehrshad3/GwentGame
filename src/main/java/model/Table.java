@@ -24,6 +24,9 @@ public class Table {
         this.player2 = player2;
         player1Deck = player1.getDeck();
         player2Deck = player2.getDeck();
+        for (short i = 0; i < rows.length; i++) {
+            rows[i] = new Row((short) (i + 1));
+        }
     }
 
     public Row[] getRows() {

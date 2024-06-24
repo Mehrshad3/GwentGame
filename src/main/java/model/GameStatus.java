@@ -5,10 +5,10 @@ import model.faction.Card;
 import java.util.ArrayList;
 
 public class GameStatus {
+    private final Player player1;
+    private final Player player2;
     private int numberOfPassedRounds = 0;
     private Table table;
-    private Player player1;
-    private Player player2;
     private int numberOfTurns = 0;
     private int player1Wins = 0;
     private int player2Wins = 0;
@@ -69,5 +69,13 @@ public class GameStatus {
 
     public void moveToDiscardPile(Card card, Player player) {
         player.getDeck().moveToDiscardPile(card);
+    }
+
+    public void emptyPlayer1WinsForDebug() {
+        player1Wins = 0;
+    }
+
+    public void emptyPlayer2WinsForDebug() {
+        player2Wins = 0;
     }
 }

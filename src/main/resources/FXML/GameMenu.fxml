@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- On Mehrshad's device, the pane size was 1184 * 761. -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane fx:id="rootPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../CSS/GameTable.css"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.GameGraphicController">
+    <left>
+        <GridPane fx:id="playersInfo" maxWidth="-Infinity" prefHeight="800.0" prefWidth="283.75">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="29.732"/>
+                <ColumnConstraints percentWidth="1.1012"/>
+                <ColumnConstraints percentWidth="22.024"/>
+                <ColumnConstraints percentWidth="39.4226"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" percentHeight="6.944" prefHeight="30.0" valignment="BOTTOM"/>
+                <RowConstraints percentHeight="12.963" valignment="BOTTOM"/>
+                <RowConstraints percentHeight="21.574" valignment="BOTTOM"/>
+                <RowConstraints percentHeight="12.87" valignment="BOTTOM"/>
+                <RowConstraints percentHeight="22.5" valignment="BOTTOM"/>
+                <RowConstraints percentHeight="12.963" valignment="BOTTOM"/>
+            </rowConstraints>
+            <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <ImageView fx:id="opponentLeaderCard" fitHeight="103.703" fitWidth="68.75" GridPane.columnIndex="1"
+                           GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                    <Image url="@../IMAGES/min.png"/>
+                </ImageView>
+            </Pane>
+            <StackPane fx:id="specialCardsPane" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            </StackPane>
+            <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                <ImageView fx:id="selfLeaderCard" fitHeight="103.703" fitWidth="68.75" onMouseClicked="#clickedOnCard"
+                           GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                    <Image url="@../IMAGES/min.png"/>
+                </ImageView>
+            </Pane>
+        </GridPane>
+    </left>
+    <center>
+        <GridPane fx:id="board" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="3.8043"/>
+                <ColumnConstraints percentWidth="3.4106"/>
+                <ColumnConstraints percentWidth="0.4775"/>
+                <ColumnConstraints percentWidth="0.6480"/>
+                <ColumnConstraints percentWidth="8.6289"/>
+                <ColumnConstraints percentWidth="55.662"/>
+                <ColumnConstraints percentWidth="1.705"/>
+                <ColumnConstraints percentWidth="7.5716"/>
+                <ColumnConstraints percentWidth="4.7749"/>
+                <ColumnConstraints percentWidth="7.5716"/>
+                <ColumnConstraints percentWidth="5.7456"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="1.2963"/>
+                <RowConstraints percentHeight="5.1852"/>
+                <RowConstraints percentHeight="6.0185"/>
+                <RowConstraints percentHeight="0.9259"/>
+                <RowConstraints percentHeight="6.4815"/>
+                <RowConstraints percentHeight="4.8148"/>
+                <RowConstraints percentHeight="1.4815"/>
+                <RowConstraints percentHeight="11.1574"/>
+                <RowConstraints percentHeight="2.6389"/>
+                <RowConstraints percentHeight="11.1574"/>
+                <RowConstraints percentHeight="1.1574"/>
+                <RowConstraints percentHeight="11.1111"/>
+                <RowConstraints percentHeight="1.6667"/>
+                <RowConstraints percentHeight="11.1111"/>
+                <RowConstraints percentHeight="0.3704"/>
+                <RowConstraints percentHeight="1.3426"/>
+                <RowConstraints percentHeight="11.5278"/>
+                <RowConstraints percentHeight="0.6481"/>
+                <RowConstraints percentHeight="9.9074"/>
+            </rowConstraints>
+            <Pane fx:id="commanderHornSpot1" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="13">
+            </Pane>
+            <Pane fx:id="commanderHornSpot2" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="11">
+            </Pane>
+            <Pane fx:id="commanderHornSpot3" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="9">
+            </Pane>
+            <Pane fx:id="commanderHornSpot4" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7">
+            </Pane>
+            <Pane fx:id="commanderHornSpot5" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4"
+                  GridPane.rowSpan="2">
+            </Pane>
+            <Pane fx:id="commanderHornSpot6" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1"
+                  GridPane.rowSpan="2">
+            </Pane>
+            <HBox fx:id="selfSiegeCombat" GridPane.columnIndex="5" GridPane.rowIndex="13">
+            </HBox>
+            <HBox fx:id="selfRangedCombat" GridPane.columnIndex="5" GridPane.rowIndex="11">
+            </HBox>
+            <HBox fx:id="selfCloseCombat" GridPane.columnIndex="5" GridPane.rowIndex="9">
+            </HBox>
+            <HBox fx:id="opponentCloseCombat" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            </HBox>
+            <HBox fx:id="opponentRangedCombat" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.rowSpan="2">
+            </HBox>
+            <HBox fx:id="opponentSiegeCombat" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            </HBox>
+            <HBox fx:id="inHandCards" alignment="CENTER" spacing="3.0" GridPane.columnIndex="4" GridPane.columnSpan="2"
+                  GridPane.rowIndex="16">
+            </HBox>
+            <Label fx:id="selfSiegePowerLabel" minHeight="0.0" minWidth="0.0" text="0" GridPane.columnIndex="1"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="13">
+                <font>
+                    <Font name="System Bold" size="17.0"/>
+                </font>
+            </Label>
+            <Label fx:id="selfRangedPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                   GridPane.rowIndex="11">
+                <font>
+                    <Font name="System Bold" size="17.0"/>
+                </font>
+            </Label>
+            <Label fx:id="selfCloseCombatPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                   GridPane.rowIndex="9">
+                <font>
+                    <Font name="System Bold" size="17.0"/>
+                </font>
+            </Label>
+            <Label fx:id="opponentCloseCombatPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                   GridPane.rowIndex="7">
+                <font>
+                    <Font name="System Bold" size="17.0"/>
+                </font>
+            </Label>
+            <Label fx:id="opponentRangedPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                   GridPane.rowIndex="4" GridPane.rowSpan="2">
+                <font>
+                    <Font name="System Bold" size="17.0"/>
+                </font>
+            </Label>
+            <Label fx:id="opponentSiegePowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                   GridPane.rowIndex="1" GridPane.rowSpan="2">
+                <font>
+                    <Font name="System Bold" size="17.0"/>
+                </font>
+            </Label>
+            <StackPane fx:id="opponentDeck" GridPane.columnIndex="9" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                <ImageView fx:id="opponentDeckImageView" fitHeight="107.407" fitWidth="69.375">
+                </ImageView>
+            </StackPane>
+            <StackPane fx:id="selfDeck" GridPane.columnIndex="9" GridPane.rowIndex="15" GridPane.rowSpan="3">
+                <ImageView fx:id="selfDeckImageView" fitHeight="107.407" fitWidth="69.375">
+                </ImageView>
+            </StackPane>
+            <ImageView fx:id="selfDiscardPile" fitHeight="107.407" fitWidth="69.375"
+                       onMouseClicked="#showSelfDiscardPile" GridPane.columnIndex="7" GridPane.rowIndex="15"
+                       GridPane.rowSpan="3">
+            </ImageView>
+            <ImageView fx:id="opponentDiscardPile" fitHeight="107.407" fitWidth="69.375"
+                       onMouseClicked="#showOpponentDiscardPile" GridPane.columnIndex="7" GridPane.rowIndex="2"
+                       GridPane.rowSpan="3">
+            </ImageView>
+            <Label onMouseClicked="#clickedOnDebugMenu" textFill="#452125" GridPane.columnIndex="8"
+                   GridPane.columnSpan="3" GridPane.rowIndex="18">
+                <font>
+                    <Font size="8.0"/>
+                </font>
+                Game created by Ermia, Mehrshad, and Nima
+            </Label>
+        </GridPane>
+    </center>
+</BorderPane>

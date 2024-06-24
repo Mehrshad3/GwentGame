@@ -1,14 +1,22 @@
 package model;
 
 import enums.card.RowWeather;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.faction.Card;
 import model.faction.SpellCard;
+import model.faction.UnitCard;
 
 public class Row {
-    private final Card[] cards = new Card[9];
+    private final ObservableList<UnitCard> unitCards = FXCollections.observableArrayList();
+    private final short number;
     private boolean specialCardExists = false;
     private RowWeather weather = RowWeather.CLEAR_WEATHER;
     private SpellCard spell = null;
+
+    public Row(short rowNumber) {
+        this.number = rowNumber;
+    }
 
     public SpellCard getSpell() {
         return spell;
@@ -28,8 +36,9 @@ public class Row {
         this.weather = weather;
     }
 
-    public void placeCard(Card card) {
-        // TODO
+    public void placeCard(UnitCard card) {
+        unitCards.add(card);
+        card.setRowNumber(this.number);
     }
 
     public void removeCard(Card card) {
@@ -40,8 +49,8 @@ public class Row {
         this.specialCardExists = specialCardExists;
     }
 
-    public Card[] getCards() {
-        return cards;
+    public ObservableList<UnitCard> getCards() {
+        return unitCards;
     }
 
     public boolean doesSpecialCardExist() {

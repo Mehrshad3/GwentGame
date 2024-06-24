@@ -1,17 +1,19 @@
 package model.faction;
+
 import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
 import enums.card.ability.CardAbility;
 import model.GameStatus;
 
 public abstract class Card {
-
     protected final CardAbility ability;
     protected final PossibleRowsToPlayCard rows;
+    protected final Integer initialPower;
     protected CardName cardName;
-    protected Integer initialPower;
     protected String name;
-    protected boolean isHero = false;
+    /**
+     * Number of the row in which the card is. It's {@link null} if the card isn't played yet.
+     */
     protected Integer rowNumber = null;
     protected boolean transformed = false;
 
@@ -27,21 +29,28 @@ public abstract class Card {
         if (ability != null) this.ability.doAction(gaming, this);
     }
 
-    public void transform() {
-        transformed = true;
-        // TODO: really transform the card
-        // Note that TransformerCard has a method that returns a new card, so maybe this method should be removed.
-    }
-
     public String getName() {
         return name;
     }
 
+    @Deprecated
     public void setName(String name) {
         this.name = name;
     }
 
     public Integer getInitialPower() {
         return initialPower;
+    }
+
+    public CardName getCardName() {
+        return this.cardName;
+    }
+
+    public int getRowNumber() {
+        return this.rowNumber;
+    }
+
+    public void setRowNumber(int rowNumber) {
+        this.rowNumber = rowNumber;
     }
 }

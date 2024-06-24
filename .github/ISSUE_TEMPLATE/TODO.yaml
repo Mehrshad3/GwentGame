@@ -1,0 +1,28 @@
+name: TODO
+description: >
+  Write features that we have to implement but currently we haven't implemented completely.
+  
+  We should be able to start implementing them with the code that we have right now. Otherwise, don't write it.
+body:
+  - type: dropdown
+    attributes:
+      label: Software Part
+      description: What part of the program do you think that is needed to change?
+      multiple: true
+      options:
+        - Model
+        - View
+        - Controller
+        - Documentation
+        - We should go to google meet and discuss what should we do.
+        - Resources (Images, audios, etc.)
+        - Markup resources (FXML, CSS, etc.)
+        - Test
+        - Others
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What should we do?
+    validations:
+      required: true
