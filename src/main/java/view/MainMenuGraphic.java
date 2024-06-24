@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.App;
 
 public class MainMenuGraphic extends Application {
     @Override
@@ -36,6 +37,7 @@ public class MainMenuGraphic extends Application {
         box.getChildren().addAll(ProfileButton, PreGameButton);
         pane.setCenter(box);
         Scene scene = new Scene(pane);
+        App.setMainMenu(scene);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(800);

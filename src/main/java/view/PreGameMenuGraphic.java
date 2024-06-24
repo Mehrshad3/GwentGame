@@ -82,6 +82,7 @@ public class PreGameMenuGraphic extends Application {
         Scene scene = new Scene(pane);
         scene.setFill(new ImagePattern(new Image(getClass().getResource("/IMAGES/back.jpeg").toExternalForm())));
         setButtons();
+        App.setPreGameMenu(scene);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(800);
@@ -199,34 +200,114 @@ public class PreGameMenuGraphic extends Application {
         if (name.isPresent() && !name.get().equals("")) {
 //            System.out.println(name.get());
             //TODO check if it has 4 same card
-            Card newCard = CardName.getCardByName(name.get());
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            if (newCard == null) {
-                alert.setAlertType(Alert.AlertType.ERROR);
-                alert.setContentText("No such card");
-                alert.show();
-            } else if (false) {
-                //TODO if faction is right
-
-            } else if (User.getCurrentUser().getDeck().getInHandCards().size() == 12) {
-                alert.setAlertType(Alert.AlertType.ERROR);
-                alert.setContentText("Your hand in already full");
+            int counter = 0;
+            for (Card inHandCard : User.getCurrentUser().getDeck().getInHandCards()) {
+                if (inHandCard.getName().equalsIgnoreCase(name.get())) {
+                    counter++;
+                }
+            }
+            if (counter == 4) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("maximum number of " + name.get() + " in hand");
                 alert.show();
             } else {
-                alert.setAlertType(Alert.AlertType.CONFIRMATION);
-                alert.setContentText("Card " + name.get() + " Added to Your deck");
-                alert.show();
-                User.getCurrentUser().getDeck().addCardToHand(newCard);
+                Card newCard = CardName.getCardByName(name.get());
+                Alert alert = new Alert(Alert.AlertType.NONE);
+                if (newCard == null) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setContentText("No such card");
+                    alert.show();
+                } else if (false) {
+                    //TODO if faction is right
+
+                } else if (User.getCurrentUser().getDeck().getInHandCards().size() == 12) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setContentText("Your hand in already full");
+                    alert.show();
+                } else {
+                    alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                    alert.setContentText("Card " + name.get() + " Added to Your deck");
+                    alert.show();
+                    User.getCurrentUser().getDeck().addCardToHand(newCard);
+                }
             }
         }
     }
 
     private void selectLeader() {
-
+        TextInputDialog LeaderName = new TextInputDialog();
+        LeaderName.setContentText("Enter Leader name");
+        Optional<String> leader = LeaderName.showAndWait();
+        if(leader.isPresent()){
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            if(CardName.getCardByName(leader.get()) == null){
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setContentText("No such Leader");
+                alert.show();
+            }else {
+                User.getCurrentUser().getDeck().setCurrentLeaderCard(CardName.getCardByName(leader.get()));
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setContentText("Leader selected");
+                alert.show();
+            }
+        }
     }
 
     private void showLeaders() {
+        BorderPane pane = new BorderPane();
+        HBox cards = new HBox();
 
+        Button leftButton = new Button("Previous");
+        Button rightButton = new Button("Next");
+        ImageView card = new ImageView();
+
+        Button back = new Button("Back");
+        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getPreGameMenu()));
+        pane.setLeft(back);
+
+        cards.getChildren().addAll(leftButton, card, rightButton);
+        cards.setSpacing(50);
+        cards.setAlignment(Pos.CENTER);
+        pane.setCenter(cards);
+
+//        Rectangle clip = new Rectangle(330, 610);
+        Rectangle clip = new Rectangle(410,775);
+        clip.setArcHeight(80);
+        clip.setArcWidth(80);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+
+        card.setClip(clip);
+        ArrayList<Image> images = new ArrayList<>();
+
+        URL leadersDirectoryURL = Objects.requireNonNull(getClass().getResource("/IMAGES/leaders/" + User.getCurrentUser().getFaction().getName() + "/"));
+        String DirectoryPath = URLDecoder.decode(leadersDirectoryURL.getFile(), StandardCharsets.UTF_8);
+        File file = new File(DirectoryPath);
+        int[] counter = new int[1];
+        for (File file1 : Objects.requireNonNull(file.listFiles())) {
+            images.add(new Image(String.valueOf(file1)));
+        }
+        leftButton.setOnMouseClicked(mouseEvent -> {
+            counter[0] = (counter[0] + images.size() - 1) % images.size();
+            card.setImage(images.get(counter[0]));
+            WritableImage image = card.snapshot(parameters, null);
+            card.setImage(image);
+        });
+        rightButton.setOnMouseClicked(mouseEvent -> {
+            counter[0] = (counter[0] + images.size() + 1) % images.size();
+            card.setImage(images.get(counter[0]));
+            WritableImage image = card.snapshot(parameters, null);
+            card.setImage(image);
+        });
+        Scene scene = new Scene(pane);
+        pane.setCenter(cards);
+        card.setImage(images.get(counter[0]));
+        WritableImage image = card.snapshot(parameters, null);
+        card.setImage(image);
+
+        Stage stage = App.getStage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void loadDeckByName() {
@@ -245,7 +326,8 @@ public class PreGameMenuGraphic extends Application {
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Deck Loaded");
                 alert.show();
-                User.getCurrentUser().getDeck().setInHandCards(deck.getInHandCards());
+//                User.getCurrentUser().getDeck().setInHandCards(deck.getInHandCards());
+
                 User.getCurrentUser().getDeck().setCurrentLeaderCard(deck.getCurrentLeaderCard());
                 User.getCurrentUser().getDeck().setDiscardCards(deck.getDiscardCards());
                 User.getCurrentUser().getDeck().setLeaderCards(deck.getLeaderCards());
@@ -266,6 +348,10 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void saveDeckToFile() {
+        Deck deck = User.getCurrentUser().getDeck();
+        if(deck.getCurrentLeaderCard() == null){
+            //TODO
+        }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
 
@@ -286,6 +372,7 @@ public class PreGameMenuGraphic extends Application {
                 alert.setContentText("A deck already exists with this name");
                 alert.show();
             } else {
+                System.out.println(User.getCurrentUser().getDeck().getInHandCards());
                 GsonReaderWriter.getGsonReaderWriter().saveDeckByName(User.getCurrentUser().getDeck(), name.get());
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Deck " + name.get() + " saved");
@@ -298,6 +385,11 @@ public class PreGameMenuGraphic extends Application {
         BorderPane pane = new BorderPane();
         Label info = new Label();
         VBox box = new VBox(info);
+
+        Button back = new Button("Back");
+        pane.setLeft(back);
+        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getPreGameMenu()));
+
         pane.setCenter(box);
         box.setAlignment(Pos.CENTER);
         box.setSpacing(20);
@@ -309,7 +401,7 @@ public class PreGameMenuGraphic extends Application {
                 "\n\nnumberOfHeroCards: " + "" + "\n\nallCardsPower: " + SumOfCardPowers());
         info.setFont(Font.font("Arial", FontWeight.LIGHT, FontPosture.ITALIC, 20));
         Scene scene = new Scene(pane);
-        Stage stage = new Stage();
+        Stage stage = App.getStage();
         stage.setScene(scene);
         stage.show();
 //        Stage stage1 = App.getStage();
@@ -343,29 +435,34 @@ public class PreGameMenuGraphic extends Application {
         cards.getChildren().addAll(topCards, middleCards, bottomCards);
         pane.setCenter(cards);
 
+        Button back = new Button("Back");
+        pane.setLeft(back);
+        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getPreGameMenu()));
+
         pane.setId("pane");
         Scene scene = new Scene(pane);
         scene.getStylesheets().add(getClass().getResource("/CSS/1.css").toExternalForm());
         int counter = 0;
         HBox hBox = topCards;
-        System.out.println(User.getCurrentUser().getDeck().getInHandCards().get(0).getName());
+//        System.out.println(User.getCurrentUser().getDeck().getInHandCards().get(0).getName());
         for (Card card : User.getCurrentUser().getDeck().getInHandCards()) {
             if (card != null) {
-                if (counter == 3) {
+                if (counter == 7) {
                     hBox = middleCards;
                 }
-                if (counter == 7) {
+                if (counter == 14) {
                     hBox = bottomCards;
                 }
                 ImageView cardImage = new ImageView();
                 cardImage.setFitHeight(200);
                 cardImage.setFitWidth(120);
-                cardImage.setImage(new Image(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction() + "/" + User.getCurrentUser().getFaction() + "_" + card.getName().toLowerCase() + ".jpg").toExternalForm()));//ToDO make all images jpg
+                String CardName = card.getName().replaceAll(" ","_");
+                cardImage.setImage(new Image(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction() + "/" + User.getCurrentUser().getFaction() + "_" + CardName + ".jpg").toExternalForm()));//ToDO make all images jpg
                 hBox.getChildren().add(cardImage);
                 counter++;
             }
         }
-        Stage stage = new Stage();
+        Stage stage = App.getStage();
         stage.setScene(scene);
         stage.show();
     }
@@ -377,6 +474,10 @@ public class PreGameMenuGraphic extends Application {
         Button leftButton = new Button("Previous");
         Button rightButton = new Button("Next");
         ImageView card = new ImageView();
+
+        Button back = new Button("Back");
+        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getPreGameMenu()));
+        pane.setLeft(back);
 //        card.setId("imageView");
 //
 //        Rectangle rectangle = new Rectangle(card.getFitWidth(),card.getFitHeight());
@@ -392,7 +493,8 @@ public class PreGameMenuGraphic extends Application {
         cards.setAlignment(Pos.CENTER);
         pane.setCenter(cards);
 
-        Rectangle clip = new Rectangle(330, 610);
+//        Rectangle clip = new Rectangle(330, 610);
+        Rectangle clip = new Rectangle(410,775);
         clip.setArcHeight(80);
         clip.setArcWidth(80);
         SnapshotParameters parameters = new SnapshotParameters();
@@ -445,7 +547,7 @@ public class PreGameMenuGraphic extends Application {
         card.setImage(image);
 //        pattern.set(new ImagePattern(images.get(counter[0])));
 //        rectangle.setFill(pattern.get());
-        Stage stage = new Stage();
+        Stage stage = App.getStage();
         stage.setScene(scene);
         stage.show();
     }
@@ -459,6 +561,10 @@ public class PreGameMenuGraphic extends Application {
         pane.setId("pane");
         pane.setBackground(null);
 
+        Button back = new Button("Back");
+        pane.setLeft(back);
+        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getPreGameMenu()));
+
         Scene scene = new Scene(pane);
 
         scene.getStylesheets().add(getClass().getResource("/CSS/1.css").toExternalForm());
@@ -471,7 +577,7 @@ public class PreGameMenuGraphic extends Application {
             int finalI = i;
             faction.setOnMouseClicked(mouseEvent -> setUserFaction(String.valueOf(finalI)));
         }
-        Stage stage = new Stage();
+        Stage stage = App.getStage();
         stage.setScene(scene);
         stage.show();
     }
@@ -498,6 +604,10 @@ public class PreGameMenuGraphic extends Application {
         pane.setCenter(factions);
         pane.setId("pane");
         pane.setBackground(null);
+
+        Button back = new Button("Back");
+        pane.setLeft(back);
+        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getPreGameMenu()));
 
         Label cardDescription = new Label();
         Insets insets = new Insets(10);
@@ -542,7 +652,8 @@ public class PreGameMenuGraphic extends Application {
             });
             factions.getChildren().add(faction);
         }
-        Stage stage = new Stage();
+//        Stage stage = new Stage();
+        Stage stage = App.getStage();
         stage.setScene(scene);
         stage.show();
     }
@@ -584,13 +695,19 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void startNewGame() {
-        GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();
-        GameController gameController = (GameController) Menu.GameMenu.getMenuController();
-        gameController.setStartStatus(User.getCurrentUser());
-        try {
-            gameMenuGraphic.start(null);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (User.getCurrentUser().getDeck().getInHandCards().size() != 22) {//TODO check for 10 special cards
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Less than 22 cards in your hand");
+            alert.show();
+        } else {
+            GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();
+            GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+            gameController.setStartStatus(User.getCurrentUser());
+            try {
+                gameMenuGraphic.start(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
