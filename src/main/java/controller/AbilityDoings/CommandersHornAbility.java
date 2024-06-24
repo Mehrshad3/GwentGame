@@ -1,5 +1,6 @@
 package controller.AbilityDoings;
 
+import controller.Checking.HeroChecking;
 import model.GameStatus;
 import model.Row;
 import model.Table;
@@ -29,8 +30,8 @@ public class CommandersHornAbility {
         }
     }
 
-    public void DoAbilityOnCardArbitrary(Card card, Boolean isHero) {
-        if (isHero) {
+    public void DoAbilityOnCardArbitrary(UnitCard card) {
+        if (HeroChecking.HeroChecking(card)) {
 
         } else if (card instanceof UnitCard) {
             int power = ((UnitCard) card).getPower();
@@ -38,12 +39,19 @@ public class CommandersHornAbility {
         }
     }
 
-    public void DoAbilityOnCard(Card card) {
-        if (card instanceof UnitCard && ((UnitCard) card).isHero) { // Checks if the card is a Hero or not.
-
+    public void DoAbilityOnCard(UnitCard card) {
+        if (HeroChecking.HeroChecking(card)) {
         } else {
-//            int power = card.getPower();
-//            card.setPower(2 * power);
+            int power = card.getPower();
+            card.setPower(2 * power);
+        }
+    }
+
+    public void DoAbilityOnARow(int row){
+        Row[] rows=gameStatus.getTable().getRows();
+        Row wantedrow=rows[row];
+        for(UnitCard card0: wantedrow.getCards()){
+            DoAbilityOnCard(card0);
         }
     }
 }

@@ -1,5 +1,6 @@
 package controller.AbilityDoings;
 
+import controller.Checking.HeroChecking;
 import model.GameStatus;
 import model.Row;
 import model.faction.Card;
@@ -16,8 +17,12 @@ public class MoralBoostAbility {
         return game;
     }
 
-    public void DoAbilityOnACard(UnitCard card){
-        card.setPower(card.getPower()+1);
+    public void DoAbilityOnACard(UnitCard card) {
+        if (HeroChecking.HeroChecking(card)) {
+
+        } else {
+            card.setPower(card.getPower() + 1);
+        }
     }
 
     public void DoAbilityOnARow(int row){

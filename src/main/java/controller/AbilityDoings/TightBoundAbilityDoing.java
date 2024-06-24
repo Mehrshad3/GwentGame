@@ -1,5 +1,6 @@
 package controller.AbilityDoings;
 
+import controller.Checking.HeroChecking;
 import model.GameStatus;
 import model.Row;
 import model.faction.UnitCard;
@@ -15,10 +16,12 @@ public class TightBoundAbilityDoing {
         return game;
     }
 
-    public void DoAbilityInARow(int row, UnitCard card){
-        int countofthiscards=0;
-        Row[] rows =game.getTable().getRows();
-        Row wantedrow=rows[row];
-        //TODO:What is this?
+    public void DoAbilityInARow(int row, UnitCard card) {
+        //TODO: Hero? what to do what not to do :)
+            int countofthiscards = 0;
+            Row[] rows = game.getTable().getRows();
+            Row wantedrow = rows[row];
+            //TODO:What is this?
+
     }
 }
