@@ -45,6 +45,7 @@ public final class GsonReaderWriter {
 
     private <T extends Serializable> void saveToFile(T object, File file) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
         String json = gson.toJson(object);
         try (PrintWriter pw = new PrintWriter(file)) {
             pw.write(json);
