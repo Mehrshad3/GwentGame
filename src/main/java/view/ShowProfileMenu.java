@@ -27,12 +27,13 @@ public class ShowProfileMenu extends Application {
     private Label NickName;
     private Label Password;
     private ProfileMenuController profileMenuController;
+
     @Override
     public void start(Stage stage) throws Exception {
 
-        User user = User.create("nima","123","nima@gmail.com","n.ooo","","");
+        User user = User.create("nima", "123", "nima@gmail.com", "n.ooo", "", "");
         User.setCurrentUser(user);
-        
+
         profileMenuController = new ProfileMenuController();
         this.stage = stage;
         info = new HBox();
@@ -54,23 +55,23 @@ public class ShowProfileMenu extends Application {
         stage.show();
     }
 
-    private void setInfoAndButtonsNodes(){
+    private void setInfoAndButtonsNodes() {
         Username = new Label("Username: " + User.getCurrentUser().getName());
-        Username.setMinWidth(User.getCurrentUser().getName().length()*30);
+        Username.setMinWidth(User.getCurrentUser().getName().length() * 30);
         Username.setMaxWidth(150);
-        Username.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,17));
+        Username.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
         info.getChildren().add(Username);
 
         NickName = new Label("Nickname: " + User.getCurrentUser().getNickname());
-        NickName.setMinWidth(User.getCurrentUser().getNickname().length()*30);
+        NickName.setMinWidth(User.getCurrentUser().getNickname().length() * 30);
         NickName.setMaxWidth(150);
-        NickName.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,17));
+        NickName.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
         info.getChildren().add(NickName);
 
         Email = new Label("Email: " + User.getCurrentUser().getEmail());
-        Email.setMinWidth(User.getCurrentUser().getEmail().length()*30);
+        Email.setMinWidth(User.getCurrentUser().getEmail().length() * 30);
         Email.setMaxWidth(150);
-        Email.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC,17));
+        Email.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
         info.getChildren().add(Email);
 
         Button ChangeUsernameButton = new Button("Change Username");
@@ -111,7 +112,7 @@ public class ShowProfileMenu extends Application {
         newEmail.setHeaderText("Change Email");
         newEmail.setContentText("Enter your new Email");
         Optional<String> email = newEmail.showAndWait();
-        email.ifPresent(s -> profileMenuController.changeEmail(s,User.getCurrentUser().getEmail()));
+        email.ifPresent(s -> profileMenuController.changeEmail(s, User.getCurrentUser().getEmail()));
     }
 
     private void changeNickname() {
@@ -119,7 +120,7 @@ public class ShowProfileMenu extends Application {
         newNickname.setHeaderText("Change Nickname");
         newNickname.setContentText("Enter your new Nickname");
         Optional<String> nickname = newNickname.showAndWait();
-        nickname.ifPresent(s -> profileMenuController.changeNickname(s,User.getCurrentUser().getNickname()));
+        nickname.ifPresent(s -> profileMenuController.changeNickname(s, User.getCurrentUser().getNickname()));
     }
 
     private void changePassword() {
@@ -127,7 +128,7 @@ public class ShowProfileMenu extends Application {
         newPassword.setContentText("Enter your new password");
         newPassword.setHeaderText("Change Password");
         Optional<String> password = newPassword.showAndWait();
-        password.ifPresent(s -> profileMenuController.changePassword(s,User.getCurrentUser().getPassword()));
+        password.ifPresent(s -> profileMenuController.changePassword(s, User.getCurrentUser().getPassword()));
     }
 
     private void changeUsername() {

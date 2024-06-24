@@ -65,4 +65,9 @@ public class User extends Player implements Serializable {
     public int getWins() {
         return numberOfWins;
     }
+
+    public int getNumberOfLoses() {
+        return numberOfLoses;
+    }
 }
+

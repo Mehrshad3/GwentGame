@@ -38,6 +38,10 @@ public abstract class Card {
         this.name = name;
     }
 
+    public Integer getInitialPower() {
+        return initialPower;
+    }
+
     public CardName getCardName() {
         return this.cardName;
     }

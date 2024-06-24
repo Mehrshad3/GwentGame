@@ -21,7 +21,7 @@ public class Deck implements Serializable {
 
     Deck(Faction faction) {
         this.faction = faction;
-        this.currentLeaderCard = faction.leaderCards()[0].getNewCard();
+//        this.currentLeaderCard = faction.leaderCards()[0].getNewCard();
     }
 
     public ArrayList<Card> getDiscardCards() {

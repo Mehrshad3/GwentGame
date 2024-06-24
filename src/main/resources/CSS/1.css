@@ -12,12 +12,12 @@
     -fx-animation-name: nima;
     /*-fx-fill: url("../IMAGES/Faction1.jpg");*/
 }
-div{
-    width: 120px;
-    height: 200px;
-    -fx-background-image: url("../IMAGES/Faction2.jpg");
+#black{
+    /*-fx-background-color: rgba(0, 0, 0, 0.78);*/
 }
-@keyframes nima {
-    from{-fx-background-image: url("../IMAGES/Faction1.jpg")}
-    to{-fx-background-image: url("../IMAGES/Faction2.jpg")}
+#imageView{
+    -fx-padding: 10;
+    -fx-background-color: firebrick;
+    -fx-border-radius: 50;
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.8),10,0,0,0);
 }
