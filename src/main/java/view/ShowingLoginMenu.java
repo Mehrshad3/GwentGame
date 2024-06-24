@@ -269,6 +269,8 @@ public class ShowingLoginMenu extends Application {
             MainMenuGraphic mainMenu = new MainMenuGraphic();
             try {
                 User.setCurrentUser(user);
+                User.getCurrentUser().setFaction("monsters");
+//                System.out.println(User.getCurrentUser().getFaction());
 //                showMainMenu.start(stage);
                 mainMenu.start(stage);
             } catch (Exception e) {

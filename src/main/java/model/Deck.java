@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Deck implements Serializable {
 
     private ArrayList<Card> discardCards;
-    private ArrayList<Card> inHandCards = new ArrayList<>();
+    private ArrayList<Card> inHandCards;
     private Card currentLeaderCard;
     private ArrayList<Card> leaderCards;
     private Faction faction;
@@ -23,6 +23,9 @@ public class Deck implements Serializable {
     }
 
     public ArrayList<Card> getInHandCards() {
+        if(inHandCards == null){
+            inHandCards = new ArrayList<>();
+        }
         return inHandCards;
     }
 
@@ -52,6 +55,9 @@ public class Deck implements Serializable {
     }
 
     public void addCardToHand(Card card) {
+        if(inHandCards == null){
+            inHandCards = new ArrayList<>();
+        }
         inHandCards.add(card);
     }
 

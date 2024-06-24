@@ -33,7 +33,7 @@ public class MainMenuGraphic extends Application {
         HBox box = new HBox();
         box.setSpacing(20);
         box.setAlignment(Pos.CENTER);
-        box.getChildren().addAll(ProfileButton,PreGameButton);
+        box.getChildren().addAll(ProfileButton, PreGameButton);
         pane.setCenter(box);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
