@@ -65,8 +65,7 @@ public class Deck implements Serializable {
     }
 
     public void addCardToHand(Card card) {
-        notChosenCards.remove(card);
-        inHandCards.add(card);
+        notChosenCards.add(card);
     }
 
     void moveToDiscardPile(Card card) {

@@ -69,5 +69,21 @@ public class User extends Player implements Serializable {
     public int getNumberOfLoses() {
         return numberOfLoses;
     }
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
 }
 

@@ -1,6 +1,7 @@
 package view;
 
 import controller.LoginMenuController;
+import controller.ProfileMenuController;
 import controller.RegisterMenuController;
 import controller.Validator;
 import javafx.application.Application;
@@ -128,27 +129,47 @@ public class ShowingLoginMenu extends Application {
         Optional<String> username = Username.showAndWait();
 
         if (username.isPresent()) {
-            //TODO check if UserExists
-            TextInputDialog answer = new TextInputDialog();
-            answer.setTitle("Change Password");
-            answer.setHeaderText("Security Password");
-            answer.setContentText("Enter Your Security Question You Set Before");
-            Optional<String> securityAnswer = answer.showAndWait();
-            if (securityAnswer.isPresent()) {
-                //TODO check if correct then change password
-                TextInputDialog newPassword = new TextInputDialog();
-                newPassword.setContentText("Enter new password");
-                newPassword.setHeaderText("New Password");
-                Optional<String> text = newPassword.showAndWait();
-                if (text.isPresent()) {
-                    System.out.println(text.get());
-                } else {
-                    System.out.println("enter");
-                }
+            if (!validator.isUsernameDuplicate(username.get())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("username doesn't exists");
+                alert.show();
             } else {
-                //TODO alert Wrong
+                TextInputDialog answer = new TextInputDialog();
+                answer.setTitle("Change Password");
+                answer.setHeaderText("Security Question");
+                answer.setContentText("Enter Your Security Answer You Set Before");
+                Optional<String> securityAnswer = answer.showAndWait();
+                if (securityAnswer.isPresent()) {
+                    //TODO check if correct then change password
+                    User user = GsonReaderWriter.getGsonReaderWriter().loadUser(username.get());
+                    if (user.getSecurityAnswer().equalsIgnoreCase(securityAnswer.get())) {
+                        TextInputDialog newPassword = new TextInputDialog();
+                        newPassword.setContentText("Enter new password");
+                        newPassword.setHeaderText("New Password");
+                        Optional<String> text = newPassword.showAndWait();
+                        if (text.isPresent()) {
+                            Alert alert = new Alert(Alert.AlertType.NONE);
+                            if(!validator.validatePassword(text.get())){
+                                User.setCurrentUser(user);
+                                ProfileMenuController controller = new ProfileMenuController();
+                                controller.changePassword(text.get(),user.getPassword());
+                                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                                alert.setContentText("password changed");
+                                alert.show();
+                                User.setCurrentUser(null);
+                            }else {
+                                alert.setAlertType(Alert.AlertType.ERROR);
+                                alert.setContentText("Wrong password format");
+                                alert.show();
+                            }
+                        }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Wrong answer");
+                        alert.show();
+                    }
+                }
             }
-        }
 //        Optional s = answer.showAndWait();
 //        answer.getDialogPane().getButtonTypes().add(ButtonType.OK);
 
@@ -165,6 +186,7 @@ public class ShowingLoginMenu extends Application {
 
 
 //        System.out.println(securityAnswer.get());
+        }
     }
 
     private boolean isSecurityAnswerCorrect(String text) {
@@ -263,7 +285,8 @@ public class ShowingLoginMenu extends Application {
             alert.show();
         } else if (!validator.isPasswordCorrect(user, Password.getText())) {
             alert.setAlertType(Alert.AlertType.WARNING);
-            alert.setContentText("Password entered is not correct.");
+            alert.setContentText("Password is not correct.");
+            alert.show();
         } else {
             ShowProfileMenu showMainMenu = new ShowProfileMenu();
             MainMenuGraphic mainMenu = new MainMenuGraphic();

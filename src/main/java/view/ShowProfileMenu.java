@@ -2,6 +2,7 @@ package view;
 
 import controller.ProfileMenuController;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.App;
 import model.User;
 
 import java.util.Optional;
@@ -26,13 +28,14 @@ public class ShowProfileMenu extends Application {
     private Label Email;
     private Label NickName;
     private Label Password;
+    private Button back = new Button("Back");
     private ProfileMenuController profileMenuController;
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        User user = User.create("nima", "123", "nima@gmail.com", "n.ooo", "", "");
-        User.setCurrentUser(user);
+//        User user = User.create("nima", "123", "nima@gmail.com", "n.ooo", "", "");
+//        User.setCurrentUser(user);
 
         profileMenuController = new ProfileMenuController();
         this.stage = stage;
@@ -44,8 +47,14 @@ public class ShowProfileMenu extends Application {
         changingButtons.setSpacing(20);
         changingButtons.setAlignment(Pos.CENTER);
         BorderPane pane = new BorderPane();
-//        pane.setLeft(info);
+
         pane.setTop(info);
+
+        Insets insets = new Insets(30);
+        BorderPane.setMargin(changingButtons,insets);
+        BorderPane.setMargin(info,insets);
+        BorderPane.setMargin(back,new Insets(0));
+
         pane.setBottom(changingButtons);
         setInfoAndButtonsNodes();
         Scene scene = new Scene(pane);
@@ -56,6 +65,11 @@ public class ShowProfileMenu extends Application {
     }
 
     private void setInfoAndButtonsNodes() {
+
+        back.setMinWidth(40);
+        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getMainMenu()));
+        info.getChildren().add(back);
+
         Username = new Label("Username: " + User.getCurrentUser().getName());
         Username.setMinWidth(User.getCurrentUser().getName().length() * 30);
         Username.setMaxWidth(150);

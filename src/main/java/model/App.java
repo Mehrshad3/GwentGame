@@ -1,6 +1,7 @@
 package model;
 
 import enums.Menu;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.util.logging.Logger;
 public class App {
     public static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static Stage stage;
+    private static Scene preGameMenu;
+    private static Scene mainMenu;
     private static App appObject = null;
     private static Menu currentMenu = Menu.LoginMenu;
 
@@ -54,5 +57,21 @@ public class App {
 
     public void setGaming(GameStatus gaming) {
         this.gaming = gaming;
+    }
+
+    public static Scene getPreGameMenu() {
+        return preGameMenu;
+    }
+
+    public static void setPreGameMenu(Scene preGameMenu) {
+        App.preGameMenu = preGameMenu;
+    }
+
+    public static Scene getMainMenu() {
+        return mainMenu;
+    }
+
+    public static void setMainMenu(Scene mainMenu) {
+        App.mainMenu = mainMenu;
     }
 }
