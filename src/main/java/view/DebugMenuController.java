@@ -5,14 +5,13 @@ import enums.card.CardName;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
+import model.App;
 import model.faction.Card;
 
 import java.util.Optional;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DebugMenuController {
-    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private GameController gameController;
 
     @FXML
@@ -25,7 +24,7 @@ public class DebugMenuController {
             card = CardName.getCardByName(optional.get());
             if (card != null) {
                 gameController.addCardToHandForDebug(card);
-                LOGGER.log(Level.FINER, "Card" + card.getName() + " added to hand.");
+                App.LOGGER.log(Level.FINER, "Card" + card.getName() + " added to hand.");
             }
         }
     }

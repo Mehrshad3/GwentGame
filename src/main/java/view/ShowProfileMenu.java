@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -51,9 +50,9 @@ public class ShowProfileMenu extends Application {
         pane.setTop(info);
 
         Insets insets = new Insets(30);
-        BorderPane.setMargin(changingButtons,insets);
-        BorderPane.setMargin(info,insets);
-        BorderPane.setMargin(back,new Insets(0));
+        BorderPane.setMargin(changingButtons, insets);
+        BorderPane.setMargin(info, insets);
+        BorderPane.setMargin(back, new Insets(0));
 
         pane.setBottom(changingButtons);
         setInfoAndButtonsNodes();
@@ -67,7 +66,7 @@ public class ShowProfileMenu extends Application {
     private void setInfoAndButtonsNodes() {
 
         back.setMinWidth(40);
-        back.setOnMouseClicked(mouseEvent -> App.getStage().setScene(App.getMainMenu()));
+        back.setOnAction(actionEvent -> App.getStage().setScene(App.getMainMenu()));
         info.getChildren().add(back);
 
         Username = new Label("Username: " + User.getCurrentUser().getName());
@@ -89,27 +88,27 @@ public class ShowProfileMenu extends Application {
         info.getChildren().add(Email);
 
         Button ChangeUsernameButton = new Button("Change Username");
-        ChangeUsernameButton.setOnMouseClicked(mouseEvent -> changeUsername());
+        ChangeUsernameButton.setOnAction(actionEvent -> changeUsername());
         changingButtons.getChildren().add(ChangeUsernameButton);
 
         Button ChangePasswordButton = new Button("Change Password");
-        ChangePasswordButton.setOnMouseClicked(mouseEvent -> changePassword());
+        ChangePasswordButton.setOnAction(actionEvent -> changePassword());
         changingButtons.getChildren().add(ChangePasswordButton);
 
         Button ChangeNickNameButton = new Button("Change Nickname");
-        ChangeNickNameButton.setOnMouseClicked(mouseEvent -> changeNickname());
+        ChangeNickNameButton.setOnAction(actionEvent -> changeNickname());
         changingButtons.getChildren().add(ChangeNickNameButton);
 
         Button ChangeEmailButton = new Button("Change Email");
-        ChangeEmailButton.setOnMouseClicked(mouseEvent -> changeEmail());
+        ChangeEmailButton.setOnAction(actionEvent -> changeEmail());
         changingButtons.getChildren().add(ChangeEmailButton);
 
         Button UserInfo = new Button("Info");
-        UserInfo.setOnMouseClicked(mouseEvent -> showUserInfo());
+        UserInfo.setOnAction(actionEvent -> showUserInfo());
         changingButtons.getChildren().add(UserInfo);
 
         Button History = new Button("History");
-        History.setOnMouseClicked(mouseEvent -> showGameHistory());
+        History.setOnAction(actionEvent -> showGameHistory());
         changingButtons.getChildren().add(History);
     }
 

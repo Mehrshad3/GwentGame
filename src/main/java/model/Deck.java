@@ -8,11 +8,9 @@ import model.faction.Faction;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Deck implements Serializable {
-    private final Set<Card> notChosenCards = new HashSet<>();
+    private final ArrayList<Card> notChosenCards = new ArrayList<>();
     private final Faction faction;
     private final ObservableList<Card> inHandCards = FXCollections.observableArrayList();
     private ArrayList<Card> discardCards;
@@ -64,8 +62,17 @@ public class Deck implements Serializable {
         return notChosenCards.size();
     }
 
+    public ArrayList<Card> getCardsInDeck() {
+        return notChosenCards;
+    }
+
+    public void setNotChosenCards(Collection<? extends Card> newDeck) {
+        this.inHandCards.setAll(newDeck);
+    }
+
     public void addCardToHand(Card card) {
-        notChosenCards.add(card);
+        notChosenCards.remove(card);
+        inHandCards.add(card);
     }
 
     void moveToDiscardPile(Card card) {

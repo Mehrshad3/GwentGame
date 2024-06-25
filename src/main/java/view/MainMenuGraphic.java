@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.App;
 
+import java.util.logging.Level;
+
 public class MainMenuGraphic extends Application {
     @Override
     public void start(Stage stage) throws Exception {
@@ -16,19 +18,19 @@ public class MainMenuGraphic extends Application {
         BorderPane pane = new BorderPane();
         Button PreGameButton = new Button("PreGame");
         Button ProfileButton = new Button("Profile");
-        PreGameButton.setOnMouseClicked(mouseEvent -> {
+        PreGameButton.setOnAction(actionEvent -> {
             try {
                 preGameMenu.start(stage);
             } catch (Exception e) {
-                e.printStackTrace();
+                App.LOGGER.log(Level.SEVERE, "Can't enter the pre-game menu!", e);
             }
         });
         ShowProfileMenu profileMenu = new ShowProfileMenu();
-        ProfileButton.setOnMouseClicked(mouseEvent -> {
+        ProfileButton.setOnAction(actionEvent -> {
             try {
                 profileMenu.start(stage);
             } catch (Exception e) {
-                e.printStackTrace();
+                App.LOGGER.log(Level.SEVERE, "Can't enter the profile menu!", e);
             }
         });
         HBox box = new HBox();

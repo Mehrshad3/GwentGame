@@ -23,6 +23,7 @@ import model.faction.UnitCard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -199,6 +200,8 @@ public class GameGraphicController {
     }
 
     private void showInHandCards() {
+        List<Card> player1InHandCards = gameController.getPlayer1InHandCards();
+        addCardsToHandView(0, player1InHandCards.size(), player1InHandCards);
         gameController.getPlayer1InHandCards().addListener((ListChangeListener<? super Card>) change -> {
             while (change.next()) { // I don't know why this method is used.
                 if (change.wasAdded()) addAddedCardsToHandView(change);
@@ -212,24 +215,27 @@ public class GameGraphicController {
 
     private void addAddedCardsToHandView(ListChangeListener.Change<? extends Card> change) {
         try {
-            ObservableList<Node> children = inHandCards.getChildren();
-            int from = change.getFrom();
-            for (int i = from; i < change.getTo(); i++) {
-                Card card = change.getList().get(i);
-                CardView cardView;
-                if (card instanceof UnitCard) {
-                    URL imageURL = Objects.requireNonNull(getClass().getResource("/IMAGES/man.png"));
-                    cardView = new UnitCardView(new Image(imageURL.toExternalForm()), (UnitCard) card);
-                } else {
-                    URL imageURL = Objects.requireNonNull(getClass().getResource("/IMAGES/mon.png"));
-                    cardView = new CardView(new Image(imageURL.toExternalForm()));
-                }
-                updateCardWidth(cardView);
-                updateCardHeight(cardView);
-                children.add(i, cardView);
-            }
+            addCardsToHandView(change.getFrom(), change.getTo(), change.getList());
         } catch (RuntimeException e) {
             LOGGER.log(Level.SEVERE, "Exception / Error in updating cards in the view occurred.", e);
+        }
+    }
+
+    private void addCardsToHandView(int from, int to, List<? extends Card> list) {
+        ObservableList<Node> children = inHandCards.getChildren();
+        for (int i = from; i < to; i++) {
+            Card card = list.get(i);
+            CardView cardView;
+            if (card instanceof UnitCard) {
+                URL imageURL = Objects.requireNonNull(getClass().getResource("/IMAGES/man.png"));
+                cardView = new UnitCardView(new Image(imageURL.toExternalForm()), (UnitCard) card);
+            } else {
+                URL imageURL = Objects.requireNonNull(getClass().getResource("/IMAGES/mon.png"));
+                cardView = new CardView(new Image(imageURL.toExternalForm()));
+            }
+            updateCardWidth(cardView);
+            updateCardHeight(cardView);
+            children.add(i, cardView);
         }
     }
 

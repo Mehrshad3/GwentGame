@@ -101,21 +101,21 @@ public class ShowingLoginMenu extends Application {
         vBox.getChildren().add(Nickname);
 
         Button LoginButton = new Button("Login");
-        LoginButton.setOnMouseClicked(mouseEvent -> login());
+        LoginButton.setOnAction(actionEvent -> login());
         LoginButton.setLayoutX(stage.getWidth() / 2 + 60);
         LoginButton.setLayoutY(stage.getHeight() / 2 + 20);
         LoginButton.setMinWidth(75);
         vBox.getChildren().add(LoginButton);
 
         Button RegisterButton = new Button("Register");
-        RegisterButton.setOnMouseClicked(mouseEvent -> register());
+        RegisterButton.setOnAction(actionEvent -> register());
         RegisterButton.setLayoutX(stage.getWidth() / 2 - 100);
         RegisterButton.setLayoutY(stage.getHeight() + 40);
         RegisterButton.setMinWidth(75);
         vBox.getChildren().add(RegisterButton);
 
         Button ForgotPassword = new Button("Forgot Password");
-        ForgotPassword.setOnMouseClicked(mouseEvent -> changeForgottenPassword());
+        ForgotPassword.setOnAction(actionEvent -> changeForgottenPassword());
         ForgotPassword.setLayoutX(stage.getWidth() / 2 - 100);
         ForgotPassword.setLayoutY(stage.getHeight() + 60);
         ForgotPassword.setMinWidth(75);
@@ -149,15 +149,15 @@ public class ShowingLoginMenu extends Application {
                         Optional<String> text = newPassword.showAndWait();
                         if (text.isPresent()) {
                             Alert alert = new Alert(Alert.AlertType.NONE);
-                            if(!validator.validatePassword(text.get())){
+                            if (!validator.validatePassword(text.get())) {
                                 User.setCurrentUser(user);
                                 ProfileMenuController controller = new ProfileMenuController();
-                                controller.changePassword(text.get(),user.getPassword());
+                                controller.changePassword(text.get(), user.getPassword());
                                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                                 alert.setContentText("password changed");
                                 alert.show();
                                 User.setCurrentUser(null);
-                            }else {
+                            } else {
                                 alert.setAlertType(Alert.AlertType.ERROR);
                                 alert.setContentText("Wrong password format");
                                 alert.show();
@@ -182,7 +182,7 @@ public class ShowingLoginMenu extends Application {
 //        System.out.println(ok.isPressed());
 //        System.out.println(okButton.isPressed());
 //        BooleanBinding isCorrect = Bindings.createBooleanBinding(() -> isSecurityAnswerCorrect(input.getText()),input.textProperty());
-//        okButton.setOnMouseClicked(mouseEvent -> isSecurityAnswerCorrect(securityAnswer.get()));
+//        okButton.setOnAction(actionEvent -> isSecurityAnswerCorrect(securityAnswer.get()));
 
 
 //        System.out.println(securityAnswer.get());
