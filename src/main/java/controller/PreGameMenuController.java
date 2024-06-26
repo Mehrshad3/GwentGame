@@ -2,7 +2,9 @@ package controller;
 
 import enums.Menu;
 import model.*;
-import view.AppView;
+
+import java.io.File;
+import java.util.logging.Level;
 
 public class PreGameMenuController extends MenuController {
 
@@ -48,7 +50,13 @@ public class PreGameMenuController extends MenuController {
     }
 
     public void loadDeckFromFileAddress(String fileAddress) {
-        // TODO
+        loadDeckFromFile(new File(fileAddress));
+    }
+
+    public void loadDeckFromFile(File file) {
+        if (file == null) return;
+        System.out.println(file.getAbsolutePath());
+        App.LOGGER.log(Level.FINE, "Deck from " + file.getAbsolutePath() + " will be loaded.");
     }
 
     public void showLeaders() {

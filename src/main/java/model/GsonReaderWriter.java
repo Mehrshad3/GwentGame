@@ -3,17 +3,23 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import model.faction.Card;
 import model.faction.Faction;
+import model.typeadapters.CardTypeAdapter;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.util.Scanner;
+import java.util.logging.Level;
 
 public final class GsonReaderWriter {
     private static final FilePath GWENT_PATH = FilePath.of(".GWENT");
     private static GsonReaderWriter gsonReaderWriter;
+    private final Gson gson;
 
     private GsonReaderWriter() {
+        GsonBuilder gsonBuilder = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(Card.class, CardTypeAdapter.getInstance());
+        gson = gsonBuilder.create();
     }
 
     public static GsonReaderWriter getGsonReaderWriter() {
@@ -22,18 +28,13 @@ public final class GsonReaderWriter {
     }
 
     private <T extends Serializable> T loadFromFile(File file, Class<T> tClass) {
-        Gson gson = new Gson();
         T object = null;
         if (!file.exists()) return null;
         try {
-            Scanner scanner = new Scanner(file);
-            String json = new String(Files.readAllBytes(file.toPath()));
             JsonReader reader = new JsonReader(new FileReader(file));
             object = gson.fromJson(reader, tClass);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            App.LOGGER.log(Level.WARNING, "Couldn't find the file to read the " + tClass.getName() + " object from.");
         }
         return object;
     }
@@ -44,17 +45,16 @@ public final class GsonReaderWriter {
     }
 
     private <T extends Serializable> void saveToFile(T object, File file) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
         String json = gson.toJson(object);
         try (PrintWriter pw = new PrintWriter(file)) {
             pw.write(json);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            String objectTypeName = object.getClass().getName();
+            App.LOGGER.log(Level.WARNING, "Couldn't find the file to write the " + objectTypeName + "object to.");
         }
     }
 
-    private <T extends Serializable> File getAndCreateFile(FilePath path) {
+    private File getAndCreateFile(FilePath path) {
         FilePath parentDirectoryPath = path.getParent();
         File parentDirectory = parentDirectoryPath.toFile();
         if (!parentDirectory.mkdirs() && !parentDirectory.exists())
@@ -105,15 +105,18 @@ public final class GsonReaderWriter {
     public Deck loadDeckByName(String deckName) {
         User currentUser = User.getCurrentUser();
         assert currentUser != null && deckName != null;
-        return loadFromFile(pathOfDeck(deckName), Deck.class);
+        RawDeck rawDeck = loadFromFile(pathOfDeck(deckName), RawDeck.class);
+        return rawDeck != null ? new Deck(rawDeck) : null;
     }
 
     public Deck loadDeckFromFile(File file) {
-        return loadFromFile(file, Deck.class);
+        RawDeck rawDeck = loadFromFile(file, RawDeck.class);
+        return rawDeck != null ? new Deck(rawDeck) : null;
     }
 
     public void saveDeckToFile(Deck deck, File file) {
-        saveToFile(deck, file);
+        RawDeck rawDeck = deck.getDeckAsSerializable();
+        saveToFile(rawDeck, file);
     }
 
     public void saveUser(User user) {
@@ -123,6 +126,7 @@ public final class GsonReaderWriter {
 
     public void saveDeckByName(Deck deck, String deckName) {
         assert deck != null && deckName != null;
-        saveToFile(deck, pathOfDeck(deckName));
+        RawDeck rawDeck = deck.getDeckAsSerializable();
+        saveToFile(rawDeck, pathOfDeck(deckName));
     }
 }

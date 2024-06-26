@@ -13,7 +13,7 @@ import java.util.logging.Level;
 
 public class MainMenuGraphic extends Application {
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         PreGameMenuGraphic preGameMenu = new PreGameMenuGraphic();
         BorderPane pane = new BorderPane();
         Button PreGameButton = new Button("PreGame");

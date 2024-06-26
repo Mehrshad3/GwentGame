@@ -12,4 +12,5 @@ module GWENT {
     opens model.faction to com.google.gson;
     opens enums.card to com.google.gson;
     opens enums.card.ability to com.google.gson;
+    opens model.typeadapters to com.google.gson;
 }

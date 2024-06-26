@@ -128,11 +128,11 @@ public class GameController extends MenuController {
         return player2.getDeck().getCurrentLeaderCard();
     }
 
-    public ArrayList<Card> getPlayer1DiscardPile() {
+    public ObservableList<Card> getPlayer1DiscardPile() {
         return player1.getDeck().getDiscardCards();
     }
 
-    public ArrayList<Card> getPlayer2DiscardPile() {
+    public ObservableList<Card> getPlayer2DiscardPile() {
         return player2.getDeck().getDiscardCards();
     }
 

@@ -34,7 +34,7 @@ public class Player {
         return deck;
     }
 
-    void setDeck(Deck deck) {
+    public void setDeck(Deck deck) {
         this.deck = deck;
     }
 

@@ -4,8 +4,6 @@ import model.GsonReaderWriter;
 import model.User;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Objects;
 
 public class ProfileMenuController extends MenuController {

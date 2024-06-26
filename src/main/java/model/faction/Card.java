@@ -5,7 +5,9 @@ import enums.card.PossibleRowsToPlayCard;
 import enums.card.ability.CardAbility;
 import model.GameStatus;
 
-public abstract class Card {
+import java.io.Serializable;
+
+public abstract class Card implements Serializable {
     protected final CardAbility ability;
     protected final PossibleRowsToPlayCard rows;
     protected final Integer initialPower;

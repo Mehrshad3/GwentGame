@@ -22,7 +22,6 @@ import model.faction.UnitCard;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -266,13 +265,13 @@ public class GameGraphicController {
 
     @FXML
     private void showSelfDiscardPile(MouseEvent mouseEvent) {
-        ArrayList<Card> discardPile = gameController.getPlayer1DiscardPile();
+        ObservableList<Card> discardPile = gameController.getPlayer1DiscardPile();
         // TODO
     }
 
     @FXML
     private void showOpponentDiscardPile(MouseEvent mouseEvent) {
-        ArrayList<Card> discardPile = gameController.getPlayer2DiscardPile();
+        ObservableList<Card> discardPile = gameController.getPlayer2DiscardPile();
         // TODO
     }
 

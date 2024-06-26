@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class PreGameMenuGraphic extends Application {
     private HBox topButtons;
@@ -326,14 +325,11 @@ public class PreGameMenuGraphic extends Application {
                 alert.setContentText("No such Deck");
                 alert.show();
             } else {
-                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                App.LOGGER.log(Level.FINER, "Deck loaded having cards: ", deck.getCardsInDeck());
+                alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("Deck Loaded");
                 alert.show();
-//                User.getCurrentUser().getDeck().setInHandCards(deck.getInHandCards());
-
-                User.getCurrentUser().getDeck().setCurrentLeaderCard(deck.getCurrentLeaderCard());
-                User.getCurrentUser().getDeck().setDiscardCards(deck.getDiscardCards());
-                User.getCurrentUser().getDeck().setLeaderCards(deck.getLeaderCards());
+                User.getCurrentUser().setDeck(deck);
             }
         }
     }
@@ -346,7 +342,11 @@ public class PreGameMenuGraphic extends Application {
         fileChooser.getExtensionFilters().add(extensionFilter);
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
-            System.out.println(file.getAbsolutePath());//TODO
+            System.out.println(file.getAbsolutePath());
+            Deck deck = GsonReaderWriter.getGsonReaderWriter().loadDeckFromFile(file);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Deck Loaded");
+            alert.show();
         }
     }
 
