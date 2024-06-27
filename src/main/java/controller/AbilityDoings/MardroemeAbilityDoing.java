@@ -1,5 +1,6 @@
 package controller.AbilityDoings;
 
+import controller.Checking.BerserkerChecking;
 import controller.Checking.HeroChecking;
 import model.GameStatus;
 import model.Row;
@@ -19,8 +20,7 @@ public class MardroemeAbilityDoing {
     public void DoAbilityOnACard(UnitCard card) {
         if (HeroChecking.HeroChecking(card)) {
         } else {
-            Boolean isBerserker = false;
-            //TODO:CHecking Card has Berseerker Ability? Boolean isBerserker=...
+            Boolean isBerserker = BerserkerChecking.berserkerchecking(card);
             if (isBerserker) {
                 BerserkerAbilityDoing bearer = new BerserkerAbilityDoing();
                 bearer.setGame(game);
