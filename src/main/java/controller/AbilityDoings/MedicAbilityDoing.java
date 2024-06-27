@@ -24,7 +24,7 @@ public class MedicAbilityDoing {
 
     public void DoAbility(Player player, Card card){
         if(HeroChecking.HeroChecking((UnitCard) card)) {
-            ArrayList<Card> discardcards = player.getDeck().getDiscardCards();
+            ObservableList<Card> discardcards = player.getDeck().getDiscardCards();
             ObservableList<Card> inhandcards = player.getDeck().getInHandCards();
             discardcards.remove(card);
             inhandcards.add(card);
