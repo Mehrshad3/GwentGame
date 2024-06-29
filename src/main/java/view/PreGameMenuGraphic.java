@@ -171,25 +171,25 @@ public class PreGameMenuGraphic extends Application {
                     contains = true;
                 }
             }
-        }
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        if (contains) {
-            alert.setAlertType(Alert.AlertType.CONFIRMATION);
-            alert.setContentText("Card " + name.get() + "deleted");
-            alert.show();
-            ArrayList<Card> copy = new ArrayList<>(User.getCurrentUser().getDeck().getInHandCards());
-            int index = 0;
-            for (Card inHandCard : copy) {
-                if (inHandCard.getName().equalsIgnoreCase(name.get())) {
-                    User.getCurrentUser().getDeck().getInHandCards().remove(index);
-                    break;
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            if (contains) {
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setContentText("Card " + name.get() + "deleted");
+                alert.show();
+                ArrayList<Card> copy = new ArrayList<>(User.getCurrentUser().getDeck().getInHandCards());
+                int index = 0;
+                for (Card inHandCard : copy) {
+                    if (inHandCard.getName().equalsIgnoreCase(name.get())) {
+                        User.getCurrentUser().getDeck().getInHandCards().remove(index);
+                        break;
+                    }
+                    index++;
                 }
-                index++;
+            } else {
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setContentText("You don't have card " + name.get() + " in your hand");
+                alert.show();
             }
-        } else {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("You don't have card " + name.get() + " in your hand");
-            alert.show();
         }
     }
 
@@ -220,7 +220,7 @@ public class PreGameMenuGraphic extends Application {
                 } else if (false) {
                     //TODO if faction is right
 
-                } else if (User.getCurrentUser().getDeck().getInHandCards().size() == 12) {
+                } else if (User.getCurrentUser().getDeck().getInHandCards().size() == 22) {
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText("Your hand in already full");
                     alert.show();
