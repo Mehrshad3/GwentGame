@@ -4,10 +4,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.App;
 
+import java.util.logging.Level;
+
 public class Main extends Application {
+    public static final Level loggingLevel = Level.FINER;
     public ShowingLoginMenu menu;
 
     public static void main(String[] args) {
+        App.LOGGER.setLevel(loggingLevel);
         runTerminal();
         launch(args);
     }

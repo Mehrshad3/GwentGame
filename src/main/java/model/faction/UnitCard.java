@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class UnitCard extends Card {
     public final boolean isHero;
-    protected IntegerProperty powerProperty;
+    protected transient IntegerProperty powerProperty;
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
                     int power, boolean isHero) {

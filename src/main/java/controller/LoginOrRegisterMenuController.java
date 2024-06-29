@@ -3,7 +3,6 @@ package controller;
 import enums.regexes.SemiRegexes;
 
 import java.security.SecureRandom;
-import java.util.Random;
 import java.util.regex.Matcher;
 
 abstract class LoginOrRegisterMenuController extends MenuController {
@@ -30,7 +29,7 @@ abstract class LoginOrRegisterMenuController extends MenuController {
         final int numberOfAllowedCharacters = numberOfUppercaseCharacters + numberOfLowercaseCharacters + numberOfDigits
                 + numberOfSpecialCharacters;
 
-        Random random = new SecureRandom();
+        SecureRandom random = new SecureRandom();
         int randInt = random.nextInt(numberOfAllowedCharacters);
         if (randInt < numberOfUppercaseCharacters) return (char) (randInt + 'A');
         else if (randInt < numberOfUppercaseCharacters + numberOfLowercaseCharacters) {

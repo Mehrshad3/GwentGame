@@ -1,8 +1,7 @@
 package model;
 
+import javafx.collections.ObservableList;
 import model.faction.Card;
-
-import java.util.ArrayList;
 
 public class GameStatus {
     private final Player player1;
@@ -59,7 +58,7 @@ public class GameStatus {
         table.changeTurn();
     }
 
-    public ArrayList<Card> getDiscardPile(Player player) {
+    public ObservableList<Card> getDiscardPile(Player player) {
         return player.getDeck().getDiscardCards();
     }
 

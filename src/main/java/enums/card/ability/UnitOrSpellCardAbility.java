@@ -3,7 +3,7 @@ package enums.card.ability;
 import model.GameStatus;
 import model.faction.Card;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.BiConsumer;
 
@@ -12,7 +12,7 @@ public enum UnitOrSpellCardAbility implements CardAbility {
     DECOY(null),
     MEDIC((gaming, card) -> {
         Scanner scanner = new Scanner(System.in); // Cheat code TODO: remove this
-        ArrayList<Card> discardPile = gaming.getDiscardPile(gaming.getPlayer1());
+        List<Card> discardPile = gaming.getDiscardPile(gaming.getPlayer1());
         if (discardPile.isEmpty()) return;
         Card cardToPlay = discardPile.get(0); // TODO: ask user which card they want to change
         gaming.removeFromDiscardPile(cardToPlay, gaming.getPlayer1());

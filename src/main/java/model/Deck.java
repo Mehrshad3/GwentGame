@@ -8,28 +8,33 @@ import model.faction.Faction;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-public class Deck implements Serializable {
-    private final Set<Card> notChosenCards = new HashSet<>();
-    private final Faction faction;
-    private final ObservableList<Card> inHandCards = FXCollections.observableArrayList();
-    private ArrayList<Card> discardCards;
-    private Card currentLeaderCard;
-    private ArrayList<Card> leaderCards;
+public class Deck {
+    private final RawDeck rawDeck;
+    private final ObservableList<Card> inHandCards;
+    private final ObservableList<Card> discardCards;
 
     Deck(Faction faction) {
-        this.faction = faction;
-//        this.currentLeaderCard = faction.leaderCards()[0].getNewCard();
+        this(new RawDeck(faction));
     }
 
-    public ArrayList<Card> getDiscardCards() {
-        return discardCards;
+    Deck(RawDeck rawDeck) {
+        this.rawDeck = rawDeck;
+        this.inHandCards = FXCollections.observableArrayList();
+        this.discardCards = FXCollections.observableArrayList();
     }
 
-    public void setDiscardCards(ArrayList<Card> discardCards) {
-        this.discardCards = discardCards;
+    public Faction getFaction() {
+        return rawDeck.getFaction();
+    }
+
+    public ObservableList<Card> getDiscardCards() {
+        return this.discardCards;
+    }
+
+    public void setDiscardCards(Collection<Card> newDiscardCards) {
+        this.discardCards.setAll(newDiscardCards);
     }
 
     public ObservableList<Card> getInHandCards() {
@@ -41,6 +46,62 @@ public class Deck implements Serializable {
     }
 
     public Card getCurrentLeaderCard() {
+        return rawDeck.getCurrentLeaderCard();
+    }
+
+    public void setCurrentLeaderCard(Card currentLeaderCard) {
+        this.rawDeck.setCurrentLeaderCard(currentLeaderCard);
+    }
+
+    public int getNumberOfSoldiers() {
+        return 0; // TODO
+    }
+
+    public int getNumberOfCardsInDeck() {
+        return rawDeck.getNumberOfCardsInDeck();
+    }
+
+    public ArrayList<Card> getCardsInDeck() {
+        return rawDeck.getCardsInDeck();
+    }
+
+    public void setNotChosenCards(ArrayList<? extends Card> newDeck) {
+        rawDeck.setNotChosenCards(newDeck);
+    }
+
+    public void addCardToHand(Card card) {
+        rawDeck.removeCardFromDeck(card);
+        inHandCards.add(card);
+    }
+
+    public void moveToDiscardPile(Card card) {
+        inHandCards.remove(card);
+        discardCards.add(card);
+    }
+
+    /**
+     * Used to add cards to the deck in PreGameMenu.
+     */
+    public void addCardToDeck(Card card) {
+        rawDeck.addCardToDeck(card);
+    }
+
+    RawDeck getDeckAsSerializable() {
+        return rawDeck;
+    }
+}
+
+class RawDeck implements Serializable {
+    private final Faction faction;
+    private final ArrayList<Card> notChosenCards = new ArrayList<>();
+    private Card currentLeaderCard;
+
+    RawDeck(Faction faction) {
+        this.faction = faction;
+//        this.currentLeaderCard = faction.leaderCards()[0].getNewCard();
+    }
+
+    public Card getCurrentLeaderCard() {
         return currentLeaderCard;
     }
 
@@ -48,39 +109,27 @@ public class Deck implements Serializable {
         this.currentLeaderCard = currentLeaderCard;
     }
 
-    public ArrayList<Card> getLeaderCards() {
-        return leaderCards;
-    }
-
-    public void setLeaderCards(ArrayList<Card> leaderCards) {
-        this.leaderCards = leaderCards;
-    }
-
-    public int getNumberOfSoldiers() {
-        return 0; //TODO
-    }
-
     public int getNumberOfCardsInDeck() {
         return notChosenCards.size();
     }
 
-    public void addCardToHand(Card card) {
-        notChosenCards.add(card);
+    public ArrayList<Card> getCardsInDeck() {
+        return notChosenCards;
     }
 
-    void moveToDiscardPile(Card card) {
-        inHandCards.remove(card);
-        discardCards.add(card);
+    public void setNotChosenCards(ArrayList<? extends Card> newDeck) {
+        // TODO
+    }
+
+    public void removeCardFromDeck(Card card) {
+        this.notChosenCards.remove(card);
     }
 
     /**
      * Used to add cards to the deck in PreGameMenu.
-     *
-     * @return {@code true} if the card is added to deck successfully, otherwise, {@code false}.
      */
-    public boolean addCardToDeck(Card card) {
+    public void addCardToDeck(Card card) {
         this.notChosenCards.add(card);
-        return true;
     }
 
     public Faction getFaction() {
