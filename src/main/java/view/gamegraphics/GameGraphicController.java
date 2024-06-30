@@ -1,4 +1,4 @@
-package view;
+package view.gamegraphics;
 
 import controller.GameController;
 import enums.Menu;
@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import model.App;
 import model.faction.Card;
 import model.faction.Faction;
 import model.faction.UnitCard;
@@ -26,12 +27,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 
 public class GameGraphicController {
     private static final double playerInfoWidthPercentOnScreen = 283.75 / 12;
     private static final long debugMenuCooldown = 200000000L;
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final int MAXIMUM_NUMBER_OF_CARDS_IN_HAND = 10;
     private final GameController gameController;
     private final Image player1FactionImage;
     private final Image player2FactionImage;
@@ -89,7 +92,7 @@ public class GameGraphicController {
     @FXML
     private GridPane board;
     @FXML
-    private StackPane specialCardsPane;
+    private HBox specialCardsPane;
     @FXML
     private ImageView opponentLeaderCard;
     @FXML
@@ -150,8 +153,6 @@ public class GameGraphicController {
         opponentSiegePowerLabel.textProperty().bind(gameController.getSumOfRowNumber(6).map(Object::toString));
 
         showInHandCards();
-
-        //specialCardsPane = new UnitCardView(); // Todo : see whether it's correct or not
     }
 
     private void setImagesPercentInRootPane() {
@@ -159,8 +160,18 @@ public class GameGraphicController {
         selfLeaderVerticalPercent = playersInfo.getRowConstraints().get(5).getPercentHeight();
         leaderHorizontalPercent = playersInfo.getColumnConstraints().get(1).getPercentWidth() +
                 playersInfo.getColumnConstraints().get(2).getPercentWidth();
-        cardHorizontalPercent = board.getColumnConstraints().get(7).getPercentWidth();
+        cardHorizontalPercent = (board.getColumnConstraints().get(4).getPercentWidth() +
+                board.getColumnConstraints().get(5).getPercentWidth()) / MAXIMUM_NUMBER_OF_CARDS_IN_HAND;
         cardVerticalPercent = board.getRowConstraints().get(7).getPercentHeight();
+    }
+
+    private Stream<CardView> getCardsToUpdateSize() {
+        return Stream.concat(
+                inHandCards.getChildren().stream()
+                        .filter(node -> node instanceof CardView).map(node -> (CardView) node),
+                specialCardsPane.getChildren().stream()
+                        .filter(node -> node instanceof CardView).map(node -> ((CardView) node))
+        );
     }
 
     private void updateWidths(double screenWidth) {
@@ -171,11 +182,7 @@ public class GameGraphicController {
         selfLeaderCard.setFitWidth(leaderHorizontalPercent / 100 * playersInfoWidth);
         selfDeckImageView.setFitWidth(cardHorizontalPercent / 100 * boardWidth);
         opponentDeckImageView.setFitWidth(cardHorizontalPercent / 100 * boardWidth);
-        for (Node node : inHandCards.getChildren()) {
-            if (node instanceof CardView cardView) {
-                updateCardWidth(cardView);
-            }
-        }
+        getCardsToUpdateSize().forEach(this::updateCardWidth);
     }
 
     private void updateHeights(double screenHeight) {
@@ -183,15 +190,13 @@ public class GameGraphicController {
         selfLeaderCard.setFitHeight(selfLeaderVerticalPercent / 100 * screenHeight);
         selfDeckImageView.setFitHeight(cardVerticalPercent / 100 * screenHeight);
         opponentDeckImageView.setFitHeight(cardVerticalPercent / 100 * screenHeight);
-        for (Node node : inHandCards.getChildren()) {
-            if (node instanceof CardView cardView) {
-                updateCardHeight(cardView);
-            }
-        }
+        getCardsToUpdateSize().forEach(this::updateCardHeight);
     }
 
     private void updateCardWidth(CardView cardView) {
-        cardView.setFitWidth(cardHorizontalPercent / 100 * boardWidth);
+        cardView.setFitWidth(cardHorizontalPercent / 100 * boardWidth
+                - inHandCards.getSpacing() * (1 + (double) 1 / MAXIMUM_NUMBER_OF_CARDS_IN_HAND)
+        );
     }
 
     private void updateCardHeight(CardView cardView) {
@@ -224,18 +229,22 @@ public class GameGraphicController {
         ObservableList<Node> children = inHandCards.getChildren();
         for (int i = from; i < to; i++) {
             Card card = list.get(i);
-            CardView cardView;
-            if (card instanceof UnitCard) {
-                URL imageURL = Objects.requireNonNull(getClass().getResource("/IMAGES/man.png"));
-                cardView = new UnitCardView(new Image(imageURL.toExternalForm()), (UnitCard) card);
-            } else {
-                URL imageURL = Objects.requireNonNull(getClass().getResource("/IMAGES/mon.png"));
-                cardView = new CardView(new Image(imageURL.toExternalForm()));
-            }
-            updateCardWidth(cardView);
-            updateCardHeight(cardView);
-            children.add(i, cardView);
+            children.add(i, createCardViewOf(card));
         }
+    }
+
+    private CardView createCardViewOf(Card card) {
+        CardView cardView;
+        if (card instanceof UnitCard) cardView = new UnitCardView((UnitCard) card);
+        else cardView = new CardView(card);
+        updateCardWidth(cardView);
+        updateCardHeight(cardView);
+        cardView.setOnMouseClicked(this::onCardClicked);
+        return cardView;
+    }
+
+    void onCardClicked(MouseEvent event) {
+        App.LOGGER.log(Level.FINER, "Clicked on the card", event);
     }
 
     private void removeRemovedCardsFromHandView(ListChangeListener.Change<? extends Card> change) {
@@ -254,7 +263,6 @@ public class GameGraphicController {
             updateWidths(rootPane.getWidth());
         });
     }
-
 
     @FXML
     private void clickedOnCard(MouseEvent mouseEvent) {

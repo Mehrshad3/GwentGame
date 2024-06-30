@@ -13,4 +13,6 @@ module GWENT {
     opens enums.card to com.google.gson;
     opens enums.card.ability to com.google.gson;
     opens model.typeadapters to com.google.gson;
+    exports view.gamegraphics;
+    opens view.gamegraphics to javafx.fxml;
 }

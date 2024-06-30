@@ -1,4 +1,4 @@
-package view;
+package view.gamegraphics;
 
 import controller.GameController;
 import enums.Menu;
@@ -47,7 +47,6 @@ public class PreGameMenuGraphic extends Application {
     private HBox topButtons;
     private HBox bottomButtons;
     private HBox middleButtons;
-    private VBox buttons;
 
     @Override
     public void start(Stage stage) {
@@ -57,7 +56,7 @@ public class PreGameMenuGraphic extends Application {
 //        User.getCurrentUser().getDeck().addCardToDeck(new Card("man",false, NonCommanderCardAbility.SPY,10));
 //        User.getCurrentUser().getDeck().addCardToDeck(new Card("mon",false,NonCommanderCardAbility.SPY,10));
 //        User.getCurrentUser().getDeck().addCardToDeck(new Card("min",false,NonCommanderCardAbility.SPY,10));
-        buttons = new VBox();
+        VBox buttons = new VBox();
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
 
@@ -224,14 +223,14 @@ public class PreGameMenuGraphic extends Application {
                     alert.setContentText("Your deck in already full");
                     alert.show();
                 } else {
-                    String newName = name.get().replaceAll(" ","_");
-                    if((getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName().toLowerCase() +
-                            "/" + User.getCurrentUser().getFaction().getName() + "_" +  newName + ".jpg"))!= null) {
+                    String newName = name.get().replaceAll(" ", "_");
+                    if ((getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName().toLowerCase() +
+                            "/" + User.getCurrentUser().getFaction().getName() + "_" + newName + ".jpg")) != null) {
                         alert.setAlertType(Alert.AlertType.CONFIRMATION);
                         alert.setContentText("Card " + name.get() + " Added to Your deck");
                         alert.show();
                         User.getCurrentUser().getDeck().addCardToDeck(newCard);
-                    }else {
+                    } else {
                         alert.setAlertType(Alert.AlertType.ERROR);
                         alert.setContentText("Card " + name.get() + " is not from your faction");
                         alert.show();
@@ -464,9 +463,7 @@ public class PreGameMenuGraphic extends Application {
                 ImageView cardImage = new ImageView();
                 cardImage.setFitHeight(200);
                 cardImage.setFitWidth(120);
-                String CardName = card.getName().replaceAll(" ", "_");
-                cardImage.setImage(new Image(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName() +
-                        "/" + User.getCurrentUser().getFaction().getName() + "_" + CardName.toLowerCase() + ".jpg").toExternalForm()));//ToDO make all images jpg
+                cardImage.setImage(CardImageLoader.loadImage(card));//ToDO make all images jpg
                 hBox.getChildren().add(cardImage);
                 counter++;
             }

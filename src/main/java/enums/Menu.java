@@ -1,10 +1,9 @@
 package enums;
 
 import controller.*;
-import model.App;
 import view.*;
+import view.PreGameMenu;
 
-import java.util.HashSet;
 import java.util.Scanner;
 
 public enum Menu {
