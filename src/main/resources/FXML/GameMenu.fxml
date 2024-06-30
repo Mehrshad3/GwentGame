@@ -28,7 +28,6 @@
             <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                 <ImageView fx:id="opponentLeaderCard" fitHeight="103.703" fitWidth="68.75" GridPane.columnIndex="1"
                            GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                    <Image url="@../IMAGES/min.png"/>
                 </ImageView>
             </Pane>
             <HBox fx:id="specialCardsPane" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
@@ -36,7 +35,6 @@
             <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                 <ImageView fx:id="selfLeaderCard" fitHeight="103.703" fitWidth="68.75" onMouseClicked="#clickedOnCard"
                            GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                    <Image url="@../IMAGES/min.png"/>
                 </ImageView>
             </Pane>
         </GridPane>

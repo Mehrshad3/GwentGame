@@ -29,30 +29,37 @@ public enum CardName {
     THE_TREACHEROUS("The Treacherous", MONSTERS, THE_TREACHEROUS_ABILITY_PERFORMER),
     // Unit cards
     DRAUG("Draug", MONSTERS, 10, 1, CLOSE_COMBAT, null, true),
+    IMLERITH("Imlerith", MONSTERS, 10, 1, CLOSE_COMBAT, null, true),
     LESHEN("Leshen", MONSTERS, 10, 1, CLOSE_COMBAT, null, true),
     KAYRAN("Kayran", MONSTERS, 8, 1, AGILE, MORALE_BOOST, true),
     TOAD("Toad", MONSTERS, 7, 1, RANGED, RANGED_SCORCH, false),
     ARACHAS_BEHEMOTH("Arachas Behemoth", MONSTERS, 6, 1, SIEGE, MUSTER, false),
-    CRONE_WEAVESS("Crone: Weavess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
-    CRONE_WHISPESS("Crone: Whispess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
+    CRONE_BREWESS("Brewess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false), // TODO: download its image from the internet!
+    CRONE_WEAVESS("Weavess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
+    CRONE_WHISPESS("Whispess", MONSTERS, 6, 1, CLOSE_COMBAT, MUSTER, false),
     EARTH_ELEMENTAL("Earth Elemental", MONSTERS, 6, 1, SIEGE, null, false),
     FIEND("Fiend", MONSTERS, 6, 1, CLOSE_COMBAT, null, false),
     FIRE_ELEMENTAL("Fire Elemental", MONSTERS, 6, 1, SIEGE, null, false),
     FORK_TAIL("Forktail", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
+    FRIGHTENER("Frightener", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
     GRAVE_HAG("Grave Hag", MONSTERS, 5, 1, RANGED, null, false),
     GRIFFIN("Griffin", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
     ICE_GIANT("Ice Giant", MONSTERS, 5, 1, SIEGE, null, false),
     PLAGUE_MAIDEN("Plague Maiden", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
-    VAMPIRE_KATAKAN("Vampire: Katakan", MONSTERS, 5, 1, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_KATAKAN("Katakan", MONSTERS, 5, 1, CLOSE_COMBAT, MUSTER, false),
     WEREWOLF("Werewolf", MONSTERS, 5, 1, CLOSE_COMBAT, null, false),
     ARACHAS("Arachas", MONSTERS, 4, 3, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_BRUXA("Vampire: Bruxa", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_EKIMMARA("Vampire: Ekimmara", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_FLEDER("Vampire: Fleder", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
-    VAMPIRE_GARKAIN("Vampire: Garkain", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    BOTCHLING("Botchling", MONSTERS, 4, 1, CLOSE_COMBAT, null, false),
+    VAMPIRE_BRUXA("Bruxa", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_EKIMMARA("Ekimmara", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_FLEDER("Fleder", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    VAMPIRE_GARKAIN("Garkain", MONSTERS, 4, 1, CLOSE_COMBAT, MUSTER, false),
+    CELAENO_HARPY("Celaeno Harpy", MONSTERS, 2, 1, AGILE, null, false),
     COCKATRICE("Cockatrice", MONSTERS, 2, 1, RANGED, null, false),
     ENDREGA("Endrega", MONSTERS, 2, 1, RANGED, null, false),
     FOGLET("Foglet", MONSTERS, 2, 1, CLOSE_COMBAT, null, false),
+    GARGOYLE("Gargoyle", MONSTERS, 2, 1, RANGED, null, false),
+    HARPY("Harpy", MONSTERS, 2, 1, AGILE, null, false),
     NEKKER("Nekker", MONSTERS, 2, 3, CLOSE_COMBAT, MUSTER, false),
     WYVERN("Wyvern", MONSTERS, 2, 1, RANGED, null, false),
     GHOUL("Ghoul", MONSTERS, 1, 3, RANGED, MUSTER, false),
@@ -60,10 +67,10 @@ public enum CardName {
 
     // Nilfgaard
     // Leaders
-    THE_WHITE_FLAME("The White Flame", EMPIRE_NILFGAARDIAN, THE_WHITE_FLAME_ABILITY_PERFORMER),
+    THE_WHITE_FLAME("the White Flame", EMPIRE_NILFGAARDIAN, THE_WHITE_FLAME_ABILITY_PERFORMER),
     HIS_IMPERIAL_MAJESTY("His Imperial Majesty", EMPIRE_NILFGAARDIAN, HIS_IMPERIAL_MAJESTY_ABILITY_PERFORMER),
     EMPEROR_OF_NILFGAARD("Emperor of Nilfgaard", EMPIRE_NILFGAARDIAN, EMPEROR_OF_NILFGAARD_ABILITY_PERFORMER),
-    THE_RELENTLESS("The Relentless", EMPIRE_NILFGAARDIAN, THE_RELENTLESS_ABILITY_PERFORMER),
+    THE_RELENTLESS("the Relentless", EMPIRE_NILFGAARDIAN, THE_RELENTLESS_ABILITY_PERFORMER),
     INVADER_OF_THE_NORTH("Invader of the North", EMPIRE_NILFGAARDIAN, INVADER_OF_THE_NORTH_ABILITY_PERFORMER),
     // Unit cards
     IMPERA_BRIGADE_GUARD("Impera Brigade Guard", EMPIRE_NILFGAARDIAN, 3, 4, CLOSE_COMBAT, TIGHT_BOND, false),
@@ -118,15 +125,15 @@ public enum CardName {
     YOUNG_VILDKAARL("Young Vildkaarl", SKELLIGE, 8, 0, RANGED, TIGHT_BOND, false),
     LIGHT_LONGSHIP("Light Longship", SKELLIGE, 4, 3, RANGED, MUSTER, false),
     WAR_LONGSHIP("War Longship", SKELLIGE, 6, 3, SIEGE, TIGHT_BOND, false),
-    DRAIG_BON_DHU("Draig Bon-Dhu", SKELLIGE, 2, 1, SIEGE, COMMANDER_HORN, false),
+    DRAIG_BON_DHU("Draig Bon-Dhu", SKELLIGE, 2, 1, SIEGE, UnitOrSpellCardAbility.COMMANDER_HORN, false),
     OLAF("Olaf", SKELLIGE, 12, 1, AGILE, MORALE_BOOST, false),
 
     // Scoia'tael
     // Leaders
     QUEEN_OF_DOL_BLATHANNA("Queen of Dol Blathanna", SCOIA_TAELL, QUEEN_OF_DOL_BLATHANNA_ABILITY_PERFORMER),
-    THE_BEAUTIFUL("The Beautiful", SCOIA_TAELL, THE_BEAUTIFUL_ABILITY_PERFORMER),
+    THE_BEAUTIFUL("the Beautiful", SCOIA_TAELL, THE_BEAUTIFUL_ABILITY_PERFORMER),
     DAISY_OF_THE_VALLEY("Daisy of the Valley", SCOIA_TAELL, DAISY_OF_THE_VALLEY_ABILITY_PERFORMER),
-    PURE_BLOOD_ELF("Pure Blood Elf", SCOIA_TAELL, PURE_BLOOD_ELF_ABILITY_PERFORMER),
+    PURE_BLOOD_ELF("Pureblood Elf", SCOIA_TAELL, PURE_BLOOD_ELF_ABILITY_PERFORMER),
     HOPE_OF_THE_AEN_SEIDHE("Hope of the Aen Seidhe", SCOIA_TAELL, HOPE_OF_THE_AEN_SEIDHE_ABILITY_PERFORMER),
     // Unit cards
     ELVEN_SKIRMISHER("Elven Skirmisher", SCOIA_TAELL, 2, 3, RANGED, MUSTER, false),
@@ -151,8 +158,8 @@ public enum CardName {
 
     // Northern Realms
     // Leaders
-    THE_SIEGE_MASTER("The Siegemaster", NORTHERN_REALMS, THE_SIEGE_MASTER_ABILITY_PERFORMER),
-    THE_STEEL_FORGED("The Steel Forged", NORTHERN_REALMS, THE_STEEL_FORGED_ABILITY_PERFORMER),
+    THE_SIEGE_MASTER("the Siegemaster", NORTHERN_REALMS, THE_SIEGE_MASTER_ABILITY_PERFORMER),
+    THE_STEEL_FORGED("the Steel-Forged", NORTHERN_REALMS, THE_STEEL_FORGED_ABILITY_PERFORMER),
     KING_OF_TEMERIA("King of Temeria", NORTHERN_REALMS, KING_OF_TEMERIA_ABILITY_PERFORMER),
     LORD_COMMANDER_OF_THE_NORTH("Lord Commander of the North", NORTHERN_REALMS, LORD_COMMANDER_OF_THE_NORTH_ABILITY_PERFORMER),
     SON_OF_MEDELL("Son of Medell", NORTHERN_REALMS, SON_OF_MEDELL_ABILITY_PERFORMER),
@@ -182,12 +189,15 @@ public enum CardName {
     // Spells
     MARDROEME("Mardroeme", UnitOrSpellCardAbility.MARDROEME),
     DECOY("Decoy", UnitOrSpellCardAbility.DECOY),
+    SCORCH("Scorch", UnitOrSpellCardAbility.GLOBAL_SCORCH),
+    COMMANDER_HORN("Commander's Horn", UnitOrSpellCardAbility.COMMANDER_HORN),
     // Weather cards
     BITING_FROST("Biting Frost", WeatherCardAbility.BITING_FROST),
     IMPENETRABLE_FOG("Impenetrable Fog", WeatherCardAbility.IMPENETRABLE_FOG),
     TORRENTIAL_RAIN("Torrential Rain", WeatherCardAbility.TORRENTIAL_RAIN),
+    // TODO: add skellige storm and clear weather
     // Neutral unit cards
-    DANDELION("Dandelion", NEUTRAL, 2, 1, CLOSE_COMBAT, COMMANDER_HORN, false),
+    DANDELION("Dandelion", NEUTRAL, 2, 1, CLOSE_COMBAT, UnitOrSpellCardAbility.COMMANDER_HORN, false),
     EMIEL_REGIS("Emiel Regis", NEUTRAL, 5, 1, CLOSE_COMBAT, null, false),
     GAUNTER_O_DIMM("Gaunter O'Dimm", NEUTRAL, 2, 1, SIEGE, MUSTER, false),
     GAUNTER_O_DIMM_DARKNESS("Gaunter O'Dimm: Darkness", NEUTRAL, 4, 3, RANGED, MUSTER, false),
@@ -197,7 +207,11 @@ public enum CardName {
     VILLENTRETENMERTH("Villentretenmerth", NEUTRAL, 7, 1, CLOSE_COMBAT, OPPONENT_COMBAT_SCORCH, false),
     ;
     public final static int MAXIMUM_NUMBER_OF_EACH_SPECIAL_CARD = 3;
-    private static final Map<String, CardName> map = new HashMap<>(CardName.values().length);
+    /**
+     * Maps the name of the card to its corresponding enum in {@code CardName}. Names of cards are stored here lowercase
+     * , and without special characters. Prefixes like "Vampire: " are omitted.
+     */
+    private static final Map<String, CardName> map = new LowerCaseHashMap<>(CardName.values().length);
     private static final CardName[] factionFirstLeaders =
             new CardName[]{CRACH_AN_CRAITE, QUEEN_OF_DOL_BLATHANNA, THE_SIEGE_MASTER, THE_WHITE_FLAME, BRINGER_OF_DEATH};
     private static final CardName[] factionFirstNonLeaders =
@@ -205,11 +219,12 @@ public enum CardName {
 
     static {
         for (CardName object : CardName.values()) {
-            map.put(object.name, object);
+            map.put(object.name.toLowerCase(), object);
         }
     }
 
     public final Faction faction;
+    public final boolean isLeader;
     final String name;
     final Integer initialPower;
     final int maximumNumberOfCardsInGame;
@@ -223,6 +238,7 @@ public enum CardName {
              UnitOrSpellCardAbility ability, boolean isHero) {
         this.name = name;
         this.faction = faction;
+        this.isLeader = false;
         this.initialPower = initialPower;
         this.maximumNumberOfCardsInGame = maximumNumberOfCardsInGame;
         this.ability = ability;
@@ -238,6 +254,7 @@ public enum CardName {
         assert ability == TRANSFORMERS;
         this.name = name;
         this.faction = faction;
+        this.isLeader = false;
         this.initialPower = initialPower;
         this.maximumNumberOfCardsInGame = maximumNumberOfCardsInGame;
         this.ability = null;
@@ -250,6 +267,7 @@ public enum CardName {
     CardName(String name, Faction faction, CommanderCardAbility ability) {
         this.name = name;
         this.faction = faction;
+        this.isLeader = true;
         this.initialPower = null;
         this.maximumNumberOfCardsInGame = 1;
         this.ability = ability;
@@ -262,6 +280,7 @@ public enum CardName {
     CardName(String name, UnitOrSpellCardAbility ability) {
         this.name = name;
         this.faction = Faction.NEUTRAL;
+        this.isLeader = false;
         this.initialPower = null;
         this.maximumNumberOfCardsInGame = MAXIMUM_NUMBER_OF_EACH_SPECIAL_CARD;
         this.ability = ability;
@@ -274,6 +293,7 @@ public enum CardName {
     CardName(String name, WeatherCardAbility ability) {
         this.name = name;
         this.faction = Faction.NEUTRAL;
+        this.isLeader = false;
         this.initialPower = null;
         this.maximumNumberOfCardsInGame = MAXIMUM_NUMBER_OF_EACH_SPECIAL_CARD;
         this.ability = ability;
@@ -281,7 +301,7 @@ public enum CardName {
     }
 
     public static Card getCardByName(String name) {
-        CardName cardName = map.get(name);
+        CardName cardName = map.get(name.toLowerCase());
         if (cardName == null) return null;
         return cardName.getNewCard.get();
     }
@@ -295,13 +315,34 @@ public enum CardName {
         return leadersOfFaction;
     }
 
+    public static CardName getCardNameEnumByName(String name) {
+        return map.get(name.toLowerCase());
+    }
+
+    public static int getMaximumNumberOfCardsByName(String name) {
+        CardName cardName = map.get(name.toLowerCase());
+        if (cardName == null) return 0;
+        return cardName.maximumNumberOfCardsInGame;
+    }
+
     public Card getNewCard() {
         return getNewCard.get();
     }
 
-    public static int getMaximumNumberOfCardsByName(String name) {
-        CardName cardName = map.get(name);
-        if (cardName == null) return 0;
-        return cardName.maximumNumberOfCardsInGame;
+    private static class LowerCaseHashMap<V> extends HashMap<String, V> {
+        public LowerCaseHashMap(int initialCapacity) {
+            super(initialCapacity);
+        }
+
+        @Override
+        public V put(String key, V value) {
+            return super.put(key.toLowerCase(), value);
+        }
+
+        @Override
+        public V get(Object key) {
+            assert key instanceof String;
+            return super.get(key);
+        }
     }
 }

@@ -32,6 +32,7 @@ import model.Deck;
 import model.GsonReaderWriter;
 import model.User;
 import model.faction.Card;
+import model.faction.LeaderCard;
 import view.Animation.FactionCardAnimation;
 
 import java.io.File;
@@ -80,7 +81,8 @@ public class PreGameMenuGraphic extends Application {
 
         pane.setCenter(buttons);
         Scene scene = new Scene(pane);
-        scene.setFill(new ImagePattern(new Image(getClass().getResource("/IMAGES/back.jpeg").toExternalForm())));
+        URL backgroundImageUrl = Objects.requireNonNull(getClass().getResource("/IMAGES/back.jpeg"));
+        scene.setFill(new ImagePattern(new Image(backgroundImageUrl.toExternalForm())));
         setButtons();
         App.setPreGameMenu(scene);
         stage.setScene(scene);
@@ -104,7 +106,7 @@ public class PreGameMenuGraphic extends Application {
         topButtons.getChildren().add(ChangeFaction);
 
         Button ShowCards = new Button("Show Cards");
-        ShowCards.setOnAction(actionEvent -> showCards());
+        ShowCards.setOnAction(actionEvent -> showNonLeaderCards());
         topButtons.getChildren().add(ShowCards);
 
         Button ShowDeck = new Button("Show Deck");
@@ -194,13 +196,11 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void addCardToDeck() {
-        Image image;
         TextInputDialog card = new TextInputDialog();
         card.setContentText("Enter Card Name");
         Optional<String> name = card.showAndWait();
         if (name.isPresent() && !name.get().isEmpty()) {
 //            System.out.println(name.get());
-            //TODO check if it has 4 same card
             int counter = 0;
             for (Card cardInDeck : User.getCurrentUser().getDeck().getCardsInDeck()) {
                 if (cardInDeck.getName().equalsIgnoreCase(name.get())) {
@@ -223,9 +223,8 @@ public class PreGameMenuGraphic extends Application {
                     alert.setContentText("Your deck in already full");
                     alert.show();
                 } else {
-                    String newName = name.get().replaceAll(" ", "_");
-                    if ((getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName().toLowerCase() +
-                            "/" + User.getCurrentUser().getFaction().getName() + "_" + newName + ".jpg")) != null) {
+                    CardName cardName = CardName.getCardNameEnumByName(name.get());
+                    if ((getClass().getResource(CardImageLoader.getRelativePathToCard(cardName))) != null) {
                         alert.setAlertType(Alert.AlertType.CONFIRMATION);
                         alert.setContentText("Card " + name.get() + " Added to Your deck");
                         alert.show();
@@ -246,12 +245,21 @@ public class PreGameMenuGraphic extends Application {
         Optional<String> leader = LeaderName.showAndWait();
         if (leader.isPresent()) {
             Alert alert = new Alert(Alert.AlertType.NONE);
-            if (CardName.getCardByName(leader.get()) == null) {
+            CardName cardName = CardName.getCardNameEnumByName(leader.get());
+            if (cardName == null) {
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setContentText("No such Leader");
                 alert.show();
+            } else if (!cardName.isLeader) {
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setContentText("The card chosen is not a leader card.");
+                alert.show();
+            } else if (cardName.faction != User.getCurrentUser().getFaction()) {
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setContentText("Leader " + leader.get() + " is not from your faction.");
+                alert.show();
             } else {
-                User.getCurrentUser().getDeck().setCurrentLeaderCard(CardName.getCardByName(leader.get()));
+                User.getCurrentUser().getDeck().setCurrentLeaderCard((LeaderCard) CardName.getCardByName(leader.get()));
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Leader selected");
                 alert.show();
@@ -260,60 +268,9 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void showLeaders() {
-        BorderPane pane = new BorderPane();
-        HBox cards = new HBox();
-
-        Button leftButton = new Button("Previous");
-        Button rightButton = new Button("Next");
-        ImageView card = new ImageView();
-
-        Button back = new Button("Back");
-        back.setOnAction(actionEvent -> App.getStage().setScene(App.getPreGameMenu()));
-        pane.setLeft(back);
-
-        cards.getChildren().addAll(leftButton, card, rightButton);
-        cards.setSpacing(50);
-        cards.setAlignment(Pos.CENTER);
-        pane.setCenter(cards);
-
-//        Rectangle clip = new Rectangle(330, 610);
-        Rectangle clip = new Rectangle(410, 775);
-        clip.setArcHeight(80);
-        clip.setArcWidth(80);
-        SnapshotParameters parameters = new SnapshotParameters();
-        parameters.setFill(Color.TRANSPARENT);
-
-        card.setClip(clip);
-        ArrayList<Image> images = new ArrayList<>();
-
-        URL leadersDirectoryURL = Objects.requireNonNull(getClass().getResource("/IMAGES/leaders/" + User.getCurrentUser().getFaction().getName() + "/"));
-        String DirectoryPath = URLDecoder.decode(leadersDirectoryURL.getFile(), StandardCharsets.UTF_8);
-        File file = new File(DirectoryPath);
-        int[] counter = new int[1];
-        for (File file1 : Objects.requireNonNull(file.listFiles())) {
-            images.add(new Image(String.valueOf(file1)));
-        }
-        leftButton.setOnAction(actionEvent -> {
-            counter[0] = (counter[0] + images.size() - 1) % images.size();
-            card.setImage(images.get(counter[0]));
-            WritableImage image = card.snapshot(parameters, null);
-            card.setImage(image);
-        });
-        rightButton.setOnAction(actionEvent -> {
-            counter[0] = (counter[0] + images.size() + 1) % images.size();
-            card.setImage(images.get(counter[0]));
-            WritableImage image = card.snapshot(parameters, null);
-            card.setImage(image);
-        });
-        Scene scene = new Scene(pane);
-        pane.setCenter(cards);
-        card.setImage(images.get(counter[0]));
-        WritableImage image = card.snapshot(parameters, null);
-        card.setImage(image);
-
-        Stage stage = App.getStage();
-        stage.setScene(scene);
-        stage.show();
+        String leadersDirectoryPath = "/IMAGES/leaders/" + User.getCurrentUser().getFaction().getName() + "/";
+        URL leadersDirectoryURL = Objects.requireNonNull(getClass().getResource(leadersDirectoryPath));
+        showCards(leadersDirectoryURL);
     }
 
     private void loadDeckByName() {
@@ -348,6 +305,7 @@ public class PreGameMenuGraphic extends Application {
         if (file != null) {
             System.out.println(file.getAbsolutePath());
             Deck deck = GsonReaderWriter.getGsonReaderWriter().loadDeckFromFile(file);
+            User.getCurrentUser().setDeck(deck);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Deck Loaded");
             alert.show();
@@ -473,7 +431,7 @@ public class PreGameMenuGraphic extends Application {
         stage.show();
     }
 
-    private void showCards() {
+    private void showCards(URL... rootDirectoryUrls) {
         BorderPane pane = new BorderPane();
         HBox cards = new HBox();
 
@@ -508,14 +466,14 @@ public class PreGameMenuGraphic extends Application {
 //        WritableImage image = imageView.snapshot(parameters, null);
         card.setClip(clip);
         ArrayList<Image> images = new ArrayList<>();
-
-        URL monstersDirectoryURL = Objects.requireNonNull(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName() + "/"));
-        String monstersDirectoryPath = URLDecoder.decode(monstersDirectoryURL.getFile(), StandardCharsets.UTF_8);
-        File file = new File(monstersDirectoryPath);
-        int[] counter = new int[1];
-        for (File file1 : Objects.requireNonNull(file.listFiles())) {
-            images.add(new Image(String.valueOf(file1)));
+        for (URL url : rootDirectoryUrls) {
+            String rootDirectoryPath = URLDecoder.decode(url.getFile(), StandardCharsets.UTF_8);
+            File file = new File(rootDirectoryPath);
+            for (File file1 : Objects.requireNonNull(file.listFiles())) {
+                images.add(new Image(String.valueOf(file1)));
+            }
         }
+        int[] counter = new int[1];
         leftButton.setOnAction(actionEvent -> {
             counter[0] = (counter[0] + images.size() - 1) % images.size();
             card.setImage(images.get(counter[0]));
@@ -558,6 +516,13 @@ public class PreGameMenuGraphic extends Application {
         stage.show();
     }
 
+    private void showNonLeaderCards() {
+        String factionDirectoryPath = "/IMAGES/" + User.getCurrentUser().getFaction().getName() + "/";
+        URL factionDirectoryUrl = Objects.requireNonNull(getClass().getResource(factionDirectoryPath));
+        URL neutralFactionUrl = Objects.requireNonNull(getClass().getResource("/IMAGES/neutral/"));
+        showCards(factionDirectoryUrl, neutralFactionUrl);
+    }
+
     private void changeUserFaction() {
         BorderPane pane = new BorderPane();
         HBox factions = new HBox();
@@ -578,7 +543,8 @@ public class PreGameMenuGraphic extends Application {
             ImageView faction = new ImageView();
             faction.setFitHeight(200);
             faction.setFitWidth(120);
-            faction.setImage(new Image(getClass().getResource("/IMAGES/Faction" + (i + 1) + ".jpg").toExternalForm()));
+            URL factionImageUrl = getClass().getResource("/IMAGES/Faction" + (i + 1) + ".jpg");
+            faction.setImage(new Image(Objects.requireNonNull(factionImageUrl).toExternalForm()));
             factions.getChildren().add(faction);
             int finalI = i;
             faction.setOnMouseClicked(mouseEvent -> setUserFaction(String.valueOf(finalI)));
@@ -629,7 +595,8 @@ public class PreGameMenuGraphic extends Application {
             ImageView faction = new ImageView();
             faction.setFitHeight(200);
             faction.setFitWidth(120);
-            faction.setImage(new Image(getClass().getResource("/IMAGES/Faction" + (i + 1) + ".jpg").toExternalForm()));
+            URL factionImageUrl = getClass().getResource("/IMAGES/Faction" + (i + 1) + ".jpg");
+            faction.setImage(new Image(Objects.requireNonNull(factionImageUrl).toExternalForm()));
             faction.setId("faction");
             int finalI = i;
             faction.setOnMouseClicked(mouseEvent -> {
@@ -700,6 +667,10 @@ public class PreGameMenuGraphic extends Application {
         if (User.getCurrentUser().getDeck().getNumberOfCardsInDeck() != 22) {//TODO check for 10 special cards
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Less than 22 cards in your deck.");
+            alert.show();
+        } else if (User.getCurrentUser().getDeck().getCurrentLeaderCard() == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("The leader card hasn't been chosen yet.");
             alert.show();
         } else {
             GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();

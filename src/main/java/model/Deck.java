@@ -4,11 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.faction.Card;
 import model.faction.Faction;
+import model.faction.LeaderCard;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class Deck {
     private final RawDeck rawDeck;
@@ -45,11 +45,11 @@ public class Deck {
         this.inHandCards.setAll(newInHandCards);
     }
 
-    public Card getCurrentLeaderCard() {
+    public LeaderCard getCurrentLeaderCard() {
         return rawDeck.getCurrentLeaderCard();
     }
 
-    public void setCurrentLeaderCard(Card currentLeaderCard) {
+    public void setCurrentLeaderCard(LeaderCard currentLeaderCard) {
         this.rawDeck.setCurrentLeaderCard(currentLeaderCard);
     }
 
@@ -94,18 +94,18 @@ public class Deck {
 class RawDeck implements Serializable {
     private final Faction faction;
     private final ArrayList<Card> notChosenCards = new ArrayList<>();
-    private Card currentLeaderCard;
+    private LeaderCard currentLeaderCard;
 
     RawDeck(Faction faction) {
         this.faction = faction;
 //        this.currentLeaderCard = faction.leaderCards()[0].getNewCard();
     }
 
-    public Card getCurrentLeaderCard() {
+    public LeaderCard getCurrentLeaderCard() {
         return currentLeaderCard;
     }
 
-    public void setCurrentLeaderCard(Card currentLeaderCard) {
+    public void setCurrentLeaderCard(LeaderCard currentLeaderCard) {
         this.currentLeaderCard = currentLeaderCard;
     }
 

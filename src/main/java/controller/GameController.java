@@ -1,5 +1,6 @@
 package controller;
 
+import enums.card.CardName;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
@@ -7,6 +8,7 @@ import javafx.collections.ObservableList;
 import model.*;
 import model.faction.Card;
 import model.faction.Faction;
+import model.faction.LeaderCard;
 import model.faction.UnitCard;
 
 import java.security.SecureRandom;
@@ -50,6 +52,7 @@ public class GameController extends MenuController {
                     sumOfRows[rowIndex].set(row.getCards().stream().mapToInt(UnitCard::getPower).sum())
             );
         }
+        player2.getDeck().setCurrentLeaderCard((LeaderCard) CardName.BRINGER_OF_DEATH.getNewCard());
         dealCards();
     }
 
@@ -125,11 +128,11 @@ public class GameController extends MenuController {
         return player2.getDeck().getFaction();
     }
 
-    public Card getPlayer1LeaderCard() {
+    public LeaderCard getPlayer1LeaderCard() {
         return player1.getDeck().getCurrentLeaderCard();
     }
 
-    public Card getPlayer2LeaderCard() {
+    public LeaderCard getPlayer2LeaderCard() {
         return player2.getDeck().getCurrentLeaderCard();
     }
 

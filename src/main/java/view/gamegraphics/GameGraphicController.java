@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import model.App;
 import model.faction.Card;
 import model.faction.Faction;
+import model.faction.LeaderCard;
 import model.faction.UnitCard;
 
 import java.io.IOException;
@@ -153,6 +154,7 @@ public class GameGraphicController {
         opponentSiegePowerLabel.textProperty().bind(gameController.getSumOfRowNumber(6).map(Object::toString));
 
         showInHandCards();
+        showLeaderCards();
     }
 
     private void setImagesPercentInRootPane() {
@@ -215,6 +217,13 @@ public class GameGraphicController {
                 else if (change.wasReplaced()) replaceReplacedCardsInHandView(change);
             }
         });
+    }
+
+    private void showLeaderCards() {
+        LeaderCard player1LeaderCard = gameController.getPlayer1LeaderCard();
+        LeaderCard player2LeaderCard = gameController.getPlayer2LeaderCard();
+        selfLeaderCard.setImage(CardImageLoader.loadImage(player1LeaderCard));
+        opponentLeaderCard.setImage(CardImageLoader.loadImage(player2LeaderCard));
     }
 
     private void addAddedCardsToHandView(ListChangeListener.Change<? extends Card> change) {
