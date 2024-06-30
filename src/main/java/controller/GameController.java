@@ -29,6 +29,11 @@ public class GameController extends MenuController {
         this.gaming = gaming;
     }
 
+    public void setGamingAndUpdateScreen(GameStatus gaming) {
+        this.gaming = gaming;
+        // TODO
+    }
+
     /**
      * Initializes the game
      */

@@ -1,4 +1,4 @@
-package view;
+package view.gamegraphics;
 
 import controller.GameController;
 import enums.card.CardName;
