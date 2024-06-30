@@ -195,6 +195,7 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void addCardToDeck() {
+        Image image;
         TextInputDialog card = new TextInputDialog();
         card.setContentText("Enter Card Name");
         Optional<String> name = card.showAndWait();
@@ -207,29 +208,34 @@ public class PreGameMenuGraphic extends Application {
                     counter++;
                 }
             }
-            if (counter == 4) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+            Card newCard = CardName.getCardByName(name.get());
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            if (newCard == null) {
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setContentText("No such card");
+                alert.show();
+            } else if (counter == CardName.getMaximumNumberOfCardsByName(name.get())) {
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("maximum number of " + name.get() + " in deck");
                 alert.show();
             } else {
-                Card newCard = CardName.getCardByName(name.get());
-                Alert alert = new Alert(Alert.AlertType.NONE);
-                if (newCard == null) {
-                    alert.setAlertType(Alert.AlertType.ERROR);
-                    alert.setContentText("No such card");
-                    alert.show();
-                } else if (false) {
-                    //TODO if faction is right
-
-                } else if (User.getCurrentUser().getDeck().getCardsInDeck().size() == 12 && false) { // Deck has to have at least 22 cards.
+                if (User.getCurrentUser().getDeck().getCardsInDeck().size() == 32) {//TODO check if spells are more than 10
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText("Your deck in already full");
                     alert.show();
                 } else {
-                    alert.setAlertType(Alert.AlertType.CONFIRMATION);
-                    alert.setContentText("Card " + name.get() + " Added to Your deck");
-                    alert.show();
-                    User.getCurrentUser().getDeck().addCardToDeck(newCard);
+                    String newName = name.get().replaceAll(" ","_");
+                    if((getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName().toLowerCase() +
+                            "/" + User.getCurrentUser().getFaction().getName() + "_" +  newName + ".jpg"))!= null) {
+                        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                        alert.setContentText("Card " + name.get() + " Added to Your deck");
+                        alert.show();
+                        User.getCurrentUser().getDeck().addCardToDeck(newCard);
+                    }else {
+                        alert.setAlertType(Alert.AlertType.ERROR);
+                        alert.setContentText("Card " + name.get() + " is not from your faction");
+                        alert.show();
+                    }
                 }
             }
         }
@@ -459,7 +465,8 @@ public class PreGameMenuGraphic extends Application {
                 cardImage.setFitHeight(200);
                 cardImage.setFitWidth(120);
                 String CardName = card.getName().replaceAll(" ", "_");
-                cardImage.setImage(new Image(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction() + "/" + User.getCurrentUser().getFaction() + "_" + CardName + ".jpg").toExternalForm()));//ToDO make all images jpg
+                cardImage.setImage(new Image(getClass().getResource("/IMAGES/" + User.getCurrentUser().getFaction().getName() +
+                        "/" + User.getCurrentUser().getFaction().getName() + "_" + CardName.toLowerCase() + ".jpg").toExternalForm()));//ToDO make all images jpg
                 hBox.getChildren().add(cardImage);
                 counter++;
             }

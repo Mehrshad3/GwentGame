@@ -298,4 +298,10 @@ public enum CardName {
     public Card getNewCard() {
         return getNewCard.get();
     }
+
+    public static int getMaximumNumberOfCardsByName(String name) {
+        CardName cardName = map.get(name);
+        if (cardName == null) return 0;
+        return cardName.maximumNumberOfCardsInGame;
+    }
 }
