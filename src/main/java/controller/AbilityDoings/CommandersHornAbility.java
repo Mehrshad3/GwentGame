@@ -11,6 +11,15 @@ import java.util.List;
 
 public class CommandersHornAbility {
     public GameStatus gameStatus;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;

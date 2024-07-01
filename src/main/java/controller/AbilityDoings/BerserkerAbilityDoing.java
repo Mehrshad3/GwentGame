@@ -11,6 +11,15 @@ import model.faction.UnitCard;
 
 public class BerserkerAbilityDoing {
     public GameStatus game;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public GameStatus getGame() {
         return game;

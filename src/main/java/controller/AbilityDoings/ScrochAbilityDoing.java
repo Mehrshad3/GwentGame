@@ -3,12 +3,22 @@ package controller.AbilityDoings;
 import controller.CardRemoverFromGame;
 import model.GameStatus;
 import model.Row;
+import model.faction.Card;
 import model.faction.UnitCard;
 
 import java.util.ArrayList;
 
 public class ScrochAbilityDoing {
     public GameStatus game;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public GameStatus getGame() {
         return game;

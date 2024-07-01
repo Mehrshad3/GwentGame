@@ -3,10 +3,20 @@ package controller.AbilityDoings;
 import controller.Checking.HeroChecking;
 import model.GameStatus;
 import model.Row;
+import model.faction.Card;
 import model.faction.UnitCard;
 
 public class TightBoundAbilityDoing {
     public GameStatus game;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public void setGame(GameStatus game) {
         this.game = game;
