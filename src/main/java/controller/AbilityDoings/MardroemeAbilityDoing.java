@@ -7,7 +7,7 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-public class MardroemeAbilityDoing {
+public class MardroemeAbilityDoing extends Ability{
     public GameStatus game;
     public Card MainCard;
 
@@ -46,5 +46,10 @@ public class MardroemeAbilityDoing {
         for(UnitCard card0:wantedrow.getCards()){
             DoAbilityOnACard(card0);
         }
+    }
+
+    @Override
+    public void DoCardAbility() {
+
     }
 }

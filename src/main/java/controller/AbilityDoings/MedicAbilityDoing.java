@@ -11,7 +11,7 @@ import model.faction.UnitCard;
 import java.net.CacheRequest;
 import java.util.ArrayList;
 
-public class MedicAbilityDoing {
+public class MedicAbilityDoing extends Ability{
     public GameStatus game;
     public Card MainCard;
 
@@ -38,5 +38,10 @@ public class MedicAbilityDoing {
             discardcards.remove(card);
             inhandcards.add(card);
         }else{}
+    }
+
+    @Override
+    public void DoCardAbility() {
+
     }
 }

@@ -7,7 +7,7 @@ import model.faction.Card;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SpyAbilityDoing {
+public class SpyAbilityDoing extends Ability{
     public GameStatus game;
     public Card MainCard;
 
@@ -51,4 +51,8 @@ public class SpyAbilityDoing {
         }
     }
 
+    @Override
+    public void DoCardAbility() {
+
+    }
 }

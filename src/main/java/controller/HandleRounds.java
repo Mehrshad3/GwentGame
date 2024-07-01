@@ -1,14 +1,30 @@
 package controller;
 
+import controller.AbilityDoings.Ability;
+import controller.Checking.GetAbility;
 import model.GameStatus;
 import model.Player;
-import model.faction.Card;
+import model.Row;
 import model.faction.Faction;
+import model.faction.UnitCard;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class HandleRounds {
     public GameStatus gameStatus;
     public Faction faction1;
     public Faction faction2;
+
+    public ArrayList<Ability> NextDoingAbilitys;
+
+    public ArrayList<Ability> getNextDoingMethods() {
+        return NextDoingAbilitys;
+    }
+
+    public void setNextDoingMethods(ArrayList<Ability> NextDoingAbilitys) {
+        this.NextDoingAbilitys = NextDoingAbilitys;
+    }
 
     public boolean notfinishedyet=true;
 
@@ -38,16 +54,22 @@ public class HandleRounds {
 
     public void Handlerounds(String InputString){
         //TODO
+        //TODO:placeCard if wanted
+        //TODO:after place card , for(Ability ability:NextDoingAbilitiys){ability.DoCardAction;}
 
     }
 
-    public void PlaceCardByName(String CardName,int Row){
+    public void PlaceCardByName(String CardName,int row){
         //TODO
     }
 
-    public void PlaceCard(Card card,int Row){
+    public void PlaceCard(UnitCard card, int row,Player player){
         //TODO
-
+        Row[] rows=gameStatus.getTable().getRows();
+        Row row0=rows[row];
+        row0.getCards().add(card);
+        player.getDeck().getInHandCards().remove(card);
+        GetAbility.getability(card,gameStatus,player);
     }
 
     public void Initialize(){

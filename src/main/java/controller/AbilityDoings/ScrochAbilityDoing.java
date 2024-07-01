@@ -8,7 +8,7 @@ import model.faction.UnitCard;
 
 import java.util.ArrayList;
 
-public class ScrochAbilityDoing {
+public class ScrochAbilityDoing extends Ability{
     public GameStatus game;
     public Card MainCard;
 
@@ -96,4 +96,8 @@ public class ScrochAbilityDoing {
         }else{}
     }
 
+    @Override
+    public void DoCardAbility() {
+
+    }
 }

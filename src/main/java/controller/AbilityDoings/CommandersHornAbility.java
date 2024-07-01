@@ -9,7 +9,7 @@ import model.faction.UnitCard;
 
 import java.util.List;
 
-public class CommandersHornAbility {
+public class CommandersHornAbility extends Ability{
     public GameStatus gameStatus;
     public Card MainCard;
 
@@ -62,5 +62,10 @@ public class CommandersHornAbility {
         for(UnitCard card0: wantedrow.getCards()){
             DoAbilityOnCard(card0);
         }
+    }
+
+    @Override
+    public void DoCardAbility() {
+
     }
 }

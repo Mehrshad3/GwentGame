@@ -6,7 +6,7 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-public class TightBoundAbilityDoing {
+public class TightBoundAbilityDoing extends Ability{
     public GameStatus game;
     public Card MainCard;
 
@@ -32,6 +32,11 @@ public class TightBoundAbilityDoing {
             Row[] rows = game.getTable().getRows();
             Row wantedrow = rows[row];
             //TODO:What is this?
+
+    }
+
+    @Override
+    public void DoCardAbility() {
 
     }
 }
