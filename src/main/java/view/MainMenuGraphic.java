@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.App;
-import view.gamegraphics.PreGameMenuGraphic;
+import view.game.graphics.PreGameMenuGraphic;
 
 import java.util.logging.Level;
 

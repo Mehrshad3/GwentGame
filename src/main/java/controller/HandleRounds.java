@@ -69,7 +69,7 @@ public class HandleRounds {
         Row row0=rows[row];
         row0.getCards().add(card);
         player.getDeck().getInHandCards().remove(card);
-        GetAbility.getability(card,gameStatus,player);
+        GetAbility.getAbility(card,gameStatus,player);
     }
 
     public void Initialize(){

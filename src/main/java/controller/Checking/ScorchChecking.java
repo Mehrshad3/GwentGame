@@ -1,4 +1,4 @@
 package controller.Checking;
 
-public class ScrochChecking {
+public class ScorchChecking {
 }

@@ -2,13 +2,16 @@
 
 <!-- On Mehrshad's device, the pane size was 1184 * 761. -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.ImagePattern?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.*?>
 <BorderPane fx:id="rootPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../CSS/GameTable.css"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="view.gamegraphics.GameGraphicController">
+            fx:controller="view.game.graphics.GameGraphicController">
     <left>
         <GridPane fx:id="playersInfo" maxWidth="-Infinity" prefHeight="800.0" prefWidth="283.75">
             <columnConstraints>
@@ -16,24 +19,152 @@
                 <ColumnConstraints percentWidth="1.1012"/>
                 <ColumnConstraints percentWidth="22.024"/>
                 <ColumnConstraints percentWidth="39.4226"/>
+                <ColumnConstraints percentWidth="7.7093"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" percentHeight="6.944" prefHeight="30.0" valignment="BOTTOM"/>
-                <RowConstraints percentHeight="12.963" valignment="BOTTOM"/>
-                <RowConstraints percentHeight="21.574" valignment="BOTTOM"/>
-                <RowConstraints percentHeight="12.87" valignment="BOTTOM"/>
-                <RowConstraints percentHeight="22.5" valignment="BOTTOM"/>
-                <RowConstraints percentHeight="12.963" valignment="BOTTOM"/>
+                <RowConstraints percentHeight="6.944"/>
+                <RowConstraints percentHeight="12.963"/>
+                <RowConstraints percentHeight="4.5"/>
+                <RowConstraints percentHeight="12.5"/>
+                <RowConstraints percentHeight="4.1111"/>
+                <RowConstraints percentHeight="12.87"/>
+                <RowConstraints percentHeight="7.3148"/>
+                <RowConstraints percentHeight="12.4074"/>
+                <RowConstraints percentHeight="2.7778"/>
+                <RowConstraints percentHeight="12.963"/>
             </rowConstraints>
             <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                 <ImageView fx:id="opponentLeaderCard" fitHeight="103.703" fitWidth="68.75" GridPane.columnIndex="1"
                            GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                 </ImageView>
             </Pane>
-            <HBox fx:id="specialCardsPane" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <HBox alignment="CENTER" styleClass="player-info" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+                <StackPane>
+                    <Circle radius="41.0">
+                        <fill>
+                            <ImagePattern>
+                                <image>
+                                    <Image url="@../IMAGES/icons/profile.png"/>
+                                </image>
+                            </ImagePattern>
+                        </fill>
+                    </Circle>
+                    <Circle radius="46.0">
+                        <fill>
+                            <ImagePattern>
+                                <image>
+                                    <Image url="@../IMAGES/icons/icon_player_border.png"/>
+                                </image>
+                            </ImagePattern>
+                        </fill>
+                    </Circle>
+                </StackPane>
+                <AnchorPane>
+                    <VBox AnchorPane.topAnchor="5">
+                        <Text fill="GOLDENROD" text="Player 2">
+                            <font>
+                                <Font name="Arial Narrow Bold" size="20.0"/>
+                            </font>
+                        </Text>
+                        <Text fill="TAN" text="Northern Realms">
+                            <font>
+                                <Font name="Arial Narrow" size="17.27"/>
+                            </font>
+                        </Text>
+                    </VBox>
+                    <HBox alignment="BOTTOM_RIGHT" AnchorPane.bottomAnchor="7">
+                        <ImageView>
+                            <Image url="@../IMAGES/icons/icon_card_count.png"/>
+                        </ImageView>
+                        <ImageView fx:id="opponentSecondLife">
+                            <Image url="@../IMAGES/icons/icon_gem_on.png"/>
+                        </ImageView>
+                        <ImageView fx:id="opponentFirstLife">
+                            <Image url="@../IMAGES/icons/icon_gem_on.png"/>
+                        </ImageView>
+                    </HBox>
+                    <StackPane layoutX="127.0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="-65.0"
+                               AnchorPane.topAnchor="0">
+                        <ImageView>
+                            <Image url="@../IMAGES/icons/score_total_op.png"/>
+                        </ImageView>
+                        <Text fx:id="opponentPower" text="0">
+                            <font>
+                                <Font name="Arial Bold" size="38.0"/>
+                            </font>
+                        </Text>
+                    </StackPane>
+                    <padding>
+                        <Insets right="40.0"/>
+                    </padding>
+                </AnchorPane>
             </HBox>
-            <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                <ImageView fx:id="selfLeaderCard" fitHeight="103.703" fitWidth="68.75" onMouseClicked="#clickedOnCard"
+            <HBox fx:id="specialCardsPane" onMouseClicked="#onSpecialPaneClicked" GridPane.columnIndex="2"
+                  GridPane.columnSpan="2" GridPane.rowIndex="5">
+            </HBox>
+            <HBox styleClass="player-info" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                <StackPane>
+                    <Circle radius="41.0">
+                        <fill>
+                            <ImagePattern>
+                                <image>
+                                    <Image url="@../IMAGES/icons/profile.png"/>
+                                </image>
+                            </ImagePattern>
+                        </fill>
+                    </Circle>
+                    <Circle radius="46.0">
+                        <fill>
+                            <ImagePattern>
+                                <image>
+                                    <Image url="@../IMAGES/icons/icon_player_border.png"/>
+                                </image>
+                            </ImagePattern>
+                        </fill>
+                    </Circle>
+                </StackPane>
+                <AnchorPane>
+                    <HBox AnchorPane.topAnchor="7">
+                        <ImageView>
+                            <Image url="@../IMAGES/icons/icon_card_count.png"/>
+                        </ImageView>
+                        <ImageView fx:id="selfSecondLife">
+                            <Image url="@../IMAGES/icons/icon_gem_on.png"/>
+                        </ImageView>
+                        <ImageView fx:id="selfFirstLife">
+                            <Image url="@../IMAGES/icons/icon_gem_on.png"/>
+                        </ImageView>
+                    </HBox>
+                    <VBox AnchorPane.bottomAnchor="5">
+                        <Text fill="GOLDENROD" text="Player 1">
+                            <font>
+                                <Font name="Arial Narrow Bold" size="20.0"/>
+                            </font>
+                        </Text>
+                        <Text fill="TAN" text="Northern Realms">
+                            <font>
+                                <Font name="Arial Narrow" size="17.27"/>
+                            </font>
+                        </Text>
+                    </VBox>
+                    <StackPane layoutX="127.0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="-65.0"
+                               AnchorPane.topAnchor="10">
+                        <ImageView>
+                            <Image url="@../IMAGES/icons/score_total_me.png"/>
+                        </ImageView>
+                        <Text fx:id="selfPower" text="0">
+                            <font>
+                                <Font name="Arial Bold" size="38.0"/>
+                            </font>
+                        </Text>
+                    </StackPane>
+                    <HBox.margin>
+                        <Insets right="40.0"/>
+                    </HBox.margin>
+                </AnchorPane>
+            </HBox>
+            <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                <ImageView fx:id="selfLeaderCard" fitHeight="103.703" fitWidth="68.75" onMouseClicked="#mousePressedOnCard"
                            GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                 </ImageView>
             </Pane>
@@ -75,31 +206,40 @@
                 <RowConstraints percentHeight="0.6481"/>
                 <RowConstraints percentHeight="9.9074"/>
             </rowConstraints>
-            <Pane fx:id="commanderHornSpot1" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="13">
+            <Pane fx:id="commanderHornSpot1" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
+                  GridPane.columnSpan="2" GridPane.rowIndex="13">
             </Pane>
-            <Pane fx:id="commanderHornSpot2" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="11">
+            <Pane fx:id="commanderHornSpot2" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
+                  GridPane.columnSpan="2" GridPane.rowIndex="11">
             </Pane>
-            <Pane fx:id="commanderHornSpot3" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="9">
+            <Pane fx:id="commanderHornSpot3" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
+                  GridPane.columnSpan="2" GridPane.rowIndex="9">
             </Pane>
-            <Pane fx:id="commanderHornSpot4" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7">
+            <Pane fx:id="commanderHornSpot4" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
+                  GridPane.columnSpan="2" GridPane.rowIndex="7">
             </Pane>
-            <Pane fx:id="commanderHornSpot5" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4"
-                  GridPane.rowSpan="2">
+            <Pane fx:id="commanderHornSpot5" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
+                  GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
             </Pane>
-            <Pane fx:id="commanderHornSpot6" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1"
-                  GridPane.rowSpan="2">
+            <Pane fx:id="commanderHornSpot6" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
+                  GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
             </Pane>
-            <HBox fx:id="selfSiegeCombat" GridPane.columnIndex="5" GridPane.rowIndex="13">
+            <HBox fx:id="selfSiegeCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+                  GridPane.rowIndex="13">
             </HBox>
-            <HBox fx:id="selfRangedCombat" GridPane.columnIndex="5" GridPane.rowIndex="11">
+            <HBox fx:id="selfRangedCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+                  GridPane.rowIndex="11">
             </HBox>
-            <HBox fx:id="selfCloseCombat" GridPane.columnIndex="5" GridPane.rowIndex="9">
+            <HBox fx:id="selfCloseCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5" GridPane.rowIndex="9">
             </HBox>
-            <HBox fx:id="opponentCloseCombat" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            <HBox fx:id="opponentCloseCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+                  GridPane.rowIndex="7">
             </HBox>
-            <HBox fx:id="opponentRangedCombat" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.rowSpan="2">
+            <HBox fx:id="opponentRangedCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+                  GridPane.rowIndex="4" GridPane.rowSpan="2">
             </HBox>
-            <HBox fx:id="opponentSiegeCombat" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            <HBox fx:id="opponentSiegeCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+                  GridPane.rowIndex="1" GridPane.rowSpan="2">
             </HBox>
             <HBox fx:id="inHandCards" alignment="CENTER" spacing="3.0" GridPane.columnIndex="4" GridPane.columnSpan="2"
                   GridPane.rowIndex="16">

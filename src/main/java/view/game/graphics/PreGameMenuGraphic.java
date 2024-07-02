@@ -1,4 +1,4 @@
-package view.gamegraphics;
+package view.game.graphics;
 
 import controller.GameController;
 import enums.Menu;
@@ -664,7 +664,7 @@ public class PreGameMenuGraphic extends Application {
     }
 
     private void startNewGame() {
-        if (User.getCurrentUser().getDeck().getNumberOfCardsInDeck() != 22) {//TODO check for 10 special cards
+        if (User.getCurrentUser().getDeck().getNumberOfCardsInDeck() < 22) {//TODO check for 10 special cards
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Less than 22 cards in your deck.");
             alert.show();

@@ -6,10 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import model.*;
-import model.faction.Card;
-import model.faction.Faction;
-import model.faction.LeaderCard;
-import model.faction.UnitCard;
+import model.faction.*;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -29,6 +26,7 @@ public class GameController extends MenuController {
 
     public void setGaming(GameStatus gaming) {
         this.gaming = gaming;
+        App.getAppObject().setGaming(gaming);
     }
 
     public void setGamingAndUpdateScreen(GameStatus gaming) {
@@ -42,7 +40,7 @@ public class GameController extends MenuController {
     public void setStartStatus(Player player1) {
         this.player1 = player1;
         player2 = new Player("guest", "placeholder");
-        gaming = new GameStatus(new Table(player1, player2), player1, player2);
+        setGaming(new GameStatus(new Table(player1, player2), player1, player2));
         for (int i = 0; i < sumOfRows.length; i++) {
             Row row = gaming.getTable().getRows()[i];
             int rowIndex = i;
@@ -88,8 +86,38 @@ public class GameController extends MenuController {
         // TODO
     }
 
-    public void playCard(Card card) {
+    public void playLeaderCard(Card card) {
         // TODO
+    }
+
+    public void playCard(Card card, int rowToPlay) {
+        if (card instanceof SpellCard) {
+            playCommanderHorn(card, rowToPlay);
+            return;
+        }
+        // TODO
+    }
+
+    /**
+     * Plays {@link CardName#COMMANDER_HORN Commander's Horn} card or any other {@link SpellCard}.
+     */
+    public void playCommanderHorn(Card card, int rowToPlay) {
+        if (!(card instanceof SpellCard spellCard)) return;
+        CommandersHornAbility ability = new CommandersHornAbility();
+        ability.setGameStatus(gaming);
+        // TODO: do the commander's horn ability
+        gaming.getTable().addSpell(spellCard, rowToPlay);
+    }
+
+    /**
+     * @param card The weather card that the user wants to play. If it isn't a weather card, the method doesn't do
+     *             anything.
+     */
+    public void playWeatherCard(Card card) {
+        if (!(card instanceof WeatherCard weatherCard)) return;
+        // TODO
+        gaming.getTable().setCurrentWeather(weatherCard);
+        player1.getDeck().getInHandCards().remove(card);
     }
 
     private void empirePowerDoing() {

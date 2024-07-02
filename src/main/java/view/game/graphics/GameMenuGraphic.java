@@ -1,4 +1,4 @@
-package view.gamegraphics;
+package view.game.graphics;
 
 import controller.AppController;
 import enums.Menu;

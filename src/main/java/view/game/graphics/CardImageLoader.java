@@ -1,4 +1,4 @@
-package view.gamegraphics;
+package view.game.graphics;
 
 import enums.card.CardName;
 import javafx.scene.image.Image;
