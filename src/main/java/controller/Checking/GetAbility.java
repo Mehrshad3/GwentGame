@@ -9,6 +9,7 @@ import model.faction.UnitCard;
 
 public class GetAbility {
     public static void getability(UnitCard card, GameStatus gameStatus, Player player){
+    //TODO:Must get AbilityDoing and add it to nextdoingabilities of gamestatus
 
     }
 }

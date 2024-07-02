@@ -2,9 +2,11 @@ package controller;
 
 import controller.AbilityDoings.Ability;
 import controller.Checking.GetAbility;
+import enums.card.CardName;
 import model.GameStatus;
 import model.Player;
 import model.Row;
+import model.faction.Card;
 import model.faction.Faction;
 import model.faction.UnitCard;
 
@@ -56,6 +58,8 @@ public class HandleRounds {
         //TODO
         //TODO:placeCard if wanted
         //TODO:after place card , for(Ability ability:NextDoingAbilitiys){ability.DoCardAction;}
+        String s=CardName.getCardNameEnumByName("Arachas Behemoth").toString();
+        System.out.println(s);
 
     }
 
