@@ -7,6 +7,23 @@ public class TransformerAbilityDoing extends Ability{
     public GameStatus game;
     public Card MainCard;
     public int numberofAbilityDoingdid=0;
+    public String nextcard;
+
+    public String getNextcard() {
+        return nextcard;
+    }
+
+    public void setNextcard(String nextcard) {
+        this.nextcard = nextcard;
+    }
+
+    public TransformerAbilityDoing(){
+
+    }
+
+    public TransformerAbilityDoing(String transformto){
+        setNextcard(transformto);
+    }
 
     public Card getMainCard() {
         return MainCard;

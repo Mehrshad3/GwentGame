@@ -58,8 +58,7 @@ public class HandleRounds {
         //TODO
         //TODO:placeCard if wanted
         //TODO:after place card , for(Ability ability:NextDoingAbilitiys){ability.DoCardAction;}
-        String s=CardName.getCardNameEnumByName("Arachas Behemoth").toString();
-        System.out.println(s);
+
 
     }
 
@@ -73,7 +72,7 @@ public class HandleRounds {
         Row row0=rows[row];
         row0.getCards().add(card);
         player.getDeck().getInHandCards().remove(card);
-        GetAbility.getAbility(card,gameStatus,player);
+        //TODO:GetAbility.getAbility(card,gameStatus,player);
     }
 
     public void Initialize(){

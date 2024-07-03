@@ -1,6 +1,7 @@
 package controller.AbilityDoings;
 
 import controller.CardRemoverFromGame;
+import controller.Checking.HeroChecking;
 import model.GameStatus;
 import model.Row;
 import model.faction.Card;
@@ -11,6 +12,13 @@ import java.util.ArrayList;
 public class ScorchAbilityDoing extends Ability {
     public GameStatus game;
     public Card MainCard;
+
+    public ScorchAbilityDoing(String status){
+        setStatus(status);
+    }
+    public ScorchAbilityDoing(){
+
+    }
 
     public void setMainCard(Card mainCard) {
         MainCard = mainCard;
@@ -78,7 +86,8 @@ public class ScorchAbilityDoing extends Ability {
         int maxpower=0;
         int sumrowpowers=0;
         for(UnitCard card:wantedrow.getCards()){
-            sumrowpowers=sumrowpowers+card.getPower();
+            if(!HeroChecking.HeroChecking(card)){
+            sumrowpowers=sumrowpowers+card.getPower();}
             if(card.getPower()>maxpower){
                 maxpower= card.getPower();
                 for(UnitCard card0:MaxCards){
