@@ -7,3 +7,8 @@
 .h-box {
     -fx-alignment: "CENTER";
 }
+
+.player-info {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-alignment: CENTER_RIGHT;
+}

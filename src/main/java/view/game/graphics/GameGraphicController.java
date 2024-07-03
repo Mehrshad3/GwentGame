@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.App;
 import model.faction.Card;
@@ -36,10 +37,25 @@ public class GameGraphicController {
     private static final long debugMenuCooldown = 200000000L;
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final int MAXIMUM_NUMBER_OF_CARDS_IN_HAND = 10;
+    private static final int NUMBER_OF_ROWS = 6;
     private final GameController gameController;
     private final Image player1FactionImage;
     private final Image player2FactionImage;
     private final Object debugMenuLock = new Object();
+    private final Pane[] commanderHornSpots = new Pane[NUMBER_OF_ROWS];
+    private final HBox[] rows = new HBox[NUMBER_OF_ROWS];
+    @FXML
+    private Text opponentPower;
+    @FXML
+    private Text selfPower;
+    @FXML
+    private ImageView opponentSecondLife;
+    @FXML
+    private ImageView opponentFirstLife;
+    @FXML
+    private ImageView selfSecondLife;
+    @FXML
+    private ImageView selfFirstLife;
     @FXML
     private Label selfSiegePowerLabel;
     @FXML
@@ -102,6 +118,7 @@ public class GameGraphicController {
     private GridPane playersInfo;
     @FXML
     private BorderPane rootPane;
+    private CardView cardChosenToPlay = null;
     private Stage debugMenu;
     private long lastTimeDebugHit = 0;
     private short debugMenuHitNumber = 0;
@@ -124,27 +141,13 @@ public class GameGraphicController {
         player2FactionImage = new Image(Objects.requireNonNull(player2FactionURL).toExternalForm());
     }
 
-    @FXML
-    private void initialize() {
-        rootPane.setPrefWidth(1200);
-        rootPane.setPrefHeight(800);
-
-        rootPane.widthProperty().addListener((observableValue, number, t1) -> updateWidths((Double) observableValue.getValue()));
-        rootPane.heightProperty().addListener((observableValue, number, t1) -> updateHeights((Double) observableValue.getValue()));
-
-        setImagesPercentInRootPane();
-
+    /**
+     * This method is used in {@link #initialize} method, and also when you want to reload the game status screen from
+     * the scratch, except two players' factions.
+     */
+    public void loadGameStatus() {
         if (gameController.getSizeOfPlayer1Deck() != 0) selfDeckImageView.setImage(player1FactionImage);
         if (gameController.getSizeOfPlayer2Deck() != 0) opponentDeckImageView.setImage(player2FactionImage);
-
-        System.gc();
-
-        URL musicURL = Objects.requireNonNull(getClass().getResource("/Media/03 Ride For Freedom.wav"));
-        Media media = new Media(musicURL.toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0.5);
-        mediaPlayer.play();
-        mediaPlayer.setCycleCount(-1); // Plays infinitely until the end of game.
 
         selfSiegePowerLabel.textProperty().bind(gameController.getSumOfRowNumber(1).map(Object::toString));
         selfRangedPowerLabel.textProperty().bind(gameController.getSumOfRowNumber(2).map(Object::toString));
@@ -157,13 +160,81 @@ public class GameGraphicController {
         showLeaderCards();
     }
 
+    @FXML
+    private void initialize() {
+        rootPane.setPrefWidth(1200);
+        rootPane.setPrefHeight(800);
+
+        rootPane.widthProperty().addListener((observableValue, number, t1) ->
+                updateWidths((Double) observableValue.getValue()));
+        rootPane.heightProperty().addListener((observableValue, number, t1) ->
+                updateHeights((Double) observableValue.getValue()));
+
+        setImagesPercentInRootPane();
+
+        initializeRowsArray();
+
+        loadGameStatus();
+
+        System.gc();
+
+        URL musicURL = Objects.requireNonNull(getClass().getResource("/Media/03 Ride For Freedom.wav"));
+        Media media = new Media(musicURL.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(0.5);
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1); // Plays infinitely until the end of game.
+    }
+
+    private void initializeRowsArray() {
+        this.rows[0] = selfSiegeCombat;
+        this.rows[1] = selfRangedCombat;
+        this.rows[2] = selfCloseCombat;
+        this.rows[3] = opponentCloseCombat;
+        this.rows[4] = opponentRangedCombat;
+        this.rows[5] = opponentSiegeCombat;
+    }
+
+    private void initializeCommanderHornSpotsArray() {
+        this.commanderHornSpots[0] = commanderHornSpot1;
+        this.commanderHornSpots[1] = commanderHornSpot2;
+        this.commanderHornSpots[2] = commanderHornSpot3;
+        this.commanderHornSpots[3] = commanderHornSpot4;
+        this.commanderHornSpots[4] = commanderHornSpot5;
+        this.commanderHornSpots[5] = commanderHornSpot6;
+    }
+
+    private double getNodeVerticalPercentInGridPane(Node node) {
+        int beginIndex = GridPane.getRowIndex(node);
+        Integer rowSpan = GridPane.getRowSpan(node);
+        int lastIndex = beginIndex + (rowSpan != null ? rowSpan : 1);
+        GridPane nodeParent = (GridPane) node.getParent();
+        ObservableList<RowConstraints> rowConstraints = nodeParent.getRowConstraints();
+        double sumOfPercents = 0;
+        for (int i = beginIndex; i < lastIndex; i++) {
+            sumOfPercents += rowConstraints.get(i).getPercentHeight();
+        }
+        return sumOfPercents;
+    }
+
+    private double getNodeHorizontalPercentInGridPane(Node node) {
+        int beginIndex = GridPane.getColumnIndex(node);
+        Integer columnSpan = GridPane.getColumnSpan(node);
+        int lastIndex = beginIndex + (columnSpan != null ? columnSpan : 1);
+        GridPane nodeParent = (GridPane) node.getParent();
+        ObservableList<ColumnConstraints> columnConstraints = nodeParent.getColumnConstraints();
+        double sumOfPercents = 0;
+        for (int i = beginIndex; i < lastIndex; i++) {
+            sumOfPercents += columnConstraints.get(i).getPercentWidth();
+        }
+        return sumOfPercents;
+    }
+
     private void setImagesPercentInRootPane() {
-        opponentLeaderVerticalPercent = playersInfo.getRowConstraints().get(1).getPercentHeight();
-        selfLeaderVerticalPercent = playersInfo.getRowConstraints().get(5).getPercentHeight();
-        leaderHorizontalPercent = playersInfo.getColumnConstraints().get(1).getPercentWidth() +
-                playersInfo.getColumnConstraints().get(2).getPercentWidth();
-        cardHorizontalPercent = (board.getColumnConstraints().get(4).getPercentWidth() +
-                board.getColumnConstraints().get(5).getPercentWidth()) / MAXIMUM_NUMBER_OF_CARDS_IN_HAND;
+        opponentLeaderVerticalPercent = getNodeVerticalPercentInGridPane(opponentLeaderCard.getParent());
+        selfLeaderVerticalPercent = getNodeVerticalPercentInGridPane(selfLeaderCard.getParent());
+        leaderHorizontalPercent = getNodeHorizontalPercentInGridPane(selfLeaderCard.getParent());
+        cardHorizontalPercent = getNodeHorizontalPercentInGridPane(inHandCards) / MAXIMUM_NUMBER_OF_CARDS_IN_HAND;
         cardVerticalPercent = board.getRowConstraints().get(7).getPercentHeight();
     }
 
@@ -248,17 +319,14 @@ public class GameGraphicController {
         else cardView = new CardView(card);
         updateCardWidth(cardView);
         updateCardHeight(cardView);
-        cardView.setOnMouseClicked(this::onCardClicked);
+        cardView.imageView.setOnMouseClicked(this::mousePressedOnCard);
         return cardView;
     }
 
-    void onCardClicked(MouseEvent event) {
-        App.LOGGER.log(Level.FINER, "Clicked on the card", event);
-    }
-
     private void removeRemovedCardsFromHandView(ListChangeListener.Change<? extends Card> change) {
+        assert change.getFrom() == change.getTo();
         ObservableList<Node> children = inHandCards.getChildren();
-        children.remove(change.getFrom(), change.getTo());
+        children.remove(change.getFrom(), change.getTo() + change.getRemovedSize());
     }
 
     private void replaceReplacedCardsInHandView(ListChangeListener.Change<? extends Card> change) {
@@ -274,26 +342,71 @@ public class GameGraphicController {
     }
 
     @FXML
-    private void clickedOnCard(MouseEvent mouseEvent) {
-        if (mouseEvent.getSource() == selfLeaderCard) {
-            gameController.playCard(gameController.getPlayer1LeaderCard());
+    private void mousePressedOnCard(MouseEvent mouseEvent) {
+        App.LOGGER.log(Level.FINER, "Clicked on the card", mouseEvent);
+        Node source = (Node) mouseEvent.getSource();
+        if (source == selfLeaderCard) {
+            App.LOGGER.log(Level.FINE, "Current user clicked on the leader card.");
+            gameController.playLeaderCard(gameController.getPlayer1LeaderCard());
+        } else if (source.getParent() instanceof CardView cardView) {
+            cardChosenToPlay = cardChosenToPlay == null ? cardView : null;
+            // It'll be beautiful if we ask the controller that which rows can this card be played to.
         }
     }
 
+    /**
+     * This method is used to detect when the player wants to place the card that they've been chosen.
+     * It unfortunately doesn't detect the exact index in which the card is played.
+     */
     @FXML
-    private void showSelfDiscardPile(MouseEvent mouseEvent) {
+    private void onRowClicked(MouseEvent mouseEvent) {
+        if (cardChosenToPlay == null) return; // There is no card to play.
+        Pane source = (Pane) mouseEvent.getSource();
+        // Detect the row number which the card will be played on.
+        int rowToPlay = 0;
+        for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+            if (rows[i] == source) rowToPlay = i + 1;
+        }
+        // Tells the controller to play the card
+        gameController.playCard(cardChosenToPlay.card, rowToPlay);
+        cardChosenToPlay = null;
+    }
+
+    @FXML
+    private void onCommanderHornSpotClicked(MouseEvent mouseEvent) {
+        if (cardChosenToPlay == null) return; // There is no card to play.
+        Pane source = (Pane) mouseEvent.getSource();
+        // Detect the row number which the card will be played on.
+        int rowToPlay = 0;
+        for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+            if (commanderHornSpots[i] == source) rowToPlay = i + 1;
+        }
+        // Tells the controller to play the card
+        gameController.playCommanderHorn(cardChosenToPlay.card, rowToPlay);
+        cardChosenToPlay = null;
+    }
+
+    @FXML
+    private void onSpecialPaneClicked() {
+        if (cardChosenToPlay == null) return;
+        gameController.playWeatherCard(cardChosenToPlay.card);
+        cardChosenToPlay = null;
+    }
+
+    @FXML
+    private void showSelfDiscardPile() {
         ObservableList<Card> discardPile = gameController.getPlayer1DiscardPile();
         // TODO
     }
 
     @FXML
-    private void showOpponentDiscardPile(MouseEvent mouseEvent) {
+    private void showOpponentDiscardPile() {
         ObservableList<Card> discardPile = gameController.getPlayer2DiscardPile();
         // TODO
     }
 
     @FXML
-    private void clickedOnDebugMenu(MouseEvent mouseEvent) {
+    private void clickedOnDebugMenu() {
         if (debugMenu != null) {
             debugMenu.requestFocus();
             return;

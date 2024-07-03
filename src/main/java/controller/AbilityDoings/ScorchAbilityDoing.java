@@ -3,12 +3,22 @@ package controller.AbilityDoings;
 import controller.CardRemoverFromGame;
 import model.GameStatus;
 import model.Row;
+import model.faction.Card;
 import model.faction.UnitCard;
 
 import java.util.ArrayList;
 
-public class ScrochAbilityDoing {
+public class ScorchAbilityDoing extends Ability {
     public GameStatus game;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public GameStatus getGame() {
         return game;
@@ -21,16 +31,16 @@ public class ScrochAbilityDoing {
     public void DoAbilityOnWholeBoardUnconditionally(){
         Row[] rows=game.getTable().getRows();
         ArrayList<UnitCard>MaxCards=new ArrayList<UnitCard>();
-        int maxpower=0;
+        int maxPower = 0;
         for(Row row:rows){
             for(UnitCard card:row.getCards()){
-                if(card.getPower()>maxpower){
-                    maxpower= card.getPower();
+                if(card.getPower() > maxPower){
+                    maxPower= card.getPower();
                     for(UnitCard card0:MaxCards){
                         MaxCards.remove(card0);
                     }
                     MaxCards.add(card);
-                }else if(card.getPower()==maxpower){
+                } else if (card.getPower() == maxPower) {
                     MaxCards.add(card);
                 }else{}
             }
@@ -61,7 +71,7 @@ public class ScrochAbilityDoing {
         }
     }
 
-    public void DoAbilityOnARowConditionaly(int row){
+    public void DoAbilityOnARowConditionally(int row) {
         Row[] rows=game.getTable().getRows();
         Row wantedrow=rows[row];
         ArrayList<UnitCard>MaxCards=new ArrayList<UnitCard>();
@@ -86,4 +96,8 @@ public class ScrochAbilityDoing {
         }else{}
     }
 
+    @Override
+    public void DoCardAbility() {
+
+    }
 }

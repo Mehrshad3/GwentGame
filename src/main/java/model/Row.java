@@ -10,6 +10,7 @@ import model.faction.UnitCard;
 public class Row {
     private final ObservableList<UnitCard> unitCards = FXCollections.observableArrayList();
     private final short number;
+    @Deprecated
     private boolean specialCardExists = false;
     private RowWeather weather = RowWeather.CLEAR_WEATHER;
     private SpellCard spell = null;
@@ -32,8 +33,12 @@ public class Row {
     }
 
     public void setWeather(RowWeather weather) {
-        this.specialCardExists = true;
-        this.weather = weather;
+        if (weather != RowWeather.CLEAR_WEATHER) {
+            this.specialCardExists = true;
+            this.weather = weather;
+        } else {
+            this.weather = RowWeather.CLEAR_WEATHER;
+        }
     }
 
     public void placeCard(UnitCard card) {
@@ -45,6 +50,7 @@ public class Row {
         // TODO
     }
 
+    @Deprecated
     public void setSpecialCardExists(boolean specialCardExists) {
         this.specialCardExists = specialCardExists;
     }
@@ -53,6 +59,7 @@ public class Row {
         return unitCards;
     }
 
+    @Deprecated
     public boolean doesSpecialCardExist() {
         return specialCardExists;
     }

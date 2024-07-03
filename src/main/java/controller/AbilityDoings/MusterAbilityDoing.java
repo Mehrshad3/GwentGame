@@ -8,8 +8,17 @@ import model.faction.UnitCard;
 
 import java.util.ArrayList;
 
-public class MusterAbilityDoing {
+public class MusterAbilityDoing extends Ability{
     public GameStatus game;
+    public Card MainCard;
+
+    public Card getMainCard() {
+        return MainCard;
+    }
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
 
     public GameStatus getGame() {
         return game;
@@ -48,4 +57,8 @@ public class MusterAbilityDoing {
 
     }
 
+    @Override
+    public void DoCardAbility() {
+
+    }
 }

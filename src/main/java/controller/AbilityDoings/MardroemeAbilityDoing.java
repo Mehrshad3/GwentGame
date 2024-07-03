@@ -4,10 +4,20 @@ import controller.Checking.BerserkerChecking;
 import controller.Checking.HeroChecking;
 import model.GameStatus;
 import model.Row;
+import model.faction.Card;
 import model.faction.UnitCard;
 
-public class MardroemeAbilityDoing {
+public class MardroemeAbilityDoing extends Ability{
     public GameStatus game;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public GameStatus getGame() {
         return game;
@@ -36,5 +46,10 @@ public class MardroemeAbilityDoing {
         for(UnitCard card0:wantedrow.getCards()){
             DoAbilityOnACard(card0);
         }
+    }
+
+    @Override
+    public void DoCardAbility() {
+
     }
 }

@@ -3,7 +3,7 @@ package controller.AbilityDoings;
 import model.GameStatus;
 import model.faction.Card;
 
-public class TransformerAbilityDoing {
+public class TransformerAbilityDoing extends Ability{
     public GameStatus game;
     public Card MainCard;
     public int numberofAbilityDoingdid=0;
@@ -36,4 +36,8 @@ public class TransformerAbilityDoing {
         //TODO
     }
 
+    @Override
+    public void DoCardAbility() {
+
+    }
 }

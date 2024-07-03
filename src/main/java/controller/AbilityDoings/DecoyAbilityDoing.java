@@ -10,7 +10,7 @@ import model.faction.UnitCard;
 
 import java.util.ArrayList;
 
-public class DecoyAbilityDoing {
+public class DecoyAbilityDoing extends Ability{
     public GameStatus game;
 
     public GameStatus getGame() {
@@ -28,4 +28,8 @@ public class DecoyAbilityDoing {
         }
     }
 
+    @Override
+    public void DoCardAbility() {
+
+    }
 }

@@ -1,22 +1,20 @@
 package model;
 
 import enums.card.RowWeather;
-import model.faction.Card;
 import model.faction.SpellCard;
 import model.faction.WeatherCard;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Table {
     final Row[] rows = new Row[6];
     final Player player1;
     final Player player2;
+    final LinkedList<WeatherCard> weatherCards = new LinkedList<>();
     int currentPlayerPlaying = 1;
     int numberOfRounds;
     Deck player1Deck;
     Deck player2Deck;
-    ArrayList<SpellCard> spells;
-    Card currentSpell = null;
     private int numberOfTurnsPassed = 0;
 
     public Table(Player player1, Player player2) {
@@ -61,17 +59,9 @@ public class Table {
         return player2Deck;
     }
 
-    public ArrayList<SpellCard> getSpells() {
-        return spells;
-    }
-
-    public Card getCurrentSpell() {
-        return currentSpell;
-    }
-
-    public void setCurrentSpell(SpellCard currentSpell) {
-        spells.add(currentSpell);
-        this.currentSpell = currentSpell;
+    public void addSpell(SpellCard spellCard, int rowNumber) {
+        Row rowToAddSpell = rows[rowNumber];
+        rowToAddSpell.setSpell(spellCard);
     }
 
     public RowWeather[] getCurrentWeather() {
@@ -83,7 +73,7 @@ public class Table {
     }
 
     public void setCurrentWeather(WeatherCard weather) {
-        weather.doAbility(null); // TODO: either give gaming to doAbility or remove setCurrentWeather
+        weather.doAbility(App.getAppObject().getGaming());
     }
 
     void changeTurn() {

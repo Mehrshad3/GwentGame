@@ -20,8 +20,15 @@ public enum WeatherCardAbility implements CardAbility {
         getRows()[0].setWeather(RowWeather.TORRENTIAL_RAIN);
         getRows()[5].setWeather(RowWeather.TORRENTIAL_RAIN);
     })),
-    // TWO last cards of the AH MZ table are omitted because they don't appear in the official document.
-    ;
+    SKELLIGE_STORM((gaming, card) -> {
+        IMPENETRABLE_FOG.doAction(gaming, card);
+        TORRENTIAL_RAIN.doAction(gaming, card);
+    }),
+    CLEAR_WEATHER(((gaming, card) -> {
+        for (Row row : getRows()) {
+            row.setWeather(RowWeather.CLEAR_WEATHER);
+        }
+    }));
     private final BiConsumer<GameStatus, Card> action;
 
     WeatherCardAbility(BiConsumer<GameStatus, Card> action) {

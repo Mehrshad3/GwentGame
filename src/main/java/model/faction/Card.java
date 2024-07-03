@@ -48,7 +48,7 @@ public abstract class Card implements Serializable {
         return this.cardName;
     }
 
-    public int getRowNumber() {
+    public Integer getRowNumber() {
         return this.rowNumber;
     }
 

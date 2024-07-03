@@ -6,8 +6,17 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-public class MoralBoostAbility {
+public class MoralBoostAbility extends Ability{
     public GameStatus game;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public void setGame(GameStatus game) {
         this.game = game;
@@ -31,5 +40,10 @@ public class MoralBoostAbility {
         for(UnitCard card:wantedrow.getCards()){
             DoAbilityOnACard(card);
         }
+    }
+
+    @Override
+    public void DoCardAbility() {
+
     }
 }

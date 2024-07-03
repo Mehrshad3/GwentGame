@@ -9,8 +9,17 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-public class BerserkerAbilityDoing {
+public class BerserkerAbilityDoing extends Ability{
     public GameStatus game;
+    public Card MainCard;
+
+    public void setMainCard(Card mainCard) {
+        MainCard = mainCard;
+    }
+
+    public Card getMainCard() {
+        return MainCard;
+    }
 
     public GameStatus getGame() {
         return game;
@@ -32,5 +41,10 @@ public class BerserkerAbilityDoing {
 //TODO:Import Bearcard in row        cards.add(Bearcard);
         }
         else{}
+    }
+
+    @Override
+    public void DoCardAbility() {
+
     }
 }
