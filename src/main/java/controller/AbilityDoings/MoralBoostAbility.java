@@ -46,4 +46,13 @@ public class MoralBoostAbility extends Ability{
     public void DoCardAbility() {
 
     }
+
+    @Override
+    public Ability Copy(Card card) {
+        MoralBoostAbility moralBoostAbility=new MoralBoostAbility();
+        moralBoostAbility.setmaincard(card);
+        moralBoostAbility.setStatus(status);
+        moralBoostAbility.setGame(game);
+        return moralBoostAbility;
+    }
 }

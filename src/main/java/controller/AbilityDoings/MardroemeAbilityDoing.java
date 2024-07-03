@@ -48,8 +48,18 @@ public class MardroemeAbilityDoing extends Ability{
         }
     }
 
+
     @Override
     public void DoCardAbility() {
 
+    }
+
+    @Override
+    public Ability Copy(Card card) {
+        MardroemeAbilityDoing mardroemeAbilityDoing=new MardroemeAbilityDoing();
+        mardroemeAbilityDoing.setmaincard(card);
+        mardroemeAbilityDoing.setGame(game);
+        mardroemeAbilityDoing.setStatus(status);
+        return mardroemeAbilityDoing;
     }
 }

@@ -61,4 +61,13 @@ public class MusterAbilityDoing extends Ability{
     public void DoCardAbility() {
 
     }
+
+    @Override
+    public Ability Copy(Card card) {
+        MusterAbilityDoing musterAbilityDoing=new MusterAbilityDoing();
+        musterAbilityDoing.setmaincard(card);
+        musterAbilityDoing.setStatus(status);
+        musterAbilityDoing.setGame(game);
+        return musterAbilityDoing;
+    }
 }

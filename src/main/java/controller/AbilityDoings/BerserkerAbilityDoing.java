@@ -43,8 +43,19 @@ public class BerserkerAbilityDoing extends Ability{
         else{}
     }
 
+
+
     @Override
     public void DoCardAbility() {
 
+    }
+
+    @Override
+    public Ability Copy(Card card) {
+        BerserkerAbilityDoing berserkerAbilityDoing=new BerserkerAbilityDoing();
+        berserkerAbilityDoing.setGame(game);
+        berserkerAbilityDoing.setStatus(status);
+        berserkerAbilityDoing.setmaincard(card);
+        return berserkerAbilityDoing;
     }
 }

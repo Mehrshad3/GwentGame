@@ -3,14 +3,14 @@ package controller.AbilityDoings;
 import model.faction.Card;
 
 public abstract class Ability {
-    public String status;
+    public String status="general";
     public Card maincard;
 
-    public Card getMaincard() {
+    public Card getmaincard() {
         return maincard;
     }
 
-    public void setMaincard(Card maincard) {
+    public void setmaincard(Card maincard) {
         this.maincard = maincard;
     }
 
@@ -23,4 +23,5 @@ public abstract class Ability {
     }
 
     public abstract void DoCardAbility() ;
+    public abstract Ability Copy(Card card);
 }

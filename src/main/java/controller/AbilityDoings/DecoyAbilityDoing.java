@@ -28,8 +28,18 @@ public class DecoyAbilityDoing extends Ability{
         }
     }
 
+
+
     @Override
     public void DoCardAbility() {
 
+    }
+
+    @Override
+    public Ability Copy(Card card) {
+        DecoyAbilityDoing decoyAbilityDoing=new DecoyAbilityDoing();
+        decoyAbilityDoing.setStatus(status);
+        decoyAbilityDoing.setGame(game);
+        return decoyAbilityDoing;
     }
 }

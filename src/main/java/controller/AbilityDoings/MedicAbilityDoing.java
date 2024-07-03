@@ -44,4 +44,13 @@ public class MedicAbilityDoing extends Ability{
     public void DoCardAbility() {
 
     }
+
+    @Override
+    public Ability Copy(Card card) {
+        MedicAbilityDoing medicAbilityDoing=new MedicAbilityDoing();
+        medicAbilityDoing.setmaincard(card);
+        medicAbilityDoing.setStatus(status);
+        medicAbilityDoing.setGame(game);
+        return medicAbilityDoing;
+    }
 }

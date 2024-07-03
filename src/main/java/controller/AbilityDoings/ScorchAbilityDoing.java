@@ -109,4 +109,13 @@ public class ScorchAbilityDoing extends Ability {
     public void DoCardAbility() {
 
     }
+
+    @Override
+    public Ability Copy(Card card) {
+        ScorchAbilityDoing scorchAbilityDoing=new ScorchAbilityDoing();
+        scorchAbilityDoing.setmaincard(card);
+        scorchAbilityDoing.setStatus(status);
+        scorchAbilityDoing.setGame(game);
+        return scorchAbilityDoing;
+    }
 }

@@ -57,4 +57,15 @@ public class TransformerAbilityDoing extends Ability{
     public void DoCardAbility() {
 
     }
+
+    @Override
+    public Ability Copy(Card card) {
+        TransformerAbilityDoing transformerAbilityDoing=new TransformerAbilityDoing();
+        transformerAbilityDoing.setmaincard(card);
+        transformerAbilityDoing.setNextcard(nextcard);
+        transformerAbilityDoing.setGame(game);
+        transformerAbilityDoing.setStatus(status);
+        transformerAbilityDoing.setNumberofAbilityDoingdid(numberofAbilityDoingdid);
+        return transformerAbilityDoing;
+    }
 }

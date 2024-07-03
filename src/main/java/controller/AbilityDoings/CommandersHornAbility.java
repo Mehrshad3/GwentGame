@@ -64,8 +64,18 @@ public class CommandersHornAbility extends Ability{
         }
     }
 
+
     @Override
     public void DoCardAbility() {
 
+    }
+
+    @Override
+    public Ability Copy(Card card) {
+        CommandersHornAbility commandersHornAbility=new CommandersHornAbility();
+        commandersHornAbility.setmaincard(card);
+        commandersHornAbility.setStatus(status);
+        commandersHornAbility.setGameStatus(gameStatus);
+        return commandersHornAbility;
     }
 }

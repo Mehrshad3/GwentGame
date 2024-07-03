@@ -55,4 +55,13 @@ public class SpyAbilityDoing extends Ability{
     public void DoCardAbility() {
 
     }
+
+    @Override
+    public Ability Copy(Card card) {
+        SpyAbilityDoing spyAbilityDoing=new SpyAbilityDoing();
+        spyAbilityDoing.setmaincard(card);
+        spyAbilityDoing.setGame(game);
+        spyAbilityDoing.setStatus(status);
+        return spyAbilityDoing;
+    }
 }

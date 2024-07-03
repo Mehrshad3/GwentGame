@@ -39,4 +39,13 @@ public class TightBoundAbilityDoing extends Ability{
     public void DoCardAbility() {
 
     }
+
+    @Override
+    public Ability Copy(Card card) {
+        TightBoundAbilityDoing tightBoundAbilityDoing=new TightBoundAbilityDoing();
+        tightBoundAbilityDoing.setmaincard(card);
+        tightBoundAbilityDoing.setGame(game);
+        tightBoundAbilityDoing.setStatus(status);
+        return tightBoundAbilityDoing;
+    }
 }
