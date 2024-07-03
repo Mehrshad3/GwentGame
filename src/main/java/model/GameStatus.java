@@ -1,5 +1,6 @@
 package model;
 
+import controller.HandleRounds;
 import javafx.collections.ObservableList;
 import model.faction.Card;
 
@@ -11,6 +12,16 @@ public class GameStatus {
     private int numberOfTurns = 0;
     private int player1Wins = 0;
     private int player2Wins = 0;
+
+    public HandleRounds handleRounds;
+
+    public HandleRounds getHandleRounds() {
+        return handleRounds;
+    }
+
+    public void setHandleRounds(HandleRounds handleRounds) {
+        this.handleRounds = handleRounds;
+    }
 
     public GameStatus(Table table, Player player1, Player player2) {
         this.table = table;

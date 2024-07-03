@@ -53,7 +53,8 @@ public class SpyAbilityDoing extends Ability{
 
     @Override
     public void DoCardAbility() {
-
+        DoAbility(player);
+        game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

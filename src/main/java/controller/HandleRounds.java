@@ -68,13 +68,16 @@ public class HandleRounds {
 
     public void PlaceCard(UnitCard card, int row,Player player){
         //TODO:spells and weathers ability doing
+        //TODO:commander horn ability exist or not? check it!
         Row[] rows=gameStatus.getTable().getRows();
         Row row0=rows[row];
         row0.getCards().add(card);
+        card.setRowNumber(row);
         player.getDeck().getInHandCards().remove(card);
         GetAbility.getAbility(card,gameStatus,player,this);
     }
     public  void passround(){
+        
         for(Ability ability:getNextDoingMethods()){
             ability.DoCardAbility();
         }

@@ -1,10 +1,20 @@
 package controller.AbilityDoings;
 
+import model.Player;
 import model.faction.Card;
 
 public abstract class Ability {
     public String status="general";
     public Card maincard;
+    public Player player;
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
     public Card getmaincard() {
         return maincard;

@@ -10,6 +10,7 @@ import model.faction.UnitCard;
 
 import java.net.CacheRequest;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MedicAbilityDoing extends Ability{
     public GameStatus game;
@@ -42,7 +43,10 @@ public class MedicAbilityDoing extends Ability{
 
     @Override
     public void DoCardAbility() {
-
+        Random rand=new Random();
+        Card card=player.getDeck().getDiscardCards().get(rand.nextInt(player.getDeck().getDiscardCards().size()));
+        DoAbility(player,card);
+        game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

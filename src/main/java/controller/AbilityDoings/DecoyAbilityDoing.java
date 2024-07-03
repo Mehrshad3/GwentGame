@@ -32,7 +32,8 @@ public class DecoyAbilityDoing extends Ability{
 
     @Override
     public void DoCardAbility() {
-
+        DoAbility((UnitCard) maincard,player);
+        game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

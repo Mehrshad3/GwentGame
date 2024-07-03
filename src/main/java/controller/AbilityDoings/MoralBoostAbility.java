@@ -44,7 +44,8 @@ public class MoralBoostAbility extends Ability{
 
     @Override
     public void DoCardAbility() {
-
+        DoAbilityOnARow(maincard.getRowNumber());
+        game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

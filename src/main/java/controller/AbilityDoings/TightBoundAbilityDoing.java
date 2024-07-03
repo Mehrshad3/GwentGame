@@ -37,7 +37,8 @@ public class TightBoundAbilityDoing extends Ability{
 
     @Override
     public void DoCardAbility() {
-
+        DoAbilityInARow(maincard.getRowNumber(),(UnitCard) maincard);
+        game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

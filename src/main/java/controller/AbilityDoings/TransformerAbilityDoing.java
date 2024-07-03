@@ -55,7 +55,12 @@ public class TransformerAbilityDoing extends Ability{
 
     @Override
     public void DoCardAbility() {
-
+        if(numberofAbilityDoingdid==0){
+            numberofAbilityDoingdid++;
+        }else{
+            DoAbility();
+            game.getHandleRounds().getNextDoingMethods().remove(this);
+        }
     }
 
     @Override

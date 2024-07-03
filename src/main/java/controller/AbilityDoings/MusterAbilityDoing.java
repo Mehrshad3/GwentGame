@@ -55,11 +55,13 @@ public class MusterAbilityDoing extends Ability{
 
         //TODO:Play wented Cards
 
+
     }
 
     @Override
     public void DoCardAbility() {
-
+        DoAbilty((UnitCard) maincard,player);
+        game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

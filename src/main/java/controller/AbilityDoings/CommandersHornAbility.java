@@ -49,7 +49,7 @@ public class CommandersHornAbility extends Ability{
     }
 
     public void DoAbilityOnCard(UnitCard card) {
-        if (HeroChecking.HeroChecking(card)) {
+        if (/*HeroChecking.HeroChecking(card)*/false) {
         } else {
             int power = card.getPower();
             card.setPower(2 * power);
@@ -67,7 +67,8 @@ public class CommandersHornAbility extends Ability{
 
     @Override
     public void DoCardAbility() {
-
+        DoAbilityOnARow(maincard.getRowNumber());
+        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override
