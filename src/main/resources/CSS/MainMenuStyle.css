@@ -1,0 +1,12 @@
+#pane{
+    -fx-background-image: url("../IMAGES/mainMenuBackground.jpg");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+}
+.button:focused{
+    -fx-background-color: steelblue;
+}
+.button{
+    -fx-font-family: Garamond;
+    -fx-background-color: rgb(88, 185, 255);
+}

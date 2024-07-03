@@ -1,0 +1,9 @@
+#pane{
+
+}
+.button{
+    /*-fx-background-color: darkslategray;*/
+    -fx-font-family: Garamond;
+    -fx-border-radius: 10px;
+    -fx-text-fill: black;
+}

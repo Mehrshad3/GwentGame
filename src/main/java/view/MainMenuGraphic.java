@@ -8,7 +8,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.App;
-import view.gamegraphics.PreGameMenuGraphic;
+import model.User;
+import view.game.graphics.PreGameMenuGraphic;
 
 import java.util.logging.Level;
 
@@ -18,7 +19,19 @@ public class MainMenuGraphic extends Application {
         PreGameMenuGraphic preGameMenu = new PreGameMenuGraphic();
         BorderPane pane = new BorderPane();
         Button PreGameButton = new Button("PreGame");
+        PreGameButton.setMinWidth(70);
+        PreGameButton.setMinHeight(45);
         Button ProfileButton = new Button("Profile");
+        ProfileButton.setMinHeight(45);
+        PreGameButton.setMinWidth(70);
+        Button logout = new Button("log out");
+        logout.setMinWidth(70);
+        logout.setMinHeight(45);
+        logout.setOnAction(actionEvent -> {
+            User.setCurrentUser(null);
+            stage.setScene(App.getLoginMenu());
+            stage.show();
+        });
         PreGameButton.setOnAction(actionEvent -> {
             try {
                 preGameMenu.start(stage);
@@ -37,9 +50,11 @@ public class MainMenuGraphic extends Application {
         HBox box = new HBox();
         box.setSpacing(20);
         box.setAlignment(Pos.CENTER);
-        box.getChildren().addAll(ProfileButton, PreGameButton);
+        box.getChildren().addAll(ProfileButton, PreGameButton, logout);
         pane.setCenter(box);
+        pane.setId("pane");
         Scene scene = new Scene(pane);
+        scene.getStylesheets().add(getClass().getResource("/CSS/MainMenuStyle.css").toExternalForm());
         App.setMainMenu(scene);
         stage.setScene(scene);
         stage.show();

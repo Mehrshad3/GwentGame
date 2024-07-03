@@ -1,0 +1,26 @@
+#pane{
+    -fx-background-image: url("../IMAGES/GwentImage.jpg");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+}
+.button{
+    -fx-background-color: seagreen;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}
+.button:pressed{
+    -fx-text-fill: black;
+    -fx-background-color: mediumseagreen;
+}
+.button:focused{
+    -fx-background-color: mediumseagreen;
+}
+.button:hover{
+    -fx-background-color: mediumseagreen;
+}
+.text-field{
+    -fx-background-radius: 10px;
+}
+.text-field:focused{
+
+}

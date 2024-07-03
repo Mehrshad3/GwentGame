@@ -14,6 +14,7 @@ public class App {
     private static Stage stage;
     private static Scene preGameMenu;
     private static Scene mainMenu;
+    private static Scene loginMenu;
     private static App appObject = null;
     private static Menu currentMenu = Menu.LoginMenu;
 
@@ -73,5 +74,13 @@ public class App {
 
     public static void setMainMenu(Scene mainMenu) {
         App.mainMenu = mainMenu;
+    }
+
+    public static Scene getLoginMenu() {
+        return loginMenu;
+    }
+
+    public static void setLoginMenu(Scene loginMenu) {
+        App.loginMenu = loginMenu;
     }
 }

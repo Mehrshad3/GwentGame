@@ -2,6 +2,7 @@ package model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class User extends Player implements Serializable {
@@ -17,6 +18,8 @@ public class User extends Player implements Serializable {
     private int highestScore;
     private String securityAnswer;
     private String securityQuestion;
+    private ArrayList<User> friends = new ArrayList<>();
+    private ArrayList<FriendRequest> friendRequests = new ArrayList<>();
 
     private User(String name, String password, String email, String nickname, String securityAnswer, String securityQuestion) {
         super(name, nickname);
@@ -25,6 +28,7 @@ public class User extends Player implements Serializable {
         this.nickname = nickname;
         this.securityAnswer = securityAnswer;
         this.securityQuestion = securityQuestion;
+//        friendRequests = new ArrayList<>();
     }
 
     public static User create(String name, String password, String email, String nickName, String securityAnswer,
@@ -84,6 +88,15 @@ public class User extends Player implements Serializable {
 
     public void setSecurityQuestion(String securityQuestion) {
         this.securityQuestion = securityQuestion;
+    }
+    public void addFriend(User user){
+        friends.add(user);
+    }
+    public void addFriendRequest(FriendRequest request){
+        friendRequests.add(request);
+    }
+    public ArrayList<FriendRequest> getFriendRequests(){
+        return this.friendRequests;
     }
 }
 

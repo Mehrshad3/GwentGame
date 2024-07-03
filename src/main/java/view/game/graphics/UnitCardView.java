@@ -1,4 +1,4 @@
-package view.gamegraphics;
+package view.game.graphics;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;

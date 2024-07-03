@@ -1,6 +1,7 @@
 package view;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.App;
 
@@ -25,6 +26,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         menu = new ShowingLoginMenu();
+        stage.setTitle("GWENT");
+        stage.getIcons().add(new Image(getClass().getResource("/IMAGES/AppIcon.png").toExternalForm()));
 //        stage.setResizable(false);
 //        stage.setHeight(500);
 //        stage.setWidth(1000);

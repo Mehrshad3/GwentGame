@@ -6,14 +6,18 @@ import controller.RegisterMenuController;
 import controller.Validator;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.App;
 import model.GsonReaderWriter;
 import model.User;
 
@@ -52,6 +56,7 @@ public class ShowingLoginMenu extends Application {
                  2. For Random Password Enter Random at Password And RepeatPassword
                 \s""");
         Instruction.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 15));
+        Instruction.setTextFill(Color.GAINSBORO);
 
         loginmenu = new LoginMenu();
         registerMenuController = new RegisterMenuController();
@@ -60,12 +65,18 @@ public class ShowingLoginMenu extends Application {
         pane = new BorderPane();
         pane.setCenter(vBox);
         pane.setBottom(Instruction);
+        pane.setId("pane");
 
 //        vBox.setAlignment(Pos.CENTER);
         addPaneChildren();
         Scene scene = new Scene(pane);
+        scene.getStylesheets().add(getClass().getResource("/CSS/LoginStyle.css").toExternalForm());
+//        scene.setCursor(new ImageCursor(new Image(getClass().getResource("/IMAGES/cursor.png").toExternalForm())));
+        App.setLoginMenu(scene);
         stage.setScene(scene);
         stage.centerOnScreen();
+        stage.setMinHeight(500);
+        stage.setMinWidth(300);
         stage.show();
     }
 
@@ -76,7 +87,7 @@ public class ShowingLoginMenu extends Application {
         Username.setLayoutY(stage.getHeight() / 2);
         vBox.getChildren().add(Username);
 
-        Password = new TextField();
+        Password = new TextField();//TODO passwordField
         Password.setPromptText("Password");
         Password.setLayoutX(stage.getWidth() / 2 - 100);
         Password.setLayoutY(stage.getHeight() / 2 + 40);
