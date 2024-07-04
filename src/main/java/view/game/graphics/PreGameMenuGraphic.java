@@ -175,7 +175,7 @@ public class PreGameMenuGraphic extends Application {
             }
             Alert alert = new Alert(Alert.AlertType.NONE);
             if (contains) {
-                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("Card " + name.get() + "deleted");
                 alert.show();
                 ArrayList<Card> copy = new ArrayList<>(User.getCurrentUser().getDeck().getInHandCards());
@@ -225,7 +225,7 @@ public class PreGameMenuGraphic extends Application {
                 } else {
                     CardName cardName = CardName.getCardNameEnumByName(name.get());
                     if ((getClass().getResource(CardImageLoader.getRelativePathToCard(cardName))) != null) {
-                        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                        alert.setAlertType(Alert.AlertType.INFORMATION);
                         alert.setContentText("Card " + name.get() + " Added to Your deck");
                         alert.show();
                         User.getCurrentUser().getDeck().addCardToDeck(newCard);
@@ -260,7 +260,7 @@ public class PreGameMenuGraphic extends Application {
                 alert.show();
             } else {
                 User.getCurrentUser().getDeck().setCurrentLeaderCard((LeaderCard) CardName.getCardByName(leader.get()));
-                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("Leader selected");
                 alert.show();
             }
@@ -337,9 +337,10 @@ public class PreGameMenuGraphic extends Application {
                 alert.setContentText("A deck already exists with this name");
                 alert.show();
             } else {
-                System.out.println(User.getCurrentUser().getDeck().getCardsInDeck());
+                App.LOGGER.log(Level.FINE, "Deck that is going to be saved consists these cards: ",
+                        User.getCurrentUser().getDeck().getCardsInDeck());
                 GsonReaderWriter.getGsonReaderWriter().saveDeckByName(User.getCurrentUser().getDeck(), name.get());
-                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("Deck " + name.get() + " saved");
                 alert.show();
             }

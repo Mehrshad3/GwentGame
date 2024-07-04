@@ -2,6 +2,7 @@ package view.game.graphics;
 
 import controller.GameController;
 import enums.Menu;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,8 +26,10 @@ import model.faction.UnitCard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -36,7 +39,7 @@ public class GameGraphicController {
     private static final double playerInfoWidthPercentOnScreen = 283.75 / 12;
     private static final long debugMenuCooldown = 200000000L;
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private static final int MAXIMUM_NUMBER_OF_CARDS_IN_HAND = 10;
+    private static final int MAXIMUM_NUMBER_OF_CARDS_IN_HAND = 11;
     private static final int NUMBER_OF_ROWS = 6;
     private final GameController gameController;
     private final Image player1FactionImage;
@@ -44,6 +47,13 @@ public class GameGraphicController {
     private final Object debugMenuLock = new Object();
     private final Pane[] commanderHornSpots = new Pane[NUMBER_OF_ROWS];
     private final HBox[] rows = new HBox[NUMBER_OF_ROWS];
+    private final ReadOnlyBooleanProperty isMyTurn;
+    @FXML
+    private StackPane passRoundButton;
+    @FXML
+    private Text numberOfCardsInOpponentHand;
+    @FXML
+    private Text numberOfCardsInSelfHand;
     @FXML
     private Text opponentPower;
     @FXML
@@ -118,7 +128,7 @@ public class GameGraphicController {
     private GridPane playersInfo;
     @FXML
     private BorderPane rootPane;
-    private CardView cardChosenToPlay = null;
+    private CardView cardChosenToPlay = null; // It should be null when it's not the player's turn.
     private Stage debugMenu;
     private long lastTimeDebugHit = 0;
     private short debugMenuHitNumber = 0;
@@ -139,6 +149,11 @@ public class GameGraphicController {
         URL player2FactionURL = getClass().getResource("/IMAGES/Faction" + (player2Faction.ordinal() + 1) + ".jpg");
         player1FactionImage = new Image(Objects.requireNonNull(player1FactionURL).toExternalForm());
         player2FactionImage = new Image(Objects.requireNonNull(player2FactionURL).toExternalForm());
+        isMyTurn = gameController.isMyTurnProperty();
+        isMyTurn.addListener((observableValue, aBoolean, t1) -> {
+            if (!t1) cardChosenToPlay = null;
+            passRoundButton.setVisible(t1);
+        });
     }
 
     /**
@@ -158,6 +173,8 @@ public class GameGraphicController {
 
         showInHandCards();
         showLeaderCards();
+        showPlayersInfo();
+        showCardsInRows();
     }
 
     @FXML
@@ -235,16 +252,19 @@ public class GameGraphicController {
         selfLeaderVerticalPercent = getNodeVerticalPercentInGridPane(selfLeaderCard.getParent());
         leaderHorizontalPercent = getNodeHorizontalPercentInGridPane(selfLeaderCard.getParent());
         cardHorizontalPercent = getNodeHorizontalPercentInGridPane(inHandCards) / MAXIMUM_NUMBER_OF_CARDS_IN_HAND;
-        cardVerticalPercent = board.getRowConstraints().get(7).getPercentHeight();
+        cardVerticalPercent = board.getRowConstraints().get(11).getPercentHeight();
     }
 
     private Stream<CardView> getCardsToUpdateSize() {
-        return Stream.concat(
+        Function<Node, CardView> castToCardView = node -> (CardView) node;
+        return Stream.of(
                 inHandCards.getChildren().stream()
-                        .filter(node -> node instanceof CardView).map(node -> (CardView) node),
+                        .filter(node -> node instanceof CardView).map(castToCardView),
                 specialCardsPane.getChildren().stream()
-                        .filter(node -> node instanceof CardView).map(node -> ((CardView) node))
-        );
+                        .filter(node -> node instanceof CardView).map(castToCardView),
+                Arrays.stream(rows).flatMap(hBox -> hBox.getChildren().stream().filter(node -> node instanceof CardView)
+                        .map(castToCardView))
+        ).flatMap(cardViewStream -> cardViewStream);
     }
 
     private void updateWidths(double screenWidth) {
@@ -276,16 +296,24 @@ public class GameGraphicController {
         cardView.setFitHeight(cardVerticalPercent / 100 * rootPane.getHeight());
     }
 
-    private void showInHandCards() {
-        List<Card> player1InHandCards = gameController.getPlayer1InHandCards();
-        addCardsToHandView(0, player1InHandCards.size(), player1InHandCards);
-        gameController.getPlayer1InHandCards().addListener((ListChangeListener<? super Card>) change -> {
-            while (change.next()) { // I don't know why this method is used.
-                if (change.wasAdded()) addAddedCardsToHandView(change);
-                else if (change.wasPermutated()) {
-                    LOGGER.log(Level.SEVERE, "The program is not capable of showing permutated cards.");
-                } else if (change.wasRemoved()) removeRemovedCardsFromHandView(change);
-                else if (change.wasReplaced()) replaceReplacedCardsInHandView(change);
+    private void showCardsInRows() {
+        for (int i = 0; i < rows.length; i++) {
+            showCardsInAnHBox(rows[i], gameController.getRows()[i]);
+        }
+    }
+
+    private void showPlayersInfo() {
+        numberOfCardsInSelfHand.textProperty()
+                .bind(gameController.numberOfCardsInMyHandProperty().map(Object::toString));
+        numberOfCardsInOpponentHand.textProperty()
+                .bind(gameController.numberOfCardsInOpponentHandProperty().map(Object::toString));
+        gameController.player1LivesProperty().addListener((observableValue, number, t1) -> {
+            int previousNumber = (int) number;
+            int newNumber = (int) t1;
+            if (newNumber >= 1 && previousNumber < 1) {
+                selfFirstLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_on.png"));
+            } else if (newNumber < 1 && previousNumber >= 1) {
+                selfFirstLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_off.png"));
             }
         });
     }
@@ -297,16 +325,33 @@ public class GameGraphicController {
         opponentLeaderCard.setImage(CardImageLoader.loadImage(player2LeaderCard));
     }
 
-    private void addAddedCardsToHandView(ListChangeListener.Change<? extends Card> change) {
+    private void showCardsInAnHBox(HBox hBox, ObservableList<? extends Card> observableList) {
+        addCardsToHBox(0, observableList.size(), observableList, hBox);
+        observableList.addListener((ListChangeListener<? super Card>) change -> {
+            while (change.next()) { // I don't know why this method is used.
+                if (change.wasAdded()) addAddedCardsToHBox(change, hBox);
+                else if (change.wasPermutated()) {
+                    LOGGER.log(Level.SEVERE, "The program is not capable of showing permutated cards.");
+                } else if (change.wasRemoved()) removeRemovedCardsFromHBox(change, hBox);
+                else if (change.wasReplaced()) replaceReplacedCardsInHBox(change, hBox);
+            }
+        });
+    }
+
+    private void showInHandCards() {
+        showCardsInAnHBox(inHandCards, gameController.getPlayer1InHandCards());
+    }
+
+    private void addAddedCardsToHBox(ListChangeListener.Change<? extends Card> change, HBox hBox) {
         try {
-            addCardsToHandView(change.getFrom(), change.getTo(), change.getList());
+            addCardsToHBox(change.getFrom(), change.getTo(), change.getList(), hBox);
         } catch (RuntimeException e) {
             LOGGER.log(Level.SEVERE, "Exception / Error in updating cards in the view occurred.", e);
         }
     }
 
-    private void addCardsToHandView(int from, int to, List<? extends Card> list) {
-        ObservableList<Node> children = inHandCards.getChildren();
+    private void addCardsToHBox(int from, int to, List<? extends Card> list, HBox hBox) {
+        ObservableList<Node> children = hBox.getChildren();
         for (int i = from; i < to; i++) {
             Card card = list.get(i);
             children.add(i, createCardViewOf(card));
@@ -319,19 +364,19 @@ public class GameGraphicController {
         else cardView = new CardView(card);
         updateCardWidth(cardView);
         updateCardHeight(cardView);
-        cardView.imageView.setOnMouseClicked(this::mousePressedOnCard);
+        cardView.imageView.setOnMouseClicked(this::clickedOnCard);
         return cardView;
     }
 
-    private void removeRemovedCardsFromHandView(ListChangeListener.Change<? extends Card> change) {
+    private void removeRemovedCardsFromHBox(ListChangeListener.Change<? extends Card> change, HBox hBox) {
         assert change.getFrom() == change.getTo();
-        ObservableList<Node> children = inHandCards.getChildren();
+        ObservableList<Node> children = hBox.getChildren();
         children.remove(change.getFrom(), change.getTo() + change.getRemovedSize());
     }
 
-    private void replaceReplacedCardsInHandView(ListChangeListener.Change<? extends Card> change) {
-        removeRemovedCardsFromHandView(change);
-        addAddedCardsToHandView(change);
+    private void replaceReplacedCardsInHBox(ListChangeListener.Change<? extends Card> change, HBox hBox) {
+        removeRemovedCardsFromHBox(change, hBox);
+        addAddedCardsToHBox(change, hBox);
     }
 
     void initializeWithStage(Stage stage) {
@@ -342,14 +387,14 @@ public class GameGraphicController {
     }
 
     @FXML
-    private void mousePressedOnCard(MouseEvent mouseEvent) {
+    private void clickedOnCard(MouseEvent mouseEvent) {
         App.LOGGER.log(Level.FINER, "Clicked on the card", mouseEvent);
         Node source = (Node) mouseEvent.getSource();
         if (source == selfLeaderCard) {
             App.LOGGER.log(Level.FINE, "Current user clicked on the leader card.");
             gameController.playLeaderCard(gameController.getPlayer1LeaderCard());
         } else if (source.getParent() instanceof CardView cardView) {
-            cardChosenToPlay = cardChosenToPlay == null ? cardView : null;
+            cardChosenToPlay = cardChosenToPlay == null && isMyTurn.get() ? cardView : null;
             // It'll be beautiful if we ask the controller that which rows can this card be played to.
         }
     }
@@ -359,7 +404,7 @@ public class GameGraphicController {
      * It unfortunately doesn't detect the exact index in which the card is played.
      */
     @FXML
-    private void onRowClicked(MouseEvent mouseEvent) {
+    private synchronized void onRowClicked(MouseEvent mouseEvent) {
         if (cardChosenToPlay == null) return; // There is no card to play.
         Pane source = (Pane) mouseEvent.getSource();
         // Detect the row number which the card will be played on.
@@ -373,7 +418,7 @@ public class GameGraphicController {
     }
 
     @FXML
-    private void onCommanderHornSpotClicked(MouseEvent mouseEvent) {
+    private synchronized void onCommanderHornSpotClicked(MouseEvent mouseEvent) {
         if (cardChosenToPlay == null) return; // There is no card to play.
         Pane source = (Pane) mouseEvent.getSource();
         // Detect the row number which the card will be played on.
@@ -387,7 +432,7 @@ public class GameGraphicController {
     }
 
     @FXML
-    private void onSpecialPaneClicked() {
+    private synchronized void onSpecialPaneClicked() {
         if (cardChosenToPlay == null) return;
         gameController.playWeatherCard(cardChosenToPlay.card);
         cardChosenToPlay = null;
@@ -416,6 +461,11 @@ public class GameGraphicController {
         if (debugMenuHitNumber > 10 && debugMenu == null) openDebugMenu();
         debugMenuHitNumber++;
         lastTimeDebugHit = currentTime;
+    }
+
+    @FXML
+    private void passRound() {
+        gameController.passRound();
     }
 
     private void openDebugMenu() {

@@ -21,12 +21,10 @@
     </top>
     <center>
         <VBox alignment="CENTER">
-            <Button onAction="#addCardToHand" text="Add a card to the player's hand">
-            </Button>
-            <Button onAction="#showHandCardNames" text="Show hand card names">
-            </Button>
-            <Button onAction="#increasePlayerLives" text="Increase player's lives to two">
-            </Button>
+            <Button onAction="#addCardToHand" text="Add a card to the player's hand"/>
+            <Button onAction="#showHandCardNames" text="Show hand card names"/>
+            <Button onAction="#fillPlayerLives" text="Increase a player's lives to two"/>
+            <Button onAction="#decreasePlayerLives" text="Decrease a player's lives"/>
         </VBox>
     </center>
 </BorderPane>

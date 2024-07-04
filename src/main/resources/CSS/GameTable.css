@@ -5,10 +5,31 @@
 }
 
 .h-box {
-    -fx-alignment: "CENTER";
+    -fx-alignment: center;
 }
 
 .player-info {
     -fx-background-color: rgba(0, 0, 0, 0.3);
-    -fx-alignment: CENTER_RIGHT;
+    -fx-alignment: center-right;
+}
+
+.players-info-bold {
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-fill: goldenrod;
+}
+
+.player-faction-text {
+    -fx-font-family: "Arial Narrow";
+    -fx-fill: TAN;
+    -fx-font-size: 17.27;
+}
+
+.power-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 17.0;
+}
+
+.black-background {
+    -fx-background-color: black;
 }

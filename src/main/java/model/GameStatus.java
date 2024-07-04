@@ -7,13 +7,18 @@ import model.faction.Card;
 public class GameStatus {
     private final Player player1;
     private final Player player2;
+    public HandleRounds handleRounds;
     private int numberOfPassedRounds = 0;
     private Table table;
     private int numberOfTurns = 0;
     private int player1Wins = 0;
     private int player2Wins = 0;
 
-    public HandleRounds handleRounds;
+    public GameStatus(Table table, Player player1, Player player2) {
+        this.table = table;
+        this.player1 = player1;
+        this.player2 = player2;
+    }
 
     public HandleRounds getHandleRounds() {
         return handleRounds;
@@ -21,12 +26,6 @@ public class GameStatus {
 
     public void setHandleRounds(HandleRounds handleRounds) {
         this.handleRounds = handleRounds;
-    }
-
-    public GameStatus(Table table, Player player1, Player player2) {
-        this.table = table;
-        this.player1 = player1;
-        this.player2 = player2;
     }
 
     public int getNumberOfPassedRounds() {
@@ -57,8 +56,16 @@ public class GameStatus {
         return player1Wins;
     }
 
+    public void setPlayer1Wins(int newNumber) {
+        player1Wins = newNumber;
+    }
+
     public int getPlayer2Wins() {
         return player2Wins;
+    }
+
+    public void setPlayer2Wins(int newNumber) {
+        player2Wins = newNumber;
     }
 
     public int getNumberOfRecentPastTurns() {
@@ -79,13 +86,5 @@ public class GameStatus {
 
     public void moveToDiscardPile(Card card, Player player) {
         player.getDeck().moveToDiscardPile(card);
-    }
-
-    public void emptyPlayer1WinsForDebug() {
-        player1Wins = 0;
-    }
-
-    public void emptyPlayer2WinsForDebug() {
-        player2Wins = 0;
     }
 }

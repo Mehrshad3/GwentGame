@@ -89,13 +89,16 @@ public class User extends Player implements Serializable {
     public void setSecurityQuestion(String securityQuestion) {
         this.securityQuestion = securityQuestion;
     }
-    public void addFriend(User user){
+
+    public void addFriend(User user) {
         friends.add(user);
     }
-    public void addFriendRequest(FriendRequest request){
+
+    public void addFriendRequest(FriendRequest request) {
         friendRequests.add(request);
     }
-    public ArrayList<FriendRequest> getFriendRequests(){
+
+    public ArrayList<FriendRequest> getFriendRequests() {
         return this.friendRequests;
     }
 }

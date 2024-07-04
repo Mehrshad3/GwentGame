@@ -15,11 +15,14 @@
     <left>
         <GridPane fx:id="playersInfo" maxWidth="-Infinity" prefHeight="800.0" prefWidth="283.75">
             <columnConstraints>
-                <ColumnConstraints percentWidth="29.732"/>
-                <ColumnConstraints percentWidth="1.1012"/>
-                <ColumnConstraints percentWidth="22.024"/>
-                <ColumnConstraints percentWidth="39.4226"/>
-                <ColumnConstraints percentWidth="7.7093"/>
+                <ColumnConstraints percentWidth="29.7357"/>
+                <ColumnConstraints percentWidth="1.1013"/>
+                <ColumnConstraints percentWidth="23.1278"/>
+                <ColumnConstraints percentWidth="3.0837"/>
+                <ColumnConstraints minWidth="0.0" percentWidth="7.7093"/>
+                <ColumnConstraints minWidth="0.0" percentWidth="5.7269"/>
+                <ColumnConstraints minWidth="10.0" percentWidth="21.5859" prefWidth="100.0"/>
+                <ColumnConstraints percentWidth="7.9294"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints percentHeight="6.944"/>
@@ -31,13 +34,16 @@
                 <RowConstraints percentHeight="7.3148"/>
                 <RowConstraints percentHeight="12.4074"/>
                 <RowConstraints percentHeight="2.7778"/>
-                <RowConstraints percentHeight="12.963"/>
+                <RowConstraints percentHeight="5.0"/>
+                <RowConstraints minHeight="0.0" percentHeight="3.2407"/>
+                <RowConstraints minHeight="0.0" percentHeight="4.7222"/>
             </rowConstraints>
             <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                 <ImageView fx:id="opponentLeaderCard" fitHeight="103.703" fitWidth="68.75" GridPane.columnIndex="1"
                            GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                 </ImageView>
             </Pane>
+            <!-- Player 2 info, i.e. opponent's info -->
             <HBox alignment="CENTER" styleClass="player-info" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                 <StackPane>
                     <Circle radius="41.0">
@@ -61,21 +67,25 @@
                 </StackPane>
                 <AnchorPane>
                     <VBox AnchorPane.topAnchor="5">
-                        <Text fill="GOLDENROD" text="Player 2">
+                        <Text styleClass="players-info-bold" text="Player 2">
                             <font>
-                                <Font name="Arial Narrow Bold" size="20.0"/>
+                                <Font size="20.0"/>
                             </font>
                         </Text>
-                        <Text fill="TAN" text="Northern Realms">
-                            <font>
-                                <Font name="Arial Narrow" size="17.27"/>
-                            </font>
-                        </Text>
+                        <Text styleClass="player-faction-text" text="Northern Realms"/>
                     </VBox>
-                    <HBox alignment="BOTTOM_RIGHT" AnchorPane.bottomAnchor="7">
+                    <HBox alignment="CENTER" AnchorPane.bottomAnchor="7">
                         <ImageView>
                             <Image url="@../IMAGES/icons/icon_card_count.png"/>
                         </ImageView>
+                        <Text fx:id="numberOfCardsInOpponentHand" styleClass="players-info-bold" text="10">
+                            <font>
+                                <Font size="30"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets right="15.0"/>
+                            </HBox.margin>
+                        </Text>
                         <ImageView fx:id="opponentSecondLife">
                             <Image url="@../IMAGES/icons/icon_gem_on.png"/>
                         </ImageView>
@@ -100,7 +110,7 @@
                 </AnchorPane>
             </HBox>
             <HBox fx:id="specialCardsPane" onMouseClicked="#onSpecialPaneClicked" GridPane.columnIndex="2"
-                  GridPane.columnSpan="2" GridPane.rowIndex="5">
+                  GridPane.columnSpan="5" GridPane.rowIndex="5">
             </HBox>
             <HBox styleClass="player-info" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
                 <StackPane>
@@ -128,6 +138,14 @@
                         <ImageView>
                             <Image url="@../IMAGES/icons/icon_card_count.png"/>
                         </ImageView>
+                        <Text fx:id="numberOfCardsInSelfHand" styleClass="players-info-bold" text="10">
+                            <font>
+                                <Font size="30"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets right="15.0"/>
+                            </HBox.margin>
+                        </Text>
                         <ImageView fx:id="selfSecondLife">
                             <Image url="@../IMAGES/icons/icon_gem_on.png"/>
                         </ImageView>
@@ -136,15 +154,12 @@
                         </ImageView>
                     </HBox>
                     <VBox AnchorPane.bottomAnchor="5">
-                        <Text fill="GOLDENROD" text="Player 1">
+                        <Text styleClass="players-info-bold" text="Player 1">
                             <font>
-                                <Font name="Arial Narrow Bold" size="20.0"/>
+                                <Font size="20.0"/>
                             </font>
                         </Text>
-                        <Text fill="TAN" text="Northern Realms">
-                            <font>
-                                <Font name="Arial Narrow" size="17.27"/>
-                            </font>
+                        <Text styleClass="player-faction-text" text="Northern Realms">
                         </Text>
                     </VBox>
                     <StackPane layoutX="127.0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="-65.0"
@@ -163,11 +178,19 @@
                     </HBox.margin>
                 </AnchorPane>
             </HBox>
-            <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9">
-                <ImageView fx:id="selfLeaderCard" fitHeight="103.703" fitWidth="68.75" onMouseClicked="#mousePressedOnCard"
+            <Pane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="3">
+                <ImageView fx:id="selfLeaderCard" fitHeight="103.703" fitWidth="68.75" onMouseClicked="#clickedOnCard"
                            GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                 </ImageView>
             </Pane>
+            <StackPane fx:id="passRoundButton" onMouseClicked="#passRound" styleClass="black-background"
+                       GridPane.columnIndex="6" GridPane.rowIndex="10">
+                <Text styleClass="players-info-bold" text="Pass">
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </Text>
+            </StackPane>
         </GridPane>
     </left>
     <center>
@@ -175,8 +198,8 @@
             <columnConstraints>
                 <ColumnConstraints percentWidth="3.8043"/>
                 <ColumnConstraints percentWidth="3.4106"/>
-                <ColumnConstraints percentWidth="0.4775"/>
-                <ColumnConstraints percentWidth="0.6480"/>
+                <ColumnConstraints minWidth="0.0" percentWidth="0.4775"/>
+                <ColumnConstraints minWidth="0.0" percentWidth="0.6480"/>
                 <ColumnConstraints percentWidth="8.6289"/>
                 <ColumnConstraints percentWidth="55.662"/>
                 <ColumnConstraints percentWidth="1.705"/>
@@ -206,8 +229,8 @@
                 <RowConstraints percentHeight="0.6481"/>
                 <RowConstraints percentHeight="9.9074"/>
             </rowConstraints>
-            <Pane fx:id="commanderHornSpot1" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
-                  GridPane.columnSpan="2" GridPane.rowIndex="13">
+            <Pane fx:id="commanderHornSpot1" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
+                  GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="13">
             </Pane>
             <Pane fx:id="commanderHornSpot2" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
                   GridPane.columnSpan="2" GridPane.rowIndex="11">
@@ -224,65 +247,47 @@
             <Pane fx:id="commanderHornSpot6" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
                   GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
             </Pane>
-            <HBox fx:id="selfSiegeCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+            <HBox fx:id="selfSiegeCombat" onMouseClicked="#onRowClicked" styleClass="h-box" GridPane.columnIndex="5"
                   GridPane.rowIndex="13">
             </HBox>
-            <HBox fx:id="selfRangedCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+            <HBox fx:id="selfRangedCombat" onMouseClicked="#onRowClicked" styleClass="h-box" GridPane.columnIndex="5"
                   GridPane.rowIndex="11">
             </HBox>
-            <HBox fx:id="selfCloseCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5" GridPane.rowIndex="9">
+            <HBox fx:id="selfCloseCombat" onMouseClicked="#onRowClicked" styleClass="h-box" GridPane.columnIndex="5"
+                  GridPane.rowIndex="9">
             </HBox>
-            <HBox fx:id="opponentCloseCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+            <HBox fx:id="opponentCloseCombat" onMouseClicked="#onRowClicked" styleClass="h-box" GridPane.columnIndex="5"
                   GridPane.rowIndex="7">
             </HBox>
-            <HBox fx:id="opponentRangedCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
-                  GridPane.rowIndex="4" GridPane.rowSpan="2">
+            <HBox fx:id="opponentRangedCombat" onMouseClicked="#onRowClicked" styleClass="h-box"
+                  GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.rowSpan="2">
             </HBox>
-            <HBox fx:id="opponentSiegeCombat" onMouseClicked="#onRowClicked" GridPane.columnIndex="5"
+            <HBox fx:id="opponentSiegeCombat" onMouseClicked="#onRowClicked" styleClass="h-box" GridPane.columnIndex="5"
                   GridPane.rowIndex="1" GridPane.rowSpan="2">
             </HBox>
             <HBox fx:id="inHandCards" alignment="CENTER" spacing="3.0" GridPane.columnIndex="4" GridPane.columnSpan="2"
                   GridPane.rowIndex="16">
             </HBox>
-            <Label fx:id="selfSiegePowerLabel" minHeight="0.0" minWidth="0.0" text="0" GridPane.columnIndex="1"
-                   GridPane.halignment="CENTER" GridPane.rowIndex="13">
-                <font>
-                    <Font name="System Bold" size="17.0"/>
-                </font>
+            <Label fx:id="selfSiegePowerLabel" minHeight="0.0" minWidth="0.0" styleClass="power-label" text="0"
+                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13">
             </Label>
-            <Label fx:id="selfRangedPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                   GridPane.rowIndex="11">
-                <font>
-                    <Font name="System Bold" size="17.0"/>
-                </font>
+            <Label fx:id="selfRangedPowerLabel" styleClass="power-label" text="0" GridPane.columnIndex="1"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="11">
             </Label>
-            <Label fx:id="selfCloseCombatPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                   GridPane.rowIndex="9">
-                <font>
-                    <Font name="System Bold" size="17.0"/>
-                </font>
+            <Label fx:id="selfCloseCombatPowerLabel" styleClass="power-label" text="0" GridPane.columnIndex="1"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="9">
             </Label>
-            <Label fx:id="opponentCloseCombatPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                   GridPane.rowIndex="7">
-                <font>
-                    <Font name="System Bold" size="17.0"/>
-                </font>
+            <Label fx:id="opponentCloseCombatPowerLabel" styleClass="power-label" text="0" GridPane.columnIndex="1"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="7">
             </Label>
-            <Label fx:id="opponentRangedPowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                   GridPane.rowIndex="4" GridPane.rowSpan="2">
-                <font>
-                    <Font name="System Bold" size="17.0"/>
-                </font>
+            <Label fx:id="opponentRangedPowerLabel" styleClass="power-label" text="0" GridPane.columnIndex="1"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="2">
             </Label>
-            <Label fx:id="opponentSiegePowerLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                   GridPane.rowIndex="1" GridPane.rowSpan="2">
-                <font>
-                    <Font name="System Bold" size="17.0"/>
-                </font>
+            <Label fx:id="opponentSiegePowerLabel" styleClass="power-label" text="0" GridPane.columnIndex="1"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2">
             </Label>
             <StackPane fx:id="opponentDeck" GridPane.columnIndex="9" GridPane.rowIndex="2" GridPane.rowSpan="3">
-                <ImageView fx:id="opponentDeckImageView" fitHeight="107.407" fitWidth="69.375">
-                </ImageView>
+                <ImageView fx:id="opponentDeckImageView" fitHeight="107.407" fitWidth="69.375"/>
             </StackPane>
             <StackPane fx:id="selfDeck" GridPane.columnIndex="9" GridPane.rowIndex="15" GridPane.rowSpan="3">
                 <ImageView fx:id="selfDeckImageView" fitHeight="107.407" fitWidth="69.375">
@@ -290,19 +295,19 @@
             </StackPane>
             <ImageView fx:id="selfDiscardPile" fitHeight="107.407" fitWidth="69.375"
                        onMouseClicked="#showSelfDiscardPile" GridPane.columnIndex="7" GridPane.rowIndex="15"
-                       GridPane.rowSpan="3">
-            </ImageView>
+                       GridPane.rowSpan="3"/>
             <ImageView fx:id="opponentDiscardPile" fitHeight="107.407" fitWidth="69.375"
                        onMouseClicked="#showOpponentDiscardPile" GridPane.columnIndex="7" GridPane.rowIndex="2"
-                       GridPane.rowSpan="3">
-            </ImageView>
-            <Label onMouseClicked="#clickedOnDebugMenu" textFill="#452125" GridPane.columnIndex="8"
-                   GridPane.columnSpan="3" GridPane.rowIndex="18">
-                <font>
-                    <Font size="8.0"/>
-                </font>
-                Game created by Ermia, Mehrshad, and Nima
-            </Label>
+                       GridPane.rowSpan="3"/>
+            <VBox GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="18" alignment="CENTER"
+                  maxHeight="25" onMouseClicked="#clickedOnDebugMenu">
+                <Text fill="#452125">
+                    <font>
+                        <Font size="8.0"/>
+                    </font>
+                    Game created by Ermia, Mehrshad, and Nima
+                </Text>
+            </VBox>
         </GridPane>
     </center>
 </BorderPane>

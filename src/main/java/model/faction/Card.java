@@ -55,4 +55,8 @@ public abstract class Card implements Serializable {
     public void setRowNumber(int rowNumber) {
         this.rowNumber = rowNumber;
     }
+
+    public PossibleRowsToPlayCard getPossibleRowsToBePlayed() {
+        return rows;
+    }
 }

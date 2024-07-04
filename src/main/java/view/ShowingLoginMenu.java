@@ -6,10 +6,8 @@ import controller.RegisterMenuController;
 import controller.Validator;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -269,7 +267,7 @@ public class ShowingLoginMenu extends Application {
             }
         } else {
             String[] questions = {"DayOfBirth", "FavoriteMovie", "YourFavoriteSchoolTeacher"};
-            ChoiceDialog securityQuestions = new ChoiceDialog(questions[0], questions);
+            ChoiceDialog<String> securityQuestions = new ChoiceDialog<>(questions[0], questions);
             securityQuestions.showAndWait();
             if (!securityQuestions.isShowing()) {
 
@@ -278,7 +276,7 @@ public class ShowingLoginMenu extends Application {
                 answer.setHeaderText("Your Answer");
                 Optional<String> securityAnswer = answer.showAndWait();
                 System.out.println(securityAnswer.get());
-                User user = User.create(Username.getText(), Password.getText(), Email.getText(), Nickname.getText(), securityAnswer.get(), (String) securityQuestions.getSelectedItem());
+                User user = User.create(Username.getText(), Password.getText(), Email.getText(), Nickname.getText(), securityAnswer.get(), securityQuestions.getSelectedItem());
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setHeaderText("Success");
                 alert.setContentText("Register Completed");

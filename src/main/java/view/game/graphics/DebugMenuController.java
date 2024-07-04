@@ -4,6 +4,7 @@ import controller.GameController;
 import enums.card.CardName;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import model.App;
 import model.faction.Card;
@@ -29,9 +30,27 @@ public class DebugMenuController {
         }
     }
 
+    private int askForWhichPlayer() {
+        String[] playerNames = {"Player 1", "Player 2"};
+        ChoiceDialog<String> choiceDialog = new ChoiceDialog<>("Which player?", playerNames);
+        choiceDialog.showAndWait();
+        if (choiceDialog.getSelectedItem().equals(playerNames[0])) return 1;
+        else if (choiceDialog.getSelectedItem().equals(playerNames[1])) return 2;
+        else return 0;
+    }
+
     @FXML
-    private void increasePlayerLives() {
-        gameController.fillPlayer1LivesForDebug();
+    private void fillPlayerLives() {
+        int playerNumber = askForWhichPlayer();
+        if (playerNumber == 1) gameController.fillPlayer1LivesForDebug();
+        else if (playerNumber == 2) gameController.fillPlayer2LivesForDebug();
+    }
+
+    @FXML
+    private void decreasePlayerLives() {
+        int playerNumber = askForWhichPlayer();
+        if (playerNumber == 1) gameController.decreasePlayer1LivesForDebug();
+        else if (playerNumber == 2) gameController.decreasePlayer2LivesForDebug();
     }
 
     void setGameController(GameController gameController) {
