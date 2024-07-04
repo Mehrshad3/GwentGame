@@ -1,9 +1,6 @@
 package view;
 
-import controller.LoginMenuController;
-import controller.ProfileMenuController;
-import controller.RegisterMenuController;
-import controller.Validator;
+import controller.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +13,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.App;
+import model.Client;
 import model.GsonReaderWriter;
 import model.User;
 
@@ -302,6 +300,10 @@ public class ShowingLoginMenu extends Application {
             try {
                 User.setCurrentUser(user);
                 User.getCurrentUser().setFaction("monsters");
+                Client client = new Client(user.getName());
+                ClientController controller = new ClientController(client);
+                App.setClientController(controller);
+//                client.sendMassage(User.getCurrentUser().getName());
 //                System.out.println(User.getCurrentUser().getFaction());
 //                showMainMenu.start(stage);
                 mainMenu.start(stage);

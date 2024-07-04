@@ -1,0 +1,31 @@
+#pane {
+
+}
+
+#accept {
+    -fx-background-color: #009400;
+    -fx-min-height: 30px;
+    -fx-min-width: 60px;
+}
+
+#accept:hover {
+    -fx-background-color: seagreen;
+}
+
+#accept:focused {
+    -fx-background-color: seagreen;
+}
+
+#reject {
+    -fx-background-color: red;
+    -fx-min-height: 30px;
+    -fx-min-width: 60px;
+}
+
+#reject:hover {
+    -fx-background-color: tomato;
+}
+
+#reject:focused {
+    -fx-background-color: tomato;
+}

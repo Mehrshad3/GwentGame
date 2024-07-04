@@ -1,5 +1,6 @@
 package model;
 
+import controller.ClientController;
 import enums.Menu;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,6 +18,7 @@ public class App {
     private static Scene loginMenu;
     private static App appObject = null;
     private static Menu currentMenu = Menu.LoginMenu;
+    private static ClientController clientController;
 
     static {
         try {
@@ -82,5 +84,13 @@ public class App {
 
     public static void setLoginMenu(Scene loginMenu) {
         App.loginMenu = loginMenu;
+    }
+
+    public static ClientController getClientController() {
+        return clientController;
+    }
+
+    public static void setClientController(ClientController clientController) {
+        App.clientController = clientController;
     }
 }

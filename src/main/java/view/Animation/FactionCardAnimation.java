@@ -15,7 +15,7 @@ public class FactionCardAnimation extends Transition {
         this.width = width;
         this.makeSmall = makeSmall;
         this.setCycleCount(1);
-        this.setCycleDuration(Duration.millis(1000));
+        this.setCycleDuration(Duration.millis(200));
     }
     @Override
     protected void interpolate(double v) {

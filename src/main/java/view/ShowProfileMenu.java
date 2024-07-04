@@ -149,7 +149,7 @@ public class ShowProfileMenu extends Application {
                 }else {
 //                    user.addFriendRequest(new FriendRequest());
                     //TODO send for server for pop-up and get result and set request property
-                    System.out.println(javafx.scene.text.Font.getFamilies());
+                    App.getClientController().getClient().sendFriendRequest(username.get());
                 }
             }
         });
