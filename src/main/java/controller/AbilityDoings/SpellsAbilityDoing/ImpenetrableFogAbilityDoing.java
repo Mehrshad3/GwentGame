@@ -17,8 +17,6 @@ public class ImpenetrableFogAbilityDoing extends Ability {
         return gameStatus;
     }
     public void DoAbilityOnACard(UnitCard card){
-        card.setBeforeweatherchangepower(card.getPower());
-        card.setPower(1);
         card.setWeatherChanged(true);
     }
     public void DoAbilityOnARow(int row){

@@ -6,6 +6,8 @@ import enums.card.ability.UnitOrSpellCardAbility;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.ArrayList;
+
 public class UnitCard extends Card {
     public final boolean isHero;
     public boolean isWeatherChanged=false;
@@ -13,6 +15,7 @@ public class UnitCard extends Card {
     public boolean ispowerlocked=false;
 
     public int beforeweatherchangepower=0;
+    public ArrayList<UnitCard> rowmates=new ArrayList<UnitCard>();
     protected transient IntegerProperty powerProperty;
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
@@ -69,4 +72,16 @@ public class UnitCard extends Card {
     public void setIspowerlocked(boolean ispowerlocked) {
         this.ispowerlocked = ispowerlocked;
     }
+
+    public ArrayList<UnitCard> getRowmates() {
+        return rowmates;
+    }
+
+    public void setRowmates(ArrayList<UnitCard> rowmates) {
+        this.rowmates = rowmates;
+    }
+    public void UpdatePower(){
+        //TODO
+    }
+
 }

@@ -67,19 +67,34 @@ public class HandleRounds {
     }
 
     public void PlaceCard(UnitCard card, int row,Player player){
-        //TODO:spells and weathers ability doing
-        //TODO:commander horn ability exist or not? check it!
+        //TODO check weather and other stuffs
         Row[] rows=gameStatus.getTable().getRows();
         Row row0=rows[row];
+        for(UnitCard unitCard:row0.getCards()){
+            ArrayList<UnitCard> newrowmates0 = new ArrayList<UnitCard>(card.getRowmates());
+            newrowmates0.add(unitCard);
+            card.setRowmates(newrowmates0);
+            ArrayList<UnitCard> newrowmates1 = new ArrayList<UnitCard>(unitCard.getRowmates());
+            newrowmates1.add(card);
+            unitCard.setRowmates(newrowmates1);
+        }
+        GetAbility.getAbility(card,gameStatus,player,this);
+        passroundAbility();
         row0.getCards().add(card);
         card.setRowNumber(row);
         player.getDeck().getInHandCards().remove(card);
-        GetAbility.getAbility(card,gameStatus,player,this);
+        passroundCard();
     }
-    public  void passround(){
-        
+    public  void passroundAbility(){
         for(Ability ability:getNextDoingMethods()){
             ability.DoCardAbility();
+        }
+    }
+    public void passroundCard(){
+        for(Row row:gameStatus.getTable().getRows()){
+            for(UnitCard unitCard:row.getCards()){
+                unitCard.UpdatePower();
+            }
         }
     }
 

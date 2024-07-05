@@ -18,10 +18,7 @@ public class ClearWeatherAbilityDoing extends Ability {
     }
 
     public void DoAbilityOnACard(UnitCard card){
-        card.setPower(card.getBeforeweatherchangepower());
-        card.setBeforeweatherchangepower(0);
         card.setWeatherChanged(false);
-        card.setIspowerlocked(false);
     }
     public void DoAbilityOnARow(int row){
         Row[] rows=gameStatus.getTable().getRows();
