@@ -1,6 +1,6 @@
 package enums.card.ability;
 
-import model.GameStatus;
+import controller.GameController;
 import model.faction.Card;
 
 import java.util.function.BiConsumer;
@@ -35,14 +35,14 @@ public enum CommanderCardAbility implements CardAbility {
     KING_BRAN_ABILITY_PERFORMER(null),
 
     ;
-    private final BiConsumer<GameStatus, Card> action;
+    private final BiConsumer<GameController, Card> action;
 
-    CommanderCardAbility(BiConsumer<GameStatus, Card> action) {
+    CommanderCardAbility(BiConsumer<GameController, Card> action) {
         this.action = action;
     }
 
     @Override
-    public void doAction(GameStatus gaming, Card card) {
+    public void doAction(GameController gaming, Card card) {
         this.action.accept(gaming, card);
     }
 }

@@ -166,7 +166,7 @@ public enum Abilities {
     JOHN_NATALIS("John Natalis",  true),
     KAEDWENI_SIEGE_EXPERT("Kaedweni Siege Expert", new MoralBoostAbility(), false),
     PHILIPPA_EILHART("Philippa Eilhart",  true),
-    POOR_FUCKING_INFANTRY("Poor Fucking Infantry", new TightBoundAbilityDoing(), false),
+    POOR_INFANTRY("Poor Infantry", new TightBoundAbilityDoing(), false),
     PRINCE_STENNIS("Prince Stennis", new SpyAbilityDoing(), false),
     REDANIAN_FOOT_SOLDIER("Redanian Foot Soldier",  false),
     SABRINA_GLEVISSIG("Sabrina Glevissig",  false),

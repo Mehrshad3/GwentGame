@@ -1,9 +1,9 @@
 package model.faction;
 
+import controller.GameController;
 import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
 import enums.card.ability.CardAbility;
-import model.GameStatus;
 
 import java.io.Serializable;
 
@@ -27,7 +27,7 @@ public abstract class Card implements Serializable {
         this.initialPower = initialPower;
     }
 
-    public void doAbility(GameStatus gaming) {
+    public void doAbility(GameController gaming) {
         if (ability != null) this.ability.doAction(gaming, this);
     }
 

@@ -109,8 +109,8 @@
                     </padding>
                 </AnchorPane>
             </HBox>
-            <HBox fx:id="specialCardsPane" onMouseClicked="#onSpecialPaneClicked" GridPane.columnIndex="2"
-                  GridPane.columnSpan="5" GridPane.rowIndex="5">
+            <HBox fx:id="specialCardsPane" alignment="CENTER" onMouseClicked="#onSpecialPaneClicked"
+                  GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="5">
             </HBox>
             <HBox styleClass="player-info" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
                 <StackPane>
@@ -229,24 +229,24 @@
                 <RowConstraints percentHeight="0.6481"/>
                 <RowConstraints percentHeight="9.9074"/>
             </rowConstraints>
-            <Pane fx:id="commanderHornSpot1" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
+            <HBox fx:id="commanderHornSpot1" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
                   GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="13">
-            </Pane>
-            <Pane fx:id="commanderHornSpot2" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
-                  GridPane.columnSpan="2" GridPane.rowIndex="11">
-            </Pane>
-            <Pane fx:id="commanderHornSpot3" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
-                  GridPane.columnSpan="2" GridPane.rowIndex="9">
-            </Pane>
-            <Pane fx:id="commanderHornSpot4" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
-                  GridPane.columnSpan="2" GridPane.rowIndex="7">
-            </Pane>
-            <Pane fx:id="commanderHornSpot5" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
-                  GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
-            </Pane>
-            <Pane fx:id="commanderHornSpot6" onMouseClicked="#onCommanderHornSpotClicked" GridPane.columnIndex="3"
-                  GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-            </Pane>
+            </HBox>
+            <HBox fx:id="commanderHornSpot2" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
+                  GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="11">
+            </HBox>
+            <HBox fx:id="commanderHornSpot3" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
+                  GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="9">
+            </HBox>
+            <HBox fx:id="commanderHornSpot4" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
+                  GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7">
+            </HBox>
+            <HBox fx:id="commanderHornSpot5" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
+                  GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
+            </HBox>
+            <HBox fx:id="commanderHornSpot6" onMouseClicked="#onCommanderHornSpotClicked" styleClass="h-box"
+                  GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            </HBox>
             <HBox fx:id="selfSiegeCombat" onMouseClicked="#onRowClicked" styleClass="h-box" GridPane.columnIndex="5"
                   GridPane.rowIndex="13">
             </HBox>
@@ -299,8 +299,8 @@
             <ImageView fx:id="opponentDiscardPile" fitHeight="107.407" fitWidth="69.375"
                        onMouseClicked="#showOpponentDiscardPile" GridPane.columnIndex="7" GridPane.rowIndex="2"
                        GridPane.rowSpan="3"/>
-            <VBox GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="18" alignment="CENTER"
-                  maxHeight="25" onMouseClicked="#clickedOnDebugMenu">
+            <VBox alignment="CENTER" maxHeight="25" onMouseClicked="#clickedOnDebugMenu" GridPane.columnIndex="8"
+                  GridPane.columnSpan="3" GridPane.rowIndex="18">
                 <Text fill="#452125">
                     <font>
                         <Font size="8.0"/>

@@ -1,6 +1,7 @@
 package view.game.graphics;
 
 import controller.GameController;
+import controller.HandleRounds;
 import enums.Menu;
 import enums.card.CardName;
 import javafx.application.Application;
@@ -677,6 +678,10 @@ public class PreGameMenuGraphic extends Application {
             GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();
             GameController gameController = (GameController) Menu.GameMenu.getMenuController();
             gameController.setStartStatus(User.getCurrentUser());
+            // Bad smell
+            HandleRounds handleRounds = new HandleRounds(gameController.getGaming());
+            gameController.setHandleRounds(handleRounds);
+            gameController.getGaming().setHandleRounds(handleRounds);
             try {
                 gameMenuGraphic.start(null);
             } catch (Exception e) {

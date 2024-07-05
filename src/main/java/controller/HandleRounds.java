@@ -3,22 +3,28 @@ package controller;
 import controller.AbilityDoings.Ability;
 import controller.Checking.GetAbility;
 import enums.card.CardName;
-import model.GameStatus;
-import model.Player;
-import model.Row;
+import model.*;
 import model.faction.Card;
 import model.faction.Faction;
 import model.faction.UnitCard;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class HandleRounds {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
     public Faction faction1;
     public Faction faction2;
 
-    public ArrayList<Ability> NextDoingAbilitys;
+    public ArrayList<Ability> NextDoingAbilitys = new ArrayList<>();
+
+    public HandleRounds() {
+    }
+
+    public HandleRounds(ObservableGameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
 
     public ArrayList<Ability> getNextDoingMethods() {
         return NextDoingAbilitys;
@@ -46,11 +52,11 @@ public class HandleRounds {
         this.faction2 = faction2;
     }
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
@@ -66,19 +72,21 @@ public class HandleRounds {
         //TODO
     }
 
-    public void PlaceCard(UnitCard card, int row,Player player){
+    public void PlaceCard(UnitCard card, int row, Player player) {
         //TODO:spells and weathers ability doing
         //TODO:commander horn ability exist or not? check it!
-        Row[] rows=gameStatus.getTable().getRows();
-        Row row0=rows[row];
-        row0.getCards().add(card);
+        ObservableRow[] rows = gameStatus.getTable().getRows();
+        ObservableRow row0 = rows[row];
+        row0.getUnitCards().add(card);
         card.setRowNumber(row);
         player.getDeck().getInHandCards().remove(card);
-        GetAbility.getAbility(card,gameStatus,player,this);
+        GetAbility.getAbility(card, gameStatus, player, this);
     }
+
     public  void passround(){
-        
-        for(Ability ability:getNextDoingMethods()){
+        // This reversed loop prevents ConcurrentModificationException.
+        for (int i = getNextDoingMethods().size() - 1; i >= 0; i--) {
+            Ability ability = getNextDoingMethods().get(i);
             ability.DoCardAbility();
         }
     }

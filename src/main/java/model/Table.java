@@ -5,12 +5,13 @@ import model.faction.SpellCard;
 import model.faction.WeatherCard;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Table {
     final Row[] rows = new Row[6];
-    final Player player1;
-    final Player player2;
-    final LinkedList<WeatherCard> weatherCards = new LinkedList<>();
+    private final Player player1;
+    private final Player player2;
+    private final List<WeatherCard> weatherCards = new LinkedList<>();
     int currentPlayerPlaying = 1;
     int numberOfRounds;
     Deck player1Deck;
@@ -25,6 +26,10 @@ public class Table {
         for (short i = 0; i < rows.length; i++) {
             rows[i] = new Row((short) (i + 1));
         }
+    }
+
+    public List<WeatherCard> getWeatherCards() {
+        return weatherCards;
     }
 
     public Row[] getRows() {
@@ -72,8 +77,8 @@ public class Table {
         return weathers;
     }
 
-    public void setCurrentWeather(WeatherCard weather) {
-        weather.doAbility(App.getAppObject().getGaming());
+    public void addWeather(WeatherCard weather) {
+        weatherCards.add(weather);
     }
 
     void changeTurn() {

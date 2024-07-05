@@ -93,6 +93,5 @@ public class PreGameMenuController extends MenuController {
         App.setCurrentMenu(Menu.GameMenu);
         MenuController gameMenuController = Menu.GameMenu.getMenuController();
         GameController gameController = (GameController) gameMenuController;
-        gameController.setGaming(new GameStatus(table, player1, player2));
     }
 }

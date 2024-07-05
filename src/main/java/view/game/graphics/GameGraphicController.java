@@ -3,6 +3,7 @@ package view.game.graphics;
 import controller.GameController;
 import enums.Menu;
 import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,10 +20,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.App;
-import model.faction.Card;
-import model.faction.Faction;
-import model.faction.LeaderCard;
-import model.faction.UnitCard;
+import model.faction.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +42,6 @@ public class GameGraphicController {
     private final GameController gameController;
     private final Image player1FactionImage;
     private final Image player2FactionImage;
-    private final Object debugMenuLock = new Object();
     private final Pane[] commanderHornSpots = new Pane[NUMBER_OF_ROWS];
     private final HBox[] rows = new HBox[NUMBER_OF_ROWS];
     private final ReadOnlyBooleanProperty isMyTurn;
@@ -175,6 +172,8 @@ public class GameGraphicController {
         showLeaderCards();
         showPlayersInfo();
         showCardsInRows();
+        showWeatherCards();
+        showSpellCards();
     }
 
     @FXML
@@ -190,6 +189,7 @@ public class GameGraphicController {
         setImagesPercentInRootPane();
 
         initializeRowsArray();
+        initializeCommanderHornSpotsArray();
 
         loadGameStatus();
 
@@ -263,7 +263,8 @@ public class GameGraphicController {
                 specialCardsPane.getChildren().stream()
                         .filter(node -> node instanceof CardView).map(castToCardView),
                 Arrays.stream(rows).flatMap(hBox -> hBox.getChildren().stream().filter(node -> node instanceof CardView)
-                        .map(castToCardView))
+                        .map(castToCardView)),
+                Arrays.stream(commanderHornSpots).flatMap(pane -> pane.getChildren().stream().map(castToCardView))
         ).flatMap(cardViewStream -> cardViewStream);
     }
 
@@ -294,6 +295,24 @@ public class GameGraphicController {
 
     private void updateCardHeight(CardView cardView) {
         cardView.setFitHeight(cardVerticalPercent / 100 * rootPane.getHeight());
+    }
+
+    private void showSpellCards() {
+        ObservableValue<SpellCard>[] spellCards = gameController.getSpellCards();
+        for (int i = 0; i < 6; i++) {
+            int finalI = i;
+            spellCards[i].addListener((observableValue, spellCard, t1) -> {
+                ObservableList<Node> children = commanderHornSpots[finalI].getChildren();
+                while (!children.isEmpty()) children.remove(children.size() - 1);
+                if (t1 != null) {
+                    commanderHornSpots[finalI].getChildren().add(createCardViewOf(t1));
+                }
+            });
+        }
+    }
+
+    private void showWeatherCards() {
+        showCardsInAnHBox(specialCardsPane, gameController.getWeatherCards());
     }
 
     private void showCardsInRows() {
@@ -468,25 +487,23 @@ public class GameGraphicController {
         gameController.passRound();
     }
 
-    private void openDebugMenu() {
-        synchronized (debugMenuLock) {
-            try {
-                URL url = getClass().getResource("/FXML/DebugMenu.fxml");
-                FXMLLoader fxmlLoader = new FXMLLoader(url);
-                BorderPane pane = fxmlLoader.load();
-                DebugMenuController debugMenuController = fxmlLoader.getController();
-                debugMenuController.setGameController(gameController);
-                Scene scene = new Scene(pane);
-                debugMenu = new Stage();
-                debugMenu.setScene(scene);
-                debugMenu.show();
-                debugMenu.showingProperty().addListener((observableValue, aBoolean, t1) -> {
-                    if (!t1) debugMenu = null;
-                });
-            } catch (IOException e) {
-                LOGGER.log(Level.WARNING, "Couldn't open the debug menu", e);
-                debugMenu = null;
-            }
+    private synchronized void openDebugMenu() {
+        try {
+            URL url = getClass().getResource("/FXML/DebugMenu.fxml");
+            FXMLLoader fxmlLoader = new FXMLLoader(url);
+            BorderPane pane = fxmlLoader.load();
+            DebugMenuController debugMenuController = fxmlLoader.getController();
+            debugMenuController.setGameController(gameController);
+            Scene scene = new Scene(pane);
+            debugMenu = new Stage();
+            debugMenu.setScene(scene);
+            debugMenu.show();
+            debugMenu.showingProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (!t1) debugMenu = null;
+            });
+        } catch (IOException e) {
+            LOGGER.log(Level.WARNING, "Couldn't open the debug menu", e);
+            debugMenu = null;
         }
     }
 }
