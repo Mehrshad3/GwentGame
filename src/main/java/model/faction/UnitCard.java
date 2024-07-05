@@ -8,6 +8,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class UnitCard extends Card {
     public final boolean isHero;
+    public boolean isWeatherChanged=false;
+
+    public boolean ispowerlocked=false;
+
+    public int beforeweatherchangepower=0;
     protected transient IntegerProperty powerProperty;
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
@@ -27,7 +32,10 @@ public class UnitCard extends Card {
     }
 
     public void setPower(int newPower) {
-        if (!this.isHero) this.powerProperty.set(newPower);
+        if (!this.isHero) {
+            if(!ispowerlocked)
+            this.powerProperty.set(newPower);
+        }
     }
 
     public IntegerProperty getPowerProperty() {
@@ -36,5 +44,29 @@ public class UnitCard extends Card {
 
     public boolean isHero() {
         return this.isHero;
+    }
+
+    public boolean isWeatherChanged() {
+        return isWeatherChanged;
+    }
+
+    public void setWeatherChanged(boolean weatherChanged) {
+        isWeatherChanged = weatherChanged;
+    }
+
+    public int getBeforeweatherchangepower() {
+        return beforeweatherchangepower;
+    }
+
+    public void setBeforeweatherchangepower(int beforeweatherchangepower) {
+        this.beforeweatherchangepower = beforeweatherchangepower;
+    }
+
+    public boolean isIspowerlocked() {
+        return ispowerlocked;
+    }
+
+    public void setIspowerlocked(boolean ispowerlocked) {
+        this.ispowerlocked = ispowerlocked;
     }
 }

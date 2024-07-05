@@ -6,7 +6,7 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-public class BitingFrostAbilityDoing extends Ability {
+public class ClearWeatherAbilityDoing extends Ability {
     public GameStatus gameStatus;
 
     public GameStatus getGameStatus() {
@@ -18,9 +18,10 @@ public class BitingFrostAbilityDoing extends Ability {
     }
 
     public void DoAbilityOnACard(UnitCard card){
-        card.setBeforeweatherchangepower(card.getPower());
-        card.setPower(1);
-        card.setWeatherChanged(true);
+        card.setPower(card.getBeforeweatherchangepower());
+        card.setBeforeweatherchangepower(0);
+        card.setWeatherChanged(false);
+        card.setIspowerlocked(false);
     }
     public void DoAbilityOnARow(int row){
         Row[] rows=gameStatus.getTable().getRows();
@@ -29,19 +30,21 @@ public class BitingFrostAbilityDoing extends Ability {
             DoAbilityOnACard(card);
         }
     }
+    public void DoAbilityOnWholeTable(){
+        Row[] rows=gameStatus.getTable().getRows();
+        for(Row wantedrow:rows){
+            for(UnitCard card : wantedrow.getCards()){
+                DoAbilityOnACard(card);
+            }
+        }
+    }
     @Override
     public void DoCardAbility() {
-        DoAbilityOnARow(3);
-        DoAbilityOnARow(4);
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
+        DoAbilityOnWholeTable();
     }
 
     @Override
     public Ability Copy(Card card) {
-        BitingFrostAbilityDoing bitingFrostAbilityDoing=new BitingFrostAbilityDoing();
-        bitingFrostAbilityDoing.setmaincard(card);
-        bitingFrostAbilityDoing.setStatus(status);
-        bitingFrostAbilityDoing.setGameStatus(gameStatus);
-        return bitingFrostAbilityDoing;
+        return null;
     }
 }

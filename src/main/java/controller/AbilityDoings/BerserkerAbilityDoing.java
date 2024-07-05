@@ -37,6 +37,7 @@ public class BerserkerAbilityDoing extends Ability{
             CardRemoverFromGame.Remove(game,card);
 
 //TODO:Import Bearcard in row        cards.add(Bearcard);
+            //TODO Again Check weathers
         }
         else{}
     }

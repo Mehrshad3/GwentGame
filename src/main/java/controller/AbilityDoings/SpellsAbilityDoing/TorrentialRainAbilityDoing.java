@@ -6,7 +6,7 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-public class BitingFrostAbilityDoing extends Ability {
+public class TorrentialRainAbilityDoing extends Ability {
     public GameStatus gameStatus;
 
     public GameStatus getGameStatus() {
@@ -16,7 +16,6 @@ public class BitingFrostAbilityDoing extends Ability {
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
-
     public void DoAbilityOnACard(UnitCard card){
         card.setBeforeweatherchangepower(card.getPower());
         card.setPower(1);
@@ -29,19 +28,20 @@ public class BitingFrostAbilityDoing extends Ability {
             DoAbilityOnACard(card);
         }
     }
+
     @Override
     public void DoCardAbility() {
-        DoAbilityOnARow(3);
-        DoAbilityOnARow(4);
+        DoAbilityOnARow(1);
+        DoAbilityOnARow(6);
         gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override
     public Ability Copy(Card card) {
-        BitingFrostAbilityDoing bitingFrostAbilityDoing=new BitingFrostAbilityDoing();
-        bitingFrostAbilityDoing.setmaincard(card);
-        bitingFrostAbilityDoing.setStatus(status);
-        bitingFrostAbilityDoing.setGameStatus(gameStatus);
-        return bitingFrostAbilityDoing;
+        TorrentialRainAbilityDoing torrentialRainAbilityDoing=new TorrentialRainAbilityDoing();
+        torrentialRainAbilityDoing.setmaincard(maincard);
+        torrentialRainAbilityDoing.setStatus(status);
+        torrentialRainAbilityDoing.setGameStatus(gameStatus);
+        return torrentialRainAbilityDoing;
     }
 }
