@@ -67,8 +67,7 @@ public class CommandersHornAbility extends Ability{
 
     @Override
     public void DoCardAbility() {
-        DoAbilityOnARow(maincard.getRowNumber());
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
+
     }
 
     @Override
