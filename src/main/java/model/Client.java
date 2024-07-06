@@ -131,6 +131,14 @@ public class Client {
                                     stage.show();
                                 }
                             });
+                        } else if ((matcher = ServerResponse.MassageFromOpponent.getMatcher(response)) != null) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //TODO app massage to scene
+
+                                }
+                            });
                         }
                         System.out.println(response);
                     } catch (Exception e) {
@@ -174,10 +182,11 @@ public class Client {
                     if (client.isTurn) {
                         try {
                             System.out.println("writing");
+                            //TODO make changes mehrshad
                             String input = scanner.nextLine();
                             client.writer.write(input + "\n");
                             client.writer.flush();
-                            client.isTurn = false;
+//                            client.isTurn = false;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -186,7 +195,7 @@ public class Client {
                             System.out.println("waiting");
                             String game = client.reader.readLine();
                             System.out.println(game);
-                            client.isTurn = true;
+//                            client.isTurn = true;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

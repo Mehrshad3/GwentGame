@@ -10,7 +10,8 @@ public enum ServerResponse {
     FriendRequestSent("friend request sent successfully\\s*"),
     UsernameDoesntExists("user doesn't exists\\s*"),
     Wait("wait\\s*"),
-    GameStarted("game started\\s*");
+    GameStarted("game started\\s*"),
+    MassageFromOpponent("send massage to opponent: (?<massage>.+)\\s*");
 
     private String pattern;
 

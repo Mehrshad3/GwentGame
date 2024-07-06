@@ -23,9 +23,9 @@ import java.util.Optional;
 
 public class ShowProfileMenu extends Application {
     private Stage stage;
-    private HBox info;//VBox
-    private HBox changingButtons;
-    private HBox centerButtons;
+    private VBox info;//VBox
+    private VBox changingButtons;//HBOX
+    private VBox centerButtons;//HBOx
     private Label Username;
     private Label Email;
     private Label NickName;
@@ -38,18 +38,19 @@ public class ShowProfileMenu extends Application {
 
         profileMenuController = new ProfileMenuController();
         this.stage = stage;
-        info = new HBox();
+        info = new VBox();
         info.setSpacing(20);
         info.setMaxWidth(300);
         info.setMaxHeight(300);
-        changingButtons = new HBox();
+        changingButtons = new VBox();
         changingButtons.setSpacing(20);
         changingButtons.setAlignment(Pos.CENTER);
         BorderPane pane = new BorderPane();
 
         pane.setTop(info);
         setCenterButtons();
-        pane.setCenter(centerButtons);
+//        pane.setCenter(centerButtons);
+//        pane.setRight(centerButtons);
 
         Insets insets = new Insets(30);
         BorderPane.setMargin(changingButtons, insets);
@@ -58,7 +59,9 @@ public class ShowProfileMenu extends Application {
 
 
 
-        pane.setBottom(changingButtons);
+//        pane.setBottom(changingButtons);
+        pane.setRight(changingButtons);
+
         setInfoAndButtonsNodes();
         pane.setId("pane");
         Scene scene = new Scene(pane);
@@ -76,19 +79,19 @@ public class ShowProfileMenu extends Application {
         info.getChildren().add(back);
 
         Username = new Label("Username: " + User.getCurrentUser().getName());
-        Username.setMinWidth(User.getCurrentUser().getName().length() * 30);
+        Username.setMinWidth(User.getCurrentUser().getName().length() * 40);
         Username.setMaxWidth(150);
         Username.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
         info.getChildren().add(Username);
 
         NickName = new Label("Nickname: " + User.getCurrentUser().getNickname());
-        NickName.setMinWidth(User.getCurrentUser().getNickname().length() * 30);
+        NickName.setMinWidth(User.getCurrentUser().getNickname().length() * 40);
         NickName.setMaxWidth(150);
         NickName.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
         info.getChildren().add(NickName);
 
         Email = new Label("Email: " + User.getCurrentUser().getEmail());
-        Email.setMinWidth(User.getCurrentUser().getEmail().length() * 30);
+        Email.setMinWidth(User.getCurrentUser().getEmail().length() * 40);
         Email.setMaxWidth(150);
         Email.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
         info.getChildren().add(Email);
@@ -119,15 +122,16 @@ public class ShowProfileMenu extends Application {
     }
 
     private void setCenterButtons(){
-        centerButtons = new HBox();
+//        centerButtons = new VBox();
         Button sendFriendRequest = new Button("send friend request");
         setSendFriendRequestButtonAction(sendFriendRequest);
         Button friendRequestHistory = new Button("friend request history");
         setFriendRequestHistoryAction(friendRequestHistory);
-        centerButtons.getChildren().addAll(sendFriendRequest,friendRequestHistory);
+//        centerButtons.getChildren().addAll(sendFriendRequest,friendRequestHistory);
 
-        centerButtons.setAlignment(Pos.CENTER);
-        centerButtons.setSpacing(20);
+//        centerButtons.setAlignment(Pos.CENTER);
+//        centerButtons.setSpacing(20);
+        changingButtons.getChildren().addAll(sendFriendRequest,friendRequestHistory);
     }
 
     private void setSendFriendRequestButtonAction(Button sendFriendRequest){

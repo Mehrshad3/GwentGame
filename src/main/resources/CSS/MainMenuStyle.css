@@ -4,9 +4,12 @@
     -fx-background-repeat: no-repeat;
 }
 .button:focused{
-    -fx-background-color: steelblue;
+    -fx-background-color: #5ea1d9;
 }
 .button{
     -fx-font-family: Garamond;
     -fx-background-color: rgb(88, 185, 255);
+}
+.button:hover{
+    -fx-background-color: #5ea1d9;
 }

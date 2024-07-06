@@ -1,6 +1,9 @@
 package view;
 
 import javafx.application.Application;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,9 +11,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.App;
+import model.GsonReaderWriter;
 import model.User;
+import view.game.graphics.LeaderBoardGraphic;
 import view.game.graphics.PreGameMenuGraphic;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class MainMenuGraphic extends Application {
@@ -24,6 +30,9 @@ public class MainMenuGraphic extends Application {
         Button ProfileButton = new Button("Profile");
         ProfileButton.setMinHeight(45);
         PreGameButton.setMinWidth(70);
+        Button LeaderBoard = new Button("Leader Board");
+        LeaderBoard.setMinHeight(45);
+        LeaderBoard.setMinWidth(70);
         Button logout = new Button("log out");
         logout.setMinWidth(70);
         logout.setMinHeight(45);
@@ -47,10 +56,21 @@ public class MainMenuGraphic extends Application {
                 App.LOGGER.log(Level.SEVERE, "Can't enter the profile menu!", e);
             }
         });
+        LeaderBoard.setOnAction(actionEvent -> {
+            ArrayList<User> users = new ArrayList<>();//TODO get from server
+            users.add(GsonReaderWriter.getGsonReaderWriter().loadUser("Amin1"));
+            users.add(GsonReaderWriter.getGsonReaderWriter().loadUser("Nima1"));
+            LeaderBoardGraphic leaderBoardGraphic = new LeaderBoardGraphic(users);
+            try {
+                leaderBoardGraphic.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         HBox box = new HBox();
         box.setSpacing(20);
         box.setAlignment(Pos.CENTER);
-        box.getChildren().addAll(ProfileButton, PreGameButton, logout);
+        box.getChildren().addAll(ProfileButton, PreGameButton, LeaderBoard, logout);
         pane.setCenter(box);
         pane.setId("pane");
         Scene scene = new Scene(pane);

@@ -9,16 +9,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -110,7 +105,8 @@ public class PreGameMenuGraphic extends Application {
         topButtons.getChildren().add(ShowCards);
 
         Button ShowDeck = new Button("Show Deck");
-        ShowDeck.setOnAction(actionEvent -> showDeck());
+//        ShowDeck.setOnAction(actionEvent -> showDeck());
+        ShowDeck.setOnAction(actionEvent -> showDeckCards());
         topButtons.getChildren().add(ShowDeck);
 
         Button ShowInfo = new Button("Show Info");
@@ -430,6 +426,66 @@ public class PreGameMenuGraphic extends Application {
         Stage stage = App.getStage();
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void showDeckCards(){
+        Button back = new Button("Back");
+        back.setOnAction(actionEvent -> App.getStage().setScene(App.getPreGameMenu()));
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setLeft(back
+        );
+        ScrollPane pane = new ScrollPane();
+        GridPane gridPane = makeGridPane();
+        setUpGridPane(gridPane);
+        setCardsInGridPane(gridPane);
+        pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        pane.setContent(gridPane);
+        gridPane.setBackground(new Background(new BackgroundFill(Color.BLACK,new CornerRadii(10),
+                new Insets(20,20,20,20))));
+        pane.setFitToHeight(true);
+        pane.setFitToWidth(true);
+        borderPane.setCenter(pane);
+        gridPane.setAlignment(Pos.CENTER);
+        Stage stage = App.getStage();
+        Scene scene = new Scene(borderPane);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void setCardsInGridPane(GridPane gridPane) {
+        int counter = 1;
+        for (Card card : User.getCurrentUser().getDeck().getCardsInDeck()) {
+            ImageView imageView = new ImageView();
+            gridPane.add(imageView,(counter-1)%3,(counter-1)/3);
+            imageView.setImage(CardImageLoader.loadImage(card));
+//            imageView.setImage(new Image(getClass().getResource("/IMAGES/" +  + ".jpg").toExternalForm()));
+            imageView.setFitHeight(360);
+            imageView.setFitWidth(220);
+            counter++;
+        }
+    }
+
+    private void setUpGridPane(GridPane gridPane) {
+        for (int i = 0; i < 3; i++) {
+            ColumnConstraints columnConstraints = new ColumnConstraints();
+            columnConstraints.setFillWidth(true);
+            gridPane.getColumnConstraints().add(columnConstraints);
+        }
+
+        for (int i = 0; i < (User.getCurrentUser().getDeck().getCardsInDeck().size()/3) + 1; i++) {
+            RowConstraints rowConstraints = new RowConstraints();
+            rowConstraints.setFillHeight(true);
+            gridPane.getRowConstraints().add(rowConstraints);
+        }
+    }
+
+    private GridPane makeGridPane(){
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(14);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(20,20,20,20));
+        return gridPane;
     }
 
     private void showCards(URL... rootDirectoryUrls) {

@@ -5,14 +5,15 @@
 }
 
 .button {
-    fx-background-color: black;
+    -fx-background-color: transparent;
     /*-fx-border-width: 0;*/
     /*-fx-border-color: transparent;*/
     /*-fx-background-radius: 0;*/
     /*-fx-min-width: 80px;*/
     /*-fx-min-height: 45px;*/
     -fx-font-family: Garamond;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
 }
 
 .button:hover {
@@ -21,4 +22,9 @@
 
 .button:focused {
     -fx-background-color: rgba(160, 82, 45, 0.64);
+}
+
+.label {
+    /*-fx-cell-size: stretch;*/
+    -fx-text-fill: white;
 }

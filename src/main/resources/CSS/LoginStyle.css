@@ -1,26 +1,46 @@
-#pane{
+#pane {
     -fx-background-image: url("../IMAGES/GwentImage.jpg");
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
 }
-.button{
-    -fx-background-color: seagreen;
-    -fx-text-fill: white;
-    -fx-background-radius: 10px;
-}
-.button:pressed{
+
+.button {
+    /*-fx-background-color: seagreen;*/
+    -fx-background-color: trasparent;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    /*-fx-text-fill: white;*/
     -fx-text-fill: black;
-    -fx-background-color: mediumseagreen;
+    -fx-background-radius: 4px;
 }
-.button:focused{
-    -fx-background-color: mediumseagreen;
+
+.button:pressed {
+    /*-fx-text-fill: black;*/
+    /*-fx-background-color: mediumseagreen;*/
+    -fx-background-color: trasparent;
+    -fx-text-fill: mediumseagreen;
 }
-.button:hover{
-    -fx-background-color: mediumseagreen;
+
+.button:focused {
+    /*-fx-background-color: mediumseagreen;*/
+    -fx-background-color: trasparent;
+    -fx-text-fill: mediumseagreen;
 }
-.text-field{
+
+.button:hover {
+    /*-fx-background-color: mediumseagreen;*/
+    -fx-background-color: trasparent;
+    -fx-text-fill: mediumseagreen;
+}
+
+.text-field {
     -fx-background-radius: 10px;
+    -fx-background-color: rgba(0.2, 0.2, 0.2, 0.5);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
 }
-.text-field:focused{
+
+.text-field:focused {
 
 }
