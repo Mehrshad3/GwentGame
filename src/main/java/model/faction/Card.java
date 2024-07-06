@@ -4,6 +4,7 @@ import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
 import enums.card.ability.CardAbility;
 import model.GameStatus;
+import model.Player;
 
 import java.io.Serializable;
 
@@ -13,6 +14,8 @@ public abstract class Card implements Serializable {
     protected final Integer initialPower;
     protected CardName cardName;
     protected String name;
+    public Player player;
+    public GameStatus gameStatus;
     /**
      * Number of the row in which the card is. It's {@link null} if the card isn't played yet.
      */
@@ -58,5 +61,21 @@ public abstract class Card implements Serializable {
 
     public PossibleRowsToPlayCard getPossibleRowsToBePlayed() {
         return rows;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
     }
 }

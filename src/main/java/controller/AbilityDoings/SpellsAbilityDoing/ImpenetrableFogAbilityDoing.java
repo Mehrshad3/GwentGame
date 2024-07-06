@@ -32,7 +32,6 @@ public class ImpenetrableFogAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnARow(2);
         DoAbilityOnARow(5);
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

@@ -38,7 +38,6 @@ public class SkelligeStormAbilityDoing extends Ability {
         gameStatus.getHandleRounds().getNextDoingMethods().add(impenetrableFogAbilityDoing);
         torrentialRainAbilityDoing.DoCardAbility();
         impenetrableFogAbilityDoing.DoCardAbility();
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
 
     }
 

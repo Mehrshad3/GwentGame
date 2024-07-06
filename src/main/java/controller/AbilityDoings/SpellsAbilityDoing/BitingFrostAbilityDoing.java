@@ -31,7 +31,6 @@ public class BitingFrostAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnARow(3);
         DoAbilityOnARow(4);
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

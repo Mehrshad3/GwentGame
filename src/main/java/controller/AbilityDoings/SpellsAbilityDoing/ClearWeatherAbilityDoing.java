@@ -6,6 +6,8 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
+import java.util.ArrayList;
+
 public class ClearWeatherAbilityDoing extends Ability {
     public GameStatus gameStatus;
 

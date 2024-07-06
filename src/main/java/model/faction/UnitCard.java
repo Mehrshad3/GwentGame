@@ -1,5 +1,9 @@
 package model.faction;
 
+import controller.AbilityDoings.Ability;
+import controller.AbilityDoings.CommandersHornAbility;
+import controller.AbilityDoings.MoralBoostAbility;
+import enums.EnumAbilities.Abilities;
 import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
 import enums.card.ability.UnitOrSpellCardAbility;
@@ -17,6 +21,7 @@ public class UnitCard extends Card {
     public int beforeweatherchangepower=0;
     public ArrayList<UnitCard> rowmates=new ArrayList<UnitCard>();
     protected transient IntegerProperty powerProperty;
+
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
                     int power, boolean isHero) {
@@ -81,7 +86,32 @@ public class UnitCard extends Card {
         this.rowmates = rowmates;
     }
     public void UpdatePower(){
-        //TODO
+        if(isWeatherChanged){
+            if(gameStatus.KingBranAbility){
+                setPower(initialPower/2);
+            }else{
+                setPower(1);
+            }
+        }else{}
+            if (gameStatus.TheTreacherousAbility){
+                if (name.equals("spy")){
+                    setPower(getPower()*2);
+                }else{}
+            }
+        for(Card card:rowmates){
+            boolean a=Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass()==CommandersHornAbility.class;
+            //TODO:tightBound ability must do
+        }
+        for(Card card:rowmates){
+            boolean a=Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass()== MoralBoostAbility.class;
+            setPower(getPower()+1);
+        }
+        for(Card card:rowmates){
+            boolean a=Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass()==CommandersHornAbility.class;
+            if(a){
+                setPower(getPower()*2);
+            }else{}
+        }
     }
 
 }

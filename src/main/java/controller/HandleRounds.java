@@ -2,6 +2,7 @@ package controller;
 
 import controller.AbilityDoings.Ability;
 import controller.Checking.GetAbility;
+import controller.Checking.GetwaetherAbility;
 import enums.card.CardName;
 import model.GameStatus;
 import model.Player;
@@ -9,6 +10,7 @@ import model.Row;
 import model.faction.Card;
 import model.faction.Faction;
 import model.faction.UnitCard;
+import model.faction.WeatherCard;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -19,6 +21,15 @@ public class HandleRounds {
     public Faction faction2;
 
     public ArrayList<Ability> NextDoingAbilitys;
+    public ArrayList<Ability> NextweatherdoingAbilitys;
+
+    public ArrayList<Ability> getNextDoingAbilitys() {
+        return NextDoingAbilitys;
+    }
+
+    public ArrayList<Ability> getNextweatherdoingAbilitys() {
+        return NextweatherdoingAbilitys;
+    }
 
     public ArrayList<Ability> getNextDoingMethods() {
         return NextDoingAbilitys;
@@ -68,6 +79,7 @@ public class HandleRounds {
 
     public void PlaceCard(UnitCard card, int row,Player player){
         //TODO check weather and other stuffs
+        //TODO chek commander horn exists
         Row[] rows=gameStatus.getTable().getRows();
         Row row0=rows[row];
         for(UnitCard unitCard:row0.getCards()){
@@ -83,10 +95,16 @@ public class HandleRounds {
         row0.getCards().add(card);
         card.setRowNumber(row);
         player.getDeck().getInHandCards().remove(card);
+        passroundweatherability();
         passroundCard();
     }
     public  void passroundAbility(){
         for(Ability ability:getNextDoingMethods()){
+            ability.DoCardAbility();
+        }
+    }
+    public void passroundweatherability(){
+        for(Ability ability:getNextweatherdoingAbilitys()){
             ability.DoCardAbility();
         }
     }
@@ -96,6 +114,11 @@ public class HandleRounds {
                 unitCard.UpdatePower();
             }
         }
+    }
+    public void placeweathercard(Card weathercard,Player player){
+        GetwaetherAbility.getAbility(weathercard,gameStatus,player,this);
+        getNextweatherdoingAbilitys().removeAll(getNextweatherdoingAbilitys());
+        //TODO:insert weather card in gamestatus
     }
 
     public void Initialize(){

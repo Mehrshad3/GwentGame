@@ -31,7 +31,6 @@ public class TorrentialRainAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnARow(1);
         DoAbilityOnARow(6);
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override
