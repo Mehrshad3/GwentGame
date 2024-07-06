@@ -9,6 +9,7 @@ import model.faction.UnitCard;
 
 public class Row {
     private final ObservableList<UnitCard> unitCards = FXCollections.observableArrayList();
+    public UnitCard spcialpot=null;
     private final short number;
     @Deprecated
     private boolean specialCardExists = false;
@@ -62,5 +63,13 @@ public class Row {
     @Deprecated
     public boolean doesSpecialCardExist() {
         return specialCardExists;
+    }
+
+    public UnitCard getSpcialpot() {
+        return spcialpot;
+    }
+
+    public void setSpcialpot(UnitCard spcialpot) {
+        this.spcialpot = spcialpot;
     }
 }

@@ -4,27 +4,29 @@ import controller.AbilityDoings.Ability;
 import model.GameStatus;
 import model.faction.Card;
 
-public class TheRelentlessAbilityDoing extends Ability {
+public class KingBranAbilityDoing extends Ability {
     public GameStatus gameStatus;
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    public GameStatus getGameStatus() {
-        return gameStatus;
-    }
+
     @Override
     public void DoCardAbility() {
-
+        gameStatus.KingBranAbility=true;
     }
 
     @Override
     public Ability Copy(Card card) {
-        TheRelentlessAbilityDoing abilityDoing=new TheRelentlessAbilityDoing();
+        BringerofDeathAbilityDoing abilityDoing=new BringerofDeathAbilityDoing();
         abilityDoing.setmaincard(maincard);
-        abilityDoing.setPlayer(player);
         abilityDoing.setStatus(status);
+        abilityDoing.setPlayer(player);
         abilityDoing.setGameStatus(gameStatus);
         return abilityDoing;
     }

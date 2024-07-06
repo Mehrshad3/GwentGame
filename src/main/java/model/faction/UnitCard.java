@@ -21,6 +21,7 @@ public class UnitCard extends Card {
     public int beforeweatherchangepower=0;
     public ArrayList<UnitCard> rowmates=new ArrayList<UnitCard>();
     protected transient IntegerProperty powerProperty;
+    public boolean bringerofdeath=false;
 
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
@@ -112,6 +113,9 @@ public class UnitCard extends Card {
                 setPower(getPower()*2);
             }else{}
         }
+        if(bringerofdeath){
+            setPower(getPower()*2);
+        }else{}
     }
 
 }

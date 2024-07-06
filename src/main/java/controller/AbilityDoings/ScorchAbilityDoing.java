@@ -107,7 +107,33 @@ public class ScorchAbilityDoing extends Ability {
 
     @Override
     public void DoCardAbility() {
+        switch (status){
+            case "general":
+                DoAbilityOnWholeBoardUnconditionally();
+                break;
+            case "opponent:ranged combat":
+                DoAbilityOnARowConditionally(1/*TODO*/);
+                break;
+            case "general:opponent":
+                if(maincard.getPlayer().equals(maincard.getGameStatus().getPlayer1())){
+                    DoAbilityOnARowConditionally(6);
+                    DoAbilityOnARowConditionally(5);
+                    DoAbilityOnARowConditionally(4);
+                }else{
+                    DoAbilityOnARowConditionally(1);
+                    DoAbilityOnARowConditionally(2);
+                    DoAbilityOnARowConditionally(3);
+                }
+                break;
+            case "siege combat:opponent":
+                DoAbilityOnARowConditionally(1/*TODO*/);
+                break;
+            case "Close combat:oponnent":
+                DoAbilityOnARowConditionally(1/*TODO*/);
+                break;
+            default:
 
+        }
     }
 
     @Override

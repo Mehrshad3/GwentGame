@@ -79,7 +79,7 @@ public class HandleRounds {
 
     public void PlaceCard(UnitCard card, int row,Player player){
         //TODO check weather and other stuffs
-        //TODO chek commander horn exists
+        //TODO place commander horns and mardroemes are different
         Row[] rows=gameStatus.getTable().getRows();
         Row row0=rows[row];
         for(UnitCard unitCard:row0.getCards()){
