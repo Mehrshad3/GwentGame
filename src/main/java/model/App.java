@@ -28,7 +28,7 @@ public class App {
         }
     }
 
-    private GameStatus gaming;
+    private ObservableGameStatus gaming;
 
     private App() {
     }
@@ -52,14 +52,6 @@ public class App {
 
     public static void setStage(Stage stage) {
         App.stage = stage;
-    }
-
-    public GameStatus getGaming() {
-        return gaming;
-    }
-
-    public void setGaming(GameStatus gaming) {
-        this.gaming = gaming;
     }
 
     public static Scene getPreGameMenu() {
@@ -92,5 +84,13 @@ public class App {
 
     public static void setClientController(ClientController clientController) {
         App.clientController = clientController;
+    }
+
+    public ObservableGameStatus getGaming() {
+        return gaming;
+    }
+
+    public void setGaming(ObservableGameStatus gaming) {
+        this.gaming = gaming;
     }
 }

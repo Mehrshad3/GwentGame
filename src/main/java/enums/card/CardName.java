@@ -172,7 +172,7 @@ public enum CardName {
     JOHN_NATALIS("John Natalis", NORTHERN_REALMS, 10, 1, CLOSE_COMBAT, null, true),
     KAEDWENI_SIEGE_EXPERT("Kaedweni Siege Expert", NORTHERN_REALMS, 1, 3, SIEGE, MORALE_BOOST, false),
     PHILIPPA_EILHART("Philippa Eilhart", NORTHERN_REALMS, 10, 1, RANGED, null, true),
-    POOR_FUCKING_INFANTRY("Poor Fucking Infantry", NORTHERN_REALMS, 1, 4, CLOSE_COMBAT, TIGHT_BOND, false),
+    POOR_INFANTRY("Poor Infantry", NORTHERN_REALMS, 1, 4, CLOSE_COMBAT, TIGHT_BOND, false),
     PRINCE_STENNIS("Prince Stennis", NORTHERN_REALMS, 5, 1, CLOSE_COMBAT, SPY, false),
     REDANIAN_FOOT_SOLDIER("Redanian Foot Soldier", NORTHERN_REALMS, 1, 2, CLOSE_COMBAT, null, false),
     SABRINA_GLEVISSIG("Sabrina Glevissig", NORTHERN_REALMS, 4, 1, RANGED, null, false),
@@ -195,7 +195,8 @@ public enum CardName {
     BITING_FROST("Biting Frost", WeatherCardAbility.BITING_FROST),
     IMPENETRABLE_FOG("Impenetrable Fog", WeatherCardAbility.IMPENETRABLE_FOG),
     TORRENTIAL_RAIN("Torrential Rain", WeatherCardAbility.TORRENTIAL_RAIN),
-    // TODO: add skellige storm and clear weather
+    SKELLIGE_STORM("Skellige Storm", WeatherCardAbility.SKELLIGE_STORM),
+    CLEAR_WEATHER("Clear Weather", WeatherCardAbility.CLEAR_WEATHER),
     // Neutral unit cards
     DANDELION("Dandelion", NEUTRAL, 2, 1, CLOSE_COMBAT, UnitOrSpellCardAbility.COMMANDER_HORN, false),
     EMIEL_REGIS("Emiel Regis", NEUTRAL, 5, 1, CLOSE_COMBAT, null, false),
@@ -327,6 +328,10 @@ public enum CardName {
 
     public Card getNewCard() {
         return getNewCard.get();
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     private static class LowerCaseHashMap<V> extends HashMap<String, V> {

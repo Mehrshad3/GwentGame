@@ -1,12 +1,18 @@
 package controller.AbilityDoings;
 
+import model.ObservableGameStatus;
 import model.Player;
 import model.faction.Card;
 
 public abstract class Ability {
+    public ObservableGameStatus gameStatus;
     public String status="general";
     public Card maincard;
     public Player player;
+
+    public void setGameStatus(ObservableGameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
 
     public Player getPlayer() {
         return player;

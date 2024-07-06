@@ -26,6 +26,7 @@ public class Row {
     public void setSpell(SpellCard spell) {
         this.specialCardExists = true;
         this.spell = spell;
+        spell.setRowNumber(this.number);
     }
 
     public RowWeather getWeather() {
@@ -42,12 +43,16 @@ public class Row {
     }
 
     public void placeCard(UnitCard card) {
-        unitCards.add(card);
+        placeCard(unitCards.size(), card);
+    }
+
+    public void placeCard(int index, UnitCard card) {
+        unitCards.add(index, card);
         card.setRowNumber(this.number);
     }
 
     public void removeCard(Card card) {
-        // TODO
+        unitCards.remove(card);
     }
 
     @Deprecated

@@ -1,16 +1,13 @@
 package controller.AbilityDoings;
 
 import controller.Checking.HeroChecking;
-import model.GameStatus;
-import model.Row;
-import model.Table;
+import model.*;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 import java.util.List;
 
 public class CommandersHornAbility extends Ability{
-    public GameStatus gameStatus;
     public Card MainCard;
 
     public void setMainCard(Card mainCard) {
@@ -21,19 +18,15 @@ public class CommandersHornAbility extends Ability{
         return MainCard;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
     public void DoAbilityOnRow(int row){
-        Table table=gameStatus.getTable();
-        Row[] rows=table.getRows();
-        Row wantedrow=rows[row];
-        List<UnitCard> cards = wantedrow.getCards();
+        ObservableTable table = gameStatus.getTable();
+        ObservableRow[] rows=table.getRows();
+        ObservableRow wantedRow = rows[row];
+        List<UnitCard> cards = wantedRow.getUnitCards();
         for (UnitCard card0 : cards) {
             DoAbilityOnCard(card0);
         }
@@ -56,10 +49,10 @@ public class CommandersHornAbility extends Ability{
         }
     }
 
-    public void DoAbilityOnARow(int row){
-        Row[] rows=gameStatus.getTable().getRows();
-        Row wantedrow=rows[row];
-        for(UnitCard card0: wantedrow.getCards()){
+    public void DoAbilityOnARow(int row) {
+        ObservableRow[] rows = gameStatus.getTable().getRows();
+        ObservableRow wantedrow = rows[row];
+        for (UnitCard card0 : wantedrow.getUnitCards()) {
             DoAbilityOnCard(card0);
         }
     }

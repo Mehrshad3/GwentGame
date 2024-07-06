@@ -7,10 +7,10 @@ import model.faction.Card;
 public class GameStatus {
     private final Player player1;
     private final Player player2;
-    public HandleRounds handleRounds;
-    private int numberOfPassedRounds = 0;
+    public transient HandleRounds handleRounds;
+    int numberOfPassedRounds = 0;
+    int numberOfTurns = 0;
     private Table table;
-    private int numberOfTurns = 0;
     private int player1Wins = 0;
     private int player2Wins = 0;
 
@@ -36,6 +36,7 @@ public class GameStatus {
         return table;
     }
 
+    @Deprecated
     public void setTable(Table table) {
         this.table = table;
     }

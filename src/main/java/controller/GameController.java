@@ -1,7 +1,10 @@
 package controller;
 
+import controller.Checking.GetAbility;
 import enums.card.CardName;
+import enums.card.RowWeather;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -25,17 +28,32 @@ public class GameController extends MenuController {
     private final IntegerProperty player1Lives = new SimpleIntegerProperty(2);
     private final IntegerProperty player2Lives = new SimpleIntegerProperty(2);
     private final ObservableList<UnitCard>[] rows = new ObservableList[6];
-    GameStatus gaming;
+    private final ObservableList<WeatherCard> weatherCards = FXCollections.observableArrayList();
+    ObservableGameStatus gaming;
+    HandleRounds handleRounds;
     private Player player1;
     private Player player2;
+
     public GameController() {
         for (int i = 0; i < rows.length; i++) {
             rows[i] = FXCollections.observableArrayList();
         }
     }
 
+    public ObservableList<WeatherCard> getWeatherCards() {
+        return weatherCards;
+    }
+
     public ObservableList<UnitCard>[] getRows() {
         return rows;
+    }
+
+    public ObservableValue<SpellCard>[] getSpellCards() {
+        ObservableValue<SpellCard>[] spellCards = new ObservableValue[6];
+        for (int i = 0; i < 6; i++) {
+            spellCards[i] = gaming.getTable().getRows()[i].getSpell();
+        }
+        return spellCards;
     }
 
     public ReadOnlyIntegerProperty player1LivesProperty() {
@@ -46,29 +64,47 @@ public class GameController extends MenuController {
         return player2Lives;
     }
 
-    public GameStatus getGaming() {
+    public ObservableGameStatus getGaming() {
         return this.gaming;
     }
 
-    public void setGaming(GameStatus gaming) {
+    public void setGaming(ObservableGameStatus gaming) {
         this.gaming = gaming;
         App.getAppObject().setGaming(gaming);
     }
 
-    public void setGamingAndUpdateScreen(GameStatus gaming) {
+    public void setHandleRounds(HandleRounds handleRounds) {
+        this.handleRounds = handleRounds;
+    }
+
+    public void setGamingAndUpdateScreen(ObservableGameStatus gaming) {
         setGaming(gaming);
         for (int i = 0; i < sumOfRows.length; i++) {
-            Row row = gaming.getTable().getRows()[i];
+            ObservableRow row = gaming.getTable().getRows()[i];
             int rowIndex = i;
             sumOfRows[i] = new SimpleIntegerProperty();
             // Calculate sum of rows
-            row.getCards().addListener((ListChangeListener<? super UnitCard>) change ->
-                    sumOfRows[rowIndex].set(row.getCards().stream().mapToInt(UnitCard::getPower).sum())
+            row.getUnitCards().addListener((ListChangeListener<? super UnitCard>) change ->
+                    sumOfRows[rowIndex].set(row.getUnitCards().stream().mapToInt(UnitCard::getPower).sum())
             );
         }
         getPlayer1InHandCards().addListener((ListChangeListener<? super Card>) change -> {
             change.next();
             numberOfCardsInMyHand.set(numberOfCardsInMyHand.get() + change.getAddedSize() - change.getRemovedSize());
+        });
+        weatherCards.addListener((ListChangeListener<? super WeatherCard>) change -> {
+            change.next();
+            if (change.wasAdded()) {
+                for (int i = change.getFrom(); i < change.getTo(); i++) {
+                    gaming.getTable().addWeather(change.getList().get(i));
+                }
+            } else if (change.wasRemoved()) {
+                int from = change.getFrom();
+                assert from == change.getTo();
+                for (int i = 0; i < change.getRemovedSize(); i++) {
+                    gaming.getTable().getWeatherCards().remove(from);
+                }
+            }
         });
         // TODO
     }
@@ -91,7 +127,7 @@ public class GameController extends MenuController {
     public void setStartStatus(Player player1) {
         this.player1 = player1;
         player2 = new Player("guest", "placeholder");
-        setGamingAndUpdateScreen(new GameStatus(new Table(player1, player2), player1, player2));
+        setGamingAndUpdateScreen(new ObservableGameStatus(new Table(player1, player2), player1, player2));
         player2.getDeck().setCurrentLeaderCard((LeaderCard) CardName.BRINGER_OF_DEATH.getNewCard());
         isMyTurn.setValue(true);
         dealCards();
@@ -119,7 +155,7 @@ public class GameController extends MenuController {
     private void addCardsToRow(int from, int to, List<? extends UnitCard> list, int rowIndex) {
         for (int i = from; i < to; i++) {
             UnitCard card = list.get(i);
-            gaming.getTable().getRows()[rowIndex].placeCard(card);
+            gaming.getTable().getRows()[rowIndex].placeCard(from, card);
         }
     }
 
@@ -198,8 +234,9 @@ public class GameController extends MenuController {
         if (!(card instanceof SpellCard spellCard)) return;
         CommandersHornAbility ability = new CommandersHornAbility();
         ability.setGameStatus(gaming);
-        // TODO: do the commander's horn ability
-        gaming.getTable().addSpell(spellCard, rowToPlay);
+        GetAbility.getAbility(card, gaming, player1, handleRounds);
+        gaming.getTable().addSpell(spellCard, rowToPlay - 1);
+        getPlayer1InHandCards().remove(spellCard);
     }
 
     /**
@@ -209,8 +246,15 @@ public class GameController extends MenuController {
     public void playWeatherCard(Card card) {
         if (!(card instanceof WeatherCard weatherCard)) return;
         // TODO
-        gaming.getTable().setCurrentWeather(weatherCard);
+        gaming.getTable().addWeather(weatherCard);
         player1.getDeck().getInHandCards().remove(card);
+        weatherCards.add(weatherCard);
+        card.doAbility(this);
+    }
+
+    public void setRowWeather(int i, RowWeather weather) {
+        gaming.getTable().getRows()[i].setWeather(weather);
+        if (weather == RowWeather.CLEAR_WEATHER) weatherCards.clear();
     }
 
     private void empirePowerDoing() {
@@ -219,7 +263,7 @@ public class GameController extends MenuController {
 
     public void passRound() {
         isMyTurn.set(false);
-        // TODO
+        handleRounds.passround();
     }
 
     public ObservableList<Card> getPlayer1InHandCards() {
