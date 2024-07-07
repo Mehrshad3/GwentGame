@@ -4,7 +4,7 @@ import controller.AbilityDoings.Ability;
 import model.GameStatus;
 import model.faction.Card;
 
-public class QueenofDoiBalsannaAbilityDoing extends Ability {
+public class QueenofDolBalsannaAbilityDoing extends Ability {
     public GameStatus gameStatus;
 
     public void setGameStatus(GameStatus gameStatus) {

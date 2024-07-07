@@ -16,7 +16,7 @@ public class TheRelentlessAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-
+        //TODO
     }
 
     @Override

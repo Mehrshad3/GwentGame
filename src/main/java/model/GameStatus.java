@@ -15,6 +15,8 @@ public class GameStatus {
     private int player2Wins = 0;
     public boolean KingBranAbility=false;
     public boolean TheTreacherousAbility=false;
+    public boolean Leader1did=false;
+    public boolean Leader2did=false;
 
     public GameStatus(Table table, Player player1, Player player2) {
         this.table = table;

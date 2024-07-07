@@ -2,7 +2,9 @@ package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
 import model.GameStatus;
+import model.Row;
 import model.faction.Card;
+import model.faction.UnitCard;
 
 public class SunOfMedellAbilityDoing extends Ability {
     public GameStatus gameStatus;
@@ -14,9 +16,20 @@ public class SunOfMedellAbilityDoing extends Ability {
     public GameStatus getGameStatus() {
         return gameStatus;
     }
+    public void DoAbilityOnACard(UnitCard unitCard){
+        unitCard.commanderboostpower=true;
+    }
+    public void DoAbilityOnARow(int row){
+        Row[] rows=gameStatus.getTable().getRows();
+        Row wantedrow=rows[row];
+        for(UnitCard unitCard: wantedrow.getCards()){
+            DoAbilityOnACard(unitCard);
+        }
+    }
     @Override
     public void DoCardAbility() {
-        //TODO:scorch ability on ranged
+        DoAbilityOnARow(5);
+        DoAbilityOnARow(2);
     }
 
     @Override

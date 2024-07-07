@@ -125,5 +125,23 @@ public class HandleRounds {
         faction1=gameStatus.getPlayer1().getFaction();
         faction2=gameStatus.getPlayer2().getFaction();
     }
+    public boolean getLeaderdidfromplayer(Player player){
+        if(player.equals(gameStatus.getPlayer1())){
+            return gameStatus.Leader1did;
+        }else if (player.equals(gameStatus.getPlayer2())){
+            return gameStatus.Leader2did;
+        }else{
+            return false;
+        }
+    }
+    public void setLeaderdidfromplayer(Player player, boolean x){
+        if(player.equals(gameStatus.getPlayer1())){
+            gameStatus.Leader1did=x;
+        }else if (player.equals(gameStatus.getPlayer2())){
+            gameStatus.Leader2did=x;
+        }else{
+            System.out.println("Player is not in this Game!!");
+        }
+    }
 
 }

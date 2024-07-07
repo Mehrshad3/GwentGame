@@ -16,7 +16,7 @@ public class TheTrecherousAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        //TODO
+        gameStatus.TheTreacherousAbility=true;
     }
 
     @Override
