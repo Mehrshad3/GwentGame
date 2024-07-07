@@ -23,6 +23,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class Client {
+    private static final String HOST_ADDRESS = "localhost";//change ip
+    private static final int PORT_NUMBER = 150;
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -48,7 +50,7 @@ public class Client {
 
     public Client(String username) {
         try {
-            this.socket = new Socket("localhost", 150);//change ip
+            this.socket = new Socket(HOST_ADDRESS, PORT_NUMBER);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             writer.write(username + "\n");

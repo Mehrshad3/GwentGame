@@ -326,13 +326,33 @@ public class GameGraphicController {
                 .bind(gameController.numberOfCardsInMyHandProperty().map(Object::toString));
         numberOfCardsInOpponentHand.textProperty()
                 .bind(gameController.numberOfCardsInOpponentHandProperty().map(Object::toString));
+        // Show crystals
         gameController.player1LivesProperty().addListener((observableValue, number, t1) -> {
             int previousNumber = (int) number;
             int newNumber = (int) t1;
             if (newNumber >= 1 && previousNumber < 1) {
-                selfFirstLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_on.png"));
+                selfSecondLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_on.png"));
             } else if (newNumber < 1 && previousNumber >= 1) {
+                selfSecondLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_off.png"));
+            }
+            if (newNumber >= 2 && previousNumber < 2) {
+                selfFirstLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_on.png"));
+            } else if (newNumber < 2 && previousNumber >= 2) {
                 selfFirstLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_off.png"));
+            }
+        });
+        gameController.player2LivesProperty().addListener((observableValue, number, t1) -> {
+            int previousNumber = (int) number;
+            int newNumber = (int) t1;
+            if (newNumber >= 1 && previousNumber < 1) {
+                opponentSecondLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_on.png"));
+            } else if (newNumber < 1 && previousNumber >= 1) {
+                opponentSecondLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_off.png"));
+            }
+            if (newNumber >= 2 && previousNumber < 2) {
+                opponentFirstLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_on.png"));
+            } else if (newNumber < 2 && previousNumber >= 2) {
+                opponentFirstLife.setImage(IconImages.getInstance().getIconByFilename("icon_gem_off.png"));
             }
         });
     }
@@ -413,7 +433,17 @@ public class GameGraphicController {
             App.LOGGER.log(Level.FINE, "Current user clicked on the leader card.");
             gameController.playLeaderCard(gameController.getPlayer1LeaderCard());
         } else if (source.getParent() instanceof CardView cardView) {
-            cardChosenToPlay = cardChosenToPlay == null && isMyTurn.get() ? cardView : null;
+            Pane parent = (Pane) cardView.getParent();
+            if (parent == inHandCards) { // یه کارتی از دستش انتخاب کرد
+                cardChosenToPlay = cardChosenToPlay == null && isMyTurn.get() ? cardView : null;
+                return;
+            }
+            if (!(parent instanceof HBox)) {
+                if (List.of(commanderHornSpots).contains(parent)) {
+                    // TODO
+                }
+            } else if (List.of(rows).contains(parent)) onRowClicked(parent);
+            cardChosenToPlay = null;
             // It'll be beautiful if we ask the controller that which rows can this card be played to.
         }
     }
@@ -423,17 +453,21 @@ public class GameGraphicController {
      * It unfortunately doesn't detect the exact index in which the card is played.
      */
     @FXML
-    private synchronized void onRowClicked(MouseEvent mouseEvent) {
+    private void onRowClicked(MouseEvent mouseEvent) {
+        onRowClicked((Pane) mouseEvent.getSource());
+    }
+
+    private synchronized void onRowClicked(Pane source) {
         if (cardChosenToPlay == null) return; // There is no card to play.
-        Pane source = (Pane) mouseEvent.getSource();
         // Detect the row number which the card will be played on.
         int rowToPlay = 0;
         for (int i = 0; i < NUMBER_OF_ROWS; i++) {
             if (rows[i] == source) rowToPlay = i + 1;
         }
         // Tells the controller to play the card
-        gameController.playCard(cardChosenToPlay.card, rowToPlay);
-        cardChosenToPlay = null;
+        Card cardToPlayCardObject = cardChosenToPlay.card;
+        cardChosenToPlay = null; // The next method may throw an exception, so I put this here to be sure that it's fine.
+        gameController.playCard(cardToPlayCardObject, rowToPlay);
     }
 
     @FXML

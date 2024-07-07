@@ -106,7 +106,6 @@ public class GameController extends MenuController {
                 }
             }
         });
-        // TODO
     }
 
     public ReadOnlyBooleanProperty isMyTurnProperty() {
@@ -131,6 +130,7 @@ public class GameController extends MenuController {
         player2.getDeck().setCurrentLeaderCard((LeaderCard) CardName.BRINGER_OF_DEATH.getNewCard());
         isMyTurn.setValue(true);
         dealCards();
+        vetoCards();
 
         player1Lives.addListener((observableValue, number, t1) -> gaming.setPlayer2Wins(2 - (int) t1));
         player2Lives.addListener((observableValue, number, t2) -> gaming.setPlayer1Wins(2 - (int) t2));
@@ -177,6 +177,10 @@ public class GameController extends MenuController {
         addAddedCardsToRow(change, rowIndex);
     }
 
+    private void vetoCards() {
+
+    }
+
     private void dealCards() {
         Random random = new SecureRandom();
         // Deal first player cards
@@ -213,6 +217,10 @@ public class GameController extends MenuController {
         // TODO
     }
 
+    public void playOpponentUnitCard(UnitCard unitCard, int rowToPlay) {
+        rows[rowToPlay - 1].add(unitCard);
+    }
+
     public void playCard(Card card, int rowToPlay) {
         if (card instanceof SpellCard) {
             playCommanderHorn(card, rowToPlay);
@@ -223,6 +231,9 @@ public class GameController extends MenuController {
                 getPlayer1InHandCards().remove(unitCard);
                 // TODO: do card ability
                 // TODO: SpyChecking
+                ClientController controller = App.getClientController();
+                Client client = controller.getClient();
+                client.sendMassage("place card " + card.getName() + " on row " + rowToPlay);
             }
         }
     }
@@ -231,7 +242,7 @@ public class GameController extends MenuController {
      * Plays {@link CardName#COMMANDER_HORN Commander's Horn} card or any other {@link SpellCard}.
      */
     public void playCommanderHorn(Card card, int rowToPlay) {
-        if (!(card instanceof SpellCard spellCard)) return;
+        if (!(card instanceof SpellCard spellCard) || card.getCardName() == CardName.DECOY) return;
         CommandersHornAbility ability = new CommandersHornAbility();
         ability.setGameStatus(gaming);
         GetAbility.getAbility(card, gaming, player1, handleRounds);

@@ -739,7 +739,7 @@ public class PreGameMenuGraphic extends Application {
             gameController.setHandleRounds(handleRounds);
             gameController.getGaming().setHandleRounds(handleRounds);
             try {
-                gameMenuGraphic.start(null);
+                gameMenuGraphic.start(App.getStage());
             } catch (Exception e) {
                 App.LOGGER.log(Level.SEVERE, "Can't start the game", e);
             }
