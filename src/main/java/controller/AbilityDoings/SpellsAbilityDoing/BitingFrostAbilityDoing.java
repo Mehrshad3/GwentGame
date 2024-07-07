@@ -18,8 +18,6 @@ public class BitingFrostAbilityDoing extends Ability {
     }
 
     public void DoAbilityOnACard(UnitCard card){
-        card.setBeforeweatherchangepower(card.getPower());
-        card.setPower(1);
         card.setWeatherChanged(true);
     }
     public void DoAbilityOnARow(int row){
@@ -33,7 +31,6 @@ public class BitingFrostAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnARow(3);
         DoAbilityOnARow(4);
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override

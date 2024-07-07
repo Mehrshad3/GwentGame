@@ -2,15 +2,13 @@ package controller;
 
 import controller.AbilityDoings.Ability;
 import controller.Checking.GetAbility;
-import enums.card.CardName;
+import controller.Checking.GetwaetherAbility;
 import model.*;
 import model.faction.Card;
 import model.faction.Faction;
 import model.faction.UnitCard;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class HandleRounds {
     public ObservableGameStatus gameStatus;
@@ -18,12 +16,18 @@ public class HandleRounds {
     public Faction faction2;
 
     public ArrayList<Ability> NextDoingAbilitys = new ArrayList<>();
-
-    public HandleRounds() {
-    }
+    public ArrayList<Ability> NextweatherdoingAbilitys = new ArrayList<>();
 
     public HandleRounds(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
+    }
+
+    public ArrayList<Ability> getNextDoingAbilitys() {
+        return NextDoingAbilitys;
+    }
+
+    public ArrayList<Ability> getNextweatherdoingAbilitys() {
+        return NextweatherdoingAbilitys;
     }
 
     public ArrayList<Ability> getNextDoingMethods() {
@@ -34,7 +38,7 @@ public class HandleRounds {
         this.NextDoingAbilitys = NextDoingAbilitys;
     }
 
-    public boolean notfinishedyet=true;
+    public boolean notfinishedyet = true;
 
     public Faction getFaction1() {
         return faction1;
@@ -60,7 +64,7 @@ public class HandleRounds {
         this.gameStatus = gameStatus;
     }
 
-    public void Handlerounds(String InputString){
+    public void Handlerounds(String InputString) {
         //TODO
         //TODO:placeCard if wanted
         //TODO:after place card , for(Ability ability:NextDoingAbilitiys){ability.DoCardAction;}
@@ -68,22 +72,44 @@ public class HandleRounds {
 
     }
 
-    public void PlaceCardByName(String CardName,int row){
+    public void PlaceCardByName(String CardName, int row) {
         //TODO
     }
 
     public void PlaceCard(UnitCard card, int row, Player player) {
-        //TODO:spells and weathers ability doing
-        //TODO:commander horn ability exist or not? check it!
+        //TODO check weather and other stuffs
+        //TODO place commander horns and mardroemes are different
         ObservableRow[] rows = gameStatus.getTable().getRows();
         ObservableRow row0 = rows[row];
-        row0.getUnitCards().add(card);
+        for (UnitCard unitCard : row0.getUnitCards()) {
+            ArrayList<UnitCard> newrowmates0 = new ArrayList<UnitCard>(card.getRowmates());
+            newrowmates0.add(unitCard);
+            card.setRowmates(newrowmates0);
+            ArrayList<UnitCard> newrowmates1 = new ArrayList<>(unitCard.getRowmates());
+            newrowmates1.add(card);
+            unitCard.setRowmates(newrowmates1);
+        }
+        GetAbility.getAbility(card, gameStatus, player, this);
+        passRoundAbility();
+        row0.placeCard(card);
         card.setRowNumber(row);
         player.getDeck().getInHandCards().remove(card);
-        GetAbility.getAbility(card, gameStatus, player, this);
+        passroundweatherability();
+        passroundCard();
     }
 
-    public  void passround(){
+    /**
+     * This method is used when the player has put all of their cards to the board, and wants to give the turn to their
+     * opponent.
+     */
+    public void passRound() {
+        // I'm not sure with the correct order of these methods, so they should probably be changed later.
+        passRoundAbility();
+        passroundweatherability();
+        passroundCard();
+    }
+
+    public  void passRoundAbility() {
         // This reversed loop prevents ConcurrentModificationException.
         for (int i = getNextDoingMethods().size() - 1; i >= 0; i--) {
             Ability ability = getNextDoingMethods().get(i);
@@ -91,9 +117,29 @@ public class HandleRounds {
         }
     }
 
-    public void Initialize(){
-        faction1=gameStatus.getPlayer1().getFaction();
-        faction2=gameStatus.getPlayer2().getFaction();
+    public void passroundweatherability() {
+        for (Ability ability : getNextweatherdoingAbilitys()) {
+            ability.DoCardAbility();
+        }
+    }
+
+    public void passroundCard() {
+        for (ObservableRow row : gameStatus.getTable().getRows()) {
+            for (UnitCard unitCard : row.getUnitCards()) {
+                unitCard.UpdatePower();
+            }
+        }
+    }
+
+    public void placeweathercard(Card weathercard, Player player) {
+        GetwaetherAbility.getAbility(weathercard, gameStatus, player, this);
+        getNextweatherdoingAbilitys().removeAll(getNextweatherdoingAbilitys());
+        //TODO:insert weather card in gamestatus
+    }
+
+    public void Initialize() {
+        faction1 = gameStatus.getPlayer1().getFaction();
+        faction2 = gameStatus.getPlayer2().getFaction();
     }
 
 }

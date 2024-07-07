@@ -21,6 +21,11 @@ public class EmprorOfNilfGardAbilityDoing extends Ability {
 
     @Override
     public Ability Copy(Card card) {
-        return null;
+        EmprorOfNilfGardAbilityDoing abilityDoing=new EmprorOfNilfGardAbilityDoing();
+        abilityDoing.setmaincard(maincard);
+        abilityDoing.setStatus(status);
+        abilityDoing.setPlayer(player);
+        abilityDoing.setGameStatus(gameStatus);
+        return abilityDoing;
     }
 }

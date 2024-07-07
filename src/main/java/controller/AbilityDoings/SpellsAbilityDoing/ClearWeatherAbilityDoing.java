@@ -6,6 +6,8 @@ import model.Row;
 import model.faction.Card;
 import model.faction.UnitCard;
 
+import java.util.ArrayList;
+
 public class ClearWeatherAbilityDoing extends Ability {
     public GameStatus gameStatus;
 
@@ -18,10 +20,7 @@ public class ClearWeatherAbilityDoing extends Ability {
     }
 
     public void DoAbilityOnACard(UnitCard card){
-        card.setPower(card.getBeforeweatherchangepower());
-        card.setBeforeweatherchangepower(0);
         card.setWeatherChanged(false);
-        card.setIspowerlocked(false);
     }
     public void DoAbilityOnARow(int row){
         Row[] rows=gameStatus.getTable().getRows();

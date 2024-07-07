@@ -4,7 +4,7 @@ import controller.AbilityDoings.Ability;
 import model.GameStatus;
 import model.faction.Card;
 
-public class TheRelentlessAbilityDoing extends Ability {
+public class DestroyerofWorldsAbilityDoing extends Ability {
     public GameStatus gameStatus;
 
     public void setGameStatus(GameStatus gameStatus) {
@@ -16,15 +16,15 @@ public class TheRelentlessAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-
+        //TODO
     }
 
     @Override
     public Ability Copy(Card card) {
-        TheRelentlessAbilityDoing abilityDoing=new TheRelentlessAbilityDoing();
+        DestroyerofWorldsAbilityDoing abilityDoing=new DestroyerofWorldsAbilityDoing();
         abilityDoing.setmaincard(maincard);
-        abilityDoing.setPlayer(player);
         abilityDoing.setStatus(status);
+        abilityDoing.setPlayer(player);
         abilityDoing.setGameStatus(gameStatus);
         return abilityDoing;
     }

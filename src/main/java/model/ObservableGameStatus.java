@@ -27,6 +27,10 @@ public class ObservableGameStatus {
         this(new GameStatus(table, player1, player2));
     }
 
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
     public HandleRounds getHandleRounds() {
         return gameStatus.getHandleRounds();
     }

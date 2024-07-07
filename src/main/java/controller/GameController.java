@@ -191,6 +191,8 @@ public class GameController extends MenuController {
                 break;
             }
             int randomIndex = random.nextInt(notChosenCards1.size());
+            Card card = notChosenCards1.get(randomIndex);
+            card.setGameStatus(gaming);
             player1.getDeck().addCardToHand(notChosenCards1.get(randomIndex));
         }
         // Deals second player cards
@@ -274,7 +276,7 @@ public class GameController extends MenuController {
 
     public void passRound() {
         isMyTurn.set(false);
-        handleRounds.passround();
+        handleRounds.passRound();
     }
 
     public ObservableList<Card> getPlayer1InHandCards() {

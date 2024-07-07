@@ -17,8 +17,6 @@ public class SkelligeStormAbilityDoing extends Ability {
         this.gameStatus = gameStatus;
     }
     public void DoAbilityOnACard(UnitCard card){
-        card.setBeforeweatherchangepower(card.getPower());
-        card.setPower(1);
         card.setWeatherChanged(true);
     }
     public void DoAbilityOnARow(int row){
@@ -40,7 +38,6 @@ public class SkelligeStormAbilityDoing extends Ability {
         gameStatus.getHandleRounds().getNextDoingMethods().add(impenetrableFogAbilityDoing);
         torrentialRainAbilityDoing.DoCardAbility();
         impenetrableFogAbilityDoing.DoCardAbility();
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
 
     }
 

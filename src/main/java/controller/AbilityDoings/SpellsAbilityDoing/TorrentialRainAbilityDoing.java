@@ -17,8 +17,6 @@ public class TorrentialRainAbilityDoing extends Ability {
         this.gameStatus = gameStatus;
     }
     public void DoAbilityOnACard(UnitCard card){
-        card.setBeforeweatherchangepower(card.getPower());
-        card.setPower(1);
         card.setWeatherChanged(true);
     }
     public void DoAbilityOnARow(int row){
@@ -33,7 +31,6 @@ public class TorrentialRainAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnARow(1);
         DoAbilityOnARow(6);
-        gameStatus.getHandleRounds().getNextDoingMethods().remove(this);
     }
 
     @Override
