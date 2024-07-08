@@ -19,6 +19,7 @@ public class KingBranAbilityDoing extends Ability {
     @Override
     public void DoCardAbility() {
         gameStatus.KingBranAbility=true;
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

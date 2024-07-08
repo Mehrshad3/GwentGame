@@ -35,6 +35,7 @@ public class InvaderoftheNorthAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnAPlayer(gameStatus.getPlayer2());
         DoAbilityOnAPlayer(gameStatus.getPlayer1());
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

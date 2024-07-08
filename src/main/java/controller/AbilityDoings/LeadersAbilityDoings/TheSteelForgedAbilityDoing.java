@@ -20,6 +20,7 @@ public class TheSteelForgedAbilityDoing extends Ability {
         ClearWeatherAbilityDoing clearWeatherAbilityDoing=new ClearWeatherAbilityDoing();
         clearWeatherAbilityDoing.setGameStatus(gameStatus);
         clearWeatherAbilityDoing.DoCardAbility();
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

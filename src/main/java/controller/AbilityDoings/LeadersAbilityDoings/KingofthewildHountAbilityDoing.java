@@ -36,6 +36,7 @@ public class KingofthewildHountAbilityDoing extends Ability {
         Card specialCard=notherocrads.get(random.nextInt(notherocrads.size()));
         discards.remove(specialCard);
         player.getDeck().getInHandCards().add(specialCard);
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

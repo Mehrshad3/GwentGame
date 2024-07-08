@@ -1,6 +1,7 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
+import controller.GetRowNumberFromRowName;
 import model.GameStatus;
 import model.Row;
 import model.faction.Card;
@@ -28,8 +29,11 @@ public class KingOfTemeriaAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        DoAbilityOnARow(1);
-        DoAbilityOnARow(6);
+        int siege1= GetRowNumberFromRowName.getrownumber(1,"siege");
+        int siege2=GetRowNumberFromRowName.getrownumber(2,"siege");
+        DoAbilityOnARow(siege1);
+        DoAbilityOnARow(siege2);
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

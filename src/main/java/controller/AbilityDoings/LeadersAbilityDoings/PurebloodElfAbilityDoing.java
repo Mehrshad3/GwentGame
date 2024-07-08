@@ -21,13 +21,13 @@ public class PurebloodElfAbilityDoing extends Ability {
         ObservableList<Card>hand=player.getDeck().getInHandCards();
         Card wantedcard=null;
         for(Card card:hand){
-            if(card.getName().toLowerCase().equals("bitingfrost")){
+            if(card.getName().toLowerCase().equals("biting frost")){
                 wantedcard=card;
             }else {}
         }
         hand.remove(wantedcard);
         gameStatus.getHandleRounds().placeweathercard(wantedcard,player);
-
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

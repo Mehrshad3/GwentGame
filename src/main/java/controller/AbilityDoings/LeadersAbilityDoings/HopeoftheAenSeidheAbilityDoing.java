@@ -16,7 +16,7 @@ public class HopeoftheAenSeidheAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        //TODO
+        //TODO:what agileunit?
     }
 
     @Override

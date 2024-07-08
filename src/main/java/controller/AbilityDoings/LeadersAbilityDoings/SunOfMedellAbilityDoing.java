@@ -30,6 +30,8 @@ public class SunOfMedellAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnARow(5);
         DoAbilityOnARow(2);
+        //Ranged combat
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

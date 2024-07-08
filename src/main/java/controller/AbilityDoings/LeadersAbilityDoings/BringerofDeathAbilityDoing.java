@@ -1,6 +1,7 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
+import controller.GetRowNumberFromRowName;
 import enums.EnumAbilities.Abilities;
 import model.GameStatus;
 import model.Row;
@@ -24,29 +25,31 @@ public class BringerofDeathAbilityDoing extends Ability {
 
         } else {
             Row[] rows = gameStatus.getTable().getRows();
-            boolean r3 = false;
-            boolean r4 = false;
-            if (rows[3].getSpcialpot().equals(null)) {
-                if (Abilities.map.get(rows[3].getSpcialpot()).Abilityname.getClass() == CommanderoftheRedRidersAbilityDoing.class) {
-                    r3 = true;
+            int close10= GetRowNumberFromRowName.getrownumberbyplayeranddetail(player,gameStatus,"close combat");
+            int close20=GetRowNumberFromRowName.getrownumberbyplayeranddetail(player,gameStatus,"opp close combat");
+            boolean close1 = false;
+            boolean close2 = false;
+            if (!rows[3].getSpcialpot().equals(null)) {
+                if (Abilities.map.get(rows[close10].getSpcialpot()).Abilityname.getClass() == CommanderoftheRedRidersAbilityDoing.class) {
+                    close1 = true;
                 } else {
                 }
             }
-            if (rows[4].getSpcialpot().equals(null)) {
-                if (Abilities.map.get(rows[3].getSpcialpot()).Abilityname.getClass() == CommanderoftheRedRidersAbilityDoing.class) {
-                    r4 = true;
+            if (!rows[4].getSpcialpot().equals(null)) {
+                if (Abilities.map.get(rows[close20].getSpcialpot()).Abilityname.getClass() == CommanderoftheRedRidersAbilityDoing.class) {
+                    close2 = true;
                 } else {
                 }
             }
-            if (r3) {
+            if (close1) {
             } else {
-                for (UnitCard unitCard : rows[3].getCards()) {
+                for (UnitCard unitCard : rows[close10].getCards()) {
                     unitCard.boostpower = true;
                 }
             }
-            if (r4) {
+            if (close2) {
             } else {
-                for (UnitCard unitCard : rows[4].getCards()) {
+                for (UnitCard unitCard : rows[close20].getCards()) {
                     unitCard.boostpower = true;
                 }
             }

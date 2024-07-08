@@ -1,6 +1,7 @@
 package controller.AbilityDoings.SpellsAbilityDoing;
 
 import controller.AbilityDoings.Ability;
+import controller.GetRowNumberFromRowName;
 import model.GameStatus;
 import model.Row;
 import model.faction.Card;
@@ -29,8 +30,10 @@ public class BitingFrostAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        DoAbilityOnARow(3);
-        DoAbilityOnARow(4);
+        int closecombat1= GetRowNumberFromRowName.getrownumber(1,"close combat");
+        int closecombat2=GetRowNumberFromRowName.getrownumber(2,"close combat");
+        DoAbilityOnARow(closecombat1);
+        DoAbilityOnARow(closecombat2);
     }
 
     @Override

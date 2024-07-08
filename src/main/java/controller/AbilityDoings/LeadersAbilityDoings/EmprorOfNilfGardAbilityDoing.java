@@ -16,7 +16,9 @@ public class EmprorOfNilfGardAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        //TODO
+        //TODO:check
+        gameStatus.Leader1did=true;
+        gameStatus.Leader2did=true;
     }
 
     @Override

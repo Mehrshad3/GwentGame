@@ -17,6 +17,7 @@ public class TheTrecherousAbilityDoing extends Ability {
     @Override
     public void DoCardAbility() {
         gameStatus.TheTreacherousAbility=true;
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

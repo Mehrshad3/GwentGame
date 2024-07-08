@@ -40,6 +40,7 @@ public class ClearWeatherAbilityDoing extends Ability {
     @Override
     public void DoCardAbility() {
         DoAbilityOnWholeTable();
+        //TODO
     }
 
     @Override
