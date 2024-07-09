@@ -6,6 +6,8 @@ import model.*;
 import java.io.File;
 import java.util.logging.Level;
 
+import static model.App.LOGGER;
+
 public class PreGameMenuController extends MenuController {
 
 
@@ -56,7 +58,7 @@ public class PreGameMenuController extends MenuController {
     public void loadDeckFromFile(File file) {
         if (file == null) return;
         System.out.println(file.getAbsolutePath());
-        App.LOGGER.log(Level.FINE, "Deck from " + file.getAbsolutePath() + " will be loaded.");
+        LOGGER.log(Level.FINE, "Deck from " + file.getAbsolutePath() + " will be loaded.");
     }
 
     public void showLeaders() {

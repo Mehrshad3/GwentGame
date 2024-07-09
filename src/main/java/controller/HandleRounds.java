@@ -81,8 +81,9 @@ public class HandleRounds {
         //TODO place commander horns and mardroemes are different
         ObservableRow[] rows = gameStatus.getTable().getRows();
         ObservableRow row0 = rows[row];
-        for (UnitCard unitCard : row0.getCards()) {
-            ArrayList<UnitCard> newrowmates0 = new ArrayList<UnitCard>(card.getRowmates());
+        for (Card card0 : row0.getCards()) {
+            if (!(card0 instanceof UnitCard unitCard)) continue;
+            ArrayList<UnitCard> newrowmates0 = new ArrayList<>(card.getRowmates());
             newrowmates0.add(unitCard);
             card.setRowmates(newrowmates0);
             ArrayList<UnitCard> newrowmates1 = new ArrayList<>(unitCard.getRowmates());
@@ -131,8 +132,8 @@ public class HandleRounds {
 
     public void passroundCard() {
         for (ObservableRow row : gameStatus.getTable().getRows()) {
-            for (UnitCard unitCard : row.getCards()) {
-                unitCard.UpdatePower();
+            for (Card card : row.getCards()) {
+                if (card instanceof UnitCard unitCard) unitCard.UpdatePower();
             }
         }
     }
@@ -197,13 +198,13 @@ public class HandleRounds {
         int player2score=0;
         ObservableRow[] rows = gameStatus.getTable().getRows();
         for(int i=1;i<4;i++){
-            for(UnitCard unitCard:rows[i].getCards()){
-                player1score=player1score+unitCard.getPower();
+            for (Card card : rows[i].getCards()) {
+                if (card instanceof UnitCard unitCard) player1score = player1score + unitCard.getPower();
             }
         }
         for(int i=4;i<7;i++){
-            for(UnitCard unitCard:rows[i].getCards()){
-                player1score=player1score+unitCard.getPower();
+            for (Card card : rows[i].getCards()) {
+                if (card instanceof UnitCard unitCard) player1score = player1score + unitCard.getPower();
             }
         }
         if(player1score>player2score){

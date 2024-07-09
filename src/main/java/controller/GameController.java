@@ -27,10 +27,11 @@ public class GameController extends MenuController {
     private final IntegerProperty numberOfCardsInOpponentHand = new SimpleIntegerProperty(10);
     private final IntegerProperty player1Lives = new SimpleIntegerProperty(2);
     private final IntegerProperty player2Lives = new SimpleIntegerProperty(2);
-    private final ObservableList<UnitCard>[] rows = new ObservableList[6];
+    private final ObservableList<Card>[] rows = new ObservableList[6];
     private final ObservableList<WeatherCard> weatherCards = FXCollections.observableArrayList();
     ObservableGameStatus gaming;
     HandleRounds handleRounds;
+    Client client;
     private Player player1;
     private Player player2;
 
@@ -38,13 +39,15 @@ public class GameController extends MenuController {
         for (int i = 0; i < rows.length; i++) {
             rows[i] = FXCollections.observableArrayList();
         }
+        ClientController clientController = App.getClientController();
+        if (clientController != null) client = clientController.getClient();
     }
 
     public ObservableList<WeatherCard> getWeatherCards() {
         return weatherCards;
     }
 
-    public ObservableList<UnitCard>[] getRows() {
+    public ObservableList<Card>[] getRows() {
         return rows;
     }
 
@@ -81,12 +84,8 @@ public class GameController extends MenuController {
         setGaming(gaming);
         for (int i = 0; i < sumOfRows.length; i++) {
             ObservableRow row = gaming.getTable().getRows()[i];
-            int rowIndex = i;
-            sumOfRows[i] = new SimpleIntegerProperty();
-            // Calculate sum of rows
-            row.getCards().addListener((ListChangeListener<? super UnitCard>) change ->
-                    sumOfRows[rowIndex].set(row.getCards().stream().mapToInt(UnitCard::getPower).sum())
-            );
+            // Show power of rows
+            sumOfRows[i] = gaming.getTable().getRows()[i].powerProperty();
         }
         getPlayer1InHandCards().addListener((ListChangeListener<? super Card>) change -> {
             change.next();
@@ -140,7 +139,7 @@ public class GameController extends MenuController {
     private void addListenerToRowsObservableLists() {
         for (int i = 0; i < rows.length; i++) {
             int finalI = i;
-            rows[i].addListener((ListChangeListener<UnitCard>) change -> {
+            rows[i].addListener((ListChangeListener<Card>) change -> {
                 while (change.next()) { // I don't know why this method is used.
                     if (change.wasAdded()) addAddedCardsToRow(change, finalI);
                     else if (change.wasPermutated()) {
@@ -152,14 +151,14 @@ public class GameController extends MenuController {
         }
     }
 
-    private void addCardsToRow(int from, int to, List<? extends UnitCard> list, int rowIndex) {
+    private void addCardsToRow(int from, int to, List<? extends Card> list, int rowIndex) {
         for (int i = from; i < to; i++) {
-            UnitCard card = list.get(i);
+            Card card = list.get(i);
             gaming.getTable().getRows()[rowIndex].placeCard(from, card);
         }
     }
 
-    private void addAddedCardsToRow(ListChangeListener.Change<? extends UnitCard> change, int rowIndex) {
+    private void addAddedCardsToRow(ListChangeListener.Change<? extends Card> change, int rowIndex) {
         try {
             addCardsToRow(change.getFrom(), change.getTo(), change.getList(), rowIndex);
         } catch (RuntimeException e) {
@@ -167,12 +166,12 @@ public class GameController extends MenuController {
         }
     }
 
-    private void removeRemovedCardsFromRow(ListChangeListener.Change<? extends UnitCard> change, int rowIndex) {
+    private void removeRemovedCardsFromRow(ListChangeListener.Change<? extends Card> change, int rowIndex) {
         assert change.getFrom() == change.getTo();
         rows[rowIndex].remove(change.getFrom(), change.getTo() + change.getRemovedSize());
     }
 
-    private void replaceReplacedCardsInRow(ListChangeListener.Change<? extends UnitCard> change, int rowIndex) {
+    private void replaceReplacedCardsInRow(ListChangeListener.Change<? extends Card> change, int rowIndex) {
         removeRemovedCardsFromRow(change, rowIndex);
         addAddedCardsToRow(change, rowIndex);
     }
@@ -219,22 +218,53 @@ public class GameController extends MenuController {
         // TODO
     }
 
-    public void playOpponentUnitCard(UnitCard unitCard, int rowToPlay) {
-        rows[rowToPlay - 1].add(unitCard);
+    /**
+     * Updates plays the card, i.e. changes {@link #gaming} so that the card is added. Because the game status is
+     * observable, the played card is also shown to the user.
+     */
+    public void addCardToTableLocally(Card card, int rowToPlay) {
+        if (card instanceof UnitCard || card.getCardName() == CardName.DECOY) {
+            addUnitCardToTableLocally(card, rowToPlay);
+        } else if (card instanceof SpellCard spellCard) {
+            addSpellCardToTableLocally(spellCard, rowToPlay);
+        } else {
+            throw new RuntimeException("This method is only called when the card is either a unit card," +
+                    " or a spell card.");
+        }
     }
 
-    public void playCard(Card card, int rowToPlay) {
-        if (card instanceof SpellCard) {
-            playCommanderHorn(card, rowToPlay);
-            // TODO: check decoy card
+    private void addSpellCardToTableLocally(SpellCard spellCard, int rowToPlay) {
+        gaming.getTable().addSpell(spellCard, rowToPlay - 1);
+    }
+
+    private void addUnitCardToTableLocally(Card card, int rowToPlay) {
+        rows[rowToPlay - 1].add(card);
+    }
+
+    public void removeCardFromTableLocally(int rowNumber, int cardIndexInRow) {
+        Card cardRemoved = rows[rowNumber - 1].remove(cardIndexInRow);
+    }
+
+    public void addWeatherToTableLocally(WeatherCard weatherCard) {
+        gaming.getTable().addWeather(weatherCard);
+        player1.getDeck().getInHandCards().remove(weatherCard);
+        weatherCards.add(weatherCard);
+        weatherCard.doAbility(this);
+    }
+
+    /**
+     * This method is used only for spell cards and unit cards. use "TODO: find the method"
+     * method to play a weather card or the leader card.
+     */
+    public void requestPLayingCard(Card card, int rowToPlay) {
+        if (card instanceof SpellCard && card.getCardName() != CardName.DECOY) {
+            requestPlayingCommanderHorn(card, rowToPlay);
         } else if (card instanceof UnitCard unitCard) {
             if (card.getPossibleRowsToBePlayed().getPossibleRowNumbers().contains(rowToPlay)) {
-                rows[rowToPlay - 1].add(unitCard);
+                addUnitCardToTableLocally(unitCard, rowToPlay);
                 getPlayer1InHandCards().remove(unitCard);
                 // TODO: do card ability
                 // TODO: SpyChecking
-                ClientController controller = App.getClientController();
-                Client client = controller.getClient();
                 client.sendMassage("place card " + card.getName() + " on row " + rowToPlay);
             }
         }
@@ -243,12 +273,10 @@ public class GameController extends MenuController {
     /**
      * Plays {@link CardName#COMMANDER_HORN Commander's Horn} card or any other {@link SpellCard}.
      */
-    public void playCommanderHorn(Card card, int rowToPlay) {
+    public void requestPlayingCommanderHorn(Card card, int rowToPlay) {
         if (!(card instanceof SpellCard spellCard) || card.getCardName() == CardName.DECOY) return;
-        CommandersHornAbility ability = new CommandersHornAbility();
-        ability.setGameStatus(gaming);
-        GetAbility.getAbility(card, gaming, player1, handleRounds);
-        gaming.getTable().addSpell(spellCard, rowToPlay - 1);
+        addSpellCardToTableLocally(spellCard, rowToPlay);
+        GetAbility.getAbility(spellCard, gaming, player1, handleRounds);
         getPlayer1InHandCards().remove(spellCard);
     }
 
@@ -256,13 +284,9 @@ public class GameController extends MenuController {
      * @param card The weather card that the user wants to play. If it isn't a weather card, the method doesn't do
      *             anything.
      */
-    public void playWeatherCard(Card card) {
+    public void requestPlayingWeatherCard(Card card) {
         if (!(card instanceof WeatherCard weatherCard)) return;
-        // TODO
-        gaming.getTable().addWeather(weatherCard);
-        player1.getDeck().getInHandCards().remove(card);
-        weatherCards.add(weatherCard);
-        card.doAbility(this);
+        addWeatherToTableLocally(weatherCard);
     }
 
     public void setRowWeather(int i, RowWeather weather) {

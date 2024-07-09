@@ -26,9 +26,9 @@ public class CommandersHornAbility extends Ability{
         ObservableTable table = gameStatus.getTable();
         ObservableRow[] rows=table.getRows();
         ObservableRow wantedRow = rows[row];
-        List<UnitCard> cards = wantedRow.getCards();
-        for (UnitCard card0 : cards) {
-            DoAbilityOnCard(card0);
+        List<Card> cards = wantedRow.getCards();
+        for (Card card0 : cards) {
+            if (card0 instanceof UnitCard unitCard) DoAbilityOnCard(unitCard);
         }
     }
 
@@ -52,8 +52,8 @@ public class CommandersHornAbility extends Ability{
     public void DoAbilityOnARow(int row) {
         ObservableRow[] rows = gameStatus.getTable().getRows();
         ObservableRow wantedrow = rows[row];
-        for (UnitCard card0 : wantedrow.getCards()) {
-            DoAbilityOnCard(card0);
+        for (Card card0 : wantedrow.getCards()) {
+            if (card0 instanceof UnitCard unitCard) DoAbilityOnCard(unitCard);
         }
     }
 

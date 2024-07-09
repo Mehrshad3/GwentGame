@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.faction.Card;
 import model.faction.UnitCard;
 
 public class CardRemoverFromGame {
@@ -22,8 +23,8 @@ public class CardRemoverFromGame {
         ObservableRow wantedrow=rows[row];
         wantedrow.getCards().remove(card);
         card.getRowmates().removeAll(card.getRowmates());
-        for(UnitCard unitCard:wantedrow.getCards()){
-            unitCard.getRowmates().remove(card);
+        for (Card card0 : wantedrow.getCards()) {
+            if (card0 instanceof UnitCard unitCard) unitCard.getRowmates().remove(card);
         }
         player.getDeck().getDiscardCards().add(card);
     }

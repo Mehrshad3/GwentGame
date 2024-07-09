@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import model.ObservableGameStatus;
 import model.ObservableRow;
 import model.ObservableTable;
+import model.faction.Card;
 import model.faction.UnitCard;
 
 public class CommandersHornAbility {
@@ -21,13 +22,13 @@ public class CommandersHornAbility {
         ObservableTable table = gameStatus.getTable();
         ObservableRow[] rows = table.getRows();
         ObservableRow wantedRow = rows[row];
-        ObservableList<UnitCard> cards = wantedRow.getCards();
-        for (UnitCard card0 : cards) {
-            if (card0.isHero()) {
+        ObservableList<Card> cards = wantedRow.getCards();
+        for (Card card0 : cards) {
+            if (!(card0 instanceof UnitCard unitCard) || unitCard.isHero()) {
 
             } else {
-                int power = card0.getPower();
-                card0.setPower(2 * power);
+                int power = unitCard.getPower();
+                unitCard.setPower(2 * power);
             }
         }
     }

@@ -24,8 +24,8 @@ public class TheBeautifulAbilityDoing extends Ability {
     public void DoAbilityOnARow(int row){
         ObservableRow[] rows = gameStatus.getTable().getRows();
         ObservableRow wantedrow = rows[row];
-        for(UnitCard unitCard:wantedrow.getCards()){
-            DoAbilityOnACard(unitCard);
+        for (Card card : wantedrow.getCards()) {
+            if (card instanceof UnitCard unitCard) DoAbilityOnACard(unitCard);
         }
     }
     @Override

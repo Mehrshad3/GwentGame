@@ -467,7 +467,7 @@ public class GameGraphicController {
         // Tells the controller to play the card
         Card cardToPlayCardObject = cardChosenToPlay.card;
         cardChosenToPlay = null; // The next method may throw an exception, so I put this here to be sure that it's fine.
-        gameController.playCard(cardToPlayCardObject, rowToPlay);
+        gameController.requestPLayingCard(cardToPlayCardObject, rowToPlay);
     }
 
     @FXML
@@ -480,14 +480,14 @@ public class GameGraphicController {
             if (commanderHornSpots[i] == source) rowToPlay = i + 1;
         }
         // Tells the controller to play the card
-        gameController.playCommanderHorn(cardChosenToPlay.card, rowToPlay);
+        gameController.requestPlayingCommanderHorn(cardChosenToPlay.card, rowToPlay);
         cardChosenToPlay = null;
     }
 
     @FXML
     private synchronized void onSpecialPaneClicked() {
         if (cardChosenToPlay == null) return;
-        gameController.playWeatherCard(cardChosenToPlay.card);
+        gameController.requestPlayingWeatherCard(cardChosenToPlay.card);
         cardChosenToPlay = null;
     }
 

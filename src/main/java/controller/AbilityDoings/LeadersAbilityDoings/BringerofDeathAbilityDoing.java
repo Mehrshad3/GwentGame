@@ -43,14 +43,14 @@ public class BringerofDeathAbilityDoing extends Ability {
             }
             if (close1) {
             } else {
-                for (UnitCard unitCard : rows[close10].getCards()) {
-                    unitCard.boostpower = true;
+                for (Card card : rows[close10].getCards()) {
+                    if (card instanceof UnitCard unitCard) unitCard.boostpower = true;
                 }
             }
             if (close2) {
             } else {
-                for (UnitCard unitCard : rows[close20].getCards()) {
-                    unitCard.boostpower = true;
+                for (Card card : rows[close20].getCards()) {
+                    if (card instanceof UnitCard unitCard) unitCard.boostpower = true;
                 }
             }
             gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);

@@ -1,5 +1,6 @@
 package model;
 
+import enums.card.CardName;
 import enums.card.RowWeather;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,7 +9,7 @@ import model.faction.SpellCard;
 import model.faction.UnitCard;
 
 public class Row {
-    private final ObservableList<UnitCard> unitCards = FXCollections.observableArrayList();
+    private final ObservableList<Card> unitCards = FXCollections.observableArrayList();
     private final short number;
     public UnitCard spcialpot = null;
     @Deprecated
@@ -47,7 +48,8 @@ public class Row {
         placeCard(unitCards.size(), card);
     }
 
-    public void placeCard(int index, UnitCard card) {
+    public void placeCard(int index, Card card) {
+        assert card instanceof UnitCard || card.getCardName() == CardName.DECOY;
         unitCards.add(index, card);
         card.setRowNumber(this.number);
     }
@@ -61,7 +63,7 @@ public class Row {
         this.specialCardExists = specialCardExists;
     }
 
-    public ObservableList<UnitCard> getCards() {
+    public ObservableList<Card> getCards() {
         return unitCards;
     }
 

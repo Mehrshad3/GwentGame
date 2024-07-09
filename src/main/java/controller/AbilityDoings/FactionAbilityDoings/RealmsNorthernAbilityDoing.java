@@ -11,6 +11,5 @@ public class RealmsNorthernAbilityDoing extends FactionAbility {
         return null;
     }
 
-    
 
 }

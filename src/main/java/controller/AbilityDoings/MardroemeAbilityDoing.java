@@ -39,8 +39,8 @@ public class MardroemeAbilityDoing extends Ability{
     public void DoAbilityOnARow(int row){
         ObservableRow[] rows=game.getTable().getRows();
         ObservableRow wantedrow=rows[row];
-        for(UnitCard card0:wantedrow.getCards()){
-            DoAbilityOnACard(card0);
+        for (Card card0:wantedrow.getCards()){
+            if (card0 instanceof UnitCard unitCard) DoAbilityOnACard(unitCard);
         }
     }
 

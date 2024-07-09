@@ -23,15 +23,15 @@ public class ClearWeatherAbilityDoing extends Ability {
     public void DoAbilityOnARow(int row){
         ObservableRow[] rows=gameStatus.getTable().getRows();
         ObservableRow wantedrow=rows[row];
-        for(UnitCard card : wantedrow.getCards()){
-            DoAbilityOnACard(card);
+        for (Card card : wantedrow.getCards()) {
+            if (card instanceof UnitCard unitCard) DoAbilityOnACard(unitCard);
         }
     }
     public void DoAbilityOnWholeTable(){
         ObservableRow[] rows = gameStatus.getTable().getRows();
         for (ObservableRow wantedrow : rows) {
-            for(UnitCard card : wantedrow.getCards()){
-                DoAbilityOnACard(card);
+            for (Card card : wantedrow.getCards()){
+                if (card instanceof UnitCard unitCard) DoAbilityOnACard(unitCard);
             }
         }
     }

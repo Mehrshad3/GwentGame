@@ -40,17 +40,19 @@ public class ScorchAbilityDoing extends Ability {
         ObservableRow[] rows=game.getTable().getRows();
         ArrayList<UnitCard>MaxCards=new ArrayList<>();
         int maxPower = 0;
-        for(ObservableRow row:rows){
-            for(UnitCard card:row.getCards()){
-                if(card.getPower() > maxPower){
-                    maxPower= card.getPower();
-                    for(UnitCard card0:MaxCards){
+        for (ObservableRow row : rows) {
+            for (Card card : row.getCards()) {
+                if (!(card instanceof UnitCard unitCard)) continue;
+                if (unitCard.getPower() > maxPower) {
+                    maxPower = unitCard.getPower();
+                    for (UnitCard card0 : MaxCards) {
                         MaxCards.remove(card0);
                     }
-                    MaxCards.add(card);
-                } else if (card.getPower() == maxPower) {
-                    MaxCards.add(card);
-                }else{}
+                    MaxCards.add(unitCard);
+                } else if (unitCard.getPower() == maxPower) {
+                    MaxCards.add(unitCard);
+                } else {
+                }
             }
         }
         for(UnitCard card0:MaxCards){
@@ -63,15 +65,16 @@ public class ScorchAbilityDoing extends Ability {
         ObservableRow wantedrow = rows[row];
         ArrayList<UnitCard> MaxCards = new ArrayList<UnitCard>();
         int maxpower = 0;
-        for (UnitCard card : wantedrow.getCards()) {
-            if (card.getPower() > maxpower) {
-                maxpower = card.getPower();
+        for (Card card : wantedrow.getCards()) {
+            if (!(card instanceof UnitCard unitCard)) continue;
+            if (unitCard.getPower() > maxpower) {
+                maxpower = unitCard.getPower();
                 for (UnitCard card0 : MaxCards) {
                     MaxCards.remove(card0);
                 }
-                MaxCards.add(card);
-            } else if (card.getPower() == maxpower) {
-                MaxCards.add(card);
+                MaxCards.add(unitCard);
+            } else if (unitCard.getPower() == maxpower) {
+                MaxCards.add(unitCard);
             } else {
             }
         }
@@ -86,18 +89,19 @@ public class ScorchAbilityDoing extends Ability {
         ArrayList<UnitCard> MaxCards = new ArrayList<UnitCard>();
         int maxpower = 0;
         int sumrowpowers = 0;
-        for (UnitCard card : wantedrow.getCards()) {
-            if (!HeroChecking.HeroChecking(card)) {
-                sumrowpowers = sumrowpowers + card.getPower();
+        for (Card card : wantedrow.getCards()) {
+            if (!(card instanceof UnitCard unitCard)) continue;
+            if (!HeroChecking.HeroChecking(unitCard)) {
+                sumrowpowers = sumrowpowers + unitCard.getPower();
             }
-            if (card.getPower() > maxpower) {
-                maxpower = card.getPower();
+            if (unitCard.getPower() > maxpower) {
+                maxpower = unitCard.getPower();
                 for (UnitCard card0 : MaxCards) {
                     MaxCards.remove(card0);
                 }
-                MaxCards.add(card);
-            } else if (card.getPower() == maxpower) {
-                MaxCards.add(card);
+                MaxCards.add(unitCard);
+            } else if (unitCard.getPower() == maxpower) {
+                MaxCards.add(unitCard);
             } else {
             }
         }
