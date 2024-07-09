@@ -58,6 +58,9 @@ public class Table {
     public Deck getPlayer2Deck() {
         return player2Deck;
     }
+    public void setCurrentPlayerPlaying(int currentPlayerPlaying) {
+        this.currentPlayerPlaying = currentPlayerPlaying;
+    }
 
     public void addSpell(SpellCard spellCard, int rowNumber) {
         Row rowToAddSpell = rows[rowNumber];

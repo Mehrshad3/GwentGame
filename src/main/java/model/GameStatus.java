@@ -1,5 +1,6 @@
 package model;
 
+import controller.AbilityDoings.Ability;
 import controller.HandleRounds;
 import javafx.collections.ObservableList;
 import model.faction.Card;
@@ -7,6 +8,8 @@ import model.faction.Card;
 public class GameStatus {
     private final Player player1;
     private final Player player2;
+    public Ability faction1abilitydoing;
+    public Ability faction2abilitydoing;
     public HandleRounds handleRounds;
     private int numberOfPassedRounds = 0;
     private Table table;
@@ -90,5 +93,13 @@ public class GameStatus {
 
     public void moveToDiscardPile(Card card, Player player) {
         player.getDeck().moveToDiscardPile(card);
+    }
+
+    public void setNumberOfTurns(int numberOfTurns) {
+        this.numberOfTurns = numberOfTurns;
+    }
+
+    public void setNumberOfPassedRounds(int numberOfPassedRounds) {
+        this.numberOfPassedRounds = numberOfPassedRounds;
     }
 }

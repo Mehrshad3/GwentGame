@@ -90,12 +90,18 @@ public class HandleRounds {
             newrowmates1.add(card);
             unitCard.setRowmates(newrowmates1);
         }
-        GetAbility.getAbility(card,gameStatus,player,this);
-        passroundAbility();
+        passroundCard();
         row0.getCards().add(card);
         card.setRowNumber(row);
         player.getDeck().getInHandCards().remove(card);
+        GetAbility.getAbility(card,gameStatus,player,this);
+        passroundCard();
+        passroundAbility();
+        passroundCard();
         passroundweatherability();
+        passroundCard();
+        gameStatus.setNumberOfTurns(gameStatus.getNumberOfTurns()+1);
+        passfactionround();
         passroundCard();
     }
     public  void passroundAbility(){
@@ -114,6 +120,25 @@ public class HandleRounds {
                 unitCard.UpdatePower();
             }
         }
+    }
+    public void passfactionround() {
+        if (notfinishedyet) {
+            gameStatus.faction1abilitydoing.DoCardAbility();
+            gameStatus.faction2abilitydoing.DoCardAbility();
+        } else {
+
+        }
+    }
+    public void passround(){
+        passfactionround();
+        passroundCard();
+        passroundAbility();
+        passroundCard();
+        passroundweatherability();
+        passroundCard();
+        checknotfinishedyet();
+        gameStatus.setNumberOfPassedRounds(gameStatus.getNumberOfPassedRounds()+1);
+
     }
     public void placeweathercard(Card weathercard,Player player){
         GetwaetherAbility.getAbility(weathercard,gameStatus,player,this);
@@ -141,6 +166,40 @@ public class HandleRounds {
             gameStatus.Leader2did=x;
         }else{
             System.out.println("Player is not in this Game!!");
+        }
+    }
+
+    public void checknotfinishedyet() {
+        if (notfinishedyet) {
+            if (gameStatus.getNumberOfPassedRounds() == 2) {
+                notfinishedyet = false;
+                finishoneround();
+            } else {
+            }
+        }else{
+            finishoneround();
+        }
+    }
+    public void finishoneround(){
+        int player1score=0;
+        int player2score=0;
+        Row[] rows=gameStatus.getTable().getRows();
+        for(int i=1;i<4;i++){
+            for(UnitCard unitCard:rows[i].getCards()){
+                player1score=player1score+unitCard.getPower();
+            }
+        }
+        for(int i=4;i<7;i++){
+            for(UnitCard unitCard:rows[i].getCards()){
+                player1score=player1score+unitCard.getPower();
+            }
+        }
+        if(player1score>player2score){
+
+        }else if(player2score>player1score){
+
+        }else{
+            //todo;one faction ability comes here
         }
     }
 
