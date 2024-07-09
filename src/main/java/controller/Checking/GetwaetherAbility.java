@@ -9,14 +9,17 @@ import model.faction.Card;
 
 public class GetwaetherAbility {
     public static void getAbility(Card card, ObservableGameStatus gameStatus, Player player, HandleRounds handleRounds){
-        String name= card.getName().toLowerCase();
-        Abilities cardabilitystatus=Abilities.map.get(name);
-        Ability ability=cardabilitystatus.Abilityname.Copy(card);
-        if(gameStatus.getTable().getCurrentPlayerPlaying()==1) {
+        String name = card.getName().toLowerCase();
+        Abilities cardabilitystatus = Abilities.map.get(name);
+        Ability ability = cardabilitystatus.Abilityname.Copy(card);
+        if (gameStatus.getTable().getCurrentPlayerPlaying() == 1) {
             ability.setPlayer(gameStatus.getPlayer1());
-        }else{
+        } else {
             ability.setPlayer(gameStatus.getPlayer2());
         }
+        ability.setGameStatus(gameStatus);
+        ability.setmaincard(card);
+
         handleRounds.getNextweatherdoingAbilitys().add(ability);
 
     }

@@ -1,6 +1,7 @@
 package model;
 
 import controller.AbilityDoings.Ability;
+import controller.AbilityDoings.FactionAbilityDoings.FactionAbility;
 import controller.HandleRounds;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -60,19 +61,19 @@ public class ObservableGameStatus {
         return gameStatus.didLeader2Do();
     }
 
-    public Ability getFaction1abilitydoing() {
+    public FactionAbility getFaction1abilitydoing() {
         return gameStatus.getFaction1abilitydoing();
     }
 
-    public void setFaction1abilitydoing(Ability faction1abilitydoing) {
+    public void setFaction1abilitydoing(FactionAbility faction1abilitydoing) {
         gameStatus.setFaction1abilitydoing(faction1abilitydoing);
     }
 
-    public Ability getFaction2abilitydoing() {
+    public FactionAbility getFaction2abilitydoing() {
         return gameStatus.getFaction2abilitydoing();
     }
 
-    public void setFaction2abilitydoing(Ability faction2abilitydoing) {
+    public void setFaction2abilitydoing(FactionAbility faction2abilitydoing) {
         gameStatus.setFaction2abilitydoing(faction2abilitydoing);
     }
 

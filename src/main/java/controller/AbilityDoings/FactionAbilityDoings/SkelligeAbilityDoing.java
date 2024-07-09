@@ -1,16 +1,16 @@
 package controller.AbilityDoings.FactionAbilityDoings;
 
-import controller.AbilityDoings.Ability;
 import model.ObservableGameStatus;
-import model.faction.Card;
 
-public class SkelligeAbilityDoing extends Ability {
+public class SkelligeAbilityDoing extends FactionAbility {
     public ObservableGameStatus gameStatus;
 
+    @Override
     public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
+    @Override
     public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
@@ -31,11 +31,8 @@ public class SkelligeAbilityDoing extends Ability {
     }
 
     @Override
-    public Ability Copy(Card card) {
-        SkelligeAbilityDoing abilityDoing=new SkelligeAbilityDoing();
-        abilityDoing.setPlayer(player);
-        abilityDoing.setStatus(status);
-        abilityDoing.setGameStatus(gameStatus);
-        return abilityDoing;
+    public FactionAbility Copy() {
+        return null;
     }
+
 }

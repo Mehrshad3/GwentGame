@@ -1,6 +1,7 @@
 package model;
 
 import controller.AbilityDoings.Ability;
+import controller.AbilityDoings.FactionAbilityDoings.FactionAbility;
 import controller.HandleRounds;
 import javafx.collections.ObservableList;
 import model.faction.Card;
@@ -9,12 +10,25 @@ public class GameStatus {
     private final Player player1;
     private final Player player2;
     public transient HandleRounds handleRounds;
+    public Ability Leader1ability;
+    public Ability Leader2ability;
     private boolean KingBranAbility = false;
     private boolean TheTreacherousAbility = false;
     private boolean leader1Did = false;
     private boolean leader2Did = false;
-    private Ability faction1abilitydoing;
-    private Ability faction2abilitydoing;
+    private FactionAbility faction1abilitydoing;
+    private FactionAbility faction2abilitydoing;
+    private int numberOfPassedRounds = 0;
+    private int numberOfTurns = 0;
+    private Table table;
+    private int player1Wins = 0;
+    private int player2Wins = 0;
+
+    public GameStatus(Table table, Player player1, Player player2) {
+        this.table = table;
+        this.player1 = player1;
+        this.player2 = player2;
+    }
 
     public boolean isKingBranAbility() {
         return KingBranAbility;
@@ -30,18 +44,6 @@ public class GameStatus {
 
     public void setTheTreacherousAbility(boolean theTreacherousAbility) {
         TheTreacherousAbility = theTreacherousAbility;
-    }
-
-    private int numberOfPassedRounds = 0;
-    private int numberOfTurns = 0;
-    private Table table;
-    private int player1Wins = 0;
-    private int player2Wins = 0;
-
-    public GameStatus(Table table, Player player1, Player player2) {
-        this.table = table;
-        this.player1 = player1;
-        this.player2 = player2;
     }
 
     void setLeader1Did(boolean leader1Did) {
@@ -60,19 +62,19 @@ public class GameStatus {
         return leader2Did;
     }
 
-    Ability getFaction1abilitydoing() {
+    FactionAbility getFaction1abilitydoing() {
         return faction1abilitydoing;
     }
 
-    void setFaction1abilitydoing(Ability faction1abilitydoing) {
+    void setFaction1abilitydoing(FactionAbility faction1abilitydoing) {
         this.faction1abilitydoing = faction1abilitydoing;
     }
 
-    Ability getFaction2abilitydoing() {
+    FactionAbility getFaction2abilitydoing() {
         return faction2abilitydoing;
     }
 
-    void setFaction2abilitydoing(Ability faction2abilitydoing) {
+    void setFaction2abilitydoing(FactionAbility faction2abilitydoing) {
         this.faction2abilitydoing = faction2abilitydoing;
     }
 

@@ -1,19 +1,6 @@
 package controller.AbilityDoings.FactionAbilityDoings;
 
-import controller.AbilityDoings.Ability;
-import model.ObservableGameStatus;
-import model.faction.Card;
-
-public class EmpireNilfgaardianAbilityDoing extends Ability {
-    public ObservableGameStatus  gameStatus;
-
-    public void setGameStatus(ObservableGameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
-    public ObservableGameStatus getGameStatus() {
-        return gameStatus;
-    }
+public class EmpireNilfgaardianAbilityDoing extends FactionAbility {
 
     @Override
     public void DoCardAbility() {
@@ -21,12 +8,9 @@ public class EmpireNilfgaardianAbilityDoing extends Ability {
     }
 
     @Override
-    public Ability Copy(Card card) {
-        EmpireNilfgaardianAbilityDoing abilityDoing=new EmpireNilfgaardianAbilityDoing();
-        abilityDoing.setPlayer(player);
-        abilityDoing.setStatus(status);
-        abilityDoing.setGameStatus(gameStatus);
-        return abilityDoing;
+    public FactionAbility Copy() {
+        return null;
     }
+
 
 }
