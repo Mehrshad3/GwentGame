@@ -4,7 +4,7 @@ import controller.AbilityDoings.Ability;
 import model.GameStatus;
 import model.faction.Card;
 
-public class SkelligeAbilityDoing extends Ability {
+public class SkelligeAbilityDoing extends FactionAbility {
     public GameStatus gameStatus;
 
     public void setGameStatus(GameStatus gameStatus) {
@@ -31,11 +31,8 @@ public class SkelligeAbilityDoing extends Ability {
     }
 
     @Override
-    public Ability Copy(Card card) {
-        SkelligeAbilityDoing abilityDoing=new SkelligeAbilityDoing();
-        abilityDoing.setPlayer(player);
-        abilityDoing.setStatus(status);
-        abilityDoing.setGameStatus(gameStatus);
-        return abilityDoing;
+    public FactionAbility Copy() {
+        return null;
     }
+
 }

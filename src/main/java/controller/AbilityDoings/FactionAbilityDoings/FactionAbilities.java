@@ -12,7 +12,7 @@ public enum FactionAbilities {
     ;
 
     public String name;
-    public Ability ability;
+    public FactionAbility ability;
 
     public static final Map<String,FactionAbilities> map=new HashMap<>(FactionAbilities.values().length);
     static {
@@ -20,7 +20,7 @@ public enum FactionAbilities {
             map.put(factionAbilities.name.toLowerCase(),factionAbilities);
         }
     }
-    FactionAbilities(String name, Ability abilityDoing) {
+    FactionAbilities(String name, FactionAbility abilityDoing) {
     this.name=name;
     this.ability=abilityDoing;
     }

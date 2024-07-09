@@ -1,6 +1,7 @@
 package model;
 
 import controller.AbilityDoings.Ability;
+import controller.AbilityDoings.FactionAbilityDoings.FactionAbility;
 import controller.HandleRounds;
 import javafx.collections.ObservableList;
 import model.faction.Card;
@@ -8,8 +9,8 @@ import model.faction.Card;
 public class GameStatus {
     private final Player player1;
     private final Player player2;
-    public Ability faction1abilitydoing;
-    public Ability faction2abilitydoing;
+    public FactionAbility faction1abilitydoing;
+    public FactionAbility faction2abilitydoing;
     public HandleRounds handleRounds;
     private int numberOfPassedRounds = 0;
     private Table table;
@@ -20,6 +21,8 @@ public class GameStatus {
     public boolean TheTreacherousAbility=false;
     public boolean Leader1did=false;
     public boolean Leader2did=false;
+    public Ability Leader1ability;
+    public Ability Leader2ability;
 
     public GameStatus(Table table, Player player1, Player player2) {
         this.table = table;

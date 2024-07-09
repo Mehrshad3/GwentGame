@@ -2,9 +2,11 @@ package controller;
 
 import controller.AbilityDoings.Ability;
 import controller.AbilityDoings.FactionAbilityDoings.FactionAbilities;
+import controller.AbilityDoings.FactionAbilityDoings.FactionAbility;
 import model.GameStatus;
 import model.Player;
 import model.Table;
+import model.faction.Card;
 
 import java.util.Random;
 
@@ -14,10 +16,13 @@ public class GameInitializer {
         GameStatus gameStatus=new GameStatus(table,player1,player2);
         HandleRounds handleRounds=new HandleRounds();
         gameStatus.setHandleRounds(handleRounds);
-        Ability faction1ability;
-        Ability faction2ability;
-        faction1ability= FactionAbilities.map.get(player1.getFaction().name.toLowerCase()).ability;
-        faction2ability= FactionAbilities.map.get(player2.getFaction().name.toLowerCase()).ability;
+        FactionAbility faction1ability;
+        FactionAbility faction2ability;
+        faction1ability= FactionAbilities.map.get(player1.getFaction().name.toLowerCase()).ability.Copy();
+        faction2ability= FactionAbilities.map.get(player2.getFaction().name.toLowerCase()).ability.Copy();
+        faction1ability.setPlayer(gameStatus.getPlayer1());
+        faction2ability.setPlayer(gameStatus.getPlayer2());
+        faction1ability.setGameStatus(gameStatus);
         gameStatus.faction1abilitydoing=faction1ability;
         gameStatus.faction2abilitydoing=faction2ability;
         if(player1.getFaction().name.equals("sociatael")){
@@ -37,6 +42,7 @@ public class GameInitializer {
                     gameStatus.getTable().setCurrentPlayerPlaying(curplapla);
                 }
             }
+        //todo set leaders
 
         return gameStatus;
 

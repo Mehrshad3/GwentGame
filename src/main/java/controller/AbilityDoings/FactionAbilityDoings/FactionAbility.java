@@ -1,11 +1,11 @@
 package controller.AbilityDoings.FactionAbilityDoings;
 
-import controller.AbilityDoings.Ability;
 import model.GameStatus;
-import model.faction.Card;
+import model.Player;
 
-public class ScoiataelAbilityDoing extends FactionAbility {
+public abstract class FactionAbility {
     public GameStatus gameStatus;
+    public Player player;
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
@@ -15,16 +15,13 @@ public class ScoiataelAbilityDoing extends FactionAbility {
         return gameStatus;
     }
 
-    @Override
-    public void DoCardAbility() {
-
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    @Override
-    public FactionAbility Copy() {
-        return null;
+    public Player getPlayer() {
+        return player;
     }
-
-
-
+    public abstract void DoCardAbility();
+    public abstract FactionAbility Copy();
 }

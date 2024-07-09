@@ -23,6 +23,8 @@ public class GetAbility {
             }else{
                 ability.setPlayer(gameStatus.getPlayer2());
             }
+            ability.setGameStatus(gameStatus);
+
             handleRounds.getNextDoingMethods().add(ability);
 
         }
