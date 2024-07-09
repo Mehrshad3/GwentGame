@@ -1,6 +1,7 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
+import controller.AbilityDoings.ScorchAbilityDoing;
 import model.GameStatus;
 import model.faction.Card;
 
@@ -16,7 +17,11 @@ public class LordCommanderOfTheNorthAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        //TODO:scorch ability on seige
+        ScorchAbilityDoing scorchAbilityDoing=new ScorchAbilityDoing("siege combat:opponent");
+        scorchAbilityDoing.setGame(gameStatus);
+        scorchAbilityDoing.setPlayer(player);
+        scorchAbilityDoing.DoCardAbility();
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

@@ -43,9 +43,9 @@ public class GameInitializer {
                 }
             }
         //todo set leaders
+        //todo:daisy of the valley !!
 
         return gameStatus;
 
-        //todo:daisy of the valley !!
     }
 }

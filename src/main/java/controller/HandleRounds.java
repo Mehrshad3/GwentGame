@@ -22,6 +22,7 @@ public class HandleRounds {
 
     public ArrayList<Ability> NextDoingAbilitys;
     public ArrayList<Ability> NextweatherdoingAbilitys;
+    public Ability nextweatherabilitydoing;
 
     public ArrayList<Ability> getNextDoingAbilitys() {
         return NextDoingAbilitys;
@@ -110,9 +111,7 @@ public class HandleRounds {
         }
     }
     public void passroundweatherability(){
-        for(Ability ability:getNextweatherdoingAbilitys()){
-            ability.DoCardAbility();
-        }
+        nextweatherabilitydoing.DoCardAbility();
     }
     public void passroundCard(){
         for(Row row:gameStatus.getTable().getRows()){

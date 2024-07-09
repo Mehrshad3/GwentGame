@@ -2,8 +2,14 @@ package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
 import controller.AbilityDoings.CommandersHornAbility;
+import controller.Checking.WeatherChecking;
+import javafx.collections.ObservableList;
 import model.GameStatus;
 import model.faction.Card;
+import model.faction.UnitCard;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class CommanderoftheRedRidersAbilityDoing extends Ability {
     public GameStatus gameStatus;
@@ -18,7 +24,22 @@ public class CommanderoftheRedRidersAbilityDoing extends Ability {
 
     @Override
     public void DoCardAbility() {
-        //TODO what to do what not to do
+        ObservableList<Card> hand = player.getDeck().getInHandCards();
+        ArrayList<Card> weathercards = new ArrayList<Card>();
+        for (Card card : hand) {
+            if (WeatherChecking.weatherchecking(card)) {
+                weathercards.add(card);
+            } else {
+
+            }
+        }
+        Random random = new Random();
+        if (weathercards.isEmpty()) {
+
+        } else {
+            Card randomweathercard=weathercards.get(random.nextInt(weathercards.size()));
+        }
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

@@ -16,7 +16,15 @@ public class DestroyerofWorldsAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        //TODO
+        Card card1=null;
+        Card card2=null;
+        Card newcard=null;
+        //todo select two cards from Hand and a new card from Deck
+        player.getDeck().getInHandCards().remove(card1);
+        player.getDeck().getInHandCards().remove(card2);
+        player.getDeck().getDiscardCards().remove(newcard);
+        player.getDeck().addCardToHand(newcard);
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

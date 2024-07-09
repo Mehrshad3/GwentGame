@@ -29,13 +29,13 @@ public class BringerofDeathAbilityDoing extends Ability {
             int close20=GetRowNumberFromRowName.getrownumberbyplayeranddetail(player,gameStatus,"opp close combat");
             boolean close1 = false;
             boolean close2 = false;
-            if (!rows[3].getSpcialpot().equals(null)) {
+            if (!rows[close10].getSpcialpot().equals(null)) {
                 if (Abilities.map.get(rows[close10].getSpcialpot()).Abilityname.getClass() == CommanderoftheRedRidersAbilityDoing.class) {
                     close1 = true;
                 } else {
                 }
             }
-            if (!rows[4].getSpcialpot().equals(null)) {
+            if (!rows[close20].getSpcialpot().equals(null)) {
                 if (Abilities.map.get(rows[close20].getSpcialpot()).Abilityname.getClass() == CommanderoftheRedRidersAbilityDoing.class) {
                     close2 = true;
                 } else {
