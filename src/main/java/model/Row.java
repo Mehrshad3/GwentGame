@@ -9,8 +9,8 @@ import model.faction.UnitCard;
 
 public class Row {
     private final ObservableList<UnitCard> unitCards = FXCollections.observableArrayList();
-    public UnitCard spcialpot=null;
     private final short number;
+    public UnitCard spcialpot = null;
     @Deprecated
     private boolean specialCardExists = false;
     private RowWeather weather = RowWeather.CLEAR_WEATHER;
@@ -70,11 +70,11 @@ public class Row {
         return specialCardExists;
     }
 
-    public UnitCard getSpcialpot() {
+    UnitCard getSpcialpot() {
         return spcialpot;
     }
 
-    public void setSpcialpot(UnitCard spcialpot) {
+    void setSpcialpot(UnitCard spcialpot) {
         this.spcialpot = spcialpot;
     }
 }

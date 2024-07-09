@@ -2,7 +2,7 @@ package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
 import javafx.collections.ObservableList;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.Player;
 import model.faction.Card;
 
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class HisImperialMajestyAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
     @Override

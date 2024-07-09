@@ -84,8 +84,8 @@ public class GameController extends MenuController {
             int rowIndex = i;
             sumOfRows[i] = new SimpleIntegerProperty();
             // Calculate sum of rows
-            row.getUnitCards().addListener((ListChangeListener<? super UnitCard>) change ->
-                    sumOfRows[rowIndex].set(row.getUnitCards().stream().mapToInt(UnitCard::getPower).sum())
+            row.getCards().addListener((ListChangeListener<? super UnitCard>) change ->
+                    sumOfRows[rowIndex].set(row.getCards().stream().mapToInt(UnitCard::getPower).sum())
             );
         }
         getPlayer1InHandCards().addListener((ListChangeListener<? super Card>) change -> {
@@ -345,6 +345,7 @@ public class GameController extends MenuController {
     }
 
     public void addCardToHandForDebug(Card card) {
+        card.setGameStatus(gaming);
         player1.getDeck().getInHandCards().add(card);
     }
 }

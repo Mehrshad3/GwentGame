@@ -2,18 +2,15 @@ package controller.AbilityDoings;
 
 import controller.Checking.HeroChecking;
 import javafx.collections.ObservableList;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.Player;
-import model.User;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-import java.net.CacheRequest;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class MedicAbilityDoing extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus game;
     public Card MainCard;
 
     public Card getMainCard() {
@@ -24,11 +21,11 @@ public class MedicAbilityDoing extends Ability{
         MainCard = mainCard;
     }
 
-    public GameStatus getGame() {
+    public ObservableGameStatus getGame() {
         return game;
     }
 
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 

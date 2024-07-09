@@ -1,23 +1,19 @@
 package controller.AbilityDoings;
 
 import controller.Checking.HeroChecking;
-import javafx.collections.ObservableList;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.Player;
-import model.User;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-import java.util.ArrayList;
-
 public class DecoyAbilityDoing extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus game;
 
-    public GameStatus getGame() {
+    public ObservableGameStatus getGame() {
         return game;
     }
 
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 

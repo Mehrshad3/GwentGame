@@ -2,15 +2,15 @@ package controller.AbilityDoings;
 
 import controller.CardRemoverFromGame;
 import controller.Checking.HeroChecking;
-import model.GameStatus;
-import model.Row;
+import model.ObservableGameStatus;
+import model.ObservableRow;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 import java.util.ArrayList;
 
 public class ScorchAbilityDoing extends Ability {
-    public GameStatus game;
+    public ObservableGameStatus game;
     public Card MainCard;
 
     public ScorchAbilityDoing(String status){
@@ -28,19 +28,19 @@ public class ScorchAbilityDoing extends Ability {
         return MainCard;
     }
 
-    public GameStatus getGame() {
+    public ObservableGameStatus getGame() {
         return game;
     }
 
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 
     public void DoAbilityOnWholeBoardUnconditionally(){
-        Row[] rows=game.getTable().getRows();
-        ArrayList<UnitCard>MaxCards=new ArrayList<UnitCard>();
+        ObservableRow[] rows=game.getTable().getRows();
+        ArrayList<UnitCard>MaxCards=new ArrayList<>();
         int maxPower = 0;
-        for(Row row:rows){
+        for(ObservableRow row:rows){
             for(UnitCard card:row.getCards()){
                 if(card.getPower() > maxPower){
                     maxPower= card.getPower();
@@ -54,55 +54,59 @@ public class ScorchAbilityDoing extends Ability {
             }
         }
         for(UnitCard card0:MaxCards){
-            CardRemoverFromGame.Remove(game,card0);
+            CardRemoverFromGame.Remove(gameStatus,card0);
         }
     }
 
-    public void DoAbilityOnARowUnconditionally(int row){
-        Row[] rows=game.getTable().getRows();
-        Row wantedrow=rows[row];
-        ArrayList<UnitCard>MaxCards=new ArrayList<UnitCard>();
-        int maxpower=0;
-        for(UnitCard card:wantedrow.getCards()){
-            if(card.getPower()>maxpower){
-                maxpower= card.getPower();
-                for(UnitCard card0:MaxCards){
+    public void DoAbilityOnARowUnconditionally(int row) {
+        ObservableRow[] rows = game.getTable().getRows();
+        ObservableRow wantedrow = rows[row];
+        ArrayList<UnitCard> MaxCards = new ArrayList<UnitCard>();
+        int maxpower = 0;
+        for (UnitCard card : wantedrow.getCards()) {
+            if (card.getPower() > maxpower) {
+                maxpower = card.getPower();
+                for (UnitCard card0 : MaxCards) {
                     MaxCards.remove(card0);
                 }
                 MaxCards.add(card);
-            }else if(card.getPower()==maxpower){
+            } else if (card.getPower() == maxpower) {
                 MaxCards.add(card);
-            }else{}
+            } else {
+            }
         }
-        for(UnitCard card0:MaxCards){
-            CardRemoverFromGame.RemoveHavingRow(game,card0,row);
+        for (UnitCard card0 : MaxCards) {
+            CardRemoverFromGame.RemoveHavingRow(game, card0, row);
         }
     }
 
     public void DoAbilityOnARowConditionally(int row) {
-        Row[] rows=game.getTable().getRows();
-        Row wantedrow=rows[row];
-        ArrayList<UnitCard>MaxCards=new ArrayList<UnitCard>();
-        int maxpower=0;
-        int sumrowpowers=0;
-        for(UnitCard card:wantedrow.getCards()){
-            if(!HeroChecking.HeroChecking(card)){
-            sumrowpowers=sumrowpowers+card.getPower();}
-            if(card.getPower()>maxpower){
-                maxpower= card.getPower();
-                for(UnitCard card0:MaxCards){
+        ObservableRow[] rows = game.getTable().getRows();
+        ObservableRow wantedrow = rows[row];
+        ArrayList<UnitCard> MaxCards = new ArrayList<UnitCard>();
+        int maxpower = 0;
+        int sumrowpowers = 0;
+        for (UnitCard card : wantedrow.getCards()) {
+            if (!HeroChecking.HeroChecking(card)) {
+                sumrowpowers = sumrowpowers + card.getPower();
+            }
+            if (card.getPower() > maxpower) {
+                maxpower = card.getPower();
+                for (UnitCard card0 : MaxCards) {
                     MaxCards.remove(card0);
                 }
                 MaxCards.add(card);
-            }else if(card.getPower()==maxpower){
+            } else if (card.getPower() == maxpower) {
                 MaxCards.add(card);
-            }else{}
+            } else {
+            }
         }
-        if(sumrowpowers>9) {
+        if (sumrowpowers > 9) {
             for (UnitCard card0 : MaxCards) {
                 CardRemoverFromGame.RemoveHavingRow(game, card0, row);
             }
-        }else{}
+        } else {
+        }
     }
 
     @Override

@@ -67,7 +67,11 @@ public class ObservableRow {
         unitCards.remove(card);
     }
 
-    public ObservableList<UnitCard> getUnitCards() {
+    public ObservableList<UnitCard> getCards() {
         return unitCards;
+    }
+
+    public UnitCard getSpcialpot() {
+        return row.getSpcialpot();
     }
 }

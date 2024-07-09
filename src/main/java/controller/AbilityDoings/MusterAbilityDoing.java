@@ -1,7 +1,7 @@
 package controller.AbilityDoings;
 
 import javafx.collections.ObservableList;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.Player;
 import model.faction.Card;
 import model.faction.UnitCard;
@@ -9,7 +9,7 @@ import model.faction.UnitCard;
 import java.util.ArrayList;
 
 public class MusterAbilityDoing extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus  game;
     public Card MainCard;
 
     public Card getMainCard() {
@@ -20,16 +20,16 @@ public class MusterAbilityDoing extends Ability{
         MainCard = mainCard;
     }
 
-    public GameStatus getGame() {
+    public ObservableGameStatus getGame() {
         return game;
     }
 
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 
     public void DoAbilty(UnitCard card, Player player){
-        ArrayList<Card> wantedcards =new ArrayList<Card>();
+        ArrayList<Card> wantedcards =new ArrayList<>();
         ObservableList<Card>Hand=player.getDeck().getInHandCards();
         ArrayList<Card>Deck=player.getDeck().getCardsInDeck();
         for(Card card0 : Hand){

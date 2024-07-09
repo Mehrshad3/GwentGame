@@ -21,6 +21,8 @@ public class UnitCard extends Card {
     public ArrayList<UnitCard> rowmates = new ArrayList<UnitCard>();
     public boolean bringerofdeath = false;
     protected transient IntegerProperty powerProperty;
+    public boolean boostpower=false;
+    public boolean commanderboostpower=false;
 
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
@@ -88,14 +90,14 @@ public class UnitCard extends Card {
 
     public void UpdatePower() {
         if (isWeatherChanged) {
-            if (gameStatus.KingBranAbility) {
+            if (gameStatus.isKingBranAbility()) {
                 setPower(initialPower / 2);
             } else {
                 setPower(1);
             }
         } else {
         }
-        if (gameStatus.TheTreacherousAbility) {
+        if (gameStatus.isTheTreacherousAbility()) {
             if (name.equals("spy")) {
                 setPower(getPower() * 2);
             } else {
@@ -112,13 +114,17 @@ public class UnitCard extends Card {
         for (Card card : rowmates) {
             boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == CommandersHornAbility.class;
             if (a) {
-                setPower(getPower() * 2);
+                boostpower = true;
             } else {
             }
         }
-        if (bringerofdeath) {
+        if (boostpower) {
             setPower(getPower() * 2);
         } else {
+            if (commanderboostpower) {
+                setPower(getPower() * 2);
+            } else {
+            }
         }
     }
 

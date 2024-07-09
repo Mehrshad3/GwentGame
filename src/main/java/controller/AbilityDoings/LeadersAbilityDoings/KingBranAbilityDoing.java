@@ -1,24 +1,25 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.faction.Card;
 
 public class KingBranAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus  gameStatus;
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
 
     @Override
     public void DoCardAbility() {
-        gameStatus.KingBranAbility=true;
+        gameStatus.setKingBranAbility(true);
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

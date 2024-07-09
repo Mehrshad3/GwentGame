@@ -2,13 +2,13 @@ package controller.AbilityDoings;
 
 import controller.Checking.BerserkerChecking;
 import controller.Checking.HeroChecking;
-import model.GameStatus;
-import model.Row;
+import model.ObservableGameStatus;
+import model.ObservableRow;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 public class MardroemeAbilityDoing extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus game;
     public Card MainCard;
 
     public void setMainCard(Card mainCard) {
@@ -19,11 +19,7 @@ public class MardroemeAbilityDoing extends Ability{
         return MainCard;
     }
 
-    public GameStatus getGame() {
-        return game;
-    }
-
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 
@@ -41,8 +37,8 @@ public class MardroemeAbilityDoing extends Ability{
         }
     }
     public void DoAbilityOnARow(int row){
-        Row[] rows=game.getTable().getRows();
-        Row wantedrow=rows[row];
+        ObservableRow[] rows=game.getTable().getRows();
+        ObservableRow wantedrow=rows[row];
         for(UnitCard card0:wantedrow.getCards()){
             DoAbilityOnACard(card0);
         }

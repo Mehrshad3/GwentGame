@@ -15,6 +15,7 @@ public abstract class Card implements Serializable {
     protected final PossibleRowsToPlayCard rows;
     protected final Integer initialPower;
     public transient Player player;
+    @Deprecated
     public transient GameStatus gameStatus;
     protected CardName cardName;
     protected String name;
@@ -77,11 +78,12 @@ public abstract class Card implements Serializable {
         return gameStatus;
     }
 
-
+    @Deprecated
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
+    @Deprecated
     public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus.getGameStatus();
     }

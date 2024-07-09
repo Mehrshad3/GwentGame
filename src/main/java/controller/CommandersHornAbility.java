@@ -21,7 +21,7 @@ public class CommandersHornAbility {
         ObservableTable table = gameStatus.getTable();
         ObservableRow[] rows = table.getRows();
         ObservableRow wantedRow = rows[row];
-        ObservableList<UnitCard> cards = wantedRow.getUnitCards();
+        ObservableList<UnitCard> cards = wantedRow.getCards();
         for (UnitCard card0 : cards) {
             if (card0.isHero()) {
 

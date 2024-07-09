@@ -1,6 +1,7 @@
 package enums.EnumAbilities;
 
 import controller.AbilityDoings.*;
+import controller.AbilityDoings.LeadersAbilityDoings.*;
 import enums.card.ability.UnitOrSpellCardAbility;
 import enums.card.ability.WeatherCardAbility;
 
@@ -18,11 +19,11 @@ import static model.faction.Faction.NEUTRAL;
 public enum Abilities {
     // Monsters
     // Leaders
-    BRINGER_OF_DEATH("Bringer of Death"),
-    KING_OF_THE_WILD_HUNT("King of the Wild Hunt"),
-    DESTROYER_OF_WORLDS("Destroyer of Worlds"),
-    COMMANDER_OF_THE_RED_RIDERS("Commander of the Red Riders"),
-    THE_TREACHEROUS("The Treacherous"),
+    BRINGER_OF_DEATH("Bringer of Death",new BringerofDeathAbilityDoing()),
+    KING_OF_THE_WILD_HUNT("King of the Wild Hunt",new KingofthewildHountAbilityDoing()),
+    DESTROYER_OF_WORLDS("Destroyer of Worlds",new DestroyerofWorldsAbilityDoing()),
+    COMMANDER_OF_THE_RED_RIDERS("Commander of the Red Riders",new CommanderoftheRedRidersAbilityDoing()),
+    THE_TREACHEROUS("The Treacherous",new TheTrecherousAbilityDoing()),
     // Unit cards
     DRAUG("Draug", true),
     IMLERITH("Imlerith",true),
@@ -63,11 +64,11 @@ public enum Abilities {
     // Nilfgaard
     // Leaders
 
-    THE_WHITE_FLAME("the White Flame"),
-    HIS_IMPERIAL_MAJESTY("His Imperial Majesty"),
-    EMPEROR_OF_NILFGAARD("Emperor of Nilfgaard"),
-    THE_RELENTLESS("the Relentless"),
-    INVADER_OF_THE_NORTH("Invader of the North"),
+    THE_WHITE_FLAME("the White Flame", new TheWhiteFlameAbilityDoing()),
+    HIS_IMPERIAL_MAJESTY("His Imperial Majesty", new HisImperialMajestyAbilityDoing()),
+    EMPEROR_OF_NILFGAARD("Emperor of Nilfgaard", new EmprorOfNilfGardAbilityDoing()),
+    THE_RELENTLESS("the Relentless", new TheRelentlessAbilityDoing()),
+    INVADER_OF_THE_NORTH("Invader of the North", new InvaderoftheNorthAbilityDoing()),
     // Unit cards
     IMPERA_BRIGADE_GUARD("Impera Brigade Guard", new TightBoundAbilityDoing(), false),
     STEFAN_SKELLEN("Stefan Skellen", new SpyAbilityDoing(), false),
@@ -96,8 +97,8 @@ public enum Abilities {
 
     // Skellige Cards
     // Leaders
-    CRACH_AN_CRAITE("Crach an Craite"),
-    KING_BRAN("King Bran"),
+    CRACH_AN_CRAITE("Crach an Craite", new CrachanCraiteAbilityDoing()),
+    KING_BRAN("King Bran", new KingBranAbilityDoing()),
     // Unit cards
     BERSERKER("Berserker", new BerserkerAbilityDoing(), false),
     VILDKAARL("Vildkaarl", new MoralBoostAbility(), false),
@@ -124,11 +125,11 @@ public enum Abilities {
 
     // Scoia'tael
     // Leaders
-    QUEEN_OF_DOL_BLATHANNA("Queen of Dol Blathanna"),
-    THE_BEAUTIFUL("the Beautiful"),
-    DAISY_OF_THE_VALLEY("Daisy of the Valley"),
-    PURE_BLOOD_ELF("Pureblood Elf"),
-    HOPE_OF_THE_AEN_SEIDHE("Hope of the Aen Seidhe"),
+    QUEEN_OF_DOL_BLATHANNA("Queen of Dol Blathanna", new QueenofDolBalsannaAbilityDoing()),
+    THE_BEAUTIFUL("the Beautiful", new TheBeautifulAbilityDoing()),
+    DAISY_OF_THE_VALLEY("Daisy of the Valley", new DaisyoftheValleyAbilityDoing()),
+    PURE_BLOOD_ELF("Pureblood Elf", new PurebloodElfAbilityDoing()),
+    HOPE_OF_THE_AEN_SEIDHE("Hope of the Aen Seidhe", new HopeoftheAenSeidheAbilityDoing()),
     // Unit cards
     ELVEN_SKIRMISHER("Elven Skirmisher", new MusterAbilityDoing(), false),
     YAEVINN("Yaevinn",  false),
@@ -152,11 +153,11 @@ public enum Abilities {
 
     // Northern Realms
     // Leaders
-    THE_SIEGE_MASTER("the Siegemaster"),
-    THE_STEEL_FORGED("the Steel-Forged"),
-    KING_OF_TEMERIA("King of Temeria"),
-    LORD_COMMANDER_OF_THE_NORTH("Lord Commander of the North"),
-    SON_OF_MEDELL("Son of Medell"),
+    THE_SIEGE_MASTER("the Siegemaster", new TheSiegemasterAbilityDoing()),
+    THE_STEEL_FORGED("the Steel-Forged", new TheSteelForgedAbilityDoing()),
+    KING_OF_TEMERIA("King of Temeria", new KingOfTemeriaAbilityDoing()),
+    LORD_COMMANDER_OF_THE_NORTH("Lord Commander of the North", new LordCommanderOfTheNorthAbilityDoing()),
+    SON_OF_MEDELL("Son of Medell", new SunOfMedellAbilityDoing()),
     // Unit cards
     BALLISTA("Ballista",  false),
     CATAPULT("Catapult", new TightBoundAbilityDoing(), false),
@@ -200,37 +201,43 @@ public enum Abilities {
     TRISS_MERIGOLD("Triss merigold",  true),
     VILLENTRETENMERTH("Villentretenmerth", new ScorchAbilityDoing("Close combat:oponnent"), false),
     ;
-    public static final Map<String,Abilities> map=new HashMap<>(Abilities.values().length);
+    public static final Map<String, Abilities> map = new HashMap<>(Abilities.values().length);
+
     static {
-        for(Abilities abilities:Abilities.values()){
+        for (Abilities abilities : Abilities.values()) {
             map.put(abilities.Cardname.toLowerCase(), abilities);
         }
     }
+
     public String Cardname;
-    public Ability Abilityname=new TransformerAbilityDoing();
+    public Ability Abilityname = new TransformerAbilityDoing();
     public boolean Ishero;
 
     public String spellpower;
+
     Abilities(String name, Ability AbilityName, boolean Ishero) {
-        this.Cardname=name;
-        this.Abilityname=AbilityName;
-        this.Ishero=Ishero;
+        this.Cardname = name;
+        this.Abilityname = AbilityName;
+        this.Ishero = Ishero;
     }
 
     Abilities(String name, Ability AbilityName) {
-        this.Cardname=name;
-        this.Abilityname=AbilityName;
+        this.Cardname = name;
+        this.Abilityname = AbilityName;
     }
+
     Abilities(String name) {
-        this.Cardname=name;
+        this.Cardname = name;
     }
+
     Abilities(String name, boolean Ishero) {
-        this.Cardname=name;
-        this.Ishero=Ishero;
+        this.Cardname = name;
+        this.Ishero = Ishero;
     }
-    Abilities(String name , String spellpower){
-        this.Cardname=name;
-        this.spellpower=spellpower;
+
+    Abilities(String name, String spellpower) {
+        this.Cardname = name;
+        this.spellpower = spellpower;
     }
 
 }

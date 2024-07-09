@@ -1,17 +1,17 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.faction.Card;
 
-public class QueenofDoiBalsannaAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+public class QueenofDolBalsannaAbilityDoing extends Ability {
+    public ObservableGameStatus gameStatus;
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
     @Override

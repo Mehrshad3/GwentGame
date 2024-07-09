@@ -1,6 +1,5 @@
 package controller.Checking;
 
-import model.faction.Card;
 import model.faction.UnitCard;
 
 public class HeroChecking {

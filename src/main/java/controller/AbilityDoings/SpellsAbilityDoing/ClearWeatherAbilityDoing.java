@@ -1,21 +1,19 @@
 package controller.AbilityDoings.SpellsAbilityDoing;
 
 import controller.AbilityDoings.Ability;
-import model.GameStatus;
-import model.Row;
+import model.ObservableGameStatus;
+import model.ObservableRow;
 import model.faction.Card;
 import model.faction.UnitCard;
 
-import java.util.ArrayList;
-
 public class ClearWeatherAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
@@ -23,15 +21,15 @@ public class ClearWeatherAbilityDoing extends Ability {
         card.setWeatherChanged(false);
     }
     public void DoAbilityOnARow(int row){
-        Row[] rows=gameStatus.getTable().getRows();
-        Row wantedrow=rows[row];
+        ObservableRow[] rows=gameStatus.getTable().getRows();
+        ObservableRow wantedrow=rows[row];
         for(UnitCard card : wantedrow.getCards()){
             DoAbilityOnACard(card);
         }
     }
     public void DoAbilityOnWholeTable(){
-        Row[] rows=gameStatus.getTable().getRows();
-        for(Row wantedrow:rows){
+        ObservableRow[] rows = gameStatus.getTable().getRows();
+        for (ObservableRow wantedrow : rows) {
             for(UnitCard card : wantedrow.getCards()){
                 DoAbilityOnACard(card);
             }
@@ -40,6 +38,7 @@ public class ClearWeatherAbilityDoing extends Ability {
     @Override
     public void DoCardAbility() {
         DoAbilityOnWholeTable();
+        //TODO
     }
 
     @Override

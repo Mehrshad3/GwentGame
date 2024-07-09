@@ -1,18 +1,17 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
-import controller.AbilityDoings.CommandersHornAbility;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.faction.Card;
 
 public class CommanderoftheRedRidersAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 

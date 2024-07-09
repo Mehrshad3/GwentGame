@@ -1,6 +1,6 @@
 package controller.AbilityDoings;
 
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.Player;
 import model.faction.Card;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SpyAbilityDoing extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus  game;
     public Card MainCard;
 
     public Card getMainCard() {
@@ -19,11 +19,11 @@ public class SpyAbilityDoing extends Ability{
         MainCard = mainCard;
     }
 
-    public GameStatus getGame() {
+    public ObservableGameStatus getGame() {
         return game;
     }
 
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 

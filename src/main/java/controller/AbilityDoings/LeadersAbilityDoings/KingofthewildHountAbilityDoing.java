@@ -3,7 +3,7 @@ package controller.AbilityDoings.LeadersAbilityDoings;
 import controller.AbilityDoings.Ability;
 import controller.Checking.HeroChecking;
 import javafx.collections.ObservableList;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.faction.Card;
 import model.faction.UnitCard;
 
@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class KingofthewildHountAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
@@ -36,6 +36,7 @@ public class KingofthewildHountAbilityDoing extends Ability {
         Card specialCard=notherocrads.get(random.nextInt(notherocrads.size()));
         discards.remove(specialCard);
         player.getDeck().getInHandCards().add(specialCard);
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

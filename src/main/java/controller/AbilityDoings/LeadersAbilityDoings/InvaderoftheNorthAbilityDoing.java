@@ -1,24 +1,20 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
-import enums.EnumAbilities.Abilities;
 import javafx.collections.ObservableList;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.Player;
 import model.faction.Card;
 
 import java.util.Random;
 
 public class InvaderoftheNorthAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
+
     public void DoAbilityOnAPlayer(Player player){
         ObservableList<Card>discards=player.getDeck().getDiscardCards();
         if(discards.isEmpty()){
@@ -35,6 +31,7 @@ public class InvaderoftheNorthAbilityDoing extends Ability {
     public void DoCardAbility() {
         DoAbilityOnAPlayer(gameStatus.getPlayer2());
         DoAbilityOnAPlayer(gameStatus.getPlayer1());
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

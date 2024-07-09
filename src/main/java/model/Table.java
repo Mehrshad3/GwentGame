@@ -48,6 +48,10 @@ public class Table {
         return currentPlayerPlaying;
     }
 
+    void setCurrentPlayerPlaying(int currentPlayerPlaying) {
+        this.currentPlayerPlaying = currentPlayerPlaying;
+    }
+
     int getNumberOfTurnsPassed() {
         return numberOfTurnsPassed;
     }

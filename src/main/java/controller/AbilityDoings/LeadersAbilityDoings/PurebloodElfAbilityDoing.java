@@ -2,17 +2,17 @@ package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
 import javafx.collections.ObservableList;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.faction.Card;
 
 public class PurebloodElfAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
@@ -21,13 +21,13 @@ public class PurebloodElfAbilityDoing extends Ability {
         ObservableList<Card>hand=player.getDeck().getInHandCards();
         Card wantedcard=null;
         for(Card card:hand){
-            if(card.getName().toLowerCase().equals("bitingfrost")){
+            if(card.getName().toLowerCase().equals("biting frost")){
                 wantedcard=card;
             }else {}
         }
         hand.remove(wantedcard);
         gameStatus.getHandleRounds().placeweathercard(wantedcard,player);
-
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

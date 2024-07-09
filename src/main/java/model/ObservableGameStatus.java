@@ -1,5 +1,6 @@
 package model;
 
+import controller.AbilityDoings.Ability;
 import controller.HandleRounds;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,14 +18,62 @@ public class ObservableGameStatus {
     public ObservableGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
         this.table = new ObservableTable(gameStatus.getTable());
-        numberOfPassedRounds.addListener((observableValue, number, t1) -> gameStatus.numberOfPassedRounds = (int) t1);
-        numberOfTurns.addListener((observableValue, number, t1) -> gameStatus.numberOfTurns = (int) t1);
+        numberOfPassedRounds.addListener((observableValue, number, t1) -> gameStatus.setNumberOfPassedRounds((int) t1));
+        numberOfTurns.addListener((observableValue, number, t1) -> gameStatus.setNumberOfTurns((int) t1));
         player1Wins.addListener((observableValue, number, t1) -> gameStatus.setPlayer1Wins((int) t1));
         player2Wins.addListener((observableValue, number, t1) -> gameStatus.setPlayer2Wins((int) t1));
     }
 
     public ObservableGameStatus(Table table, Player player1, Player player2) {
         this(new GameStatus(table, player1, player2));
+    }
+
+    public boolean isTheTreacherousAbility() {
+        return gameStatus.isTheTreacherousAbility();
+    }
+
+    public void setTheTreacherousAbility(boolean theTreacherousAbility) {
+        gameStatus.setTheTreacherousAbility(theTreacherousAbility);
+    }
+
+    public boolean isKingBranAbility() {
+        return gameStatus.isKingBranAbility();
+    }
+
+    public void setKingBranAbility(boolean kingBranAbility) {
+        gameStatus.setKingBranAbility(kingBranAbility);
+    }
+
+    public void setLeader1Did(boolean leader1Did) {
+        gameStatus.setLeader1Did(leader1Did);
+    }
+
+    public void setLeader2Did(boolean leader2Did) {
+        gameStatus.setLeader2Did(leader2Did);
+    }
+
+    public boolean didLeader1Do() {
+        return gameStatus.didLeader1Do();
+    }
+
+    public boolean didLeader2Do() {
+        return gameStatus.didLeader2Do();
+    }
+
+    public Ability getFaction1abilitydoing() {
+        return gameStatus.getFaction1abilitydoing();
+    }
+
+    public void setFaction1abilitydoing(Ability faction1abilitydoing) {
+        gameStatus.setFaction1abilitydoing(faction1abilitydoing);
+    }
+
+    public Ability getFaction2abilitydoing() {
+        return gameStatus.getFaction2abilitydoing();
+    }
+
+    public void setFaction2abilitydoing(Ability faction2abilitydoing) {
+        gameStatus.setFaction2abilitydoing(faction2abilitydoing);
     }
 
     public GameStatus getGameStatus() {
@@ -93,5 +142,9 @@ public class ObservableGameStatus {
 
     public void moveToDiscardPile(Card card, Player player) {
         player.getDeck().moveToDiscardPile(card);
+    }
+
+    public void increaseNumberOfTurns() {
+        numberOfTurns.set(numberOfTurns.get() + 1);
     }
 }

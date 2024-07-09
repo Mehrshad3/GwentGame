@@ -3,11 +3,9 @@ package controller.Checking;
 import controller.AbilityDoings.Ability;
 import controller.HandleRounds;
 import enums.EnumAbilities.Abilities;
-import model.GameStatus;
 import model.ObservableGameStatus;
 import model.Player;
 import model.faction.Card;
-import model.faction.UnitCard;
 
 public class GetwaetherAbility {
     public static void getAbility(Card card, ObservableGameStatus gameStatus, Player player, HandleRounds handleRounds){

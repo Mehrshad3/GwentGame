@@ -1,10 +1,10 @@
-package controller.AbilityDoings.LeadersAbilityDoings;
+package controller.AbilityDoings.FactionAbilityDoings;
 
 import controller.AbilityDoings.Ability;
 import model.ObservableGameStatus;
 import model.faction.Card;
 
-public class HopeoftheAenSeidheAbilityDoing extends Ability {
+public class MonstersAbilityDoing extends Ability {
     public ObservableGameStatus gameStatus;
 
     public void setGameStatus(ObservableGameStatus gameStatus) {
@@ -14,17 +14,17 @@ public class HopeoftheAenSeidheAbilityDoing extends Ability {
     public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
+
     @Override
     public void DoCardAbility() {
-        //TODO:what agileunit?
+
     }
 
     @Override
     public Ability Copy(Card card) {
-        BringerofDeathAbilityDoing abilityDoing=new BringerofDeathAbilityDoing();
-        abilityDoing.setmaincard(maincard);
-        abilityDoing.setStatus(status);
+        MonstersAbilityDoing abilityDoing=new MonstersAbilityDoing();
         abilityDoing.setPlayer(player);
+        abilityDoing.setStatus(status);
         abilityDoing.setGameStatus(gameStatus);
         return abilityDoing;
     }

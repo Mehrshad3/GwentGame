@@ -1,19 +1,20 @@
 package controller.AbilityDoings.SpellsAbilityDoing;
 
 import controller.AbilityDoings.Ability;
-import model.GameStatus;
-import model.Row;
+import controller.GetRowNumberFromRowName;
+import model.ObservableGameStatus;
+import model.ObservableRow;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 public class BitingFrostAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
@@ -21,16 +22,18 @@ public class BitingFrostAbilityDoing extends Ability {
         card.setWeatherChanged(true);
     }
     public void DoAbilityOnARow(int row){
-        Row[] rows=gameStatus.getTable().getRows();
-        Row wantedrow=rows[row];
+        ObservableRow[] rows=gameStatus.getTable().getRows();
+        ObservableRow wantedrow = rows[row];
         for(UnitCard card : wantedrow.getCards()){
             DoAbilityOnACard(card);
         }
     }
     @Override
     public void DoCardAbility() {
-        DoAbilityOnARow(3);
-        DoAbilityOnARow(4);
+        int closecombat1= GetRowNumberFromRowName.getrownumber(1,"close combat");
+        int closecombat2=GetRowNumberFromRowName.getrownumber(2,"close combat");
+        DoAbilityOnARow(closecombat1);
+        DoAbilityOnARow(closecombat2);
     }
 
     @Override
