@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import model.faction.Card;
 import model.faction.Faction;
+import model.faction.LeaderCard;
 import model.typeadapters.CardTypeAdapter;
 
 import java.io.*;
@@ -18,7 +19,8 @@ public final class GsonReaderWriter {
     private GsonReaderWriter() {
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .setPrettyPrinting()
-                .registerTypeAdapter(Card.class, CardTypeAdapter.getInstance());
+                .registerTypeAdapter(Card.class, CardTypeAdapter.getInstance())
+                .registerTypeAdapter(LeaderCard.class, CardTypeAdapter.getInstance());
         gson = gsonBuilder.create();
     }
 

@@ -10,20 +10,18 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UnitCard extends Card {
     public final boolean isHero;
     public boolean isWeatherChanged = false;
-
     public boolean ispowerlocked = false;
-
     public int beforeweatherchangepower = 0;
     public ArrayList<UnitCard> rowmates = new ArrayList<UnitCard>();
     public boolean bringerofdeath = false;
+    public boolean boostpower = false;
+    public boolean commanderboostpower = false;
     protected transient IntegerProperty powerProperty;
-    public boolean boostpower=false;
-    public boolean commanderboostpower=false;
-
 
     public UnitCard(CardName cardName, String name, PossibleRowsToPlayCard rows, UnitOrSpellCardAbility ability,
                     int power, boolean isHero) {
@@ -31,6 +29,27 @@ public class UnitCard extends Card {
         this.isHero = isHero;
         this.powerProperty = new SimpleIntegerProperty(power);
         assert rows != PossibleRowsToPlayCard.SPECIAL;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof UnitCard unitCard)) return false;
+        if (!super.equals(object)) return false;
+        return isHero == unitCard.isHero
+                && isWeatherChanged == unitCard.isWeatherChanged
+                && ispowerlocked == unitCard.ispowerlocked
+                && beforeweatherchangepower == unitCard.beforeweatherchangepower
+                && bringerofdeath == unitCard.bringerofdeath
+                && boostpower == unitCard.boostpower
+                && commanderboostpower == unitCard.commanderboostpower
+                && powerProperty.get() == unitCard.powerProperty.get();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), isHero, isWeatherChanged, ispowerlocked, beforeweatherchangepower,
+                bringerofdeath, powerProperty.get(), boostpower, commanderboostpower);
     }
 
     public void resetPower() {

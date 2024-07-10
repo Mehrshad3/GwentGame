@@ -1,10 +1,13 @@
 package model.typeadapters;
 
 import com.google.gson.*;
+import controller.AbilityDoings.Ability;
 import enums.card.CardName;
 import model.App;
 import model.faction.Card;
+import model.faction.LeaderCard;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
 

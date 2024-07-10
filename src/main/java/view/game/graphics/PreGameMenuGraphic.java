@@ -300,7 +300,7 @@ public class PreGameMenuGraphic extends Application {
         fileChooser.getExtensionFilters().add(extensionFilter);
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
-            System.out.println(file.getAbsolutePath());
+            App.LOGGER.log(Level.FINE, "Deck will be loaded from file:", file.getAbsolutePath());
             Deck deck = GsonReaderWriter.getGsonReaderWriter().loadDeckFromFile(file);
             User.getCurrentUser().setDeck(deck);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

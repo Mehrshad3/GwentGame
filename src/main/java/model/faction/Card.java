@@ -9,9 +9,10 @@ import model.ObservableGameStatus;
 import model.Player;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class Card implements Serializable {
-    protected final CardAbility ability;
+    protected final transient CardAbility ability;
     protected final PossibleRowsToPlayCard rows;
     protected final Integer initialPower;
     public transient Player player;
@@ -31,6 +32,25 @@ public abstract class Card implements Serializable {
         this.rows = rows;
         this.ability = ability;
         this.initialPower = initialPower;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Card card = (Card) object;
+        return transformed == card.transformed
+                && Objects.equals(ability, card.ability)
+                && rows == card.rows
+                && Objects.equals(initialPower, card.initialPower)
+                && cardName == card.cardName
+                && Objects.equals(name, card.name)
+                ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getClass(), ability, rows, initialPower, cardName, name, transformed);
     }
 
     public void doAbility(GameController gaming) {
