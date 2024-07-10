@@ -300,7 +300,7 @@ public class GameController extends MenuController {
 
     public void passRound() {
         isMyTurn.set(false);
-        handleRounds.passRound();
+        handleRounds.passround();
     }
 
     public ObservableList<Card> getPlayer1InHandCards() {

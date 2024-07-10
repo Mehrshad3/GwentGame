@@ -2,6 +2,7 @@ package model.faction;
 
 import controller.AbilityDoings.CommandersHornAbility;
 import controller.AbilityDoings.MoralBoostAbility;
+import controller.AbilityDoings.TightBoundAbilityDoing;
 import enums.EnumAbilities.Abilities;
 import enums.card.CardName;
 import enums.card.PossibleRowsToPlayCard;
@@ -122,9 +123,23 @@ public class UnitCard extends Card {
             } else {
             }
         }
-        for (Card card : rowmates) {
-            boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == CommandersHornAbility.class;
-            //TODO:tightBound ability must do
+        if(Abilities.map.get(name.toLowerCase()).Abilityname.getClass()==TightBoundAbilityDoing.class){
+            for (Card card : rowmates) {
+                int count = 0;
+                for (UnitCard unitcard : rowmates) {
+                    boolean a0 = Abilities.map.get(unitcard.name.toLowerCase()).Abilityname.getClass() == TightBoundAbilityDoing.class;
+                    if (a0) {
+                        if (Objects.equals(unitcard.getInitialPower(), initialPower)) {
+                            count++;
+                        }
+                    } else {
+
+                    }
+                }
+                setPower(getPower() * (count + 1));
+
+            }
+        } else {
         }
         for (Card card : rowmates) {
             boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == MoralBoostAbility.class;

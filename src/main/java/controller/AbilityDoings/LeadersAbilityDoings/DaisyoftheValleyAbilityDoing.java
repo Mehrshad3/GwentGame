@@ -16,7 +16,7 @@ public class DaisyoftheValleyAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        //TODO
+
     }
 
     @Override

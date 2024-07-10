@@ -2,12 +2,20 @@ package controller.AbilityDoings;
 
 import controller.Checking.HeroChecking;
 import model.ObservableGameStatus;
-import model.Player;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 public class DecoyAbilityDoing extends Ability{
     public ObservableGameStatus game;
+    public UnitCard card;
+
+    public UnitCard getCard() {
+        return card;
+    }
+
+    public void setCard(UnitCard card) {
+        this.card = card;
+    }
 
     public ObservableGameStatus getGame() {
         return game;
@@ -17,7 +25,7 @@ public class DecoyAbilityDoing extends Ability{
         this.game = game;
     }
 
-    public void DoAbility(UnitCard card, Player player){
+    public void DoAbility(){
         if(HeroChecking.HeroChecking(card)){
         }else{
             player.getDeck().addCardToHand(card);
@@ -28,7 +36,9 @@ public class DecoyAbilityDoing extends Ability{
 
     @Override
     public void DoCardAbility() {
-        DoAbility((UnitCard) maincard,player);
+        DoAbility();
+        player.getDeck().getInHandCards().remove(maincard);
+        player.getDeck().getDiscardCards().add(maincard);
         game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 

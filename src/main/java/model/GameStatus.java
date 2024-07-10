@@ -10,8 +10,8 @@ public class GameStatus {
     private final Player player1;
     private final Player player2;
     public transient HandleRounds handleRounds;
-    public Ability Leader1ability;
-    public Ability Leader2ability;
+    private Ability Leader1ability;
+    private Ability Leader2ability;
     private boolean KingBranAbility = false;
     private boolean TheTreacherousAbility = false;
     private boolean leader1Did = false;
@@ -28,6 +28,22 @@ public class GameStatus {
         this.table = table;
         this.player1 = player1;
         this.player2 = player2;
+    }
+
+    public Ability getLeader1ability() {
+        return Leader1ability;
+    }
+
+    public void setLeader1ability(Ability leader1ability) {
+        Leader1ability = leader1ability;
+    }
+
+    public Ability getLeader2ability() {
+        return Leader2ability;
+    }
+
+    public void setLeader2ability(Ability leader2ability) {
+        Leader2ability = leader2ability;
     }
 
     public boolean isKingBranAbility() {

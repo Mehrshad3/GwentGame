@@ -2,9 +2,11 @@ package controller;
 
 import controller.AbilityDoings.FactionAbilityDoings.FactionAbilities;
 import controller.AbilityDoings.FactionAbilityDoings.FactionAbility;
+import enums.EnumAbilities.Abilities;
 import model.ObservableGameStatus;
 import model.Player;
 import model.Table;
+import model.faction.LeaderCard;
 
 import java.util.Random;
 
@@ -41,9 +43,13 @@ public class GameInitializer {
                 }
             }
         //todo set leaders
+        LeaderCard leaderCard1=gameStatus.getPlayer1().getDeck().getCurrentLeaderCard();
+        LeaderCard leaderCard2=gameStatus.getPlayer2().getDeck().getCurrentLeaderCard();
+        gameStatus.setLeader1ability(Abilities.map.get(leaderCard1.getName().toLowerCase()).Abilityname);
+        gameStatus.setLeader2ability(Abilities.map.get(leaderCard2.getName().toLowerCase()).Abilityname);
+        //todo:daisy of the valley !!
 
         return gameStatus;
 
-        //todo:daisy of the valley !!
     }
 }

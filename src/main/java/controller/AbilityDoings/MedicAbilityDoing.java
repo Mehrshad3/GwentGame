@@ -44,6 +44,7 @@ public class MedicAbilityDoing extends Ability{
         Card card=player.getDeck().getDiscardCards().get(rand.nextInt(player.getDeck().getDiscardCards().size()));
         DoAbility(player,card);
         game.getHandleRounds().getNextDoingMethods().remove(this);
+        //todo randomcard maybe should be selected
     }
 
     @Override

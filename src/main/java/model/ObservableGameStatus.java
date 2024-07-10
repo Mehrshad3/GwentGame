@@ -29,6 +29,22 @@ public class ObservableGameStatus {
         this(new GameStatus(table, player1, player2));
     }
 
+    public Ability getLeader1ability() {
+        return gameStatus.getLeader1ability();
+    }
+
+    public void setLeader1ability(Ability leader1ability) {
+        gameStatus.setLeader1ability(leader1ability);
+    }
+
+    public Ability getLeader2ability() {
+        return gameStatus.getLeader2ability();
+    }
+
+    public void setLeader2ability(Ability leader2ability) {
+        gameStatus.setLeader2ability(leader2ability);
+    }
+
     public boolean isTheTreacherousAbility() {
         return gameStatus.isTheTreacherousAbility();
     }

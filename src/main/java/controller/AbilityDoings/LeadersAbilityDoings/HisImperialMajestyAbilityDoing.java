@@ -41,8 +41,7 @@ public class HisImperialMajestyAbilityDoing extends Ability {
             mustshowcards.addAll(oponnethand);
         }
         //TODO:Show these cards!
-
-
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

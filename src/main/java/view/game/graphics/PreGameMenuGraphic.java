@@ -736,6 +736,8 @@ public class PreGameMenuGraphic extends Application {
             gameController.setStartStatus(User.getCurrentUser());
             // Bad smell
             HandleRounds handleRounds = new HandleRounds(gameController.getGaming());
+            gameController.setGaming(handleRounds.getGameStatus());
+            handleRounds.Initialize();
             gameController.setHandleRounds(handleRounds);
             gameController.getGaming().setHandleRounds(handleRounds);
             try {

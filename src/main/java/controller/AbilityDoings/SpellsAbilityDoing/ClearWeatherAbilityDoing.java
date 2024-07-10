@@ -38,7 +38,8 @@ public class ClearWeatherAbilityDoing extends Ability {
     @Override
     public void DoCardAbility() {
         DoAbilityOnWholeTable();
-        //TODO
+        gameStatus.getHandleRounds().getNextweatherdoingAbilitys().add(this);
+        gameStatus.getHandleRounds().nextweatherabilitydoing=this;
     }
 
     @Override

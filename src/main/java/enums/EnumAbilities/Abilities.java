@@ -186,7 +186,7 @@ public enum Abilities {
     DECOY("Decoy", new DecoyAbilityDoing()),
     SCORCH("Scorch", new ScorchAbilityDoing("general")),
     COMMANDER_HORN("Commander's Horn", new CommandersHornAbility()),
-    // Weather cards
+    // Weather cards,
     BITING_FROST("Biting Frost", "biting frost"),
     IMPENETRABLE_FOG("Impenetrable Fog", "impenetrable fog"),
     TORRENTIAL_RAIN("Torrential Rain", "torrential rain"),

@@ -1,6 +1,7 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
+import controller.AbilityDoings.ScorchAbilityDoing;
 import model.ObservableGameStatus;
 import model.faction.Card;
 
@@ -16,7 +17,11 @@ public class QueenofDolBalsannaAbilityDoing extends Ability {
     }
     @Override
     public void DoCardAbility() {
-        //TODO
+        ScorchAbilityDoing scorchAbilityDoing = new ScorchAbilityDoing("Close combat:oponnent");
+        scorchAbilityDoing.setGame(gameStatus);
+        scorchAbilityDoing.setPlayer(player);
+        scorchAbilityDoing.DoCardAbility();
+        gameStatus.getHandleRounds().setLeaderdidfromplayer(player,true);
     }
 
     @Override

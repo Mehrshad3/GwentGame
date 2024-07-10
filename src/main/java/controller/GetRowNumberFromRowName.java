@@ -1,6 +1,7 @@
 package controller;
 
 import model.GameStatus;
+import model.ObservableGameStatus;
 import model.Player;
 
 public class GetRowNumberFromRowName {
@@ -8,7 +9,7 @@ public class GetRowNumberFromRowName {
         //TODO
         return 0;
     }
-    public static int getrownumberbyplayeranddetail(Player player , GameStatus gameStatus,String detail){
+    public static int getrownumberbyplayeranddetail(Player player , ObservableGameStatus gameStatus, String detail){
         //TODO
         return 0;
     }

@@ -17,6 +17,7 @@ public class HandleRounds {
 
     public ArrayList<Ability> NextDoingAbilitys = new ArrayList<>();
     public ArrayList<Ability> NextweatherdoingAbilitys = new ArrayList<>();
+    public Ability nextweatherabilitydoing;
 
     public HandleRounds(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
@@ -105,17 +106,6 @@ public class HandleRounds {
         passroundCard();
     }
 
-    /**
-     * This method is used when the player has put all of their cards to the board, and wants to give the turn to their
-     * opponent.
-     */
-    public void passRound() {
-        // I'm not sure with the correct order of these methods, so they should probably be changed later.
-        passroundAbility();
-        passroundweatherability();
-        passroundCard();
-    }
-
     public  void passroundAbility() {
         // This reversed loop prevents ConcurrentModificationException.
         for (int i = getNextDoingMethods().size() - 1; i >= 0; i--) {
@@ -124,10 +114,20 @@ public class HandleRounds {
         }
     }
 
+    public void playDecoycard(UnitCard decoycard,Player player){
+        GetAbility.getAbility(decoycard,gameStatus,player,this);
+        passroundCard();
+        passroundAbility();
+        passroundCard();
+        passroundweatherability();
+        passroundCard();
+        gameStatus.increaseNumberOfTurns();
+        passfactionround();
+        passroundCard();
+    }
+
     public void passroundweatherability() {
-        for (Ability ability : getNextweatherdoingAbilitys()) {
-            ability.DoCardAbility();
-        }
+        nextweatherabilitydoing.DoCardAbility();
     }
 
     public void passroundCard() {
