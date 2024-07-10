@@ -1,5 +1,6 @@
 package controller.AbilityDoings;
 
+import controller.CardRemoverFromGame;
 import controller.Checking.HeroChecking;
 import javafx.collections.ObservableList;
 import model.GameStatus;
@@ -12,6 +13,15 @@ import java.util.ArrayList;
 
 public class DecoyAbilityDoing extends Ability{
     public GameStatus game;
+    public UnitCard card;
+
+    public UnitCard getCard() {
+        return card;
+    }
+
+    public void setCard(UnitCard card) {
+        this.card = card;
+    }
 
     public GameStatus getGame() {
         return game;
@@ -21,7 +31,7 @@ public class DecoyAbilityDoing extends Ability{
         this.game = game;
     }
 
-    public void DoAbility(UnitCard card, Player player){
+    public void DoAbility(){
         if(HeroChecking.HeroChecking(card)){
         }else{
             player.getDeck().addCardToHand(card);
@@ -32,7 +42,9 @@ public class DecoyAbilityDoing extends Ability{
 
     @Override
     public void DoCardAbility() {
-        DoAbility((UnitCard) maincard,player);
+        DoAbility();
+        player.getDeck().getInHandCards().remove(maincard);
+        player.getDeck().getDiscardCards().add(maincard);
         game.getHandleRounds().getNextDoingMethods().remove(this);
     }
 

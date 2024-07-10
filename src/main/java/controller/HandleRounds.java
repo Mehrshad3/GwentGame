@@ -105,6 +105,17 @@ public class HandleRounds {
         passfactionround();
         passroundCard();
     }
+    public void playDecoycard(UnitCard decoycard,Player player){
+        GetAbility.getAbility(decoycard,gameStatus,player,this);
+        passroundCard();
+        passroundAbility();
+        passroundCard();
+        passroundweatherability();
+        passroundCard();
+        gameStatus.setNumberOfTurns(gameStatus.getNumberOfTurns()+1);
+        passfactionround();
+        passroundCard();
+    }
     public  void passroundAbility(){
         for(Ability ability:getNextDoingMethods()){
             ability.DoCardAbility();

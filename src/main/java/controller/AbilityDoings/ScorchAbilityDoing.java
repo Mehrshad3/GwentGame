@@ -2,6 +2,7 @@ package controller.AbilityDoings;
 
 import controller.CardRemoverFromGame;
 import controller.Checking.HeroChecking;
+import controller.GetRowNumberFromRowName;
 import model.GameStatus;
 import model.Row;
 import model.faction.Card;
@@ -112,7 +113,9 @@ public class ScorchAbilityDoing extends Ability {
                 DoAbilityOnWholeBoardUnconditionally();
                 break;
             case "opponent:ranged combat":
-                DoAbilityOnARowConditionally(1/*TODO*/);
+                int opraco;
+                opraco=GetRowNumberFromRowName.getrownumberbyplayeranddetail(player,gameStatus,"opponent:ranged combat");
+                DoAbilityOnARowConditionally(opraco);
                 break;
             case "general:opponent":
                 if(maincard.getPlayer().equals(maincard.getGameStatus().getPlayer1())){
@@ -126,10 +129,14 @@ public class ScorchAbilityDoing extends Ability {
                 }
                 break;
             case "siege combat:opponent":
-                DoAbilityOnARowConditionally(1/*TODO*/);
+                int opsico;
+                opsico=GetRowNumberFromRowName.getrownumberbyplayeranddetail(player,gameStatus,"opponent:siege combat");
+                DoAbilityOnARowConditionally(opsico);
                 break;
             case "Close combat:oponnent":
-                DoAbilityOnARowConditionally(1/*TODO*/);
+                int opclco;
+                opclco=GetRowNumberFromRowName.getrownumberbyplayeranddetail(player,gameStatus,"opponent:close combat");
+                DoAbilityOnARowConditionally(opclco);
                 break;
             default:
 
