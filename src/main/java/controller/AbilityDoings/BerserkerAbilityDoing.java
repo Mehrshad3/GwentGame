@@ -2,16 +2,12 @@ package controller.AbilityDoings;
 
 import controller.CardRemoverFromGame;
 import controller.Checking.HeroChecking;
-import enums.card.CardName;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
-import model.GameStatus;
-import model.Row;
+import model.ObservableGameStatus;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 public class BerserkerAbilityDoing extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus game;
     public Card MainCard;
 
     public void setMainCard(Card mainCard) {
@@ -22,11 +18,8 @@ public class BerserkerAbilityDoing extends Ability{
         return MainCard;
     }
 
-    public GameStatus getGame() {
-        return game;
-    }
 
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 

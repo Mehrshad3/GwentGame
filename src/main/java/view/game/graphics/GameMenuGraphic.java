@@ -21,6 +21,7 @@ public class GameMenuGraphic extends Application {
         BorderPane pane = fxmlLoader.load();
         Scene scene = new Scene(pane);
         stage = App.getStage();
+        App.setGameMenu(scene);
 
         stage.setScene(scene);
         App.getStage().close();
@@ -30,5 +31,11 @@ public class GameMenuGraphic extends Application {
         GameGraphicController graphicController = fxmlLoader.getController();
         graphicController.initializeWithStage(stage);
         AppController.getAppController().enterMenu(Menu.GameMenu);
+    }
+
+    public void startVetoCards() {
+        Stage stage = App.getStage();
+        VetoCardsGraphic vetoCardsGraphic = new VetoCardsGraphic();
+        vetoCardsGraphic.start(stage);
     }
 }

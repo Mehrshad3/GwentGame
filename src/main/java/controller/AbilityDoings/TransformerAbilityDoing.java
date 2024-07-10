@@ -1,10 +1,10 @@
 package controller.AbilityDoings;
 
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.faction.Card;
 
 public class TransformerAbilityDoing extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus game;
     public Card MainCard;
     public int numberofAbilityDoingdid=0;
     public String nextcard;
@@ -33,11 +33,7 @@ public class TransformerAbilityDoing extends Ability{
         MainCard = mainCard;
     }
 
-    public GameStatus getGame() {
-        return game;
-    }
-
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 

@@ -55,6 +55,10 @@ public class ObservableTable {
         return table.getCurrentPlayerPlaying();
     }
 
+    public void setCurrentPlayerPlaying(int currentPlayerPlaying) {
+        table.setCurrentPlayerPlaying(currentPlayerPlaying);
+    }
+
     int getNumberOfTurnsPassed() {
         return table.getNumberOfTurnsPassed();
     }

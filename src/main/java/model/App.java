@@ -20,6 +20,7 @@ public class App {
     private static Scene mainMenu;
     private static Scene loginMenu;
     private static LeaderBoardGraphic leaderBoardGraphic;
+    private static Scene gameMenu;
     private static App appObject = null;
     private static Menu currentMenu = Menu.LoginMenu;
     private static final Object lock = new Object();
@@ -89,6 +90,14 @@ public class App {
 
     public static void setClientController(ClientController clientController) {
         App.clientController = clientController;
+    }
+
+    public static Scene getGameMenu() {
+        return gameMenu;
+    }
+
+    public static void setGameMenu(Scene gameMenu) {
+        App.gameMenu = gameMenu;
     }
 
     public ObservableGameStatus getGaming() {

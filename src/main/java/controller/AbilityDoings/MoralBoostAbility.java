@@ -1,13 +1,13 @@
 package controller.AbilityDoings;
 
 import controller.Checking.HeroChecking;
-import model.GameStatus;
-import model.Row;
+import model.ObservableGameStatus;
+import model.ObservableRow;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 public class MoralBoostAbility extends Ability{
-    public GameStatus game;
+    public ObservableGameStatus game;
     public Card MainCard;
 
     public void setMainCard(Card mainCard) {
@@ -18,11 +18,11 @@ public class MoralBoostAbility extends Ability{
         return MainCard;
     }
 
-    public void setGame(GameStatus game) {
+    public void setGame(ObservableGameStatus game) {
         this.game = game;
     }
 
-    public GameStatus getGame() {
+    public ObservableGameStatus getGame() {
         return game;
     }
 
@@ -35,17 +35,17 @@ public class MoralBoostAbility extends Ability{
     }
 
     public void DoAbilityOnARow(int row){
-        Row[] rows=game.getTable().getRows();
-        Row wantedrow=rows[row];
-        for(UnitCard card:wantedrow.getCards()){
-            DoAbilityOnACard(card);
+        ObservableRow[] rows=game.getTable().getRows();
+        ObservableRow wantedrow=rows[row];
+        for (Card card : wantedrow.getCards()) {
+            if (!(card instanceof UnitCard unitCard)) continue;
+            DoAbilityOnACard(unitCard);
         }
     }
 
     @Override
     public void DoCardAbility() {
-        DoAbilityOnARow(maincard.getRowNumber());
-        game.getHandleRounds().getNextDoingMethods().remove(this);
+
     }
 
     @Override

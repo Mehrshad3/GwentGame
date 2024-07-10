@@ -1,15 +1,14 @@
 package controller;
 
-import model.GameStatus;
-import model.Player;
-import model.Row;
+import model.*;
 import model.faction.Card;
+import model.faction.UnitCard;
 
 public class CardRemoverFromGame {
 
-    public static void Remove(GameStatus game, Card card) {
+    public static void Remove(ObservableGameStatus game, UnitCard card) {
         int row = -1;
-        Row[] rows = game.getTable().getRows();
+        ObservableRow[] rows = game.getTable().getRows();
         for (int row0 = 0; row0 < 6; row0++) {
             if (rows[row0].getCards().contains(card)) {
                 row = row0;
@@ -18,24 +17,15 @@ public class CardRemoverFromGame {
         RemoveHavingRow(game, card, row);
     }
 
-    public static void RemoveHavingRow(GameStatus game, Card card, int row) {
-        Player player = new Player("1", "1");
-        boolean z = true;
-        if (row == 0 || row == 1 || row == 2) {
-            player = game.getPlayer1();
-        } else if (row == 3 || row == 4 || row == 5) {
-            player = game.getPlayer2();
-        } else {
-            z = false;
+    public static void RemoveHavingRow(ObservableGameStatus game, UnitCard card, int row) {
+        Player player=card.getPlayer();
+        ObservableRow[] rows=game.getTable().getRows();
+        ObservableRow wantedrow=rows[row];
+        wantedrow.getCards().remove(card);
+        card.getRowmates().removeAll(card.getRowmates());
+        for (Card card0 : wantedrow.getCards()) {
+            if (card0 instanceof UnitCard unitCard) unitCard.getRowmates().remove(card);
         }
-        if (z) {
-            Row[] rows = game.getTable().getRows();
-            rows[row].removeCard(card);
-            player.getDeck().getCardsInDeck().add(card);
-        } else {
-
-
-        }
-
+        player.getDeck().getDiscardCards().add(card);
     }
 }

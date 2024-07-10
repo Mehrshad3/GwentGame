@@ -1,17 +1,26 @@
 package controller.AbilityDoings;
 
+import model.GameStatus;
 import model.ObservableGameStatus;
 import model.Player;
 import model.faction.Card;
 
 public abstract class Ability {
     public ObservableGameStatus gameStatus;
-    public String status="general";
+    public String status = "general";
     public Card maincard;
     public Player player;
 
+    public ObservableGameStatus getGameStatus() {
+        return this.gameStatus;
+    }
+
     public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = new ObservableGameStatus(gameStatus);
     }
 
     public Player getPlayer() {
@@ -38,6 +47,7 @@ public abstract class Ability {
         this.status = status;
     }
 
-    public abstract void DoCardAbility() ;
+    public abstract void DoCardAbility();
+
     public abstract Ability Copy(Card card);
 }

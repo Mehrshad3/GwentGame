@@ -9,6 +9,7 @@ import model.faction.LeaderCard;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 public class Deck {
     private final RawDeck rawDeck;
@@ -89,6 +90,21 @@ public class Deck {
     RawDeck getDeckAsSerializable() {
         return rawDeck;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Deck deck)) return false;
+        return Objects.equals(rawDeck, deck.rawDeck)
+                && Objects.equals(inHandCards, deck.inHandCards)
+                && Objects.equals(discardCards, deck.discardCards)
+                ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rawDeck, inHandCards, discardCards);
+    }
 }
 
 class RawDeck implements Serializable {
@@ -134,5 +150,19 @@ class RawDeck implements Serializable {
 
     public Faction getFaction() {
         return this.faction;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof RawDeck rawDeck)) return false;
+        return faction == rawDeck.faction
+                && Objects.equals(notChosenCards, rawDeck.notChosenCards)
+                && Objects.equals(currentLeaderCard, rawDeck.currentLeaderCard);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(faction, notChosenCards, currentLeaderCard);
     }
 }

@@ -1,26 +1,31 @@
 package controller.AbilityDoings.LeadersAbilityDoings;
 
 import controller.AbilityDoings.Ability;
-import model.GameStatus;
+import model.ObservableGameStatus;
 import model.faction.Card;
 
 public class TheRelentlessAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
     @Override
     public void DoCardAbility() {
-
+        //TODO
     }
 
     @Override
     public Ability Copy(Card card) {
-        return null;
+        TheRelentlessAbilityDoing abilityDoing=new TheRelentlessAbilityDoing();
+        abilityDoing.setmaincard(maincard);
+        abilityDoing.setPlayer(player);
+        abilityDoing.setStatus(status);
+        abilityDoing.setGameStatus(gameStatus);
+        return abilityDoing;
     }
 }

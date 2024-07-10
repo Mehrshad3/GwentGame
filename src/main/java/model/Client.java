@@ -2,7 +2,6 @@ package model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import controller.ClientController;
 import controller.GameController;
 import enums.Menu;
 import enums.ServerResponse;
@@ -24,7 +23,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.faction.Card;
 import model.faction.UnitCard;
-import view.Main;
 import view.game.graphics.LeaderBoardGraphic;
 
 import java.io.*;
@@ -33,6 +31,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 
 public class Client {
+    private static final String HOST_ADDRESS = "localhost";//change ip
+    private static final int PORT_NUMBER = 150;
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -59,7 +59,7 @@ public class Client {
 
     public Client(String username) {
         try {
-            this.socket = new Socket("localhost", 150);//change ip
+            this.socket = new Socket(HOST_ADDRESS, PORT_NUMBER);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             writer.write(username + "\n");
@@ -164,7 +164,7 @@ public class Client {
                                     public void run() {
                                         GameController gameController = (GameController) Menu.GameMenu.getMenuController();
 //                                    gameController.playCard(card,7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
-                                        gameController.playOpponentUnitCard((UnitCard) card, 7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                                        gameController.addSpellCardToTableLocally((UnitCard) card, 7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
                                         System.out.println(card.getName());
                                         System.out.println(7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
                                     }
@@ -279,7 +279,7 @@ public class Client {
                             public void run() {
                                 GameController gameController = (GameController) Menu.GameMenu.getMenuController();
 //                                    gameController.playCard(card,7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
-                                gameController.playOpponentUnitCard((UnitCard) card,7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                                gameController.addSpellCardToTableLocally((UnitCard) card,7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
                                 System.out.println(card.getName());
                                 System.out.println(7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
                             }

@@ -1,46 +1,44 @@
 package controller.AbilityDoings.SpellsAbilityDoing;
 
 import controller.AbilityDoings.Ability;
-import model.GameStatus;
-import model.Row;
+import model.ObservableGameStatus;
+import model.ObservableRow;
 import model.faction.Card;
 import model.faction.UnitCard;
 
 public class ClearWeatherAbilityDoing extends Ability {
-    public GameStatus gameStatus;
+    public ObservableGameStatus gameStatus;
 
-    public GameStatus getGameStatus() {
+    public ObservableGameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(ObservableGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
     public void DoAbilityOnACard(UnitCard card){
-        card.setPower(card.getBeforeweatherchangepower());
-        card.setBeforeweatherchangepower(0);
         card.setWeatherChanged(false);
-        card.setIspowerlocked(false);
     }
     public void DoAbilityOnARow(int row){
-        Row[] rows=gameStatus.getTable().getRows();
-        Row wantedrow=rows[row];
-        for(UnitCard card : wantedrow.getCards()){
-            DoAbilityOnACard(card);
+        ObservableRow[] rows=gameStatus.getTable().getRows();
+        ObservableRow wantedrow=rows[row];
+        for (Card card : wantedrow.getCards()) {
+            if (card instanceof UnitCard unitCard) DoAbilityOnACard(unitCard);
         }
     }
     public void DoAbilityOnWholeTable(){
-        Row[] rows=gameStatus.getTable().getRows();
-        for(Row wantedrow:rows){
-            for(UnitCard card : wantedrow.getCards()){
-                DoAbilityOnACard(card);
+        ObservableRow[] rows = gameStatus.getTable().getRows();
+        for (ObservableRow wantedrow : rows) {
+            for (Card card : wantedrow.getCards()){
+                if (card instanceof UnitCard unitCard) DoAbilityOnACard(unitCard);
             }
         }
     }
     @Override
     public void DoCardAbility() {
         DoAbilityOnWholeTable();
+        //TODO
     }
 
     @Override
