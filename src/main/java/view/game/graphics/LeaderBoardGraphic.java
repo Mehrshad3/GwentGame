@@ -11,18 +11,18 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.App;
+import model.SimpleUser;
 import model.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class LeaderBoardGraphic extends Application {
     boolean isUserInThisPage = false;
 
-    ArrayList<User> users = new ArrayList<>();
 
-    public LeaderBoardGraphic(ArrayList<User> users) {
+    ArrayList<SimpleUser> users;
+
+    public LeaderBoardGraphic(ArrayList<SimpleUser> users) {
         this.users = users;
     }
 
@@ -58,7 +58,7 @@ public class LeaderBoardGraphic extends Application {
     }
 
     private void setGridPane(GridPane gridPane) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
             gridPane.getColumnConstraints().add(columnConstraints);
             columnConstraints.setFillWidth(true);
@@ -68,7 +68,7 @@ public class LeaderBoardGraphic extends Application {
         rowConstraintsInfo.setFillHeight(true);
         gridPane.getRowConstraints().add(rowConstraintsInfo);
 
-        for (User user : users) {
+        for (int i = 0; i < users.size() ; i++) {
             RowConstraints rowConstraints = new RowConstraints();
             rowConstraints.setFillHeight(true);
             gridPane.getRowConstraints().add(rowConstraints);
@@ -78,12 +78,19 @@ public class LeaderBoardGraphic extends Application {
     private void setUserInfo(GridPane gridPane) {
         int counter = 2;
         sortUsers();
-        for (User user : users) {
-            Label username = new Label(user.getName());
-            Label wins = new Label(String.valueOf(user.getWins()));
-            username.setAlignment(Pos.CENTER); wins.setAlignment(Pos.CENTER);
+        for (SimpleUser user :users) {
+            Label username = new Label(user.getUsername());
+            Label wins = new Label(String.valueOf(user.getScore()));
+            Label isOnline = new Label();
+            if(user.isOnline()){
+                isOnline.setText("online");
+            }else {
+                isOnline.setText("offline");
+            }
+            username.setAlignment(Pos.CENTER); wins.setAlignment(Pos.CENTER); isOnline.setAlignment(Pos.CENTER);
             gridPane.add(username,0,counter);
             gridPane.add(wins,1,counter);
+            gridPane.add(isOnline,2,counter);
             counter++;
         }
     }
@@ -102,24 +109,33 @@ public class LeaderBoardGraphic extends Application {
         Button back =new Button("Back");
         gridPane.add(back,0,0);
         back.setOnAction(actionEvent -> {
+            App.setLeaderBoardGraphic(null);
             Stage stage = App.getStage();
             stage.setScene(App.getMainMenu());
             stage.show();
         });
     }
 
-    public void updateTable(ArrayList<User> users){
+    public void updateTable(ArrayList<SimpleUser> users){
         this.users = users;
         sortUsers();
-        Stage stage = App.getStage();
-        ShowLeaderBoard(stage);
+        if(isUserInThisPage) {
+            Stage stage = App.getStage();
+            ShowLeaderBoard(stage);// to dar to nemishe?
+        }
     }
     private void sortUsers(){
-        Collections.sort(this.users, new Comparator<User>() {
+//        List<Map.Entry<SimpleUser,Double>> list = new LinkedList<>(users.entrySet());
+        Collections.sort(users, new Comparator<SimpleUser>() {
             @Override
-            public int compare(User o1, User o2) {
-                return o1.getWins() - o2.getWins();
+            public int compare(SimpleUser o1, SimpleUser o2) {
+                return (int) (o1.getScore() - o2.getScore());
             }
         });
+//        HashMap<SimpleUser,Double> sorted = new LinkedHashMap<>();
+//        for (Map.Entry<SimpleUser,Double> entry:list){
+//            sorted.put((SimpleUser) (entry.getKey()),entry.getValue());
+//        }
+//        this.users = sorted;
     }
 }

@@ -1,5 +1,7 @@
 package view;
 
+import com.google.gson.Gson;
+import controller.ClientController;
 import javafx.application.Application;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -11,15 +13,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.App;
+import model.Client;
 import model.GsonReaderWriter;
 import model.User;
 import view.game.graphics.LeaderBoardGraphic;
 import view.game.graphics.PreGameMenuGraphic;
 
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 public class MainMenuGraphic extends Application {
+    ClientController clientController = App.getClientController();
+    Client client = clientController.getClient();
     @Override
     public void start(Stage stage) {
         PreGameMenuGraphic preGameMenu = new PreGameMenuGraphic();
@@ -57,15 +65,7 @@ public class MainMenuGraphic extends Application {
             }
         });
         LeaderBoard.setOnAction(actionEvent -> {
-            ArrayList<User> users = new ArrayList<>();//TODO get from server
-            users.add(GsonReaderWriter.getGsonReaderWriter().loadUser("Amin1"));
-            users.add(GsonReaderWriter.getGsonReaderWriter().loadUser("Nima1"));
-            LeaderBoardGraphic leaderBoardGraphic = new LeaderBoardGraphic(users);
-            try {
-                leaderBoardGraphic.start(stage);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            client.sendMassage("show leaderBoard");
         });
         HBox box = new HBox();
         box.setSpacing(20);

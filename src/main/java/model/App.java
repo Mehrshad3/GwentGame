@@ -2,8 +2,10 @@ package model;
 
 import controller.ClientController;
 import enums.Menu;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.game.graphics.LeaderBoardGraphic;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -13,11 +15,14 @@ import java.util.logging.Logger;
 public class App {
     public static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static Stage stage;
+    private static Stage waitStage;
     private static Scene preGameMenu;
     private static Scene mainMenu;
     private static Scene loginMenu;
+    private static LeaderBoardGraphic leaderBoardGraphic;
     private static App appObject = null;
     private static Menu currentMenu = Menu.LoginMenu;
+    private static final Object lock = new Object();
     private static ClientController clientController;
 
     static {
@@ -92,5 +97,24 @@ public class App {
 
     public void setGaming(ObservableGameStatus gaming) {
         this.gaming = gaming;
+    }
+
+    public static Stage getWaitStage() {
+        return waitStage;
+    }
+
+    public static void setWaitStage(Stage waitStage) {
+        App.waitStage = waitStage;
+    }
+    public static Object getLock(){
+        return lock;
+    }
+
+    public static LeaderBoardGraphic getLeaderBoardGraphic() {
+        return leaderBoardGraphic;
+    }
+
+    public static void setLeaderBoardGraphic(LeaderBoardGraphic leaderBoardGraphic) {
+        App.leaderBoardGraphic = leaderBoardGraphic;
     }
 }

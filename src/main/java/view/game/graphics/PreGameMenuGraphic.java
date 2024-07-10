@@ -1,5 +1,6 @@
 package view.game.graphics;
 
+import controller.ClientController;
 import controller.GameController;
 import controller.HandleRounds;
 import enums.Menu;
@@ -23,10 +24,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.App;
-import model.Deck;
-import model.GsonReaderWriter;
-import model.User;
+import model.*;
 import model.faction.Card;
 import model.faction.LeaderCard;
 import view.Animation.FactionCardAnimation;
@@ -731,6 +729,10 @@ public class PreGameMenuGraphic extends Application {
             alert.setContentText("The leader card hasn't been chosen yet.");
             alert.show();
         } else {
+            ClientController controller = App.getClientController();
+            Client client = controller.getClient();
+            client.sendMassage("start public random game");
+
             GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();
             GameController gameController = (GameController) Menu.GameMenu.getMenuController();
             gameController.setStartStatus(User.getCurrentUser());

@@ -33,6 +33,8 @@ public class Main extends Application {
 //        stage.setWidth(1000);
 //        stage.setMinHeight(500);
 //        stage.setMinWidth(500);
+        Stage waitStage = new Stage();
+        App.setWaitStage(waitStage);
         menu.start(stage);
         App.setStage(stage);
     }

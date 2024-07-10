@@ -33,3 +33,7 @@
 .black-background {
     -fx-background-color: black;
 }
+
+.white-background {
+    -fx-background-color: white;
+}

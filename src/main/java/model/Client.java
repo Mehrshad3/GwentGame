@@ -1,6 +1,12 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import controller.ClientController;
+import controller.GameController;
+import enums.Menu;
 import enums.ServerResponse;
+import enums.card.CardName;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,10 +22,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.faction.Card;
+import model.faction.UnitCard;
+import view.Main;
+import view.game.graphics.LeaderBoardGraphic;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 
 public class Client {
@@ -28,6 +38,7 @@ public class Client {
     private BufferedWriter writer;
     private String username;
     private boolean isTurn;
+    private boolean isInGame;
 
     public static void main(String[] args) {
         Client client = new Client("hamid");
@@ -66,82 +77,148 @@ public class Client {
                 Matcher matcher;
                 while (!client.socket.isClosed()) {
                     try {
-                        String response = client.reader.readLine();
-                        if ((matcher = ServerResponse.FriendRequest.getMatcher(response)) != null) {
-                            Matcher finalMatcher = matcher;
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Stage stage = new Stage();
-                                    BorderPane pane = new BorderPane();
-                                    setFriendRequestPopUpNodes(finalMatcher, pane, stage);
-                                    Scene scene = new Scene(pane, 500, 300);
-                                    scene.getStylesheets().add(getClass().getResource("/CSS/PopUpStyle.css").toExternalForm());
-                                    stage.initModality(Modality.APPLICATION_MODAL);
-                                    stage.initStyle(StageStyle.UNDECORATED);
-                                    stage.setScene(scene);
-                                    stage.show();
-                                }
-                            });
+                        if (!isInGame) {
+                            String response = client.reader.readLine();
+                            if ((matcher = ServerResponse.FriendRequest.getMatcher(response)) != null) {
+                                Matcher finalMatcher = matcher;
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Stage stage = new Stage();
+                                        BorderPane pane = new BorderPane();
+                                        setFriendRequestPopUpNodes(finalMatcher, pane, stage);
+                                        Scene scene = new Scene(pane, 500, 300);
+                                        scene.getStylesheets().add(getClass().getResource("/CSS/PopUpStyle.css").toExternalForm());
+                                        stage.initModality(Modality.APPLICATION_MODAL);
+                                        stage.initStyle(StageStyle.UNDECORATED);
+                                        stage.setScene(scene);
+                                        stage.show();
+                                    }
+                                });
 
-                        } else if ((matcher = ServerResponse.ClientNotOnline.getMatcher(response)) != null) {
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setContentText(response);
-                                    alert.setHeaderText("Server Response");
-                                    alert.show();
-                                }
-                            });
-                        } else if ((matcher = ServerResponse.ClientNotAvailable.getMatcher(response)) != null) {
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setContentText(response);
-                                    alert.setHeaderText("Server Response");
-                                    alert.show();
-                                }
-                            });
-                        } else if ((matcher = ServerResponse.FriendRequestSent.getMatcher(response)) != null) {
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setContentText(response);
-                                    alert.setHeaderText("Server Response");
-                                    alert.show();
-                                }
-                            });
-                        } else if ((matcher = ServerResponse.Wait.getMatcher(response)) != null) {
-                            System.out.println("wait for second player");
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ProgressIndicator progressIndicator = new ProgressIndicator();
-                                    BorderPane pane = new BorderPane();
-                                    pane.setCenter(progressIndicator);
-                                    //TODO make an exit button
-                                    Stage stage = new Stage();
-                                    stage.setScene(new Scene(pane,500,300));
-                                    stage.initStyle(StageStyle.UNDECORATED);
-                                    stage.initModality(Modality.APPLICATION_MODAL);
-                                    stage.centerOnScreen();
-                                    stage.show();
-                                }
-                            });
-                        } else if ((matcher = ServerResponse.MassageFromOpponent.getMatcher(response)) != null) {
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //TODO app massage to scene
+                            } else if ((matcher = ServerResponse.ClientNotOnline.getMatcher(response)) != null) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setContentText(response);
+                                        alert.setHeaderText("Server Response");
+                                        alert.show();
+                                    }
+                                });
+                            } else if ((matcher = ServerResponse.ClientNotAvailable.getMatcher(response)) != null) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setContentText(response);
+                                        alert.setHeaderText("Server Response");
+                                        alert.show();
+                                    }
+                                });
+                            } else if ((matcher = ServerResponse.FriendRequestSent.getMatcher(response)) != null) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setContentText(response);
+                                        alert.setHeaderText("Server Response");
+                                        alert.show();
+                                    }
+                                });
+                            } else if ((matcher = ServerResponse.Wait.getMatcher(response)) != null) {
+                                System.out.println("wait for second player");
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ProgressIndicator progressIndicator = new ProgressIndicator();
+                                        BorderPane pane = new BorderPane();
+                                        pane.setCenter(progressIndicator);
+                                        //TODO make an exit button
+                                        Button button = new Button("Cancel");
+                                        Stage waitStage = App.getWaitStage();
+                                        button.setOnAction(actionEvent -> waitStage.close());//TODO send cancel to server
+                                        pane.setBottom(button);
+                                        waitStage.setScene(new Scene(pane, 500, 300));
+                                        waitStage.initStyle(StageStyle.UNDECORATED);
+                                        waitStage.initModality(Modality.APPLICATION_MODAL);
+                                        waitStage.centerOnScreen();
+                                        waitStage.show();
+                                        waitStage.setOnCloseRequest(windowEvent -> App.getStage().setScene(App.getPreGameMenu()));//bug
+                                    }
+                                });
+                            } else if ((matcher = ServerResponse.MassageFromOpponent.getMatcher(response)) != null) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //TODO app massage to scene
 
-                                }
-                            });
-                        }
-                        System.out.println(response);
-                    } catch (Exception e) {
+                                    }
+                                });
+                            } else if ((matcher = ServerResponse.PlayCardByOpponent.getMatcher(response)) != null) {
+                                Card card = CardName.getCardByName(matcher.group("cardName").replaceAll("-"," "));
+                                System.out.println("get");
+                                Matcher finalMatcher1 = matcher;
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+//                                    gameController.playCard(card,7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                                        gameController.playOpponentUnitCard((UnitCard) card, 7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                                        System.out.println(card.getName());
+                                        System.out.println(7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                                    }
+                                });
+                            } else if ((matcher = ServerResponse.GameStarted.getMatcher(response)) != null) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Stage waitStage = App.getWaitStage();
+                                        waitStage.close();
+
+                                    }
+                                });
+                                playGame();
+                            } else if ((matcher = ServerResponse.LeaderBoard.getMatcher(response)) != null) {
+                                String string = client.getServerResponse();
+//                                System.out.println(string + "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+                                Gson gson = new Gson();
+                                ArrayList<SimpleUser> users = new ArrayList<>();
+                                users = gson.fromJson(string, new TypeToken<ArrayList<SimpleUser>>(){}.getType());
+                                ArrayList<SimpleUser> finalUsers = users;
+//                                System.out.println(users);
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+//                                        HashMap<SimpleUser,Double> users = gson.fromJson(string, HashMap.class);
+//                                        System.out.println(users);
+                                        LeaderBoardGraphic leaderBoardGraphic = new LeaderBoardGraphic(finalUsers);
+                                        App.setLeaderBoardGraphic(leaderBoardGraphic);
+                                        try {
+                                            leaderBoardGraphic.start(App.getStage());
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            } else if ((matcher = ServerResponse.UpdateLeaderBoard.getMatcher(response)) != null) {
+                                String string = reader.readLine();
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Gson gson = new Gson();
+                                        ArrayList<SimpleUser> users = gson.fromJson(string, new TypeToken<ArrayList<SimpleUser>>(){}.getType());
+                                        if(App.getLeaderBoardGraphic() != null){
+                                            App.getLeaderBoardGraphic().updateTable(users);
+                                        }
+                                    }
+                                });
+
+                            }
+                            System.out.println(response);
+                        }//TODO if is in game added
+                    }catch (Exception e) {
                         try {
                             client.socket.close();
                         } catch (Exception e1) {
@@ -162,6 +239,108 @@ public class Client {
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public String getServerResponse(){
+        String response = null;
+        try {
+            response = reader.readLine();
+        } catch (IOException e) {
+            System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+            e.printStackTrace();
+        }
+        return response;
+    }
+    public void playGame(){
+        try {
+            System.out.println("playing game");
+            String turn = reader.readLine();
+            System.out.println(turn + " in playGAme");
+            isTurn = !turn.equals("second");
+            GameController controller = (GameController) Menu.GameMenu.getMenuController();
+            controller.setIsMyTurn(isTurn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Matcher matcher;
+
+        while (!socket.isClosed()){
+            if(!isTurn){
+                try {
+                    System.out.println("opponent turn");
+                    String response = reader.readLine();
+                    System.out.println(response);
+                    if ((matcher = ServerResponse.PlayCardByOpponent.getMatcher(response)) != null) {
+                        Card card = CardName.getCardByName(matcher.group("cardName").replaceAll("-"," "));
+                        System.out.println("get");
+                        Matcher finalMatcher1 = matcher;
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+//                                    gameController.playCard(card,7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                                gameController.playOpponentUnitCard((UnitCard) card,7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                                System.out.println(card.getName());
+                                System.out.println(7 - Integer.parseInt(finalMatcher1.group("rowNumber")));
+                            }
+                        });
+                    } else if ((matcher = ServerResponse.Pass.getMatcher(response)) != null) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                isTurn = true;
+                                GameController controller = (GameController) Menu.GameMenu.getMenuController();
+                                controller.setIsMyTurn(true);
+                            }
+                        });
+                    } else if ((matcher = ServerResponse.Passed.getMatcher(response)) != null) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                isTurn = true;
+                                GameController controller = (GameController) Menu.GameMenu.getMenuController();
+                                controller.setIsMyTurn(true);
+                            }
+                        });
+                    } else if ((matcher = ServerResponse.MassageFromOpponent.getMatcher(response)) != null) {
+                        Matcher finalMatcher = matcher;
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+                                Timer timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        gameController.setChatLabelText("");
+                                    }
+                                },15000);
+                               gameController.setChatLabelText(finalMatcher.group("massage"));
+                            }
+                        });
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else {
+                String response = null;
+                try {
+                    response = reader.readLine();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                if((matcher = ServerResponse.MassageFromOpponent.getMatcher(response)) != null){
+                    Matcher finalMatcher2 = matcher;
+                    Platform.runLater(new Runnable() {
+                        GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+
+                        @Override
+                        public void run() {
+                            gameController.setChatLabelText(finalMatcher2.group("massage"));
+                        }
+                    });
+                }
+            }
         }
     }
 
