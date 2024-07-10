@@ -1,6 +1,7 @@
 package Server;
 
 import com.google.gson.Gson;
+import model.Client;
 import model.SimpleUser;
 
 import java.io.*;
@@ -158,13 +159,13 @@ public class Server {
                 //TODO ???????
             }
         } else{
-            GameHandler gameHandler = new GameHandler(socket);
-            GameHandler enemyGameHandler = new GameHandler(waitingPrivateRandomGameSockets.get(0));
-            waitingPrivateRandomGameSockets.remove(0);//TODO can remove object(socket)
-            gameHandler.setEnemyGameHandler(enemyGameHandler);
-            enemyGameHandler.setEnemyGameHandler(gameHandler);
-            gameHandler.sendMassageToClient("game started\n");
-            enemyGameHandler.sendMassageToClient("game started\n");
+//            GameHandler gameHandler = new GameHandler(socket);
+//            GameHandler enemyGameHandler = new GameHandler(waitingPrivateRandomGameSockets.get(0));
+//            waitingPrivateRandomGameSockets.remove(0);//TODO can remove object(socket)
+//            gameHandler.setEnemyGameHandler(enemyGameHandler);
+//            enemyGameHandler.setEnemyGameHandler(gameHandler);
+//            gameHandler.sendMassageToClient("game started\n");
+//            enemyGameHandler.sendMassageToClient("game started\n");
 //            gameHandler.start();
         }
     }
@@ -180,8 +181,11 @@ public class Server {
             }
 
         }else {
-            GameHandler gameHandler = new GameHandler(socket);
-            GameHandler enemyGameHandler = new GameHandler(waitingPublicRandomGameSockets.get(0));
+            ClientHandler clientHandler = getClientHandlerRelatedToSocket(socket);
+            GameHandler gameHandler = new GameHandler(socket,clientHandler.getWriter(),clientHandler.getReader());
+            ClientHandler enemyClientHandler = getClientHandlerRelatedToSocket(waitingPublicRandomGameSockets.get(0));
+            GameHandler enemyGameHandler = new GameHandler(waitingPublicRandomGameSockets.get(0),enemyClientHandler.getWriter()
+            ,enemyClientHandler.getReader());
             waitingPublicRandomGameSockets.remove(0);//TODO waht auto closable means????
             gameHandler.setEnemyGameHandler(enemyGameHandler);
 //            enemyGameHandler.setEnemyGameHandler(gameHandler);

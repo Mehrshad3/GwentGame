@@ -12,12 +12,12 @@ public class GameHandler{
     private boolean isTurn;
     private int numberOfPassedRoundWithoutAction = 0;
 
-    public GameHandler(Socket socket){
+    public GameHandler(Socket socket,BufferedWriter writer,BufferedReader reader){
         this.socket = socket;
         try {
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        }catch (IOException e){
+            this.reader = reader;
+            this.writer = writer;
+        }catch (Exception e){
             close();
         }
     }
