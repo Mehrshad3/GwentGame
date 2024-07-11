@@ -35,8 +35,11 @@ public final class GsonReaderWriter {
         try {
             JsonReader reader = new JsonReader(new FileReader(file));
             object = gson.fromJson(reader, tClass);
+            reader.close();
         } catch (FileNotFoundException e) {
             App.LOGGER.log(Level.WARNING, "Couldn't find the file to read the " + tClass.getName() + " object from.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return object;
     }

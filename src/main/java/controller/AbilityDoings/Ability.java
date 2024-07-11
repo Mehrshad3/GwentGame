@@ -20,7 +20,7 @@ public abstract class Ability {
     }
 
     public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = new ObservableGameStatus(gameStatus);
+        this.gameStatus = new ObservableGameStatus(gameStatus.getPlayer1(),gameStatus.getPlayer2(),gameStatus);
     }
 
     public Player getPlayer() {

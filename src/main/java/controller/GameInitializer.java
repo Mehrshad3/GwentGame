@@ -3,6 +3,7 @@ package controller;
 import controller.AbilityDoings.FactionAbilityDoings.FactionAbilities;
 import controller.AbilityDoings.FactionAbilityDoings.FactionAbility;
 import enums.EnumAbilities.Abilities;
+import model.GameStatus;
 import model.ObservableGameStatus;
 import model.Player;
 import model.Table;
@@ -13,7 +14,7 @@ import java.util.Random;
 public class GameInitializer {
     public static ObservableGameStatus InitializeAGame(Player player1, Player player2){
         Table table = new Table(player1,player2);
-        ObservableGameStatus gameStatus = new ObservableGameStatus(table,player1,player2);
+        ObservableGameStatus gameStatus = new ObservableGameStatus(player1,player2,new GameStatus(table,player1,player2));
         HandleRounds handleRounds=new HandleRounds(gameStatus);
         gameStatus.setHandleRounds(handleRounds);
         FactionAbility faction1ability;

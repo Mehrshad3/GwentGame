@@ -136,7 +136,7 @@ public class GameController extends MenuController {
     public void setStartStatus(Player player1) {
         this.player1 = player1;
         player2 = new Player("guest", "placeholder");
-        setGamingAndUpdateScreen(new ObservableGameStatus(new Table(player1, player2), player1, player2));
+        setGamingAndUpdateScreen(new ObservableGameStatus(player1, player2,new GameStatus(new Table(player1,player2),player1,player2)));
         player2.getDeck().setCurrentLeaderCard((LeaderCard) CardName.BRINGER_OF_DEATH.getNewCard());
         isMyTurn.setValue(true);
         dealCards();
