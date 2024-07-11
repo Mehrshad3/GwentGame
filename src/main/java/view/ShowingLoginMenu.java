@@ -18,6 +18,7 @@ import model.GsonReaderWriter;
 import model.User;
 
 import java.util.Optional;
+import java.util.logging.Level;
 
 
 public class ShowingLoginMenu extends Application {
@@ -57,6 +58,7 @@ public class ShowingLoginMenu extends Application {
         loginmenu = new LoginMenu();
         registerMenuController = new RegisterMenuController();
         loginMenuController = new LoginMenuController();
+        loginMenuController.setShowingLoginMenu(this);
         validator = Validator.getValidator();
         pane = new BorderPane();
         pane.setCenter(vBox);
@@ -79,105 +81,69 @@ public class ShowingLoginMenu extends Application {
     private void addPaneChildren() {
         Username = new TextField();
         Username.setPromptText("Username");
-        Username.setLayoutX(stage.getWidth() / 2 - 100);
-        Username.setLayoutY(stage.getHeight() / 2);
         vBox.getChildren().add(Username);
 
-        Password = new TextField();//TODO passwordField
+        Password = new PasswordField();
         Password.setPromptText("Password");
-        Password.setLayoutX(stage.getWidth() / 2 - 100);
-        Password.setLayoutY(stage.getHeight() / 2 + 40);
         vBox.getChildren().add(Password);
 
-        RepeatPassword = new TextField();
+        RepeatPassword = new PasswordField();
         RepeatPassword.setPromptText("Repeat Password");
-        RepeatPassword.setLayoutX(stage.getHeight() / 2 - 100);
-        RepeatPassword.setLayoutY(stage.getHeight() / 2 + 60);
         vBox.getChildren().add(RepeatPassword);
 
         Email = new TextField();
         Email.setPromptText("Email");
-        Email.setLayoutX(stage.getWidth() / 2 - 100);
-        Email.setLayoutY(stage.getHeight() / 2 + 60);
         vBox.getChildren().add(Email);
 
         Nickname = new TextField();
         Nickname.setPromptText("Nickname");
-        Nickname.setLayoutX(stage.getWidth() / 2 - 100);
-        Nickname.setLayoutY(stage.getHeight() / 2 + 80);
         vBox.getChildren().add(Nickname);
 
         Button LoginButton = new Button("Login");
         LoginButton.setOnAction(actionEvent -> login());
-        LoginButton.setLayoutX(stage.getWidth() / 2 + 60);
-        LoginButton.setLayoutY(stage.getHeight() / 2 + 20);
         LoginButton.setMinWidth(75);
         vBox.getChildren().add(LoginButton);
 
         Button RegisterButton = new Button("Register");
         RegisterButton.setOnAction(actionEvent -> register());
-        RegisterButton.setLayoutX(stage.getWidth() / 2 - 100);
-        RegisterButton.setLayoutY(stage.getHeight() + 40);
         RegisterButton.setMinWidth(75);
         vBox.getChildren().add(RegisterButton);
 
         Button ForgotPassword = new Button("Forgot Password");
         ForgotPassword.setOnAction(actionEvent -> changeForgottenPassword());
-        ForgotPassword.setLayoutX(stage.getWidth() / 2 - 100);
-        ForgotPassword.setLayoutY(stage.getHeight() + 60);
         ForgotPassword.setMinWidth(75);
         vBox.getChildren().add(ForgotPassword);
     }
 
     private void changeForgottenPassword() {
-        TextInputDialog Username = new TextInputDialog();
-        Username.setHeaderText("Username");
-        Username.setContentText("Enter Your Username");
-        Optional<String> username = Username.showAndWait();
+        String username = askUserForUsername();
 
-        if (username.isPresent()) {
-            if (!validator.isUsernameDuplicate(username.get())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("username doesn't exists");
-                alert.show();
-            } else {
-                TextInputDialog answer = new TextInputDialog();
-                answer.setTitle("Change Password");
-                answer.setHeaderText("Security Question");
-                answer.setContentText("Enter Your Security Answer You Set Before");
-                Optional<String> securityAnswer = answer.showAndWait();
-                if (securityAnswer.isPresent()) {
-                    //TODO check if correct then change password
-                    User user = GsonReaderWriter.getGsonReaderWriter().loadUser(username.get());
-                    if (user.getSecurityAnswer().equalsIgnoreCase(securityAnswer.get())) {
-                        TextInputDialog newPassword = new TextInputDialog();
-                        newPassword.setContentText("Enter new password");
-                        newPassword.setHeaderText("New Password");
-                        Optional<String> text = newPassword.showAndWait();
-                        if (text.isPresent()) {
-                            Alert alert = new Alert(Alert.AlertType.NONE);
-                            if (!validator.validatePassword(text.get())) {
-                                User.setCurrentUser(user);
-                                ProfileMenuController controller = new ProfileMenuController();
-                                controller.changePassword(text.get(), user.getPassword());
-                                alert.setAlertType(Alert.AlertType.CONFIRMATION);
-                                alert.setContentText("password changed");
-                                alert.show();
-                                User.setCurrentUser(null);
-                            } else {
-                                alert.setAlertType(Alert.AlertType.ERROR);
-                                alert.setContentText("Wrong password format");
-                                alert.show();
-                            }
-                        }
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("Wrong answer");
-                        alert.show();
-                    }
-                }
+        if (username != null) {
+            if (!validator.isUsernameDuplicate(username)) {
+                showWarningAlert("username doesn't exist");
+                return;
             }
-//        Optional s = answer.showAndWait();
+            String securityAnswerEntered = askForSecurityPasswordSetBefore();
+            if (securityAnswerEntered == null) return;
+            //TODO check if correct then change password
+            User user = GsonReaderWriter.getGsonReaderWriter().loadUser(username);
+            assert user != null;
+            if (!user.getSecurityAnswer().equalsIgnoreCase(securityAnswerEntered)) {
+                showWarningAlert("Wrong answer");
+                return;
+            }
+            String text = askForNewPassword();
+            if (text == null) return;
+            if (!validator.validatePassword(text)) {
+                showWarningAlert("Wrong password format");
+            } else if (!validator.validatePassword(text)) {
+                User.setCurrentUser(user);
+                ProfileMenuController controller = new ProfileMenuController();
+                controller.changePassword(text, user.getPassword());
+                alertPasswordChangedSuccessfully();
+                User.setCurrentUser(null);
+            }
+            //        Optional s = answer.showAndWait();
 //        answer.getDialogPane().getButtonTypes().add(ButtonType.OK);
 
 //        Button okButton = (Button) answer.getDialogPane().lookupButton(ButtonType.OK);
@@ -203,66 +169,47 @@ public class ShowingLoginMenu extends Application {
     private void register() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         if (validator.isUsernameDuplicate(Username.getText())) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("This Username is already exists.");
-            alert.show();
+            showWarningAlert("This Username is already exists.");
         } else if (!validator.validateUsername(Username.getText())) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Username is not valid");
-            alert.show();
+            showWarningAlert("Username is not valid");
         } else if (!validator.validateEmail(Email.getText())) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Email is invalid");
-            alert.show();
+            showWarningAlert("Email is invalid");
         } else if (!validator.validatePassword(Password.getText()) && !Password.getText().equals("Random")) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Password isn't valid");
-            alert.show();
+            showWarningAlert("Password isn't valid");
         } else if (validator.isPasswordWeak(Password.getText()) && !Password.getText().equals("Random")) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Weak Password");
-            alert.show();
+            showWarningAlert("Weak Password");
         } else if (!Password.getText().equals(RepeatPassword.getText())) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Passwords don't match");
-            alert.show();
+            showWarningAlert("Passwords don't match");
         } else if (Nickname.getText().isEmpty()) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setHeaderText("Nickname");
-            alert.setContentText("Enter a nickname");
-            alert.show();
-
+            alertNicknameNotEntered();
         } else if (Password.getText().equals("Random") && RepeatPassword.getText().equals("Random")) {
             String suggestedPassword = registerMenuController.generateRandomPassword();
-            alert.setHeaderText(suggestedPassword);
-            alert.setAlertType(Alert.AlertType.CONFIRMATION);
-            alert.setContentText("Do you want to continue with this password?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
+            Boolean result = false;
+            while (result != null && !result) result = confirmRandomlyGeneratedPassword(suggestedPassword);
+            if (result == null) return;
 //                registerMenuController.createNewUser(Username.getText(),Password.getText(),RepeatPassword.getText(), Nickname.getText(),Email.getText());
 //                alert.setAlertType(Alert.AlertType.INFORMATION);
 //                alert.setContentText("Your account successfully created");
 //                alert.show();
-                String[] questions = {"DayOfBirth", "FavoriteMovie", "YourFavoriteSchoolTeacher"};
-                ChoiceDialog securityQuestions = new ChoiceDialog(questions[0], questions);
-                securityQuestions.showAndWait();
-                if (!securityQuestions.isShowing()) {
+            String[] questions = {"DayOfBirth", "FavoriteMovie", "YourFavoriteSchoolTeacher"};
+            ChoiceDialog securityQuestions = new ChoiceDialog(questions[0], questions);
+            securityQuestions.showAndWait();
+            if (!securityQuestions.isShowing()) {
 
-                    System.out.println(securityQuestions.getSelectedItem());
-                    TextInputDialog answer = new TextInputDialog();
-                    answer.setHeaderText("Your Answer");
-                    Optional<String> securityAnswer = answer.showAndWait();
-                    System.out.println(securityAnswer.get());
+                System.out.println(securityQuestions.getSelectedItem());
+                TextInputDialog answer = new TextInputDialog();
+                answer.setHeaderText("Your Answer");
+                Optional<String> securityAnswer = answer.showAndWait();
+                System.out.println(securityAnswer.get());
 
-                    User user = User.create(Username.getText(), suggestedPassword, Email.getText(), Nickname.getText(),
-                            securityAnswer.get(), (String) securityQuestions.getSelectedItem());
-                    alert.setAlertType(Alert.AlertType.CONFIRMATION);
-                    alert.setHeaderText("Success");
-                    alert.setContentText("Register Completed");
-                    alert.show();
-                }
-//                System.out.println(res.get());
+                User user = User.create(Username.getText(), suggestedPassword, Email.getText(), Nickname.getText(),
+                        securityAnswer.get(), (String) securityQuestions.getSelectedItem());
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Success");
+                alert.setContentText("Register Completed");
+                alert.show();
             }
+//                System.out.println(res.get());
         } else {
             String[] questions = {"DayOfBirth", "FavoriteMovie", "YourFavoriteSchoolTeacher"};
             ChoiceDialog<String> securityQuestions = new ChoiceDialog<>(questions[0], questions);
@@ -309,9 +256,65 @@ public class ShowingLoginMenu extends Application {
                 mainMenu = new MainMenuGraphic();
                 mainMenu.start(stage);
             } catch (Exception e) {
-                e.printStackTrace();
+                App.LOGGER.log(Level.WARNING, "Exception in setting the client up", e);
             }
         }
 
+    }
+
+
+    private String askUserWithTextInputDialog(String title, String headerText, String contextText) {
+        TextInputDialog Username = new TextInputDialog();
+        if (title != null) Username.setTitle(title);
+        Username.setHeaderText(headerText);
+        Username.setContentText(contextText);
+        Optional<String> optional = Username.showAndWait();
+        return optional.orElse(null);
+    }
+
+    private String askUserWithTextInputDialog(String headerText, String contextText) {
+        return askUserWithTextInputDialog(null, headerText, contextText);
+    }
+
+    public String askUserForUsername() {
+        return askUserWithTextInputDialog("Username", "Enter Your Username");
+    }
+
+    public String askForSecurityPasswordSetBefore() {
+        return askUserWithTextInputDialog("Change Password", "Security Question",
+                "Enter Your Security Answer You Set Before");
+    }
+
+    public String askForNewPassword() {
+        return askUserWithTextInputDialog("Enter new password", "New Password");
+    }
+
+    public Boolean confirmRandomlyGeneratedPassword(String suggestedPassword) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(suggestedPassword);
+        alert.setContentText("Do you want to continue with this password?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isEmpty()) return null;
+        else return result.get() == ButtonType.OK;
+    }
+
+
+    public void showWarningAlert(String contextText) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText(contextText);
+        alert.show();
+    }
+
+    public void alertPasswordChangedSuccessfully() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("password changed");
+        alert.show();
+    }
+
+    public void alertNicknameNotEntered() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText("Nickname");
+        alert.setContentText("Enter a nickname");
+        alert.show();
     }
 }

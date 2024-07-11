@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 public class App {
     public static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Object lock = new Object();
     private static Stage stage;
     private static Stage waitStage;
     private static Scene preGameMenu;
@@ -23,7 +24,6 @@ public class App {
     private static Scene gameMenu;
     private static App appObject = null;
     private static Menu currentMenu = Menu.LoginMenu;
-    private static final Object lock = new Object();
     private static ClientController clientController;
 
     static {

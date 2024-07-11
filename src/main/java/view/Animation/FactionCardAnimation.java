@@ -9,7 +9,8 @@ public class FactionCardAnimation extends Transition {
     private boolean makeSmall;
     private double height;
     private double width;
-    public FactionCardAnimation(ImageView imageView , double height , double width , boolean makeSmall){
+
+    public FactionCardAnimation(ImageView imageView, double height, double width, boolean makeSmall) {
         this.imageView = imageView;
         this.height = height;
         this.width = width;
@@ -17,15 +18,16 @@ public class FactionCardAnimation extends Transition {
         this.setCycleCount(1);
         this.setCycleDuration(Duration.millis(200));
     }
+
     @Override
     protected void interpolate(double v) {
         int heightSize = 100;
         int widthSize = 60;
-        if(makeSmall && heightSize > 0){
+        if (makeSmall && heightSize > 0) {
             heightSize *= -1;
             widthSize *= -1;
         }
-        imageView.setFitHeight(height + heightSize*v);
-        imageView.setFitWidth(width + widthSize*v);
+        imageView.setFitHeight(height + heightSize * v);
+        imageView.setFitWidth(width + widthSize * v);
     }
 }
