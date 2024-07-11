@@ -1,5 +1,6 @@
 package controller;
 
+import Server.ClientHandler;
 import controller.Checking.GetAbility;
 import enums.card.CardName;
 import enums.card.RowWeather;
@@ -283,6 +284,8 @@ public class GameController extends MenuController {
                 getPlayer1InHandCards().remove(unitCard);
                 // TODO: do card ability
                 // TODO: SpyChecking
+                ClientController clientController = App.getClientController();
+                Client client = clientController.getClient();
                 client.sendMassage("place card " + card.getName().replaceAll(" ", "-") + " on row "
                         + rowToPlay);
             }
@@ -319,9 +322,12 @@ public class GameController extends MenuController {
 
     public void passRound() {
         isMyTurn.set(false);
-        handleRounds.passround();
         ClientController clientController = App.getClientController();
         Client client = clientController.getClient();
+        client.setTurn(false);
+        handleRounds.passround();
+//        ClientController clientController = App.getClientController();
+//        client = clientController.getClient();
         client.sendMassage("pass");
         handleRounds.passRound();
     }

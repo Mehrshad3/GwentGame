@@ -105,4 +105,8 @@ public class ClientHandler extends Thread{
     public void setWriter(BufferedWriter writer) {
         this.writer = writer;
     }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
 }

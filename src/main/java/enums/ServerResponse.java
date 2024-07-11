@@ -14,7 +14,7 @@ public enum ServerResponse {
     MassageFromOpponent("opponent say: (?<massage>.+)\\s*"),
     PlayCardByOpponent("opponent placed card (?<cardName>\\S+)( on row (?<rowNumber>\\S+))?\\s*"),
     Passed("passed"),
-    Pass("pass"),
+    Pass("pass\\s*"),
     LeaderBoard("leaderBoard:"),
     UpdateLeaderBoard("update LeaderBoard:"),
     YourTurn("your turn");

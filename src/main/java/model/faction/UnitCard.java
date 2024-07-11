@@ -116,12 +116,12 @@ public class UnitCard extends Card {
             }
         } else {
         }
-        if (gameStatus.isTheTreacherousAbility()) {
-            if (name.equals("spy")) {
-                setPower(getPower() * 2);
-            } else {
-            }
-        }
+//        if (gameStatus.isTheTreacherousAbility()) {
+//            if (name.equals("spy")) {
+//                setPower(getPower() * 2);
+//            } else {
+//            }
+//        }
         for (Card card : rowmates) {
             boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == CommandersHornAbility.class;
             //TODO:tightBound ability must do

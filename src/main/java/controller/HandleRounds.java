@@ -140,8 +140,8 @@ public class HandleRounds {
 
     public void passfactionround() {
         if (notfinishedyet) {
-            gameStatus.getFaction1abilitydoing().DoCardAbility();
-            gameStatus.getFaction2abilitydoing().DoCardAbility();
+//            gameStatus.getFaction1abilitydoing().DoCardAbility();
+//            gameStatus.getFaction2abilitydoing().DoCardAbility();
         } else {
 
         }

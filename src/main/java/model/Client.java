@@ -180,7 +180,8 @@ public class Client {
                                 });
                                 playGame();
                             } else if ((matcher = ServerResponse.LeaderBoard.getMatcher(response)) != null) {
-                                String string = client.getServerResponse();
+//                                String string = client.getServerResponse();
+                                String string = client.reader.readLine();
 //                                System.out.println(string + "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                                 Gson gson = new Gson();
                                 ArrayList<SimpleUser> users = new ArrayList<>();
@@ -220,7 +221,10 @@ public class Client {
                         }//TODO if is in game added
                     }catch (Exception e) {
                         try {
-                            client.socket.close();
+//                            client.socket.close();
+                            System.out.println("fuck you");
+                            e.printStackTrace();
+                            break;
                         } catch (Exception e1) {
                             e1.printStackTrace();
                         }
@@ -263,16 +267,22 @@ public class Client {
             e.printStackTrace();
         }
         Matcher matcher;
-
+        int counter = 0;
         while (!socket.isClosed()){
             if(!isTurn){
                 try {
                     System.out.println("opponent turn");
                     String response = reader.readLine();
                     System.out.println(response);
+
+                    if(response.equals("pass") && counter == 0){
+                        counter++;
+                        continue;
+                    }
                     if ((matcher = ServerResponse.PlayCardByOpponent.getMatcher(response)) != null) {
                         Card card = CardName.getCardByName(matcher.group("cardName").replaceAll("-"," "));
                         System.out.println("get");
+                        counter++;
                         Matcher finalMatcher1 = matcher;
                         Platform.runLater(new Runnable() {
                             @Override
@@ -285,15 +295,18 @@ public class Client {
                             }
                         });
                     } else if ((matcher = ServerResponse.Pass.getMatcher(response)) != null) {
+                        System.out.println("here in pass should be");
+                        isTurn = true;
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                isTurn = true;
+
                                 GameController controller = (GameController) Menu.GameMenu.getMenuController();
                                 controller.setIsMyTurn(true);
                             }
                         });
                     } else if ((matcher = ServerResponse.Passed.getMatcher(response)) != null) {
+                        System.out.println("here in pass");
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
@@ -323,23 +336,24 @@ public class Client {
                     e.printStackTrace();
                 }
             }else {
-                String response = null;
-                try {
-                    response = reader.readLine();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                if((matcher = ServerResponse.MassageFromOpponent.getMatcher(response)) != null){
-                    Matcher finalMatcher2 = matcher;
-                    Platform.runLater(new Runnable() {
-                        GameController gameController = (GameController) Menu.GameMenu.getMenuController();
-
-                        @Override
-                        public void run() {
-                            gameController.setChatLabelText(finalMatcher2.group("massage"));
-                        }
-                    });
-                }
+//                String response = null;
+//                try {
+//                    response = reader.readLine();
+//                }catch (Exception e){
+//                    System.out.println("line 333 in client");
+//                    e.printStackTrace();
+//                }
+//                if((matcher = ServerResponse.MassageFromOpponent.getMatcher(response)) != null){
+//                    Matcher finalMatcher2 = matcher;
+//                    Platform.runLater(new Runnable() {
+//                        GameController gameController = (GameController) Menu.GameMenu.getMenuController();
+//
+//                        @Override
+//                        public void run() {
+//                            gameController.setChatLabelText(finalMatcher2.group("massage"));
+//                        }
+//                    });
+//                }
             }
         }
     }
@@ -447,5 +461,9 @@ public class Client {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setTurn(boolean turn) {
+        isTurn = turn;
     }
 }

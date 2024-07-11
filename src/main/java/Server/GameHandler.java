@@ -18,12 +18,13 @@ public class GameHandler{
             this.reader = reader;
             this.writer = writer;
         }catch (Exception e){
+            System.out.println("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
             close();
         }
     }
 
     public void run(){
-        String string;
+        String string = null;
         Matcher matcher;
         if(!socket.isClosed()){
             try {
@@ -32,6 +33,7 @@ public class GameHandler{
                 isTurn = true;
                 enemyGameHandler.isTurn = false;
             }catch (Exception e){
+                System.out.println("jiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                 close();
                 e.printStackTrace();
             }
@@ -41,6 +43,7 @@ public class GameHandler{
                 enemyGameHandler.writer.write("second\n");
                 enemyGameHandler.writer.flush();
             }catch (Exception e){
+                System.out.println("kiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                 close();
                 e.printStackTrace();
             }
@@ -52,7 +55,11 @@ public class GameHandler{
                         //TODO check who wins and
                         break;
                     }
-                    string = receiveMassageFromClient();
+                    try {
+                        string = reader.readLine();
+                    }catch (Exception e){
+
+                    }
                     if((matcher =  ServerCommands.PlayCard.getMatcher(string)) != null){
                         enemyGameHandler.sendMassageToClient("opponent placed card " + matcher.group("cardName") + " on row " + matcher.group("rowNumber"));
                     } else if ((matcher = ServerCommands.sendMassageToOpponent.getMatcher(string)) != null) {
@@ -80,9 +87,14 @@ public class GameHandler{
                     //TODO check who wins and
                     break;
                 }
-                string = enemyGameHandler.receiveMassageFromClient();
+                try {
+                    string = enemyGameHandler.reader.readLine();
+                }catch (Exception e){
+
+                }
                 if((matcher =  ServerCommands.PlayCard.getMatcher(string)) != null){
-                    this.sendMassageToClient("opponent placed card " + matcher.group("cardName") + " on row " + matcher.group("rowNumber"));
+                    this.sendMassageToClient("opponent placed card " + matcher.group("cardName")
+                            + " on row " + matcher.group("rowNumber"));
                 }else if ((matcher = ServerCommands.sendMassageToOpponent.getMatcher(string)) != null) {
                     this.sendMassageToClient("opponent say: " + matcher.group("massage"));
                 }
@@ -150,4 +162,5 @@ public class GameHandler{
     public Socket getSocket() {
         return socket;
     }
+
 }

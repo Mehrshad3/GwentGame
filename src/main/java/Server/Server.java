@@ -7,6 +7,7 @@ import model.SimpleUser;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,6 +57,12 @@ public class Server {
     }
 
     private void checkForClientCommands(Socket socket) {
+        try {
+            socket.setKeepAlive(true);
+        } catch (SocketException e) {
+            e.printStackTrace();
+            System.out.println("wtf is this?!!!");
+        }
         final Matcher[] matcher = new Matcher[1];
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -65,44 +72,45 @@ public class Server {
                     BufferedReader bufferedReader = getClientHandlerRelatedToSocket(socket).getReader();
                     String string;
                     while (!socket.isClosed()) {
-                        try {
-                            string = bufferedReader.readLine();
-                            if ((matcher[0] = ServerCommands.watchGame.getMatcher(string)) != null) {
-                                watchGame(socket);
-                            } else if ((matcher[0] = ServerCommands.sendFriendRequest.getMatcher(string)) != null) {
-                                sendFriendRequest(matcher[0].group("username"), getClientHandlerRelatedToSocket(socket));
-                                System.out.println("sending friend request");
-                            } else if ((matcher[0] = ServerCommands.register.getMatcher(string)) != null) {
-                                register(socket);
-                            } else if ((matcher[0] = ServerCommands.startPrivateRandomGame.getMatcher(string)) != null) {
-                                startPrivateRandomGame(bufferedWriter);
-                            } else if ((matcher[0] = ServerCommands.sendMassageToOpponent.getMatcher(string)) != null) {
-                                if(!sendInGameMassage(matcher[0].group("massage"),socket)){
-                                    bufferedWriter.write("you are not in a game");
+                        if (getClientHandlerRelatedToSocket(socket).isAvailable()){
+                            try {
+                                string = bufferedReader.readLine();
+                                if ((matcher[0] = ServerCommands.watchGame.getMatcher(string)) != null) {
+                                    watchGame(socket);
+                                } else if ((matcher[0] = ServerCommands.sendFriendRequest.getMatcher(string)) != null) {
+                                    sendFriendRequest(matcher[0].group("username"), getClientHandlerRelatedToSocket(socket));
+                                    System.out.println("sending friend request");
+                                } else if ((matcher[0] = ServerCommands.register.getMatcher(string)) != null) {
+                                    register(socket);
+                                } else if ((matcher[0] = ServerCommands.startPrivateRandomGame.getMatcher(string)) != null) {
+                                    startPrivateRandomGame(bufferedWriter,socket);
+                                } else if ((matcher[0] = ServerCommands.sendMassageToOpponent.getMatcher(string)) != null) {
+                                    if (!sendInGameMassage(matcher[0].group("massage"), socket)) {
+                                        bufferedWriter.write("you are not in a game");
+                                        bufferedWriter.flush();
+                                    }
+                                } else if ((matcher[0] = ServerCommands.startPublicRandomGame.getMatcher(string)) != null) {
+
+                                    startPublicRandomGame(bufferedWriter, socket);
+                                } else if ((matcher[0] = ServerCommands.PlayCard.getMatcher(string)) != null) {
+                                    sendPlayedCard(matcher[0], socket);
+                                } else if ((matcher[0] = ServerCommands.LeaderBoard.getMatcher(string)) != null) {
+                                    showLeaderBoard(socket);
+                                } else {
+                                    System.out.println(string);
+                                    bufferedWriter.write("invalid command\n");
                                     bufferedWriter.flush();
                                 }
-                            } else if ((matcher[0] = ServerCommands.startPublicRandomGame.getMatcher(string)) != null) {
-
-                                startPublicRandomGame(bufferedWriter,socket);
-                            } else if ((matcher[0] = ServerCommands.PlayCard.getMatcher(string)) != null) {
-                                sendPlayedCard(matcher[0],socket);
-                            } else if ((matcher[0] = ServerCommands.LeaderBoard.getMatcher(string)) != null) {
-                                showLeaderBoard(socket);
-                            } else {
-                                System.out.println(string);
-                                bufferedWriter.write("invalid command\n");
-                                bufferedWriter.flush();
+                            } catch (Exception e) {
+                                socket.close();
+                                sockets.remove(socket);//e.print
+                                removeClientHandler(socket);
+                                bufferedWriter.close();
+                                bufferedReader.close();
                             }
-                        } catch (Exception e) {
-                            socket.close();
-                            sockets.remove(socket);//e.print
-                            removeClientHandler(socket);
-                            bufferedWriter.close();
-                            bufferedReader.close();
-                        }
                     }
-                } catch (
-                        IOException e) {
+                    }
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -149,9 +157,10 @@ public class Server {
         }, 7000);
     }
 
-    private void startPrivateRandomGame(BufferedWriter bufferedWriter) {
+    private void startPrivateRandomGame(BufferedWriter bufferedWriter, Socket socket) {
         if (waitingPrivateRandomGameSockets.isEmpty()) {
             waitingPrivateRandomGameSockets.add(socket);
+            getClientHandlerRelatedToSocket(socket);
             try {
                 bufferedWriter.write("wait\n");
                 bufferedWriter.flush();
@@ -159,20 +168,24 @@ public class Server {
                 //TODO ???????
             }
         } else{
-//            GameHandler gameHandler = new GameHandler(socket);
-//            GameHandler enemyGameHandler = new GameHandler(waitingPrivateRandomGameSockets.get(0));
-//            waitingPrivateRandomGameSockets.remove(0);//TODO can remove object(socket)
-//            gameHandler.setEnemyGameHandler(enemyGameHandler);
+            ClientHandler clientHandler = getClientHandlerRelatedToSocket(socket);
+            GameHandler gameHandler = new GameHandler(socket,clientHandler.getWriter(),clientHandler.getReader());
+            ClientHandler enemyClientHandler = getClientHandlerRelatedToSocket(socket);
+            GameHandler enemyGameHandler = new GameHandler(waitingPrivateRandomGameSockets.get(0),enemyClientHandler.getWriter()
+            ,enemyClientHandler.getReader());
+            waitingPrivateRandomGameSockets.remove(0);//TODO can remove object(socket)
+            gameHandler.setEnemyGameHandler(enemyGameHandler);
 //            enemyGameHandler.setEnemyGameHandler(gameHandler);
-//            gameHandler.sendMassageToClient("game started\n");
-//            enemyGameHandler.sendMassageToClient("game started\n");
-//            gameHandler.start();
+            gameHandler.sendMassageToClient("game started\n");
+            enemyGameHandler.sendMassageToClient("game started\n");
+            gameHandler.run();
         }
     }
     private void startPublicRandomGame(BufferedWriter writer,Socket socket){
         if(waitingPublicRandomGameSockets.isEmpty()){
 //            System.out.println("new game");
             waitingPublicRandomGameSockets.add(socket);
+            getClientHandlerRelatedToSocket(socket).setAvailable(false);
             try {
                 writer.write("wait\n");
                 writer.flush();
@@ -182,6 +195,7 @@ public class Server {
 
         }else {
             ClientHandler clientHandler = getClientHandlerRelatedToSocket(socket);
+            clientHandler.setAvailable(false);
             GameHandler gameHandler = new GameHandler(socket,clientHandler.getWriter(),clientHandler.getReader());
             ClientHandler enemyClientHandler = getClientHandlerRelatedToSocket(waitingPublicRandomGameSockets.get(0));
             GameHandler enemyGameHandler = new GameHandler(waitingPublicRandomGameSockets.get(0),enemyClientHandler.getWriter()
