@@ -2,6 +2,8 @@ package enums.EnumAbilities;
 
 import controller.AbilityDoings.*;
 import controller.AbilityDoings.LeadersAbilityDoings.*;
+import controller.AbilityDoings.SpellsAbilityDoing.ClearWeatherAbilityDoing;
+import controller.AbilityDoings.SpellsAbilityDoing.SkelligeStormAbilityDoing;
 import enums.card.ability.UnitOrSpellCardAbility;
 import enums.card.ability.WeatherCardAbility;
 
@@ -200,6 +202,33 @@ public enum Abilities {
     OLGIERD_VON_EVEREC("Olgierd von Everec", new MoralBoostAbility(), false),
     TRISS_MERIGOLD("Triss merigold",  true),
     VILLENTRETENMERTH("Villentretenmerth", new ScorchAbilityDoing("Close combat:oponnent"), false),
+    //new Cards:
+    SKELLIGE_STORM("skellige storm",new SkelligeStormAbilityDoing()),
+    CLEAR_WEATHER("clear weather",new ClearWeatherAbilityDoing()),
+    COW("cow",new TransformerAbilityDoing("power8")),
+    GERALT_OF_RIVIA("gralt of rivia",null,true),
+    VASEMIR("vasemir",null,false),
+    IMLERIS("imleris",null,true),
+    CLAENO_HARPY("claeno harpy",null,false),
+    SHILARD_FITZ_DESTERLEN("shilard fitz desterlen",new SpyAbilityDoing(),false),
+    ASSIRE_VAR_ANAHID("assire var anahid",null,false),
+    HEAVY_ZERRIKANIAN_FIRE_SCORPION("heavy zerrikanian fire scorpion",null,false),
+    ALBICH("albrich",null,false),
+    LETHO_OF_GULET("letho of gulet",null,true),
+    RAINFARN("ranfarn",null,false),
+    BLUE_STRIPES_COMMANDO("blue stripes commando",new TightBoundAbilityDoing(),false),
+    DETHMOLD("dethmold",null,false),
+    KEIRA_METZ("keira metz",null,false),
+    SHELDON_SKAGGS("sheldon skaggs",null,false),
+    TREBUCHET("trebuchet",null,false),
+    LORVETH("lorveth",null,true),
+    FILAVANDREL("filavandrel",null,false),
+    MAHAKAMAN_DEFENDER("mahakaman defender",null,false),
+    BARCLAY_ELS("barclay els",null,false),
+    CLAN_TORDARROCH_ARMORSMITH("clan tordarroch armorsmith",null,false),
+    BLUEBOY_LUGOS("blueboy lugos",null,false),
+    HOLGER_BLACKHAND("holger balckhand",null,false),
+
     ;
     public static final Map<String, Abilities> map = new HashMap<>(Abilities.values().length);
 
