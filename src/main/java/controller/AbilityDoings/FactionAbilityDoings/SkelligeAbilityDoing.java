@@ -32,7 +32,10 @@ public class SkelligeAbilityDoing extends FactionAbility {
 
     @Override
     public FactionAbility Copy() {
-        return null;
+        SkelligeAbilityDoing abilityDoing=new SkelligeAbilityDoing();
+        abilityDoing.setGameStatus(gameStatus);
+        abilityDoing.setPlayer(player);
+        return  abilityDoing;
     }
 
 }

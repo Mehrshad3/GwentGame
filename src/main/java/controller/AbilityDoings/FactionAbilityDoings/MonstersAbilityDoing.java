@@ -8,6 +8,9 @@ public class MonstersAbilityDoing extends FactionAbility {
 
     @Override
     public FactionAbility Copy() {
-        return null;
+        MonstersAbilityDoing abilityDoing=new MonstersAbilityDoing();
+        abilityDoing.setGameStatus(gameStatus);
+        abilityDoing.setPlayer(player);
+        return  abilityDoing;
     }
 }

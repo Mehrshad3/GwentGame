@@ -9,6 +9,17 @@ import javafx.collections.ObservableList;
 import model.faction.Card;
 
 public class ObservableGameStatus {
+    private final Player player1;
+    private final Player player2;
+    public transient HandleRounds handleRounds;
+    private Ability Leader1ability;
+    private Ability Leader2ability;
+    private boolean KingBranAbility = false;
+    private boolean TheTreacherousAbility = false;
+    private boolean leader1Did = false;
+    private boolean leader2Did = false;
+    private FactionAbility faction1abilitydoing;
+    private FactionAbility faction2abilitydoing;
     private final GameStatus gameStatus;
     private final IntegerProperty numberOfPassedRounds = new SimpleIntegerProperty();
     private final IntegerProperty numberOfTurns = new SimpleIntegerProperty();
@@ -16,7 +27,9 @@ public class ObservableGameStatus {
     private final IntegerProperty player1Wins = new SimpleIntegerProperty();
     private final IntegerProperty player2Wins = new SimpleIntegerProperty();
 
-    public ObservableGameStatus(GameStatus gameStatus) {
+    public ObservableGameStatus(Player player1, Player player2, GameStatus gameStatus) {
+        this.player1 = player1;
+        this.player2 = player2;
         this.gameStatus = gameStatus;
         this.table = new ObservableTable(gameStatus.getTable());
         numberOfPassedRounds.addListener((observableValue, number, t1) -> gameStatus.setNumberOfPassedRounds((int) t1));
@@ -25,8 +38,8 @@ public class ObservableGameStatus {
         player2Wins.addListener((observableValue, number, t1) -> gameStatus.setPlayer2Wins((int) t1));
     }
 
-    public ObservableGameStatus(Table table, Player player1, Player player2) {
-        this(new GameStatus(table, player1, player2));
+    public ObservableGameStatus(Table table, Player player1, Player player2, Player player11, Player player21) {
+        this(player21, player11, new GameStatus(table, player1, player2));
     }
 
     public Ability getLeader1ability() {

@@ -53,9 +53,13 @@ public class TransformerAbilityDoing extends Ability{
     public void DoCardAbility() {
         if(numberofAbilityDoingdid==0){
             numberofAbilityDoingdid++;
-        }else{
+            gameStatus.getHandleRounds().getNextDoingMethods().add(this);
+        }else if(numberofAbilityDoingdid==1){
             DoAbility();
+            numberofAbilityDoingdid++;
             game.getHandleRounds().getNextDoingMethods().remove(this);
+        }else{
+
         }
     }
 

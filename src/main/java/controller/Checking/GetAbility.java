@@ -13,15 +13,6 @@ public class GetAbility {
         String name = card.getName().toLowerCase();
         Abilities cardabilitystatus = Abilities.map.get(name);
         Ability ability = cardabilitystatus.Abilityname.Copy(card);
-        if (gameStatus.getTable().getCurrentPlayerPlaying() == 1) {
-            ability.setPlayer(gameStatus.getPlayer1());
-        } else {
-            ability.setPlayer(gameStatus.getPlayer2());
-        }
-        ability.setGameStatus(gameStatus);
-        ability.setmaincard(card);
-
-        handleRounds.getNextDoingMethods().add(ability);
-
+        ability.DoCardAbility();
     }
 }

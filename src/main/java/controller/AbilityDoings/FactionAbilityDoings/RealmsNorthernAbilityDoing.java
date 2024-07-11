@@ -8,7 +8,10 @@ public class RealmsNorthernAbilityDoing extends FactionAbility {
 
     @Override
     public FactionAbility Copy() {
-        return null;
+        RealmsNorthernAbilityDoing abilityDoing=new RealmsNorthernAbilityDoing();
+        abilityDoing.setGameStatus(gameStatus);
+        abilityDoing.setPlayer(player);
+        return  abilityDoing;
     }
 
 

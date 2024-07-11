@@ -20,7 +20,10 @@ public class ScoiataelAbilityDoing extends FactionAbility {
 
     @Override
     public FactionAbility Copy() {
-        return null;
+        ScoiataelAbilityDoing abilityDoing=new ScoiataelAbilityDoing();
+        abilityDoing.setGameStatus(gameStatus);
+        abilityDoing.setPlayer(player);
+        return  abilityDoing;
     }
 
 

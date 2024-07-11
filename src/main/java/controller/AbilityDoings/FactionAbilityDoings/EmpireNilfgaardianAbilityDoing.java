@@ -9,7 +9,10 @@ public class EmpireNilfgaardianAbilityDoing extends FactionAbility {
 
     @Override
     public FactionAbility Copy() {
-        return null;
+        EmpireNilfgaardianAbilityDoing abilityDoing=new EmpireNilfgaardianAbilityDoing();
+        abilityDoing.setGameStatus(gameStatus);
+        abilityDoing.setPlayer(player);
+        return  abilityDoing;
     }
 
 
