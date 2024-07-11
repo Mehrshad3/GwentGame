@@ -254,7 +254,7 @@ public class ShowingLoginMenu extends Application {
                     Optional<String> securityAnswer = answer.showAndWait();
                     System.out.println(securityAnswer.get());
 
-                    User user = User.create(Username.getText(), Password.getText(), Email.getText(), Nickname.getText(),
+                    User user = User.create(Username.getText(), suggestedPassword, Email.getText(), Nickname.getText(),
                             securityAnswer.get(), (String) securityQuestions.getSelectedItem());
                     alert.setAlertType(Alert.AlertType.CONFIRMATION);
                     alert.setHeaderText("Success");
