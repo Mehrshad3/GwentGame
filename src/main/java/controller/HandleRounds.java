@@ -80,6 +80,7 @@ public class HandleRounds {
     public void PlaceCard(UnitCard card, int row, Player player) {
         //TODO check weather and other stuffs
         //TODO place commander horns and mardroemes are different
+        passroundAbility();
         ObservableRow[] rows = gameStatus.getTable().getRows();
         ObservableRow row0 = rows[row];
         for (Card card0 : row0.getCards()) {
@@ -96,8 +97,6 @@ public class HandleRounds {
         card.setRowNumber(row);
         player.getDeck().getInHandCards().remove(card);
         GetAbility.getAbility(card,gameStatus,player,this);
-        passroundCard();
-        passroundAbility();
         passroundCard();
         passroundweatherability();
         passroundCard();
@@ -149,13 +148,12 @@ public class HandleRounds {
     public void passround(){
         passfactionround();
         passroundCard();
-        passroundAbility();
-        passroundCard();
         passroundweatherability();
         passroundCard();
         checknotfinishedyet();
         gameStatus.increaseNumberOfTurns();
-
+        passroundAbility();
+        passroundCard();
     }
     public void placeweathercard(Card weathercard, Player player) {
         GetwaetherAbility.getAbility(weathercard, gameStatus, player, this);
