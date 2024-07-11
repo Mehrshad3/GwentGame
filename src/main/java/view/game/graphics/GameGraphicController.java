@@ -198,7 +198,7 @@ public class GameGraphicController {
         URL musicURL = Objects.requireNonNull(getClass().getResource("/Media/03 Ride For Freedom.wav"));
         Media media = new Media(musicURL.toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0.05);
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1); // Plays infinitely until the end of game.
     }
