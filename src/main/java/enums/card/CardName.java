@@ -206,6 +206,7 @@ public enum CardName {
     OLGIERD_VON_EVEREC("Olgierd von Everec", NEUTRAL, 6, 1, AGILE, MORALE_BOOST, false),
     TRISS_MERIGOLD("Triss merigold", NEUTRAL, 7, 1, CLOSE_COMBAT, null, true),
     VILLENTRETENMERTH("Villentretenmerth", NEUTRAL, 7, 1, CLOSE_COMBAT, OPPONENT_COMBAT_SCORCH, false),
+
     ;
     public final static int MAXIMUM_NUMBER_OF_EACH_SPECIAL_CARD = 3;
     /**
