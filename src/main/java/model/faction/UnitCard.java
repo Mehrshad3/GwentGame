@@ -117,12 +117,16 @@ public class UnitCard extends Card {
             }
         } else {
         }
-        if (gameStatus.isTheTreacherousAbility()) {
-            if (name.equals("spy")) {
-                setPower(getPower() * 2);
-            } else {
-            }
-        }
+
+
+
+//        if (gameStatus.isTheTreacherousAbility()) {
+//            if (name.equals("spy")) {
+//                setPower(getPower() * 2);
+//            } else {
+//            }
+//        }
+
         if(Abilities.map.get(name.toLowerCase()).Abilityname.getClass()==TightBoundAbilityDoing.class){
             for (Card card : rowmates) {
                 int count = 0;
@@ -139,27 +143,26 @@ public class UnitCard extends Card {
                 setPower(getPower() * (count + 1));
 
             }
-        } else {
-        }
-        for (Card card : rowmates) {
-            boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == MoralBoostAbility.class;
-            setPower(getPower() + 1);
-        }
-        for (Card card : rowmates) {
-            boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == CommandersHornAbility.class;
-            if (a) {
-                boostpower = true;
-            } else {
+        } else {}
+
+            for (Card card : rowmates) {
+                boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == MoralBoostAbility.class;
+                setPower(getPower() + 1);
             }
-        }
-        if (boostpower) {
-            setPower(getPower() * 2);
-        } else {
-            if (commanderboostpower) {
+            for (Card card : rowmates) {
+                boolean a = Abilities.map.get(card.name.toLowerCase()).Abilityname.getClass() == CommandersHornAbility.class;
+                if (a) {
+                    boostpower = true;
+                } else {
+                }
+            }
+            if (boostpower) {
                 setPower(getPower() * 2);
             } else {
+                if (commanderboostpower) {
+                    setPower(getPower() * 2);
+                } else {
+                }
             }
         }
     }
-
-}

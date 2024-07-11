@@ -1,5 +1,6 @@
 package controller;
 
+import Server.ClientHandler;
 import controller.Checking.GetAbility;
 import enums.card.CardName;
 import enums.card.RowWeather;
@@ -29,6 +30,16 @@ public class GameController extends MenuController {
     private final IntegerProperty player2Lives = new SimpleIntegerProperty(2);
     private final ObservableList<Card>[] rows = new ObservableList[6];
     private final ObservableList<WeatherCard> weatherCards = FXCollections.observableArrayList();
+    private final StringProperty chatLabelText = new SimpleStringProperty();
+
+    public StringProperty chatLabelTextProperty() {
+        return chatLabelText;
+    }
+
+    public void setChatLabelText(String chatLabelText) {
+        this.chatLabelText.set(chatLabelText);
+    }
+
     ObservableGameStatus gaming;
     HandleRounds handleRounds;
     Client client;
@@ -214,8 +225,16 @@ public class GameController extends MenuController {
         // TODO
     }
 
+    public void setChatText(String text) {
+
+    }
+
     public void playLeaderCard(Card card) {
         // TODO
+    }
+
+    public void addSpellCardToTableLocally(UnitCard unitCard, int rowToPlay) {
+        rows[rowToPlay - 1].add(unitCard);
     }
 
     /**
@@ -265,7 +284,10 @@ public class GameController extends MenuController {
                 getPlayer1InHandCards().remove(unitCard);
                 // TODO: do card ability
                 // TODO: SpyChecking
-                client.sendMassage("place card " + card.getName() + " on row " + rowToPlay);
+                ClientController clientController = App.getClientController();
+                Client client = clientController.getClient();
+                client.sendMassage("place card " + card.getName().replaceAll(" ", "-") + " on row "
+                        + rowToPlay);
             }
         }
     }
@@ -300,7 +322,13 @@ public class GameController extends MenuController {
 
     public void passRound() {
         isMyTurn.set(false);
+        ClientController clientController = App.getClientController();
+        Client client = clientController.getClient();
+        client.setTurn(false);
         handleRounds.passround();
+//        ClientController clientController = App.getClientController();
+//        client = clientController.getClient();
+        client.sendMassage("pass");
     }
 
     public ObservableList<Card> getPlayer1InHandCards() {
@@ -371,5 +399,9 @@ public class GameController extends MenuController {
     public void addCardToHandForDebug(Card card) {
         card.setGameStatus(gaming);
         player1.getDeck().getInHandCards().add(card);
+    }
+
+    public void setIsMyTurn(boolean isMyTurn) {
+        this.isMyTurn.set(isMyTurn);
     }
 }

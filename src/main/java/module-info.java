@@ -7,7 +7,7 @@ module GWENT {
     requires javafx.base;
     requires java.desktop;
     exports view;
-    exports model.faction;
+    exports model;
     opens view to javafx.fxml;
     opens model to com.google.gson;
     opens model.faction to com.google.gson;

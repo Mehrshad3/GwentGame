@@ -1,15 +1,19 @@
 package view.game.graphics;
 
+import controller.ClientController;
 import controller.GameController;
 import enums.Menu;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +24,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.App;
+import model.Client;
 import model.faction.*;
 
 import java.io.IOException;
@@ -45,6 +50,8 @@ public class GameGraphicController {
     private final Pane[] commanderHornSpots = new Pane[NUMBER_OF_ROWS];
     private final HBox[] rows = new HBox[NUMBER_OF_ROWS];
     private final ReadOnlyBooleanProperty isMyTurn;
+    public Label chatLabel;
+    public ComboBox reactions;
     @FXML
     private StackPane passRoundButton;
     @FXML
@@ -191,6 +198,11 @@ public class GameGraphicController {
         initializeRowsArray();
         initializeCommanderHornSpotsArray();
 
+        String[] reactionStrings = {"nice", "laughter", ":|", "oh, no", String.valueOf(Character.toChars(0x1F600))};
+        reactions.setItems(FXCollections.observableArrayList(reactionStrings));
+        reactions.setEditable(true);
+        chatLabel.textProperty().bind(gameController.chatLabelTextProperty());
+
         loadGameStatus();
 
         System.gc();
@@ -198,7 +210,7 @@ public class GameGraphicController {
         URL musicURL = Objects.requireNonNull(getClass().getResource("/Media/03 Ride For Freedom.wav"));
         Media media = new Media(musicURL.toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0.05);
+        mediaPlayer.setVolume(0.0005);
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1); // Plays infinitely until the end of game.
     }
@@ -539,5 +551,13 @@ public class GameGraphicController {
             LOGGER.log(Level.WARNING, "Couldn't open the debug menu", e);
             debugMenu = null;
         }
+    }
+
+    public void sendMessage() {
+        String reaction = reactions.getEditor().getText();
+        if (reaction.isBlank()) return;
+        ClientController clientController = App.getClientController();
+        Client client = clientController.getClient();
+        client.sendMassage("opponent say: " + reaction);
     }
 }

@@ -11,7 +11,13 @@ public enum ServerResponse {
     UsernameDoesntExists("user doesn't exists\\s*"),
     Wait("wait\\s*"),
     GameStarted("game started\\s*"),
-    MassageFromOpponent("send massage to opponent: (?<massage>.+)\\s*");
+    MassageFromOpponent("opponent say: (?<massage>.+)\\s*"),
+    PlayCardByOpponent("opponent placed card (?<cardName>\\S+)( on row (?<rowNumber>\\S+))?\\s*"),
+    Passed("passed"),
+    Pass("pass\\s*"),
+    LeaderBoard("leaderBoard:"),
+    UpdateLeaderBoard("update LeaderBoard:"),
+    YourTurn("your turn");
 
     private String pattern;
 

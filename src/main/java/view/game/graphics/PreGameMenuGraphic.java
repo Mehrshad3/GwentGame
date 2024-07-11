@@ -1,5 +1,6 @@
 package view.game.graphics;
 
+import controller.ClientController;
 import controller.GameController;
 import controller.HandleRounds;
 import enums.Menu;
@@ -22,16 +23,16 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.App;
-import model.Deck;
-import model.GsonReaderWriter;
-import model.User;
+import javafx.stage.StageStyle;
+import model.*;
 import model.faction.Card;
 import model.faction.LeaderCard;
 import view.Animation.FactionCardAnimation;
 
 import java.io.File;
+import java.net.Socket;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -731,6 +732,13 @@ public class PreGameMenuGraphic extends Application {
             alert.setContentText("The leader card hasn't been chosen yet.");
             alert.show();
         } else {
+            ClientController controller = App.getClientController();
+            Client client = controller.getClient();
+            Stage popupStage = new Stage();
+            setPopupStage(popupStage,client);
+
+//            client.sendMassage("start public random game");
+
             GameMenuGraphic gameMenuGraphic = new GameMenuGraphic();
             GameController gameController = (GameController) Menu.GameMenu.getMenuController();
             gameController.setStartStatus(User.getCurrentUser());
@@ -750,5 +758,45 @@ public class PreGameMenuGraphic extends Application {
 
 
         }
+    }
+
+    private void setPopupStage(Stage popupStage, Client client) {
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.initStyle(StageStyle.UNDECORATED);
+        BorderPane pane = new BorderPane();
+        HBox buttons = new HBox();
+        setPopupButtons(buttons,popupStage,client);
+    }
+    private void setPopupButtons(HBox buttons,Stage popupStage,Client client){
+        Button Random = new Button("Random");
+        Button Friend = new Button("Friend");
+        buttons.getChildren().addAll(Random,Friend);
+        buttons.setSpacing(20); buttons.setAlignment(Pos.CENTER);
+        Random.setOnAction(actionEvent -> {
+            popupStage.close();
+            BorderPane pane = new BorderPane();
+            HBox box = new HBox();
+            Button Private = new Button("private");  Button Public = new Button("public");
+            setPublicAndPrivateAction(Private,Public,client);
+            box.setAlignment(Pos.CENTER); box.setSpacing(20); box.getChildren().addAll(Private,Public);
+            pane.setCenter(box);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(pane));
+            stage.show();
+        });
+        Friend.setOnAction(actionEvent -> {
+            popupStage.close();
+            TextInputDialog input = new TextInputDialog();
+            input.setContentText("enter your friend name");
+            Optional<String> username = input.showAndWait();
+        });
+    }
+    private void setPublicAndPrivateAction(Button Private, Button Public,Client client){
+        Private.setOnAction(actionEvent -> {
+            client.sendMassage("start private random game");
+        });
+        Public.setOnAction(actionEvent -> {
+            client.sendMassage("start public random game");
+        });
     }
 }

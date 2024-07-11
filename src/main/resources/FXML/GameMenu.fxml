@@ -9,6 +9,7 @@
 <?import javafx.scene.paint.ImagePattern?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane fx:id="rootPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../CSS/GameTable.css"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.game.graphics.GameGraphicController">
@@ -43,6 +44,9 @@
                            GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                 </ImageView>
             </Pane>
+            <StackPane styleClass="white-background" GridPane.rowIndex="2" GridPane.columnSpan="2147483647">
+                <Label fx:id="chatLabel"/>
+            </StackPane>
             <!-- Player 2 info, i.e. opponent's info -->
             <HBox alignment="CENTER" styleClass="player-info" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                 <StackPane>
@@ -111,6 +115,11 @@
             </HBox>
             <HBox fx:id="specialCardsPane" alignment="CENTER" onMouseClicked="#onSpecialPaneClicked"
                   GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="5">
+            </HBox>
+            <HBox GridPane.rowIndex="6" GridPane.columnSpan="2147483647">
+                <ComboBox fx:id="reactions" prefWidth="250">
+                </ComboBox>
+                <Button onAction="#sendMessage" text="send"/>
             </HBox>
             <HBox styleClass="player-info" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
                 <StackPane>

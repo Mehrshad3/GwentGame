@@ -296,7 +296,7 @@ public class ShowingLoginMenu extends Application {
             alert.show();
         } else {
             ShowProfileMenu showMainMenu = new ShowProfileMenu();
-            MainMenuGraphic mainMenu = new MainMenuGraphic();
+            MainMenuGraphic mainMenu;
             try {
                 User.setCurrentUser(user);
                 User.getCurrentUser().setFaction("monsters");
@@ -306,6 +306,7 @@ public class ShowingLoginMenu extends Application {
 //                client.sendMassage(User.getCurrentUser().getName());
 //                System.out.println(User.getCurrentUser().getFaction());
 //                showMainMenu.start(stage);
+                mainMenu = new MainMenuGraphic();
                 mainMenu.start(stage);
             } catch (Exception e) {
                 e.printStackTrace();
